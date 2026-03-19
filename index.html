@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orae Agency — Directrice Artistique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Urbanist:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:  #0d0b10;
+  --light: #f5f5f5;
+  --text-light: #f3f3f3;
+  --text-dark:  #1a1820;
+  --bd:    rgba(242,242,242,0.07);
+  --bdl:   rgba(26,24,32,0.1);
+  --ff-h:  'Outfit', sans-serif;
+  --ff-b:  'Urbanist', sans-serif;
+  --ease:  cubic-bezier(0.23, 1, 0.32, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--ff-b); background: var(--dark); color: var(--text-light); overflow-x: hidden; cursor: none; }
+a { text-decoration: none; color: inherit; }
+button { cursor: none; border: none; background: none; font-family: inherit; color: inherit; }
+input, textarea { font-family: var(--ff-b); }
+
+/* CURSOR — liquid gooey */
+#cursor-canvas {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  overflow: visible;
+}
+@media (hover:none) { #cursor-canvas { display:none; } }
+
+/* NAV */
+.nav-wrap {
+  position: fixed; top: 1.3rem; left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; align-items: center; gap: 4px;
+  background: rgba(16,14,20,0.82); backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(242,242,242,0.07); border-radius: 100px; padding: 5px;
+  white-space: nowrap;
+}
+.nav-logo-pill {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  background: rgba(242,242,242,0.05); border: 1px solid rgba(242,242,242,0.07);
+  border-radius: 50%; flex-shrink: 0; overflow: hidden;
+}
+.nav-logo-pill svg {
+  width: 28px; height: auto; fill: var(--text-light);
+  animation: logo-breathe 3.2s ease-in-out infinite;
+}
+@keyframes logo-breathe { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.12)} }
+
+/* NAV — tous les items identiques via une seule liste */
+.nav-items {
+  display: flex; align-items: center; list-style: none; padding: 0 .35rem;
+}
+.nav-items li { display: flex; align-items: center; }
+.nav-items li + li::before { content: ''; width: 1px; height: 10px; background: rgba(242,242,242,0.1); margin: 0 .1rem; }
+.nav-items a { padding: .4rem .82rem; font-family: var(--ff-h); font-size: .74rem; font-weight: 300; letter-spacing: .03em; color: rgba(242,242,242,0.42); transition: color .25s; }
+.nav-items a:hover { color: var(--text-light); }
+/* garder les anciens sélecteurs pour compat */
+.nav-links { display: flex; align-items: center; list-style: none; padding: 0 .35rem; }
+.nav-links li { display: flex; align-items: center; }
+.nav-links li + li::before { content: ''; width: 1px; height: 10px; background: rgba(242,242,242,0.1); margin: 0 .1rem; }
+.nav-links a { padding: .4rem .82rem; font-family: var(--ff-h); font-size: .74rem; font-weight: 300; letter-spacing: .03em; color: rgba(242,242,242,0.42); transition: color .25s; }
+.nav-links a:hover { color: var(--text-light); }
+.nav-sep { display: none; }
+.nav-cta-wrap { display: none; }
+/* Contact intégré dans nav-links via HTML */
+.nav-cta { padding: .4rem .82rem; font-family: var(--ff-h); font-size: .74rem; font-weight: 300; letter-spacing: .03em; color: rgba(242,242,242,0.42); transition: color .25s; display: flex; align-items: center; }
+.nav-cta:hover { color: var(--text-light); }
+
+.nav-burger { display: none; flex-direction: column; gap: 5px; padding: .5rem .6rem; }
+.nav-burger span { display: block; width: 18px; height: 1px; background: var(--text-light); transition: transform .35s var(--ease), opacity .3s; }
+.nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 199;
+  background: rgba(13,11,16,.96); backdrop-filter: blur(20px);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 5rem 2.5rem 3rem; gap: 0;
+  transform: translateY(-100%); transition: transform .6s var(--ease);
+}
+.mobile-menu.open { transform: translateY(0); }
+.mobile-menu a {
+  font-family: var(--ff-h); font-weight: 300;
+  font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+  letter-spacing: .04em; line-height: 2;
+  color: rgba(242,242,242,0.32); transition: color .25s;
+}
+.mobile-menu a:hover { color: var(--text-light); }
+.mm-foot { position: absolute; bottom: 2.5rem; left: 2.5rem; font-size: .6rem; opacity: .18; letter-spacing: .12em; }
+
+/* SIDE ICONS */
+.side-icons {
+  position: fixed; left: .75rem; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; align-items: center; gap: .6rem;
+  transition: color .5s var(--ease);
+  color: rgba(242,242,242,0.55);
+}
+.side-icons.on-light { color: rgba(26,24,32,0.65); }
+.side-icons::before,.side-icons::after {
+  content: ''; display: block; width: 1px; height: 28px;
+  background: currentColor; opacity: .18;
+}
+.side-icon {
+  width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
+  opacity: 1; transition: transform .35s var(--ease), opacity .25s;
+}
+.side-icon:hover { transform: translateY(-2px) scale(1.15); opacity: 1; }
+.side-icons.on-light .side-icon { opacity: .75; }
+.side-icons.on-light .side-icon:hover { opacity: 1; }
+.side-icon svg { width: 15px; height: 15px; fill: currentColor; }
+
+/* HERO */
+.hero { position: relative; height: 100svh; min-height: 560px; display: flex; align-items: flex-end; background: #05050a; overflow: hidden; }
+#hero-bg, #hero-gr {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+.hero-inner { position: relative; z-index: 2; width: 100%; padding: 0 3rem 5rem 4rem; display: flex; flex-direction: column; gap: 3rem; }
+.hero-top { display: flex; flex-direction: column; }
+.hero-line-static { font-family: var(--ff-h); font-weight: 300; font-size: clamp(3.2rem, 8.5vw, 9rem); line-height: 1; letter-spacing: -.04em; color: var(--text-light); }
+.hero-line-animated { display: block; height: clamp(4.2rem, 10.5vw, 11.5rem); overflow: hidden; padding: .18em 0 .35em; }
+.hero-words { display: flex; flex-direction: column; transition: transform .55s cubic-bezier(0.76,0,0.24,1); will-change: transform; }
+.hero-word { display: block; font-family: var(--ff-b); font-weight: 300; font-style: italic; font-size: clamp(2.8rem, 7.5vw, 7.8rem); line-height: 1.05; letter-spacing: -.02em; color: rgba(242,242,242,0.22); white-space: nowrap; flex-shrink: 0; height: clamp(4.2rem, 10.5vw, 11.5rem); padding: .18em 0 .35em; box-sizing: border-box; transition: color .35s; }
+.hero-word.active { color: rgba(242,242,242,0.55); }
+.hero-line-animated:hover .hero-word.active { color: rgba(242,242,242,0.82); }
+
+.hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+.hero-desc { font-family: var(--ff-b); font-weight: 300; font-size: 1.05rem; line-height: 1.75; color: rgba(242,242,242,0.65); max-width: 380px; }
+.hero-cta { font-family: var(--ff-h); font-weight: 300; font-size: .67rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,242,242,0.5); white-space: nowrap; padding-bottom: 2px; border-bottom: 1px solid rgba(242,242,242,0.18); transition: color .3s, border-color .3s; }
+.hero-cta:hover { color: rgba(242,242,242,0.88); border-color: rgba(242,242,242,0.45); }
+.hero-counter { position: absolute; top: 6rem; right: 3rem; font-family: var(--ff-h); font-size: .55rem; font-weight: 300; letter-spacing: .2em; color: rgba(242,242,242,0.13); z-index: 2; }
+
+/* SECTIONS */
+.section { padding: 6.5rem 3rem 6.5rem 4rem; }
+.s-dark  { background: var(--dark); color: var(--text-light); }
+.s-light { background: var(--light); color: var(--text-dark); }
+.s-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.s-label { font-family: var(--ff-h); font-size: .58rem; letter-spacing: .24em; text-transform: uppercase; opacity: .26; white-space: nowrap; font-weight: 300; }
+.s-rule { flex: 1; height: 1px; background: currentColor; opacity: .07; }
+.s-n { font-size: .58rem; opacity: .14; letter-spacing: .05em; }
+.s-title { font-family: var(--ff-h); font-weight: 400; font-size: clamp(1.9rem, 4.2vw, 3.6rem); line-height: 1.05; letter-spacing: -.025em; margin-bottom: 3rem; }
+.s-title.right { text-align: right; }
+
+/* PORTFOLIO MOSAÏQUE */
+.port-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; }
+.port-head .s-title { margin-bottom: 0; }
+.port-link {
+  font-family: var(--ff-h); font-size: .72rem; letter-spacing: .1em;
+  text-transform: uppercase; font-weight: 300;
+  padding: .55rem 1.25rem;
+  border: 1px solid rgba(26,24,32,0.22);
+  border-radius: 2rem;
+  display: inline-flex; align-items: center; gap: .55rem;
+  transition: opacity .3s, border-color .3s, background .3s;
+  animation: port-pulse 2.8s ease-in-out infinite;
+}
+.port-link:hover { opacity: .9; border-color: rgba(26,24,32,0.6); background: rgba(26,24,32,0.04); animation: none; }
+@keyframes port-pulse {
+  0%,100% { border-color: rgba(26,24,32,0.18); }
+  50%      { border-color: rgba(26,24,32,0.5); }
+}
+.port-link-arrow { display: inline-block; transition: transform .3s var(--ease); }
+.port-link:hover .port-link-arrow { transform: translateX(4px); }
+
+/* Grille : col 1 = 55% | col 2 = 25% | col 3 = 20% */
+.port-mosaic {
+  display: grid;
+  grid-template-columns: 55fr 26fr 19fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  aspect-ratio: 16/9;
+}
+.pi { position: relative; overflow: hidden; cursor: none; min-height: 0; }
+/* Grand portrait à gauche sur 2 rangées */
+.pi:nth-child(1) { grid-column: 1/2; grid-row: 1/3; }
+/* Paysage haut milieu */
+.pi:nth-child(2) { grid-column: 2/3; grid-row: 1/2; }
+/* Petit carré haut droite */
+.pi:nth-child(3) { grid-column: 3/4; grid-row: 1/2; }
+/* Large panorama bas — colonnes 2+3 */
+.pi:nth-child(4) { grid-column: 2/4; grid-row: 2/3; }
+
+.pi-thumb { width: 100%; height: 100%; overflow: hidden; }
+.pi-fill { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--ff-h); font-weight: 300; font-size: 2.2rem; letter-spacing: -.02em; transition: transform 1.2s var(--ease); }
+.pi:hover .pi-fill { transform: scale(1.04); }
+.pi:nth-child(1) .pi-fill { background: #d2d2d2; color: rgba(26,24,32,0.05); }
+.pi:nth-child(2) .pi-fill { background: #c6c6c6; color: rgba(26,24,32,0.05); }
+.pi:nth-child(3) .pi-fill { background: #bababa; color: rgba(26,24,32,0.05); }
+.pi:nth-child(4) .pi-fill { background: #cecece; color: rgba(26,24,32,0.05); }
+.pi-ov { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: .85rem; background: linear-gradient(to top, rgba(13,11,16,.5) 0%, transparent 50%); opacity: 0; transition: opacity .4s; }
+.pi:hover .pi-ov { opacity: 1; }
+.pi-cat { font-family: var(--ff-h); font-size: .56rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(242,242,242,0.65); font-weight: 300; }
+.pi-meta { padding: .6rem 0 0; display: flex; justify-content: space-between; align-items: baseline; }
+.pi-name { font-family: var(--ff-h); font-weight: 400; font-size: .8rem; letter-spacing: -.01em; }
+.pi-yr { font-size: .62rem; opacity: .22; }
+
+/* NAV — uppercase links */
+.nav-links a { padding: .4rem .82rem; font-family: var(--ff-h); font-size: .72rem; font-weight: 300; letter-spacing: .1em; text-transform: uppercase; color: rgba(242,242,242,0.42); transition: color .25s; }
+.nav-links a:hover { color: var(--text-light); }
+
+/* SECTIONS — base text sizes bumped to 12-13px */
+.s-label { font-family: var(--ff-h); font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; opacity: .28; white-space: nowrap; font-weight: 300; }
+.s-title { font-family: var(--ff-h); font-weight: 400; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1.05; letter-spacing: -.025em; margin-bottom: 3rem; }
+
+/* PORTFOLIO text sizes */
+.pi-name { font-family: var(--ff-h); font-weight: 400; font-size: .9rem; letter-spacing: -.01em; }
+.pi-yr { font-size: .75rem; opacity: .28; }
+.pi-cat { font-family: var(--ff-h); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(242,242,242,0.75); font-weight: 300; }
+
+/* SERVICES text sizes */
+.svc-n { font-family: var(--ff-h); font-size: .68rem; letter-spacing: .18em; opacity: .28; margin-bottom: 1.3rem; font-weight: 300; }
+.svc-name { font-family: var(--ff-h); font-weight: 400; font-size: 1rem; letter-spacing: -.01em; margin-bottom: .55rem; color: var(--text-light); }
+.svc-desc { font-size: .82rem; opacity: .62; line-height: 1.72; font-weight: 300; }
+
+/* ABOUT text sizes */
+.about-hl { font-family: var(--ff-h); font-weight: 400; font-size: clamp(1.5rem, 2.3vw, 2rem); line-height: 1.28; letter-spacing: -.02em; margin-bottom: 1.6rem; }
+.about-p { font-size: .88rem; line-height: 1.9; opacity: .55; margin-bottom: .9rem; font-weight: 300; }
+
+/* ABOUT TAGS — replaced with slash-separated inline style */
+.about-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--bdl); }
+.about-tag {
+  font-family: var(--ff-h); font-size: .82rem; font-weight: 300;
+  color: rgba(26,24,32,0.55); letter-spacing: .02em;
+  padding: 0; background: none; border: none;
+  transition: color .2s;
+}
+.about-tag:hover { color: var(--text-dark); }
+.about-tag-sep { color: rgba(26,24,32,0.22); padding: 0 .55rem; font-size: .82rem; user-select: none; }
+
+/* PROCESS — clean, no pseudo-element lines, just numbers */
+.proc-wrap { position: relative; }
+.proc-track { display: flex; align-items: flex-start; position: relative; border-top: 1px solid var(--bdl); }
+.proc-connector { display: none; }
+.proc {
+  flex: 1; position: relative; z-index: 1;
+  padding: 2.5rem 2rem 2.5rem 0;
+  display: flex; flex-direction: column;
+}
+.proc::after { display: none; }
+.proc::before { display: none; }
+.proc:not(:last-child) { border-right: none; }
+.proc-dot { display: none; }
+
+/* Process numbers — big, animated like logo, darker */
+.proc-n {
+  font-family: var(--ff-h); font-weight: 400;
+  font-size: 3.5rem; letter-spacing: -.06em; line-height: 1;
+  color: rgba(26,24,32,0.18); margin-bottom: 1.6rem;
+  display: inline-block;
+  animation: proc-breathe 3.2s ease-in-out infinite;
+}
+.proc:nth-child(2) .proc-n { animation-delay: .4s; }
+.proc:nth-child(3) .proc-n { animation-delay: .8s; }
+.proc:nth-child(4) .proc-n { animation-delay: 1.2s; }
+.proc:nth-child(5) .proc-n { animation-delay: 1.6s; }
+@keyframes proc-breathe {
+  0%,100% { color: rgba(26,24,32,0.14); transform: scale(1); }
+  50%      { color: rgba(26,24,32,0.38); transform: scale(1.06); }
+}
+.proc-title { font-family: var(--ff-h); font-weight: 400; font-size: .9rem; margin-bottom: .6rem; }
+/* SERVICES GRID — 3 colonnes */
+.svc-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--bd); border-left: 1px solid var(--bd); }
+.svc { padding: 2.25rem 2rem 2.5rem; border-right: 1px solid var(--bd); border-bottom: 1px solid var(--bd); position: relative; overflow: hidden; }
+.svc::after { content: ''; position: absolute; inset: 0; background: rgba(242,242,242,.015); opacity: 0; transition: opacity .35s; pointer-events: none; }
+.svc:hover::after { opacity: 1; }
+.svc-n { font-family: var(--ff-h); font-size: .75rem; letter-spacing: .16em; opacity: .3; margin-bottom: 1.5rem; font-weight: 300; }
+.svc-name { font-family: var(--ff-h); font-weight: 400; font-size: 1.05rem; letter-spacing: -.01em; margin-bottom: .6rem; color: var(--text-light); }
+.svc-desc { font-size: .85rem; opacity: .62; line-height: 1.72; font-weight: 300; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 280px 1fr; gap: 5rem; align-items: center; }
+.about-img { aspect-ratio: 3/4; background: #c8c8c8; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.about-img-ph { font-family: var(--ff-h); font-weight: 300; font-size: 5.5rem; color: rgba(26,24,32,0.07); letter-spacing: -.04em; }
+.about-hl { font-family: var(--ff-h); font-weight: 400; font-size: clamp(1.55rem, 2.4vw, 2.1rem); line-height: 1.28; letter-spacing: -.02em; margin-bottom: 1.6rem; }
+.about-p { font-size: .9rem; line-height: 1.9; opacity: .55; margin-bottom: .9rem; font-weight: 300; }
+.about-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0; margin-top: 2rem; }
+.about-tag { font-family: var(--ff-h); font-size: .88rem; font-weight: 300; color: rgba(26,24,32,0.5); letter-spacing: .02em; padding: 0; background: none; border: none; transition: color .2s; }
+.about-tag:hover { color: var(--text-dark); }
+.about-tag-sep { color: rgba(26,24,32,0.2); padding: 0 .6rem; font-size: .88rem; user-select: none; }
+
+/* PROCESS */
+.proc-wrap { position: relative; }
+.proc-track { display: flex; align-items: flex-start; position: relative; }
+.proc-connector { display: none; }
+.proc { flex: 1; position: relative; z-index: 1; padding: 2.5rem 2rem 2.5rem 0; display: flex; flex-direction: column; }
+.proc::after { display: none !important; }
+.proc::before { display: none !important; }
+.proc-dot { display: none; }
+.proc-n {
+  font-family: var(--ff-h); font-weight: 400;
+  font-size: 4rem; letter-spacing: -.06em; line-height: 1;
+  color: rgba(26,24,32,0.22); margin-bottom: 1.6rem;
+  display: inline-block;
+  animation: proc-breathe 3.2s ease-in-out infinite;
+}
+.proc:nth-child(2) .proc-n { animation-delay: .4s; }
+.proc:nth-child(3) .proc-n { animation-delay: .8s; }
+.proc:nth-child(4) .proc-n { animation-delay: 1.2s; }
+.proc:nth-child(5) .proc-n { animation-delay: 1.6s; }
+@keyframes proc-breathe {
+  0%,100% { color: rgba(26,24,32,0.16); transform: scale(1); }
+  50%      { color: rgba(26,24,32,0.55); transform: scale(1.05); }
+}
+.proc-title { font-family: var(--ff-h); font-weight: 400; font-size: .95rem; margin-bottom: .65rem; }
+.proc-desc { font-size: .85rem; opacity: .5; line-height: 1.72; font-weight: 300; }
+
+/* CONTACT — coords left, form right */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+.contact-sub { font-family: var(--ff-h); font-weight: 300; font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.3; letter-spacing: -.02em; margin-bottom: 2.75rem; opacity: .82; }
+.contact-coords { display: flex; flex-direction: column; gap: 0; }
+.coord-item {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: .9rem 0; border-bottom: 1px solid rgba(242,242,242,0.07);
+  transition: opacity .25s;
+}
+.coord-item:first-child { border-top: 1px solid rgba(242,242,242,0.07); }
+.coord-item:hover { opacity: .8; }
+.coord-label { font-family: var(--ff-h); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 300; opacity: .35; }
+.coord-val { font-family: var(--ff-b); font-size: .9rem; font-weight: 300; opacity: .75; }
+
+/* AGENDA — calendar left, text right (Z layout vs contact) */
+.agenda-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 5rem; align-items: start; }
+.agenda-text { display: flex; flex-direction: column; }
+.agenda-title { font-family: var(--ff-h); font-weight: 400; font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.2; letter-spacing: -.025em; margin-bottom: 1.25rem; }
+.agenda-desc { font-size: .88rem; line-height: 1.8; opacity: .45; font-weight: 300; max-width: 320px; }
+.cal-box { border: 1px solid rgba(26,24,32,0.08); background: rgba(26,24,32,0.02); border-radius: .75rem; height: 340px; overflow: hidden; }
+.cal-box iframe { width: 100%; height: 100%; border: none; }
+.cal-note { margin-top: .5rem; font-size: .65rem; opacity: .35; line-height: 1.5; }
+
+/* FORM — rounded */
+.form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.fg { display: flex; flex-direction: column; gap: .45rem; }
+.fl { font-family: var(--ff-h); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; opacity: .42; font-weight: 300; }
+.fi,.ft {
+  background: rgba(242,242,242,0.05);
+  border: 1px solid rgba(242,242,242,0.1);
+  border-radius: 2rem;
+  padding: .85rem 1.2rem;
+  font-size: .9rem; color: var(--text-light);
+  outline: none; width: 100%;
+  transition: border-color .3s, background .3s;
+}
+.fi:focus,.ft:focus { border-color: rgba(242,242,242,0.3); background: rgba(242,242,242,0.08); }
+.fi::placeholder,.ft::placeholder { color: rgba(242,242,242,0.25); }
+.ft { resize: none; min-height: 110px; border-radius: 1.2rem; }
+.form-submit {
+  align-self: flex-start; margin-top: .4rem;
+  font-family: var(--ff-h); font-weight: 300; font-size: .78rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dark); background: rgba(242,242,242,0.88);
+  padding: .75rem 2rem; border-radius: 2rem;
+  transition: background .25s, transform .2s var(--ease);
+}
+.form-submit:hover { background: var(--text-light); transform: scale(.98); }
+
+.cal-box { border: 1px solid rgba(26,24,32,0.08); background: rgba(26,24,32,0.02); border-radius: .75rem; height: 340px; overflow: hidden; }
+.cal-box iframe { width: 100%; height: 100%; border: none; }
+.cal-note { margin-top: .5rem; font-size: .65rem; opacity: .35; line-height: 1.5; color: var(--text-dark); }
+
+/* FOOTER — dark, left-aligned, inspired by nav */
+footer {
+  background: var(--dark);
+  color: var(--text-light);
+  padding: 4rem 3rem 2.5rem 4rem;
+}
+.ft-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+/* Left col — logo + tagline */
+.ft-left {}
+.ft-logo-row {
+  display: flex; align-items: center; gap: .75rem;
+  text-decoration: none; color: inherit; margin-bottom: .5rem;
+}
+.ft-logo-circle {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  background: rgba(242,242,242,0.06);
+  border: 1px solid rgba(242,242,242,0.1);
+  border-radius: 50%; flex-shrink: 0;
+  animation: logo-breathe 3.2s ease-in-out infinite;
+  transition: background .3s;
+}
+.ft-logo-circle:hover { background: rgba(242,242,242,0.12); }
+.ft-logo-circle svg { width: 26px; height: auto; fill: var(--text-light); }
+.ft-name { font-family: var(--ff-h); font-weight: 400; font-size: 1rem; letter-spacing: -.01em; }
+.ft-tagline { font-size: .75rem; opacity: .28; letter-spacing: .04em; font-weight: 300; margin-left: .1rem; }
+
+/* Right col — nav pill (exactly like the top nav) */
+.ft-nav-pill {
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(16,14,20,0.82);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(242,242,242,0.07);
+  border-radius: 100px; padding: 5px;
+  flex-wrap: wrap;
+}
+.ft-nav-pill a {
+  padding: .4rem .82rem;
+  font-family: var(--ff-h); font-size: .72rem; font-weight: 300;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(242,242,242,0.42); transition: color .25s;
+  white-space: nowrap;
+}
+.ft-nav-pill a:hover { color: var(--text-light); }
+.ft-nav-pill .fp-sep { width: 1px; height: 10px; background: rgba(242,242,242,0.1); flex-shrink: 0; }
+
+/* Bottom row — contacts left, legal right */
+.ft-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(242,242,242,0.05);
+  flex-wrap: wrap; gap: 1rem;
+}
+.ft-contacts { display: flex; gap: 0; flex-wrap: wrap; }
+.ft-contacts a {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .35rem .85rem;
+  font-family: var(--ff-b); font-size: .76rem; font-weight: 300;
+  color: rgba(242,242,242,0.32); transition: color .25s;
+  white-space: nowrap;
+}
+.ft-contacts a:hover { color: var(--text-light); }
+.ft-contacts .fc-sep { width: 1px; height: 10px; background: rgba(242,242,242,0.1); align-self: center; flex-shrink: 0; }
+.ft-contacts svg { width: 11px; height: 11px; fill: currentColor; flex-shrink: 0; }
+.ft-legal { font-size: .65rem; opacity: .2; letter-spacing: .04em; }
+.ft-legal a { color: inherit; border-bottom: 1px solid rgba(242,242,242,0.15); transition: opacity .25s; }
+.ft-legal a:hover { opacity: .7; }
+
+/* remove old selectors */
+.ft-top,.ft-brand,.ft-brand-logo,.ft-brand-name,.ft-brand-tag,.ft-contacts-pill,
+.ft-logo,.ft-name-old,.ft-tagline-old,.ft-nav,.ft-contacts-old { display: unset; }
+
+@media (max-width:900px) {
+  footer { padding: 3rem 1.75rem 2rem; }
+  .ft-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .ft-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+/* REVEAL */
+.rev { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.rev.vis { opacity: 1; transform: translateY(0); }
+.rev.d1{transition-delay:.08s} .rev.d2{transition-delay:.16s} .rev.d3{transition-delay:.24s} .rev.d4{transition-delay:.32s}
+
+/* RESPONSIVE */
+@media (max-width:1100px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img { display: none; }
+  .proc-track { flex-direction: column; padding-top: 0; }
+  .proc-connector { display: none; }
+  .proc { padding: 1.5rem 0 1.5rem 1.5rem; border-left: 1px solid var(--bdl); }
+  .proc-dot { display: none; }
+}
+@media (max-width:900px) {
+  .section { padding: 5rem 1.75rem; }
+  .hero-inner { padding: 0 1.75rem 4rem; }
+  .nav-links,.nav-sep,.nav-cta { display: none; }
+  .nav-burger { display: flex; }
+  .side-icons { display: none; }
+  .svc-grid { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .agenda-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .ft-top { flex-direction: column; gap: 1.5rem; }
+  .ft-nav { text-align: left; }
+  .port-mosaic { grid-template-columns: 1fr 1fr; }
+  .pi:nth-child(1){grid-column:1/2;grid-row:1/2}
+  .pi:nth-child(2){grid-column:2/3;grid-row:1/2}
+  .pi:nth-child(3){grid-column:1/2;grid-row:2/3}
+  .pi:nth-child(4){grid-column:2/3;grid-row:2/3}
+  .pi-thumb { aspect-ratio: 4/3 !important; }
+}
+@media (max-width:600px) {
+  .svc-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .port-mosaic { grid-template-columns: 1fr; }
+  .pi { grid-column: 1 !important; grid-row: auto !important; }
+  .hero-line-static,.hero-word { font-size: clamp(2.6rem, 13vw, 4.5rem) !important; line-height: .88; }
+  .hero-line-animated { height: clamp(3.4rem, 15vw, 5.5rem) !important; }
+  .hero-word { height: clamp(3.4rem, 15vw, 5.5rem) !important; padding: .18em 0 .4em !important; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .hero-inner { padding: 0 1.5rem 3.5rem; }
+  .nav-wrap { left: .75rem; right: .75rem; transform: none; justify-content: space-between; }
+  .ft-contacts { gap: 1.2rem; }
+}
+
+/* REVIEWS CAROUSEL */
+.reviews-outer { position: relative; }
+.reviews-viewport { overflow: hidden; }
+.reviews-track {
+  display: flex; gap: 1.5rem;
+  transition: transform .6s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+.rev-card {
+  flex: 0 0 calc(33.333% - 1rem);
+  background: var(--dark);
+  border: 1px solid rgba(242,242,242,0.07);
+  border-radius: .75rem;
+  padding: 2rem 1.75rem;
+  display: flex; flex-direction: column;
+}
+.rev-stars { font-size: .82rem; letter-spacing: .15em; margin-bottom: 1.25rem; color: rgba(242,242,242,0.75); }
+.rev-quote { font-size: .88rem; line-height: 1.85; color: rgba(242,242,242,0.55); font-weight: 300; flex: 1; margin-bottom: 1.5rem; font-family: var(--ff-b); }
+.rev-author-row {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-top: 1px solid rgba(242,242,242,0.07); padding-top: 1rem;
+}
+.rev-name { font-family: var(--ff-h); font-weight: 400; font-size: .85rem; color: var(--text-light); }
+.rev-proj { font-size: .62rem; color: rgba(242,242,242,0.32); letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem; }
+.rev-date { font-size: .7rem; color: rgba(242,242,242,0.28); white-space: nowrap; }
+.reviews-controls {
+  display: flex; align-items: center; gap: 1.25rem; margin-top: 2rem; justify-content: flex-end;
+}
+.rev-btn {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(26,24,32,0.18); border-radius: 50%;
+  font-size: 1rem; cursor: none; color: var(--text-dark);
+  transition: background .25s, border-color .25s, transform .2s var(--ease);
+}
+.rev-btn:hover { background: var(--text-dark); color: var(--light); border-color: var(--text-dark); transform: scale(.96); }
+.rev-btn:disabled { opacity: .28; pointer-events: none; }
+.rev-progress { font-family: var(--ff-h); font-size: .6rem; letter-spacing: .18em; opacity: .28; }
+@media (max-width:900px) { .rev-card { flex: 0 0 calc(50% - .75rem); } }
+@media (max-width:600px) { .rev-card { flex: 0 0 100%; } }
+
+/* FP ROW BREAK — footer nav mobile symmetry */
+.fp-row-break { display: none; }
+.fp-sep-d {}
+@media (max-width:540px) {
+  .fp-row-break { display: block; width: 100%; height: 0; }
+  .fp-sep-d { display: none; }
+  .ft-nav-pill { flex-wrap: wrap; justify-content: center; }
+}
+
+/* MOBILE HERO TEXT — reduce size so long words fit */
+@media (max-width:600px) {
+  .hero-line-static { font-size: clamp(1.8rem, 8.5vw, 2.8rem) !important; line-height: .92 !important; }
+  .hero-word { font-size: clamp(1.6rem, 7.8vw, 2.6rem) !important; line-height: 1.05 !important; height: clamp(2.4rem, 12vw, 3.6rem) !important; padding: .18em 0 .42em !important; }
+  .hero-line-animated { height: clamp(2.4rem, 12vw, 3.6rem) !important; }
+}
+
+
+.cal-card-link { display: block; text-decoration: none; cursor: none; }
+.cal-box-btn {
+  position: relative;
+  border: none; background: var(--dark);
+  border-radius: .75rem; height: 340px;
+  overflow: hidden;
+  transition: opacity .2s;
+}
+.cal-card-link:hover .cal-box-btn { opacity: .88; }
+.cal-top-content {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  padding: 2rem 2rem 0;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: .65rem;
+}
+.cal-fade-overlay {
+  position: absolute; top: 0; left: 0; right: 0; height: 210px; z-index: 1;
+  background: linear-gradient(to bottom, #0d0b10 58%, rgba(13,11,16,0) 100%);
+}
+.cal-grid-wrap {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 0;
+  display: flex; justify-content: center;
+  padding: 0 0 16px;
+}
+.cal-grid {
+  width: 100%; max-width: 420px;
+  padding: 0 20px; box-sizing: border-box;
+  display: grid; grid-template-columns: repeat(7,1fr); text-align: center;
+}
+.cal-dh { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: rgba(242,242,242,0.25); padding-bottom: 8px; font-family: var(--ff-h); }
+.cal-d { font-size: 14px; padding: 7px 0; font-family: var(--ff-h); font-weight: 300; color: rgba(242,242,242,0.55); display: flex; align-items: center; justify-content: center; }
+.cal-d.dim { color: rgba(242,242,242,0.18); }
+.cal-d.mid { color: rgba(242,242,242,0.28); }
+.cal-d.sel { width: 30px; height: 30px; border-radius: 50%; background: rgba(242,242,242,0.9); color: #0d0b10; font-weight: 400; margin: auto; padding: 0; }
+.cal-eyebrow { font-family: var(--ff-h); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,242,242,0.35); margin: 0; font-weight: 300; }
+.cal-box-title { font-family: var(--ff-h); font-weight: 400; font-size: 1.3rem; letter-spacing: -.02em; color: var(--text-light); margin: 0; }
+.cal-box-sub { font-family: var(--ff-b); font-size: .8rem; color: rgba(242,242,242,0.42); margin: 0; font-weight: 300; }
+.cal-cta {
+  margin-top: .25rem;
+  font-family: var(--ff-h); font-size: .68rem; font-weight: 300;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-light);
+  padding: .6rem 1.6rem;
+  border: 1px solid rgba(242,242,242,0.22);
+  border-radius: 2rem;
+}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+</head>
+<body>
+
+<canvas id="cursor-canvas"></canvas>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <a href="index.html" class="nav-logo-pill" aria-label="Orae Agency">
+    <svg viewBox="0 0 1599.71 1631.4" xmlns="http://www.w3.org/2000/svg"><path d="M726.52,145.18c483.58-40.84,857.15,397.38,710.64,867.48-171.74,551.02-926.12,620.62-1208.06,122.72C-2.44,726.49,250.68,185.37,726.52,145.18ZM316.26,1100.59c6.7-.52,7.78-7.11,9.97-11.96,92.19-204.02,364.37-92.56,526.78-67.62,353.13,54.24,602.44-331.1,362.81-617.09-72.09-86.04-174.74-142.09-284.25-165.64-20.61-4.43-85.07-16.87-99.74-8.36-21.72,12.61-43.98,66.01-46.12,90.76-11.14,129.13,165.13,180.21,180.31,303.69,32.48,264.17-306.92,220.66-470.02,252.62-112.81,22.1-239.53,88.28-179.75,223.6ZM717.18,235.12c-152.08,14.83-395.64,167.1-410.72,330.07-20.81,224.86,314.61,218.05,375.38,57.53,38.08-100.58-34.32-183.34-22.82-281.99,5.1-43.73,28.38-75.78,58.16-105.61ZM1201.3,1232.68c-106.83,38.21-219.76,17.89-322.66-22.13-89.33-34.75-171.77-95.34-271.52-100.08-138.18-6.57-183.12,96.7-73.2,185.63,179.92,145.56,511.11,100.99,667.38-63.42Z" fill="#f7f7f7"/></svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+
+<div class="mobile-menu" id="mm">
+  <a href="portfolio.html">Portfolio</a>
+  <a href="#services">Services</a>
+  <a href="#about">À propos</a>
+  <a href="#contact">Contact</a>
+  <div class="mm-foot">Orae Agency — Montpellier, France</div>
+</div>
+
+<!-- SIDE ICONS -->
+<div class="side-icons on-dark" id="side-icons">
+  <a href="https://www.instagram.com/orae.fr/" target="_blank" class="side-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+  <a href="mailto:orae.agency@gmail.com" class="side-icon" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a>
+  <a href="https://www.linkedin.com/company/orae-agency/" target="_blank" class="side-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+</div>
+
+<!-- HERO -->
+<section id="home" data-theme="dark">
+  <div class="hero" id="hero-section">
+    <canvas id="hero-bg"></canvas>
+    <canvas id="hero-gr"></canvas>
+    <div class="hero-counter" id="hero-counter">01 / 07</div>
+    <div class="hero-inner">
+      <div class="hero-top">
+        <span class="hero-line-static">Orae Agency ~</span>
+        <span class="hero-line-animated" id="hero-animated">
+          <span class="hero-words" id="hero-words">
+            <span class="hero-word active">Direction artistique</span>
+            <span class="hero-word">Brand Design</span>
+            <span class="hero-word">Web Design UX/UI</span>
+            <span class="hero-word">Identité visuelle</span>
+            <span class="hero-word">Product design</span>
+            <span class="hero-word">Motion Design</span>
+            <span class="hero-word">Print &amp; Édition</span>
+            <span class="hero-word">Stratégie créative</span>
+          </span>
+        </span>
+      </div>
+      <div class="hero-bottom">
+        <p class="hero-desc">Nous transformons vos idées en identités visuelles qui marquent les esprits. Design graphique, direction artistique et stratégie créative, au service de votre image.</p>
+        <a href="#portfolio" class="hero-cta">Découvrir les projets</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="section s-light" data-theme="light">
+  <div class="s-eyebrow"><span class="s-label">Travaux sélectionnés</span><span class="s-rule"></span><span class="s-n">04</span></div>
+  <div class="port-head">
+    <h2 class="s-title rev">Ce que nous créons.</h2>
+    <a href="portfolio.html" class="port-link">Voir tout <span class="port-link-arrow">→</span></a>
+  </div>
+  <div class="port-mosaic">
+    <article class="pi rev"><div class="pi-thumb"><div class="pi-fill">MO</div><div class="pi-ov"><span class="pi-cat">Brand Design</span></div></div><div class="pi-meta"><span class="pi-name">Maison Odalys</span><span class="pi-yr">2025</span></div></article>
+    <article class="pi rev d1"><div class="pi-thumb"><div class="pi-fill">SK</div><div class="pi-ov"><span class="pi-cat">Direction artistique</span></div></div><div class="pi-meta"><span class="pi-name">Studio Kern</span><span class="pi-yr">2025</span></div></article>
+    <article class="pi rev d2"><div class="pi-thumb"><div class="pi-fill">RF</div><div class="pi-ov"><span class="pi-cat">Motion Design</span></div></div><div class="pi-meta"><span class="pi-name">Revue Forma</span><span class="pi-yr">2024</span></div></article>
+    <article class="pi rev d3"><div class="pi-thumb"><div class="pi-fill">AS</div><div class="pi-ov"><span class="pi-cat">Print · Packaging</span></div></div><div class="pi-meta"><span class="pi-name">Atelier Sève</span><span class="pi-yr">2024</span></div></article>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section s-dark" data-theme="dark">
+  <div class="s-eyebrow"><span class="s-label">Expertises</span><span class="s-rule"></span><span class="s-n">09</span></div>
+  <h2 class="s-title right rev">Services.</h2>
+  <div class="svc-grid">
+    <div class="svc rev"><div class="svc-n">01</div><div class="svc-name">Direction artistique</div><div class="svc-desc">Vision globale, cadrage créatif, supervision des productions visuelles.</div></div>
+    <div class="svc rev d1"><div class="svc-n">02</div><div class="svc-name">Brand Design</div><div class="svc-desc">Identité visuelle complète, charte graphique, logo, typographie, couleurs.</div></div>
+    <div class="svc rev d2"><div class="svc-n">03</div><div class="svc-name">Web Design UX/UI</div><div class="svc-desc">Conception d'interfaces web, landing pages et expériences digitales. Maquettes, prototypes, design system et intégration visuelle.</div></div>
+    <div class="svc rev"><div class="svc-n">04</div><div class="svc-name">Audit sur-mesure</div><div class="svc-desc">Analyse critique de votre image actuelle et recommandations stratégiques.</div></div>
+    <div class="svc rev d1"><div class="svc-n">05</div><div class="svc-name">Refonte visuelle</div><div class="svc-desc">Modernisation d'une identité existante, repositionnement de marque.</div></div>
+    <div class="svc rev d2"><div class="svc-n">06</div><div class="svc-name">Print &amp; Impression</div><div class="svc-desc">Affiches, posters, PLV, pancartes, cartes de visite, menus, plaquettes, brochures, rapports et tous supports imprimés.</div></div>
+    <div class="svc rev"><div class="svc-n">07</div><div class="svc-name">Réseaux sociaux</div><div class="svc-desc">Posts, stories, templates, kits visuels pour Instagram, LinkedIn et plus.</div></div>
+    <div class="svc rev d1"><div class="svc-n">08</div><div class="svc-name">Motion Design</div><div class="svc-desc">Animations, vidéos motion, intros, transitions, contenus animés.</div></div>
+    <div class="svc rev d2"><div class="svc-n">09</div><div class="svc-name">Publicités en ligne</div><div class="svc-desc">Bannières, visuels publicitaires, ads Meta, Google, LinkedIn.</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section s-light" data-theme="light">
+  <div class="s-eyebrow"><span class="s-label">À propos</span><span class="s-rule"></span></div>
+  <div class="about-grid">
+    <div class="about-img rev"><div class="about-img-ph">R.</div></div>
+    <div>
+      <h2 class="about-hl rev">Votre agence tout-en-un, du logo au site web, de l'affiche à la pub.</h2>
+      <p class="about-p rev d1">Orae Agency est une équipe de designers graphiques basée à Montpellier. Que ce soit pour un logo, un site internet, une publicité, une affiche, un packaging ou une identité visuelle complète, nous accompagnons les marques, les startups et les entrepreneurs ambitieux dans la construction d'une image forte, cohérente et mémorable.</p>
+      <p class="about-p rev d2">Du premier brief au rendu final, nous imaginons, dirigeons et concevons chaque élément avec soin. Parce qu'une bonne image ne se limite pas à un beau logo ; elle se construit, se raconte et se ressent.</p>
+      <div class="about-tags rev d3">
+        <span class="about-tag">Brand Design</span><span class="about-tag-sep">/</span>
+        <span class="about-tag">Direction artistique</span><span class="about-tag-sep">/</span>
+        <span class="about-tag">Print</span><span class="about-tag-sep">/</span>
+        <span class="about-tag">Motion</span><span class="about-tag-sep">/</span>
+        <span class="about-tag">Stratégie visuelle</span><span class="about-tag-sep">/</span>
+        <span class="about-tag">Montpellier &amp; International</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section s-light" data-theme="light" style="padding-top:0">
+  <div class="proc-wrap rev">
+    <div class="proc-connector" aria-hidden="true">
+      <div class="proc-line-seg"></div>
+      <div class="proc-line-seg"></div>
+      <div class="proc-line-seg"></div>
+      <div class="proc-line-seg"></div>
+    </div>
+    <div class="proc-track">
+      <div class="proc"><div class="proc-dot"></div><div class="proc-n">01</div><div class="proc-title">Premier contact</div><div class="proc-desc">Un appel, un mail. Vous décrivez vos besoins, contraintes et vision.</div></div>
+      <div class="proc"><div class="proc-dot"></div><div class="proc-n">02</div><div class="proc-title">Diagnostic</div><div class="proc-desc">Nous analysons votre marque et nous proposons une direction créative claire.</div></div>
+      <div class="proc"><div class="proc-dot"></div><div class="proc-n">03</div><div class="proc-title">Création</div><div class="proc-desc">Notre équipe vous fournit des propositions visuelles et on affine ensemble.</div></div>
+      <div class="proc"><div class="proc-dot"></div><div class="proc-n">04</div><div class="proc-title">Livraison</div><div class="proc-desc">Fichiers finaux, tous formats, guides d'utilisation complets.</div></div>
+      <div class="proc"><div class="proc-dot"></div><div class="proc-n">05</div><div class="proc-title">Suivi</div><div class="proc-desc">Nous restons disponibles pour toute évolution ou nouveau besoin.</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- AVIS CLIENTS -->
+<section class="section s-light" data-theme="light">
+  <div class="s-eyebrow"><span class="s-label">Témoignages</span><span class="s-rule"></span><span class="s-n">06</span></div>
+  <h2 class="s-title right rev">Ce qu'ils disent.</h2>
+  <div class="reviews-outer rev">
+    <div class="reviews-viewport">
+      <div class="reviews-track" id="revTrack">
+        <div class="rev-card">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">« Orae Agency a totalement transformé l'image de notre marque. Un travail d'une précision et d'une cohérence remarquables. »</p>
+          <div class="rev-author-row">
+            <div><div class="rev-name">Camille D.</div><div class="rev-proj">Brand Design</div></div>
+            <div class="rev-date">Janv. 2025</div>
+          </div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">« Une vision créative forte, une équipe qui sait exactement où elle va. Le résultat a dépassé toutes nos attentes. »</p>
+          <div class="rev-author-row">
+            <div><div class="rev-name">Marc A.</div><div class="rev-proj">Direction artistique</div></div>
+            <div class="rev-date">Mars 2025</div>
+          </div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">« Travail soigné, écoute parfaite, délais respectés. Nous avons enfin une identité visuelle qui nous ressemble vraiment. »</p>
+          <div class="rev-author-row">
+            <div><div class="rev-name">Sophie L.</div><div class="rev-proj">Identité visuelle</div></div>
+            <div class="rev-date">Fév. 2025</div>
+          </div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">« Des animations d'une fluidité exceptionnelle. Notre audience a adoré, l'engagement sur nos réseaux a bondi de 40 %. »</p>
+          <div class="rev-author-row">
+            <div><div class="rev-name">Thomas R.</div><div class="rev-proj">Motion Design</div></div>
+            <div class="rev-date">Nov. 2024</div>
+          </div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">« Un sens du détail rare. Chaque support livré est irréprochable, du choix typographique aux couleurs d'impression. »</p>
+          <div class="rev-author-row">
+            <div><div class="rev-name">Inès V.</div><div class="rev-proj">Print &amp; Packaging</div></div>
+            <div class="rev-date">Déc. 2024</div>
+          </div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">« Une collaboration fluide et inspirante du début à la fin. Orae Agency, c'est bien plus qu'un prestataire, un vrai partenaire créatif. »</p>
+          <div class="rev-author-row">
+            <div><div class="rev-name">Antoine M.</div><div class="rev-proj">Brand Strategy</div></div>
+            <div class="rev-date">Oct. 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-controls">
+      <span class="rev-progress" id="revProgress">01 / 02</span>
+      <button class="rev-btn" id="revPrev" aria-label="Précédent">←</button>
+      <button class="rev-btn" id="revNext" aria-label="Suivant">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT — formulaire + coordonnées -->
+<section id="contact" class="section s-dark" data-theme="dark">
+  <div class="s-eyebrow"><span class="s-label">Travaillons ensemble</span><span class="s-rule"></span></div>
+  <h2 class="s-title rev">Un projet ?</h2>
+  <div class="contact-grid">
+
+    <!-- Coordonnées -->
+    <div class="contact-info rev">
+      <p class="contact-sub">N'attendez pas,<br>contactez notre agence.<br>On s'en occupe.</p>
+      <div class="contact-coords">
+        <a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a>
+        <a href="tel:+33600000000" class="coord-item">
+          <span class="coord-label">Téléphone</span>
+          <span class="coord-val">+33 6 00 00 00 00</span>
+        </a>
+        <a href="https://www.instagram.com/orae.fr/" target="_blank" class="coord-item">
+          <span class="coord-label">Instagram</span>
+          <span class="coord-val">@orae.fr</span>
+        </a>
+        <a href="https://www.linkedin.com/company/orae-agency/" target="_blank" class="coord-item">
+          <span class="coord-label">LinkedIn</span>
+          <span class="coord-val">Orae Agency</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Formulaire -->
+<div class="rev d1">
+  <form class="form" id="cform">
+    <div class="form-row">
+      <div class="fg"><label class="fl">Nom *</label><input type="text" class="fi" name="nom" placeholder="Votre nom" required></div>
+      <div class="fg"><label class="fl">Entreprise</label><input type="text" class="fi" name="entreprise" placeholder="Votre entreprise"></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label class="fl">Email *</label><input type="email" class="fi" name="email" placeholder="vous@email.com" required></div>
+      <div class="fg"><label class="fl">Téléphone</label><input type="tel" class="fi" name="telephone" placeholder="+33 6 00 00 00 00"></div>
+    </div>
+    <div class="fg"><label class="fl">Votre demande *</label><textarea class="ft" name="message" placeholder="Décrivez votre projet, vos besoins, votre vision..." required></textarea></div>
+    <button type="submit" class="form-submit" id="fsub">Envoyer</button>
+  </form>
+</div>
+
+<!-- AGENDA -->
+<section class="section s-light" data-theme="light">
+  <div class="agenda-grid">
+    <div class="rev">
+      <a href="https://calendar.app.google/ogHZTHyBdJdVQS1Y8" target="_blank" class="cal-card-link">
+        <div class="cal-box cal-box-btn">
+          <div class="cal-top-content">
+            <p class="cal-eyebrow">Prise de rendez-vous</p>
+            <p class="cal-box-title">Choisissez votre créneau</p>
+            <p class="cal-box-sub">30 min · Gratuit · Sans engagement</p>
+            <span class="cal-cta">Voir les disponibilités →</span>
+          </div>
+          <div class="cal-fade-overlay"></div>
+          <div class="cal-grid-wrap">
+            <div class="cal-grid">
+              <span class="cal-dh">Lun</span><span class="cal-dh">Mar</span><span class="cal-dh">Mer</span><span class="cal-dh">Jeu</span><span class="cal-dh">Ven</span><span class="cal-dh">Sam</span><span class="cal-dh">Dim</span>
+              <span class="cal-d dim">24</span><span class="cal-d dim">25</span><span class="cal-d dim">26</span><span class="cal-d dim">27</span><span class="cal-d dim">28</span><span class="cal-d mid">1</span><span class="cal-d mid">2</span>
+              <span class="cal-d">3</span><span class="cal-d">4</span><span class="cal-d">5</span><span class="cal-d">6</span><span class="cal-d">7</span><span class="cal-d dim">8</span><span class="cal-d dim">9</span>
+              <span class="cal-d">10</span><span class="cal-d">11</span><span class="cal-d">12</span><span class="cal-d">13</span><span class="cal-d sel">14</span><span class="cal-d dim">15</span><span class="cal-d dim">16</span>
+              <span class="cal-d">17</span><span class="cal-d">18</span><span class="cal-d">19</span><span class="cal-d">20</span><span class="cal-d">21</span><span class="cal-d dim">22</span><span class="cal-d dim">23</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="agenda-text rev d1">
+      <div class="s-eyebrow" style="margin-bottom:1.5rem"><span class="s-label">Disponibilités</span><span class="s-rule"></span></div>
+      <h3 class="agenda-title">Réservez un appel<br>découverte.</h3>
+      <p class="agenda-desc">30 minutes pour faire connaissance, comprendre votre projet et voir si on est faits pour travailler ensemble. Gratuit, sans engagement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-theme="dark">
+  <div class="ft-inner">
+    <!-- Gauche : logo + tagline -->
+    <div class="ft-left">
+      <a href="rhea-studio.html" class="ft-logo-row">
+        <div class="ft-logo-circle">
+          <svg viewBox="0 0 1599.71 1631.4" xmlns="http://www.w3.org/2000/svg"><path d="M726.52,145.18c483.58-40.84,857.15,397.38,710.64,867.48-171.74,551.02-926.12,620.62-1208.06,122.72C-2.44,726.49,250.68,185.37,726.52,145.18ZM316.26,1100.59c6.7-.52,7.78-7.11,9.97-11.96,92.19-204.02,364.37-92.56,526.78-67.62,353.13,54.24,602.44-331.1,362.81-617.09-72.09-86.04-174.74-142.09-284.25-165.64-20.61-4.43-85.07-16.87-99.74-8.36-21.72,12.61-43.98,66.01-46.12,90.76-11.14,129.13,165.13,180.21,180.31,303.69,32.48,264.17-306.92,220.66-470.02,252.62-112.81,22.1-239.53,88.28-179.75,223.6ZM717.18,235.12c-152.08,14.83-395.64,167.1-410.72,330.07-20.81,224.86,314.61,218.05,375.38,57.53,38.08-100.58-34.32-183.34-22.82-281.99,5.1-43.73,28.38-75.78,58.16-105.61ZM1201.3,1232.68c-106.83,38.21-219.76,17.89-322.66-22.13-89.33-34.75-171.77-95.34-271.52-100.08-138.18-6.57-183.12,96.7-73.2,185.63,179.92,145.56,511.11,100.99,667.38-63.42Z" fill="#f7f7f7"/></svg>
+        </div>
+        <span class="ft-name">Orae Agency</span>
+      </a>
+      <div class="ft-tagline">Agence de design créatif — Montpellier</div>
+    </div>
+    <!-- Droite : nav pill identique au menu -->
+    <nav class="ft-nav-pill">
+      <a href="portfolio.html">Portfolio</a>
+      <span class="fp-sep"></span>
+      <a href="#services">Services</a>
+      <span class="fp-sep fp-sep-d"></span><span class="fp-row-break"></span>
+      <a href="#about">À propos</a>
+      <span class="fp-sep"></span>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Bas : contacts à gauche, légal à droite -->
+  <div class="ft-bottom">
+    <div class="ft-contacts">
+      <a href="https://www.instagram.com/orae.fr/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>
+      <span class="fc-sep"></span>
+      <a href="https://www.linkedin.com/company/orae-agency/" target="_blank"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+      <span class="fc-sep"></span>
+      <a href="mailto:orae.agency@gmail.com"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>orae.agency@gmail.com</a>
+      <span class="fc-sep"></span>
+      <a href="tel:+33600000000"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>+33 6 00 00 00 00</a>
+    </div>
+    <div class="ft-legal">© 2026 Orae Agency · <a href="mentions-legales.html">Mentions légales</a></div>
+  </div>
+</footer>
+<script>
+(function(){
+  const words   = document.getElementById('hero-words');
+  const counter = document.getElementById('hero-counter');
+  const area    = document.getElementById('hero-animated');
+  if(!words) return;
+  const items = Array.from(words.querySelectorAll('.hero-word'));
+  const total = items.length;
+  let cur = 0, timer = null;
+
+  function getH(){ return items[0].getBoundingClientRect().height || items[0].offsetHeight || 96; }
+
+  function go(i){
+    items[cur].classList.remove('active');
+    cur = ((i % total) + total) % total;
+    items[cur].classList.add('active');
+    words.style.transform = 'translateY(-' + (cur * getH()) + 'px)';
+    if(counter) counter.textContent = String(cur+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+  }
+
+  function startTimer(ms){ clearInterval(timer); timer = setInterval(()=>go(cur+1), ms); }
+
+  startTimer(1600);
+  area.addEventListener('mouseenter', ()=> startTimer(750));
+  area.addEventListener('mouseleave', ()=> startTimer(1600));
+  window.addEventListener('resize', ()=>{ words.style.transform = 'translateY(-' + (cur * getH()) + 'px)'; });
+})();
+
+/* SIDE ICONS adaptive color */
+(function(){
+  const si   = document.getElementById('side-icons');
+  const secs = document.querySelectorAll('[data-theme]');
+  function update(){
+    const y = window.scrollY + 50; let th = 'dark';
+    secs.forEach(s=>{ if(y>=s.offsetTop && y<s.offsetTop+s.offsetHeight) th=s.dataset.theme; });
+    si.classList.toggle('on-light', th==='light');
+  }
+  window.addEventListener('scroll', update, {passive:true}); update();
+})();
+
+/* SCROLL REVEAL */
+(function(){
+  const io = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); } });
+  },{threshold:.06, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+})();
+
+/* MOBILE MENU */
+(function(){
+  const b=document.getElementById('burger'), m=document.getElementById('mm');
+  b.addEventListener('click',()=>{ const o=m.classList.toggle('open'); b.classList.toggle('open',o); });
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ m.classList.remove('open'); b.classList.remove('open'); }));
+})();
+
+/* CURSOR — liquid gooey canvas */
+(function(){
+  const cv = document.getElementById('cursor-canvas');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+
+  function resize(){ cv.width = window.innerWidth; cv.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+
+  // Mouse position
+  let mx = -200, my = -200;
+  // Main blob
+  let bx = -200, by = -200;
+  // Trail blobs (N particles that follow with lag)
+  const N = 6;
+  const pts = Array.from({length: N}, () => ({ x: -200, y: -200, r: 0 }));
+
+  let isHover = false;
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  // Detect hover on interactive elements
+  const hoverSel = 'a, button, .pi, .svc, .proc, .about-tag, .port-link';
+  document.querySelectorAll(hoverSel).forEach(el => {
+    el.addEventListener('mouseenter', () => isHover = true);
+    el.addEventListener('mouseleave', () => isHover = false);
+  });
+
+  // Cursor color adapts to section theme
+  let cursorLight = false;
+  const secs = document.querySelectorAll('[data-theme]');
+  function updateCursorTheme(){
+    const y = window.scrollY + (my > 0 ? my : window.innerHeight/2);
+    secs.forEach(s=>{ if(my >= s.getBoundingClientRect().top && my < s.getBoundingClientRect().bottom) cursorLight = s.dataset.theme === 'light'; });
+  }
+  window.addEventListener('scroll', updateCursorTheme, {passive:true});
+
+  function getCursorColor(alpha){ return cursorLight ? `rgba(26,24,32,${alpha})` : `rgba(242,242,242,${alpha})`; }
+  function lerp(a,b,t){ return a+(b-a)*t; }
+
+  function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    updateCursorTheme();
+    bx = lerp(bx, mx, 0.18);
+    by = lerp(by, my, 0.18);
+
+    // Trail: each follows the previous
+    pts[0].x = lerp(pts[0].x, bx, 0.28);
+    pts[0].y = lerp(pts[0].y, by, 0.28);
+    for (let i = 1; i < N; i++) {
+      pts[i].x = lerp(pts[i].x, pts[i-1].x, 0.38);
+      pts[i].y = lerp(pts[i].y, pts[i-1].y, 0.38);
+    }
+
+    // Compute radii — bigger on hover
+    const mainR  = isHover ? 14 : 6;
+    const trailR = isHover ? 10 : 4;
+
+    // Draw with gooey blend: use globalCompositeOperation trick
+    ctx.save();
+
+    // Enable mix-blend-mode difference via CSS on canvas is fine for bg color
+    // Draw all blobs as one composite shape using a threshold trick with globalAlpha
+    ctx.globalCompositeOperation = 'source-over';
+
+    // Draw trail blobs (back to front)
+    for (let i = N - 1; i >= 0; i--) {
+      const ratio = 1 - i / N;
+      const r = lerp(2, trailR, ratio);
+      // Alpha depends on distance from leader
+      const dx = pts[i].x - bx, dy = pts[i].y - by;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const alpha = Math.max(0, 1 - dist / (isHover ? 80 : 40));
+
+      ctx.beginPath();
+      ctx.arc(pts[i].x, pts[i].y, r, 0, Math.PI*2);
+      ctx.fillStyle = getCursorColor(alpha * 0.55);
+      ctx.fill();
+    }
+
+    // Draw main blob last (on top)
+    ctx.beginPath();
+    ctx.arc(bx, by, mainR, 0, Math.PI*2);
+    ctx.fillStyle = getCursorColor(0.9);
+    ctx.fill();
+
+    // Liquid bridge between main blob and closest trail point if close enough
+    const dx0 = pts[0].x - bx, dy0 = pts[0].y - by;
+    const d0 = Math.sqrt(dx0*dx0 + dy0*dy0);
+    if (d0 < 60) {
+      const stretch = Math.max(0, 1 - d0 / 60);
+      // Draw a filled ellipse connecting them
+      ctx.beginPath();
+      const mx2 = (bx + pts[0].x) / 2, my2 = (by + pts[0].y) / 2;
+      const angle = Math.atan2(dy0, dx0);
+      ctx.save();
+      ctx.translate(mx2, my2);
+      ctx.rotate(angle);
+      const w = d0 / 2 + mainR * 0.6;
+      const h = lerp(mainR * 0.15, mainR * 0.55, stretch);
+      ctx.scale(1, h / w);
+      ctx.arc(0, 0, w, 0, Math.PI*2);
+      ctx.restore();
+      ctx.fillStyle = getCursorColor(stretch * 0.45);
+      ctx.fill();
+    }
+
+    ctx.restore();
+    requestAnimationFrame(draw);
+   }
+  draw();
+})();
+
+
+/* REVIEWS CAROUSEL */
+(function(){
+  const track = document.getElementById('revTrack');
+  const prevBtn = document.getElementById('revPrev');
+  const nextBtn = document.getElementById('revNext');
+  const progress = document.getElementById('revProgress');
+  if(!track) return;
+  const cards = Array.from(track.querySelectorAll('.rev-card'));
+  let cur = 0;
+
+  function visible() {
+    return window.innerWidth <= 600 ? 1 : window.innerWidth <= 900 ? 2 : 3;
+  }
+  function maxI() { return Math.max(0, cards.length - visible()); }
+
+  function update() {
+    const vis = visible();
+    const gap = 24;
+    const vp = track.parentElement;
+    const cardW = (vp.offsetWidth - gap * (vis - 1)) / vis;
+    track.style.transform = 'translateX(-' + (cur * (cardW + gap)) + 'px)';
+    const total = Math.ceil(cards.length / vis);
+    const page = Math.floor(cur / vis) + 1;
+    if(progress) progress.textContent = String(page).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur >= maxI();
+  }
+
+  prevBtn.addEventListener('click', () => { cur = Math.max(0, cur - visible()); update(); });
+  nextBtn.addEventListener('click', () => { cur = Math.min(maxI(), cur + visible()); update(); });
+  window.addEventListener('resize', () => { cur = 0; update(); });
+  update();
+})();
+
+/* FORM */
+(function(){
+  emailjs.init('0vYqN6ujzQ8RRSgVG');
+  const f=document.getElementById('cform'), b=document.getElementById('fsub');
+  if(!f) return;
+  f.addEventListener('submit', e=>{
+    e.preventDefault();
+    b.textContent='Envoi...'; b.disabled=true;
+    emailjs.sendForm('service_fk5ox1j','template_dv45gte',f)
+    .then(()=>{ b.textContent='Message envoyé ✓'; b.style.opacity='.4';
+      setTimeout(()=>{ b.textContent='Envoyer'; b.style.opacity=''; b.disabled=false; f.reset(); },3500); })
+    .catch(()=>{ b.textContent='Erreur, réessaye'; b.disabled=false; });
+  });
+})();
+
+/* ═══════════════════════════════════════
+   HERO BACKGROUND — blob animation
+   ═══════════════════════════════════════ */
+(function(){
+  const bg = document.getElementById('hero-bg');
+  const gr = document.getElementById('hero-gr');
+  if(!bg || !gr) return;
+  const bx = bg.getContext('2d');
+  const gx = gr.getContext('2d');
+  const isMobile = window.matchMedia('(max-width:768px)').matches;
+  const FPS = isMobile ? 30 : 60;
+  const FRAME_MS = 1000 / FPS;
+  const GRAIN_MS = isMobile ? 150 : 80;
+  let W=0, H=0, running=true, lastFrame=0;
+
+  function resize(){
+    const dpr = Math.min(devicePixelRatio, isMobile ? 1.5 : 2);
+    W = bg.offsetWidth; H = bg.offsetHeight;
+    [bg,gr].forEach(c=>{ c.width=W*dpr; c.height=H*dpr; });
+    bx.scale(dpr,dpr); gx.scale(dpr,dpr);
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  function bakeGrain(){
+    if(!running) return;
+    const dpr = Math.min(devicePixelRatio, isMobile ? 1.5 : 2);
+    const id = gx.createImageData(W*dpr, H*dpr);
+    const d = id.data;
+    for(let i=0;i<d.length;i+=4){
+      const v=Math.random()*255|0;
+      d[i]=d[i+1]=d[i+2]=v; d[i+3]=46;
+    }
+    gx.putImageData(id,0,0);
+  }
+  bakeGrain();
+  const grainTimer = setInterval(bakeGrain, GRAIN_MS);
+
+  /* IntersectionObserver — pause when hero out of view */
+  const heroEl = document.getElementById('hero-section');
+  if(heroEl){
+    new IntersectionObserver(entries=>{
+      running = entries[0].isIntersecting;
+      if(running) requestAnimationFrame(frame);
+    }, {threshold:0.01}).observe(heroEl);
+  }
+
+  const cool=[
+    {cx:.48,cy:.46,rx:.28,ry:.22,px:0.0,py:0.0,sx:.00052,sy:.00044},
+    {cx:.52,cy:.50,rx:.22,ry:.26,px:1.1,py:2.3,sx:.00061,sy:.00038},
+    {cx:.44,cy:.52,rx:.20,ry:.18,px:2.2,py:0.7,sx:.00047,sy:.00055},
+    {cx:.56,cy:.44,rx:.18,ry:.20,px:3.3,py:1.5,sx:.00058,sy:.00042},
+    {cx:.50,cy:.42,rx:.16,ry:.14,px:0.8,py:3.1,sx:.00066,sy:.00049},
+    {cx:.54,cy:.54,rx:.14,ry:.16,px:2.7,py:2.0,sx:.00055,sy:.00036},
+  ];
+  const warm={cx:.50,cy:.48,rx:.19,ry:.17,px:1.4,py:1.8,sx:.00048,sy:.00057};
+
+  function softE(cx,cy,rx,ry,col,stops){
+    bx.save(); bx.translate(cx,cy); bx.scale(rx,ry);
+    const g=bx.createRadialGradient(0,0,0,0,0,1);
+    stops.forEach(([t,a])=>g.addColorStop(t,`rgba(${col},${a})`));
+    bx.fillStyle=g; bx.beginPath(); bx.arc(0,0,1,0,Math.PI*2); bx.fill();
+    bx.restore();
+  }
+
+  let t=0;
+  function frame(now){
+    if(!running) return;
+    if(now - lastFrame < FRAME_MS){ requestAnimationFrame(frame); return; }
+    lastFrame = now;
+    bx.clearRect(0,0,W,H);
+    bx.fillStyle='#05050a'; bx.fillRect(0,0,W,H);
+    const s=Math.sin, c=Math.cos;
+
+    cool.forEach((n,i)=>{
+      const cx=(n.cx+s(t*n.sx+n.px)*.14)*W;
+      const cy=(n.cy+c(t*n.sy+n.py)*.13)*H;
+      const ph=i/cool.length;
+      softE(cx,cy,n.rx*W*2.4,n.ry*H*2.4,
+        `0,${Math.round(120+ph*40)},${Math.round(210-ph*30)}`,
+        [[0,0.12],[0.45,0.06],[1,0]]);
+      softE(cx,cy,n.rx*W*1.7,n.ry*H*1.7,
+        `${Math.round(60+ph*140)},15,${Math.round(180-ph*160)}`,
+        [[0,0.36],[0.55,0.16],[0.85,0.04],[1,0]]);
+      softE(cx,cy,n.rx*W*1.2,n.ry*H*1.2,
+        `${Math.round(180+ph*40)},15,0`,
+        [[0,0.22],[0.55,0.08],[1,0]]);
+    });
+
+    const wx=(warm.cx+s(t*warm.sx+warm.px)*.18)*W;
+    const wy=(warm.cy+c(t*warm.sy+warm.py)*.16)*H;
+    softE(wx,wy,warm.rx*W*2.2,warm.ry*H*2.2,'220,60,0',  [[0,0.28],[0.45,0.13],[0.75,0.04],[1,0]]);
+    softE(wx,wy,warm.rx*W*1.4,warm.ry*H*1.4,'245,100,0', [[0,0.20],[0.55,0.08],[0.85,0.02],[1,0]]);
+    softE(wx,wy,warm.rx*W*0.8,warm.ry*H*0.8,'255,140,20',[[0,0.12],[0.6,0.04],[1,0]]);
+
+    t+=16;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+</script>
+</body>
+</html>

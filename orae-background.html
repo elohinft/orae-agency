@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orae — Background</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; background: #05050a; overflow: hidden; }
+#bg, #gr {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+}
+#gr { pointer-events: none; }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<canvas id="gr"></canvas>
+<script>
+(function(){
+  const bg = document.getElementById('bg');
+  const gr = document.getElementById('gr');
+  const bx = bg.getContext('2d');
+  const gx = gr.getContext('2d');
+  let W = 0, H = 0;
+
+  function resize(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    [bg, gr].forEach(c => {
+      c.width  = W * devicePixelRatio;
+      c.height = H * devicePixelRatio;
+    });
+    bx.scale(devicePixelRatio, devicePixelRatio);
+    gx.scale(devicePixelRatio, devicePixelRatio);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* ── Grain pleine résolution, rafraîchi toutes les 80ms ── */
+  function bakeGrain(){
+    const id = gx.createImageData(W * devicePixelRatio, H * devicePixelRatio);
+    const d  = id.data;
+    for(let i = 0; i < d.length; i += 4){
+      const v = Math.random() * 255 | 0;
+      d[i] = d[i+1] = d[i+2] = v;
+      d[i+3] = 46;
+    }
+    gx.putImageData(id, 0, 0);
+  }
+  bakeGrain();
+  setInterval(bakeGrain, 80);
+
+  /* ── Nœuds froids (cyan / violet / rouge) ── */
+  const cool = [
+    { cx:.48, cy:.46, rx:.28, ry:.22, px:0.0, py:0.0, sx:.00052, sy:.00044 },
+    { cx:.52, cy:.50, rx:.22, ry:.26, px:1.1, py:2.3, sx:.00061, sy:.00038 },
+    { cx:.44, cy:.52, rx:.20, ry:.18, px:2.2, py:0.7, sx:.00047, sy:.00055 },
+    { cx:.56, cy:.44, rx:.18, ry:.20, px:3.3, py:1.5, sx:.00058, sy:.00042 },
+    { cx:.50, cy:.42, rx:.16, ry:.14, px:0.8, py:3.1, sx:.00066, sy:.00049 },
+    { cx:.54, cy:.54, rx:.14, ry:.16, px:2.7, py:2.0, sx:.00055, sy:.00036 },
+  ];
+
+  /* ── Orbe chaude unique (orange / rouge) ── */
+  const warm = { cx:.50, cy:.48, rx:.19, ry:.17, px:1.4, py:1.8, sx:.00048, sy:.00057 };
+
+  function softE(cx, cy, rx, ry, col, stops){
+    bx.save();
+    bx.translate(cx, cy);
+    bx.scale(rx, ry);
+    const g = bx.createRadialGradient(0, 0, 0, 0, 0, 1);
+    stops.forEach(([t, a]) => g.addColorStop(t, `rgba(${col},${a})`));
+    bx.fillStyle = g;
+    bx.beginPath();
+    bx.arc(0, 0, 1, 0, Math.PI * 2);
+    bx.fill();
+    bx.restore();
+  }
+
+  let t = 0;
+  function frame(){
+    bx.clearRect(0, 0, W, H);
+    bx.fillStyle = '#05050a';
+    bx.fillRect(0, 0, W, H);
+
+    const s = Math.sin, c = Math.cos;
+
+    /* Nœuds froids */
+    cool.forEach((n, i) => {
+      const cx = (n.cx + s(t * n.sx + n.px) * .14) * W;
+      const cy = (n.cy + c(t * n.sy + n.py) * .13) * H;
+      const ph = i / cool.length;
+
+      softE(cx, cy, n.rx*W*2.4, n.ry*H*2.4,
+        `0,${Math.round(120+ph*40)},${Math.round(210-ph*30)}`,
+        [[0,0.12],[0.45,0.06],[1,0]]);
+
+      softE(cx, cy, n.rx*W*1.7, n.ry*H*1.7,
+        `${Math.round(60+ph*140)},15,${Math.round(180-ph*160)}`,
+        [[0,0.36],[0.55,0.16],[0.85,0.04],[1,0]]);
+
+      softE(cx, cy, n.rx*W*1.2, n.ry*H*1.2,
+        `${Math.round(180+ph*40)},15,0`,
+        [[0,0.22],[0.55,0.08],[1,0]]);
+    });
+
+    /* Orbe chaude unique */
+    const wx = (warm.cx + s(t * warm.sx + warm.px) * .18) * W;
+    const wy = (warm.cy + c(t * warm.sy + warm.py) * .16) * H;
+
+    softE(wx, wy, warm.rx*W*2.2, warm.ry*H*2.2,
+      '220,60,0',  [[0,0.28],[0.45,0.13],[0.75,0.04],[1,0]]);
+    softE(wx, wy, warm.rx*W*1.4, warm.ry*H*1.4,
+      '245,100,0', [[0,0.20],[0.55,0.08],[0.85,0.02],[1,0]]);
+    softE(wx, wy, warm.rx*W*0.8, warm.ry*H*0.8,
+      '255,140,20', [[0,0.12],[0.6,0.04],[1,0]]);
+
+    t += 16;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
