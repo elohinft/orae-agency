@@ -135,7 +135,7 @@ input, textarea { font-family: var(--ff-b); }
 .hero-line-animated:hover .hero-word.active { color: rgba(242,242,242,0.82); }
 
 .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
-.hero-desc { font-family: var(--ff-b); font-weight: 300; font-size: 1.05rem; line-height: 1.75; color: rgba(242,242,242,0.65); max-width: 380px; }
+.hero-desc { font-family: var(--ff-b); font-weight: 300; font-size: 1.05rem; line-height: 1.75; color: rgba(242,242,242,0.65); max-width: 380px; text-wrap: pretty; }
 .hero-cta { font-family: var(--ff-h); font-weight: 300; font-size: .67rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,242,242,0.5); white-space: nowrap; padding-bottom: 2px; border-bottom: 1px solid rgba(242,242,242,0.18); transition: color .3s, border-color .3s; }
 .hero-cta:hover { color: rgba(242,242,242,0.88); border-color: rgba(242,242,242,0.45); }
 .hero-counter { position: absolute; top: 6rem; right: 3rem; font-family: var(--ff-h); font-size: .55rem; font-weight: 300; letter-spacing: .2em; color: rgba(242,242,242,0.13); z-index: 2; }
@@ -239,7 +239,7 @@ input, textarea { font-family: var(--ff-b); }
 
 /* PROCESS — clean, no pseudo-element lines, just numbers */
 .proc-wrap { position: relative; }
-.proc-track { display: flex; align-items: flex-start; position: relative; border-top: 1px solid var(--bdl); }
+.proc-track { display: flex; align-items: flex-start; position: relative; }
 .proc-connector { display: none; }
 .proc {
   flex: 1; position: relative; z-index: 1;
@@ -399,7 +399,7 @@ footer {
 .ft-logo-circle:hover { background: rgba(242,242,242,0.12); }
 .ft-logo-circle svg { width: 26px; height: auto; fill: var(--text-light); }
 .ft-name { font-family: var(--ff-h); font-weight: 400; font-size: 1rem; letter-spacing: -.01em; }
-.ft-tagline { font-size: .75rem; opacity: .55; letter-spacing: .04em; font-weight: 300; margin-left: .1rem; margin-top: .2rem; }
+.ft-tagline { font-size: .75rem; opacity: .55; letter-spacing: .04em; font-weight: 300; margin-left: .1rem; margin-top: .2rem; display: block; margin-bottom: 1.5rem; }
 
 /* Right col — nav pill (exactly like the top nav) */
 .ft-nav-pill {
@@ -423,7 +423,7 @@ footer {
 /* Bottom row — contacts left, legal right */
 .ft-bottom {
   display: flex; justify-content: space-between; align-items: center;
-  padding-top: 2rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(242,242,242,0.05);
   flex-wrap: wrap; gap: 1rem;
 }
@@ -463,8 +463,10 @@ footer {
   .about-img { display: none; }
   .proc-track { flex-direction: column; padding-top: 0; }
   .proc-connector { display: none; }
-  .proc { padding: 1.5rem 0 1.5rem 1.5rem; border-left: 1px solid var(--bdl); }
+  .proc { padding: 1.5rem 0; text-align: center; }
   .proc-dot { display: none; }
+  .ia-grid { grid-template-columns: 1fr; }
+.ia-grid .about-img { display: none; }
 }
 @media (max-width:900px) {
   .section { padding: 5rem 1.75rem; }
@@ -493,7 +495,7 @@ footer {
   .hero-line-animated { height: clamp(3.4rem, 15vw, 5.5rem) !important; }
   .hero-word { height: clamp(3.4rem, 15vw, 5.5rem) !important; padding: .18em 0 .4em !important; }
   .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
-  .hero-inner { padding: 0 1.5rem 3.5rem; }
+  .hero-inner { padding: 0 1.5rem 2rem; }
   .nav-wrap { left: .75rem; right: .75rem; transform: none; justify-content: space-between; }
   .ft-contacts { gap: 1.2rem; }
 }
@@ -728,7 +730,7 @@ footer {
 </section>
 
 <!-- PROCESS -->
-<section class="section s-light" data-theme="light" style="padding-top:0">
+<section class="section s-light" data-theme="light" style="padding-top:6.5rem">
   <div class="proc-wrap rev">
     <div class="proc-connector" aria-hidden="true">
       <div class="proc-line-seg"></div>
@@ -746,10 +748,10 @@ footer {
   </div>
 </section>
 
-<!<!-- IA POSITION -->
+<!-- IA POSITION -->
 <section class="section s-light" data-theme="light">
   <div class="s-eyebrow"><span class="s-label">Notre position</span><span class="s-rule"></span></div>
-  <div class="about-grid" style="grid-template-columns: 1fr 280px;">
+  <div class="about-grid ia-grid" style="grid-template-columns: 1fr 280px;">
     <div>
       <h2 class="about-hl rev">Intelligence artificielle</h2>
       <p class="about-p rev d1">À l'heure où l'IA s'impose partout, nous avons fait le choix de la transparence.</p>
