@@ -469,6 +469,7 @@ footer {
 .ia-grid .about-img { display: flex; aspect-ratio: 1/1; max-width: 100%; }
 }
 @media (max-width:900px) {
+  .hero-top { gap: 0; }
   .section { padding: 5rem 1.75rem; }
   .hero-inner { padding: 0 1.75rem 4rem; }
   .nav-links,.nav-sep,.nav-cta { display: none; }
@@ -672,10 +673,9 @@ footer {
           </span>
         </span>
       </div>
-      <div class="hero-bottom">
-        <p class="hero-desc">Nous transformons vos idées en identités visuelles qui marquent les esprits. Design graphique, direction artistique et stratégie créative, au service de votre image.</p>
-        <a href="#portfolio" class="hero-cta">Découvrir les projets</a>
-      </div>
+      <div class="hero-bottom" style="justify-content: flex-end;">
+  <p class="hero-desc" style="text-align: right; max-width: 320px;">Nous transformons vos idées en identités visuelles qui marquent les esprits. Design graphique, direction artistique et stratégie créative, au service de votre image.</p>
+</div>
     </div>
   </div>
 </section>
@@ -716,7 +716,6 @@ footer {
 <section id="about" class="section s-light" data-theme="light">
   <div class="s-eyebrow"><span class="s-label">À propos</span><span class="s-rule"></span></div>
   <div class="about-grid">
-    <div class="about-img rev"><div class="about-img-ph">R.</div></div>
     <div>
       <h2 class="about-hl rev">Votre agence tout-en-un, du logo au site web, de l'affiche à la pub.</h2>
       <p class="about-p rev d1">Orae Agency est une équipe de designers graphiques basée à Montpellier. Que ce soit pour un logo, un site internet, une publicité, une affiche, un packaging ou une identité visuelle complète, nous accompagnons les marques, les startups et les entrepreneurs ambitieux dans la construction d'une image forte, cohérente et mémorable.</p>
@@ -730,6 +729,7 @@ footer {
         <span class="about-tag">Montpellier &amp; International</span>
       </div>
     </div>
+    <div class="about-img rev"><div class="about-img-ph">R.</div></div>
   </div>
 </section>
 
@@ -755,7 +755,7 @@ footer {
 <!-- IA POSITION -->
 <section class="section s-light" data-theme="light">
   <div class="s-eyebrow"><span class="s-label">Notre position</span><span class="s-rule"></span></div>
-  <div class="about-grid ia-grid" style="grid-template-columns: 1fr 280px;">
+  <div class="about-grid ia-grid">
     <div>
       <h2 class="about-hl rev">Intelligence artificielle</h2>
       <p class="about-p rev d1">À l'heure où l'IA s'impose partout, nous avons fait le choix de la transparence.</p>
@@ -1202,7 +1202,7 @@ footer {
     gx.putImageData(id,0,0);
   }
   bakeGrain();
-  const grainTimer = setInterval(bakeGrain, GRAIN_MS);
+  if (!isMobile) setInterval(bakeGrain, GRAIN_MS);
 
   /* IntersectionObserver — pause when hero out of view */
   const heroEl = document.getElementById('hero-section');
