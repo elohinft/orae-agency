@@ -278,7 +278,7 @@ input, textarea { font-family: var(--ff-b); }
 .svc-desc { font-size: .85rem; opacity: .62; line-height: 1.72; font-weight: 300; }
 
 /* ABOUT */
-.about-grid { display: grid; grid-template-columns: 1fr 300px; gap: 5rem; align-items: start; }
+.about-grid { display: grid; grid-template-columns: 1fr 600px; gap: 5rem; align-items: start; }
 .about-img { aspect-ratio: 3/4; background: #c8c8c8; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .about-img-ph { font-family: var(--ff-h); font-weight: 300; font-size: 5.5rem; color: rgba(26,24,32,0.07); letter-spacing: -.04em; }
 .about-hl { font-family: var(--ff-h); font-weight: 400; font-size: clamp(1.55rem, 2.4vw, 2.1rem); line-height: 1.28; letter-spacing: -.02em; margin-bottom: 1.6rem; }
@@ -471,7 +471,7 @@ footer {
 @media (max-width:900px) {
   .hero-top { gap: 0; }
   .section { padding: 5rem 1.75rem; }
-  .hero-inner { padding: 0 1.75rem 4rem; }
+  .hero-inner { padding: 0 1.75rem 2.5rem; gap: 1rem; }
   .nav-links,.nav-sep,.nav-cta { display: none; }
   .nav-burger { display: flex; }
   .side-icons { display: none; }
@@ -480,14 +480,14 @@ footer {
   .agenda-grid { grid-template-columns: 1fr; gap: 3rem; }
   .ft-top { flex-direction: column; gap: 1.5rem; }
   .ft-nav { text-align: left; }
-  .port-mosaic { grid-template-columns: 1fr 1fr; }
-  .pi:nth-child(1){grid-column:1/2;grid-row:1/2}
+  .port-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: 4/3; }
+  .pi:nth-child(1){grid-column:1/2;grid-row:1/3}
   .pi:nth-child(2){grid-column:2/3;grid-row:1/2}
-  .pi:nth-child(3){grid-column:1/2;grid-row:2/3}
-  .pi:nth-child(4){grid-column:2/3;grid-row:2/3}
-  .pi-thumb { aspect-ratio: 4/3 !important; }
-   .ft-tagline { margin-top: .8rem; }
-   .ft-inner { gap: 1rem; }
+  .pi:nth-child(3){grid-column:2/3;grid-row:2/3}
+  .pi:nth-child(4){display:none}
+  .pi-thumb { aspect-ratio: unset !important; height: 100%; }
+  .ft-tagline { margin-top: .8rem; }
+  .ft-inner { gap: 1rem; }
   .ft-contacts { flex-direction: column; gap: .5rem; }
   .ft-contacts .fc-sep { display: none; }
 }
@@ -674,7 +674,7 @@ footer {
         </span>
       </div>
       <div class="hero-bottom" style="justify-content: flex-end;">
-  <p class="hero-desc" style="text-align: left; max-width: 320px;">Nous transformons vos idées en identités visuelles qui marquent les esprits. Design graphique, direction artistique et stratégie créative, au service de votre image.</p>
+  <p class="hero-desc" style="text-align: left; max-width: 320px;">Nous transformons vos idées en identités visuelles qui marquent les esprits.<br>Design graphique, direction artistique et stratégie créative, au service de votre image.</p>
 </div>
     </div>
   </div>
