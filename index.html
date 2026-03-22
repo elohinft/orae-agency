@@ -348,26 +348,25 @@ input, textarea { font-family: var(--ff-b); }
 .cal-note { margin-top: .5rem; font-size: .65rem; opacity: .35; line-height: 1.5; color: var(--text-dark); }
 
 /* FOOTER */
-footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem 2rem; }
+footer { background: #f1f1f1; color: var(--text-dark); padding: 3.5rem 4rem 2rem; }
 .ft-inner { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; }
 .ft-left { display: flex; flex-direction: column; }
 .ft-logo-row { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: inherit; margin-bottom: .4rem; }
-.ft-logo-circle { width: 32px; height: 32px; background: rgba(242,242,242,0.06); border: 1px solid rgba(242,242,242,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; animation: logo-breathe 3.2s ease-in-out infinite; transition: background .3s; }
-.ft-logo-circle:hover { background: rgba(242,242,242,0.12); }
-.ft-logo-circle svg { width: 18px; height: auto; fill: var(--text-light); }
-.ft-name { font-family: var(--ff-h); font-weight: 400; font-size: .9rem; letter-spacing: -.01em; }
-.ft-tagline { font-family: var(--ff-b); font-size: .75rem; opacity: .4; font-weight: 300; margin-top: .3rem; display: block; }
+.ft-logo-circle { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex-shrink: 0; }
+.ft-logo-circle svg { width: 20px; height: auto; fill: #1a1820; animation: logo-breathe 3.2s ease-in-out infinite; }
+.ft-name { font-family: var(--ff-h); font-weight: 400; font-size: .9rem; letter-spacing: -.01em; color: #1a1820; }
+.ft-tagline { font-family: var(--ff-b); font-size: .75rem; color: rgba(26,24,32,0.4); font-weight: 300; margin-top: .3rem; display: block; }
 .ft-nav-links { display: flex; align-items: center; gap: 2.5rem; padding-top: .2rem; }
-.ft-nav-links a { font-family: var(--ff-h); font-size: .72rem; font-weight: 300; letter-spacing: .02em; color: rgba(242,242,242,0.35); text-decoration: none; transition: color .2s; }
-.ft-nav-links a:hover { color: var(--text-light); }
-.ft-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(242,242,242,0.05); flex-wrap: wrap; gap: 1rem; }
+.ft-nav-links a { font-family: var(--ff-h); font-size: .72rem; font-weight: 300; letter-spacing: .02em; color: rgba(26,24,32,0.4); text-decoration: none; transition: color .2s; }
+.ft-nav-links a:hover { color: #1a1820; }
+.ft-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(26,24,32,0.08); flex-wrap: wrap; gap: 1rem; }
 .ft-contacts { display: flex; gap: 0; flex-wrap: wrap; }
-.ft-contacts a { display: flex; align-items: center; gap: .4rem; padding: .3rem .8rem; font-family: var(--ff-b); font-size: .72rem; font-weight: 300; color: rgba(242,242,242,0.35); text-decoration: none; white-space: nowrap; transition: color .2s; }
-.ft-contacts a:hover { color: var(--text-light); }
-.ft-contacts .fc-sep { width: 1px; height: 10px; background: rgba(242,242,242,0.1); align-self: center; flex-shrink: 0; }
+.ft-contacts a { display: flex; align-items: center; gap: .4rem; padding: .3rem .8rem; font-family: var(--ff-b); font-size: .72rem; font-weight: 300; color: rgba(26,24,32,0.4); text-decoration: none; white-space: nowrap; transition: color .2s; }
+.ft-contacts a:hover { color: #1a1820; }
+.ft-contacts .fc-sep { width: 1px; height: 10px; background: rgba(26,24,32,0.1); align-self: center; flex-shrink: 0; }
 .ft-contacts svg { width: 11px; height: 11px; fill: currentColor; flex-shrink: 0; }
-.ft-legal { font-family: var(--ff-b); font-size: .62rem; opacity: .18; letter-spacing: .04em; color: var(--text-light); }
-.ft-legal a { color: inherit; border-bottom: 1px solid rgba(242,242,242,0.15); transition: opacity .25s; }
+.ft-legal { font-family: var(--ff-b); font-size: .62rem; color: rgba(26,24,32,0.25); letter-spacing: .04em; }
+.ft-legal a { color: inherit; border-bottom: 1px solid rgba(26,24,32,0.15); transition: opacity .25s; }
 .ft-legal a:hover { opacity: .7; }
 @media (max-width:900px) {
   footer { padding: 3rem 1.75rem 2rem; }
