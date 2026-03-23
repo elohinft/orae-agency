@@ -271,20 +271,24 @@ input, textarea { font-family: var(--ff-b); }
 .proc-wrap { position: relative; }
 .proc-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 0; }
 .proc-left { padding-right: 4rem; }
-.proc-left-title { font-family: var(--ff-h); font-weight: 500; font-size: clamp(1.2rem, 2vw, 1.8rem); line-height: 1.15; letter-spacing: -.025em; color: var(--text-dark); margin-bottom: 1.5rem; }
+.proc-left-title { font-family: var(--ff-h); font-weight: 500; font-size: clamp(1.4rem, 2.2vw, 2.1rem); line-height: 1.15; letter-spacing: -.025em; color: var(--text-dark); margin-bottom: 1.5rem; }
 .proc-left-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.45); line-height: 1.8; }
 .proc-right { padding-left: 4rem; }
 .proc-steps { position: relative; }
-.proc-steps::before { content: ''; position: absolute; left: calc(130px + 13px); top: .25rem; bottom: .25rem; width: 1px; background: rgba(26,24,32,0.1); }
-.proc-step { display: grid; grid-template-columns: 130px 28px 1fr; padding: 1.2rem 0; align-items: start; }
-.proc-step-name { font-family: var(--ff-h); font-weight: 500; font-size: .82rem; letter-spacing: .01em; color: var(--text-dark); padding-top: .2rem; }
-.proc-step-dot { width: 7px; height: 7px; background: var(--light); border: 1px solid rgba(26,24,32,0.35); border-radius: 50%; margin-top: .25rem; position: relative; z-index: 1; }
-.proc-step-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.5); line-height: 1.75; padding-left: 1rem; }
+.proc-steps-line { position: absolute; left: 150px; top: 0; bottom: 0; width: 1px; background: rgba(26,24,32,0.1); }
+.proc-steps-scan { position: absolute; left: 150px; top: -40%; width: 1px; height: 40%; background: linear-gradient(to bottom, transparent, rgba(26,24,32,0.6) 30%, rgba(26,24,32,0.6) 70%, transparent); animation: proc-scan 3s ease-in-out infinite; }
+@keyframes proc-scan { 0%{top:-40%} 100%{top:120%} }
+.proc-step { display: grid; grid-template-columns: 150px 1fr; padding: 1.8rem 0; align-items: start; position: relative; }
+.proc-step-name { font-family: var(--ff-h); font-weight: 500; font-size: .85rem; color: var(--text-dark); line-height: 1.4; }
+.proc-step-dot { position: absolute; left: 150px; top: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: var(--light); border: 1px solid rgba(26,24,32,0.4); border-radius: 50%; z-index: 2; }
+.proc-step-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.5); line-height: 1.75; padding-left: 2rem; }
 @media (max-width:900px) {
   .proc-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .proc-left { padding-right: 0; }
   .proc-right { padding-left: 0; }
-  .proc-steps::before { left: 13px; }
+  .proc-steps-line, .proc-steps-scan { left: 0; }
+  .proc-step { grid-template-columns: 120px 1fr; }
+  .proc-step-dot { left: 120px; }
 }
 
 /* CONTACT — coords left, form right */
@@ -427,37 +431,29 @@ footer { background: #f1f1f1; color: var(--text-dark); padding: 3.5rem 4rem 2rem
   .ft-contacts { gap: 1.2rem; }
 }
 
-/* REVIEWS CAROUSEL */
-.reviews-outer { position: relative; }
-.reviews-viewport { overflow: hidden; }
-.reviews-track { display: flex; gap: 1.5rem; transition: transform .6s cubic-bezier(0.23, 1, 0.32, 1); will-change: transform; }
-.rev-card { flex: 0 0 calc(33.333% - 1rem); padding: 2rem 1.75rem 2rem 0; display: flex; flex-direction: column; border: none; background: none; border-right: 1px solid rgba(26,24,32,0.07); }
-.rev-stars { font-size: .82rem; letter-spacing: .15em; margin-bottom: 1.25rem; color: rgba(26,24,32,0.5); }
-.rev-quote { font-size: .88rem; line-height: 1.85; color: rgba(26,24,32,0.65); font-weight: 300; flex: 1; margin-bottom: 1.5rem; font-family: var(--ff-b); }
-.rev-author-row { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(26,24,32,0.07); padding-top: 1rem; }
-.rev-name { font-family: var(--ff-h); font-weight: 400; font-size: .85rem; color: var(--text-dark); }
-.rev-proj { font-size: .62rem; color: rgba(26,24,32,0.32); letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem; }
-.rev-date { font-size: .7rem; color: rgba(26,24,32,0.28); white-space: nowrap; }
-.reviews-controls { display: flex; align-items: center; gap: 1.25rem; margin-top: 2rem; justify-content: flex-end; }
-.rev-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(26,24,32,0.18); border-radius: 50%; font-size: 1rem; cursor: none; color: var(--text-dark); transition: background .25s, border-color .25s, transform .2s var(--ease); }
-.rev-btn:hover { background: var(--text-dark); color: var(--light); border-color: var(--text-dark); transform: scale(.96); }
-.rev-btn:disabled { opacity: .28; pointer-events: none; }
-.rev-progress { font-family: var(--ff-h); font-size: .6rem; letter-spacing: .18em; opacity: .28; }
-@media (max-width:900px) { .rev-card { flex: 0 0 calc(50% - .75rem); } }
-@media (max-width:600px) { .rev-card { flex: 0 0 100%; } }
-/* FP ROW BREAK — footer nav mobile symmetry */
-.fp-row-break { display: none; }
-.fp-sep-d {}
-@media (max-width:540px) {
-  .fp-row-break { display: block; width: 100%; height: 0; }
-  .fp-sep-d { display: none; }
-  .ft-nav-pill { flex-wrap: wrap; justify-content: flex-start; }
+/* REVIEWS */
+.reviews-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+.reviews-left-title { font-family: var(--ff-h); font-weight: 500; font-size: clamp(1.4rem, 2.2vw, 2.1rem); line-height: 1.12; letter-spacing: -.025em; color: var(--text-dark); margin-bottom: 1rem; }
+.reviews-left-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.45); line-height: 1.8; margin-bottom: 2rem; }
+.reviews-controls { display: flex; flex-direction: column; gap: .75rem; align-items: flex-start; }
+.rev-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(26,24,32,0.2); background: transparent; display: flex; align-items: center; justify-content: center; cursor: none; font-size: .9rem; color: rgba(26,24,32,0.5); transition: all .2s; }
+.rev-btn:hover { background: #1a1820; color: #f1f1f1; border-color: #1a1820; }
+.rev-btn:disabled { opacity: .25; pointer-events: none; }
+.rev-progress { font-family: var(--ff-h); font-size: .6rem; letter-spacing: .12em; color: rgba(26,24,32,0.28); }
+.reviews-col { display: flex; flex-direction: column; gap: 10px; }
+.rev-card { display: flex; align-items: flex-start; gap: 1rem; padding: 1.3rem 1.5rem; background: var(--light); border-radius: 12px; transition: all .3s; border: none; }
+.rev-card.active { box-shadow: 0 2px 16px rgba(26,24,32,0.07); background: #fff; }
+.rev-card:not(.active) { opacity: .55; }
+.rev-avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(26,24,32,0.07); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.rev-avatar-ph { font-family: var(--ff-h); font-size: .75rem; font-weight: 500; color: rgba(26,24,32,0.3); }
+.rev-body { flex: 1; }
+.rev-name { font-family: var(--ff-h); font-weight: 500; font-size: .85rem; color: var(--text-dark); margin-bottom: .3rem; }
+.rev-quote-text { font-family: var(--ff-b); font-size: .78rem; font-weight: 300; color: rgba(26,24,32,0.5); line-height: 1.7; }
+.rev-proj { font-size: .62rem; color: rgba(26,24,32,0.28); letter-spacing: .08em; text-transform: uppercase; margin-top: .4rem; }
+.rev-quote-icon { font-size: 1.1rem; color: rgba(26,24,32,0.1); margin-left: auto; padding-left: .5rem; font-family: Georgia, serif; line-height: 1; flex-shrink: 0; }
+@media (max-width:900px) { .reviews-grid { grid-template-columns: 1fr; gap: 2.5rem; } 
+}
 
-}
-@media (max-width:900px) {
-  .ft-nav-pill { background: none; border: none; backdrop-filter: none; flex-direction: column; align-items: flex-start; padding: 0; gap: 2px; }
-  .ft-nav-pill .fp-sep { display: none; }
-}
 
 /* MOBILE HERO TEXT — reduce size so long words fit */
 @media (max-width:600px) {
@@ -601,11 +597,13 @@ footer { background: #f1f1f1; color: var(--text-dark); padding: 3.5rem 4rem 2rem
     </div>
     <div class="proc-right">
       <div class="proc-steps">
-        <div class="proc-step"><span class="proc-step-name">Premier contact</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Un appel, un mail. Vous décrivez vos besoins, contraintes et vision.</span></div>
-        <div class="proc-step"><span class="proc-step-name">Diagnostic</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Nous analysons votre marque et proposons une direction créative claire.</span></div>
-        <div class="proc-step"><span class="proc-step-name">Création</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Notre équipe vous fournit des propositions visuelles et on affine ensemble.</span></div>
-        <div class="proc-step"><span class="proc-step-name">Livraison</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Fichiers finaux, tous formats, guides d'utilisation complets.</span></div>
-        <div class="proc-step"><span class="proc-step-name">Suivi</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Nous restons disponibles pour toute évolution ou nouveau besoin.</span></div>
+        <div class="proc-steps-line"></div>
+        <div class="proc-steps-scan"></div>
+        <div class="proc-step"><span class="proc-step-name">Premier contact</span><div class="proc-step-dot"></div><span class="proc-step-desc">Un appel, un mail. Vous décrivez vos besoins, contraintes et vision.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Diagnostic</span><div class="proc-step-dot"></div><span class="proc-step-desc">Nous analysons votre marque et proposons une direction créative claire.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Création</span><div class="proc-step-dot"></div><span class="proc-step-desc">Notre équipe vous fournit des propositions visuelles et on affine ensemble.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Livraison</span><div class="proc-step-dot"></div><span class="proc-step-desc">Fichiers finaux, tous formats, guides d'utilisation complets.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Suivi</span><div class="proc-step-dot"></div><span class="proc-step-desc">Nous restons disponibles pour toute évolution ou nouveau besoin.</span></div>
       </div>
     </div>
   </div>
@@ -630,65 +628,17 @@ footer { background: #f1f1f1; color: var(--text-dark); padding: 3.5rem 4rem 2rem
 <!-- AVIS CLIENTS -->
 <section class="section s-light" data-theme="light">
   <div class="s-eyebrow"><span class="s-label">Témoignages</span><span class="s-rule"></span><span class="s-n">06</span></div>
-  <h2 class="s-title right rev">Ce qu'ils disent.</h2>
-  <div class="reviews-outer rev">
-    <div class="reviews-viewport">
-      <div class="reviews-track" id="revTrack">
-        <div class="rev-card">
-          <div class="rev-stars">★★★★★</div>
-          <p class="rev-quote">« Orae Agency a totalement transformé l'image de notre marque. Un travail d'une précision et d'une cohérence remarquables. »</p>
-          <div class="rev-author-row">
-            <div><div class="rev-name">Camille D.</div><div class="rev-proj">Brand Design</div></div>
-            <div class="rev-date">Janv. 2025</div>
-          </div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars">★★★★★</div>
-          <p class="rev-quote">« Une vision créative forte, une équipe qui sait exactement où elle va. Le résultat a dépassé toutes nos attentes. »</p>
-          <div class="rev-author-row">
-            <div><div class="rev-name">Marc A.</div><div class="rev-proj">Direction artistique</div></div>
-            <div class="rev-date">Mars 2025</div>
-          </div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars">★★★★★</div>
-          <p class="rev-quote">« Travail soigné, écoute parfaite, délais respectés. Nous avons enfin une identité visuelle qui nous ressemble vraiment. »</p>
-          <div class="rev-author-row">
-            <div><div class="rev-name">Sophie L.</div><div class="rev-proj">Identité visuelle</div></div>
-            <div class="rev-date">Fév. 2025</div>
-          </div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars">★★★★★</div>
-          <p class="rev-quote">« Des animations d'une fluidité exceptionnelle. Notre audience a adoré, l'engagement sur nos réseaux a bondi de 40 %. »</p>
-          <div class="rev-author-row">
-            <div><div class="rev-name">Thomas R.</div><div class="rev-proj">Motion Design</div></div>
-            <div class="rev-date">Nov. 2024</div>
-          </div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars">★★★★★</div>
-          <p class="rev-quote">« Un sens du détail rare. Chaque support livré est irréprochable, du choix typographique aux couleurs d'impression. »</p>
-          <div class="rev-author-row">
-            <div><div class="rev-name">Inès V.</div><div class="rev-proj">Print &amp; Packaging</div></div>
-            <div class="rev-date">Déc. 2024</div>
-          </div>
-        </div>
-        <div class="rev-card">
-          <div class="rev-stars">★★★★★</div>
-          <p class="rev-quote">« Une collaboration fluide et inspirante du début à la fin. Orae Agency, c'est bien plus qu'un prestataire, un vrai partenaire créatif. »</p>
-          <div class="rev-author-row">
-            <div><div class="rev-name">Antoine M.</div><div class="rev-proj">Brand Strategy</div></div>
-            <div class="rev-date">Oct. 2024</div>
-          </div>
-        </div>
+  <div class="reviews-grid">
+    <div>
+      <h2 class="reviews-left-title">Ce qu'ils disent.</h2>
+      <p class="reviews-left-desc">Nos clients parlent mieux de nous que nous-mêmes. Voici quelques retours sur notre travail.</p>
+      <div class="reviews-controls">
+        <button class="rev-btn" id="revPrev" aria-label="Précédent">↑</button>
+        <span class="rev-progress" id="revProgress">01 / 06</span>
+        <button class="rev-btn" id="revNext" aria-label="Suivant">↓</button>
       </div>
     </div>
-    <div class="reviews-controls">
-      <span class="rev-progress" id="revProgress">01 / 02</span>
-      <button class="rev-btn" id="revPrev" aria-label="Précédent">←</button>
-      <button class="rev-btn" id="revNext" aria-label="Suivant">→</button>
-    </div>
+    <div class="reviews-col" id="revCol"></div>
   </div>
 </section>
 
@@ -876,38 +826,47 @@ footer { background: #f1f1f1; color: var(--text-dark); padding: 3.5rem 4rem 2rem
   draw();
 })();
 
-/* REVIEWS CAROUSEL */
+/* REVIEWS */
 (function(){
-  const track = document.getElementById('revTrack');
-  const prevBtn = document.getElementById('revPrev');
-  const nextBtn = document.getElementById('revNext');
-  const progress = document.getElementById('revProgress');
-  if(!track) return;
-  const cards = Array.from(track.querySelectorAll('.rev-card'));
+  const reviews = [
+    { name:'Camille D.', proj:'Brand Design · Janv. 2025', text:'Orae Agency a totalement transformé l\'image de notre marque. Un travail d\'une précision et d\'une cohérence remarquables.' },
+    { name:'Marc A.', proj:'Direction artistique · Mars 2025', text:'Une vision créative forte, une équipe qui sait exactement où elle va. Le résultat a dépassé toutes nos attentes.' },
+    { name:'Sophie L.', proj:'Identité visuelle · Fév. 2025', text:'Travail soigné, écoute parfaite, délais respectés. Nous avons enfin une identité qui nous ressemble vraiment.' },
+    { name:'Thomas R.', proj:'Motion Design · Nov. 2024', text:'Des animations d\'une fluidité exceptionnelle. L\'engagement sur nos réseaux a bondi de 40%.' },
+    { name:'Inès V.', proj:'Print & Packaging · Déc. 2024', text:'Un sens du détail rare. Chaque support livré est irréprochable.' },
+    { name:'Antoine M.', proj:'Brand Strategy · Oct. 2024', text:'Une collaboration fluide et inspirante. Orae Agency, c\'est bien plus qu\'un prestataire.' },
+  ];
+  const initials = n => n.split(' ').map(x=>x[0]).join('');
   let cur = 0;
+  const N = 3;
+  const col = document.getElementById('revCol');
+  const prev = document.getElementById('revPrev');
+  const next = document.getElementById('revNext');
+  const prog = document.getElementById('revProgress');
+  if(!col) return;
 
-  function visible() {
-    return window.innerWidth <= 600 ? 1 : window.innerWidth <= 900 ? 2 : 3;
+  function render(){
+    col.innerHTML = '';
+    for(let i=0;i<N;i++){
+      const r = reviews[(cur+i)%reviews.length];
+      const d = document.createElement('div');
+      d.className = 'rev-card'+(i===0?' active':'');
+      d.innerHTML = `<div class="rev-avatar"><span class="rev-avatar-ph">${initials(r.name)}</span></div>
+        <div class="rev-body">
+          <div class="rev-name">${r.name}</div>
+          <div class="rev-quote-text">${r.text}</div>
+          <div class="rev-proj">${r.proj}</div>
+        </div>
+        <div class="rev-quote-icon">❝</div>`;
+      col.appendChild(d);
+    }
+    prog.textContent = String(cur+1).padStart(2,'0')+' / '+String(reviews.length).padStart(2,'0');
+    prev.disabled = cur===0;
+    next.disabled = cur>=reviews.length-N;
   }
-  function maxI() { return Math.max(0, cards.length - visible()); }
-
-  function update() {
-    const vis = visible();
-    const gap = 24;
-    const vp = track.parentElement;
-    const cardW = (vp.offsetWidth - gap * (vis - 1)) / vis;
-    track.style.transform = 'translateX(-' + (cur * (cardW + gap)) + 'px)';
-    const total = Math.ceil(cards.length / vis);
-    const page = Math.floor(cur / vis) + 1;
-    if(progress) progress.textContent = String(page).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
-    prevBtn.disabled = cur === 0;
-    nextBtn.disabled = cur >= maxI();
-  }
-
-  prevBtn.addEventListener('click', () => { cur = Math.max(0, cur - visible()); update(); });
-  nextBtn.addEventListener('click', () => { cur = Math.min(maxI(), cur + visible()); update(); });
-  window.addEventListener('resize', () => { cur = 0; update(); });
-  update();
+  prev.addEventListener('click',()=>{ cur=Math.max(0,cur-1); render(); });
+  next.addEventListener('click',()=>{ cur=Math.min(reviews.length-N,cur+1); render(); });
+  render();
 })();
 
 /* FORM */
