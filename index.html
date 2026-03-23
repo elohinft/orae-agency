@@ -269,29 +269,23 @@ input, textarea { font-family: var(--ff-b); }
 
 /* PROCESS */
 .proc-wrap { position: relative; }
-.proc-track { display: flex; align-items: flex-start; position: relative; }
-.proc-connector { display: none; }
-.proc { flex: 1; position: relative; z-index: 1; padding: 2.5rem 2rem 2.5rem 0; display: flex; flex-direction: column; }
-.proc::after { display: none !important; }
-.proc::before { display: none !important; }
-.proc-dot { display: none; }
-.proc-n {
-  font-family: var(--ff-h); font-weight: 400;
-  font-size: 4rem; letter-spacing: -.06em; line-height: 1;
-  color: rgba(26,24,32,0.22); margin-bottom: 1.6rem;
-  display: inline-block;
-  animation: proc-breathe 3.2s ease-in-out infinite;
+.proc-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 0; }
+.proc-left { padding-right: 4rem; }
+.proc-left-title { font-family: var(--ff-h); font-weight: 500; font-size: clamp(1.2rem, 2vw, 1.8rem); line-height: 1.15; letter-spacing: -.025em; color: var(--text-dark); margin-bottom: 1.5rem; }
+.proc-left-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.45); line-height: 1.8; }
+.proc-right { padding-left: 4rem; }
+.proc-steps { position: relative; }
+.proc-steps::before { content: ''; position: absolute; left: calc(130px + 13px); top: .25rem; bottom: .25rem; width: 1px; background: rgba(26,24,32,0.1); }
+.proc-step { display: grid; grid-template-columns: 130px 28px 1fr; padding: 1.2rem 0; align-items: start; }
+.proc-step-name { font-family: var(--ff-h); font-weight: 500; font-size: .82rem; letter-spacing: .01em; color: var(--text-dark); padding-top: .2rem; }
+.proc-step-dot { width: 7px; height: 7px; background: var(--light); border: 1px solid rgba(26,24,32,0.35); border-radius: 50%; margin-top: .25rem; position: relative; z-index: 1; }
+.proc-step-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.5); line-height: 1.75; padding-left: 1rem; }
+@media (max-width:900px) {
+  .proc-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .proc-left { padding-right: 0; }
+  .proc-right { padding-left: 0; }
+  .proc-steps::before { left: 13px; }
 }
-.proc:nth-child(2) .proc-n { animation-delay: .4s; }
-.proc:nth-child(3) .proc-n { animation-delay: .8s; }
-.proc:nth-child(4) .proc-n { animation-delay: 1.2s; }
-.proc:nth-child(5) .proc-n { animation-delay: 1.6s; }
-@keyframes proc-breathe {
-  0%,100% { color: rgba(26,24,32,0.16); transform: scale(1); }
-  50%      { color: rgba(26,24,32,0.55); transform: scale(1.05); }
-}
-.proc-title { font-family: var(--ff-h); font-weight: 400; font-size: .95rem; margin-bottom: .65rem; }
-.proc-desc { font-size: .85rem; opacity: .5; line-height: 1.72; font-weight: 300; }
 
 /* CONTACT — coords left, form right */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
@@ -598,20 +592,21 @@ footer { background: #f1f1f1; color: var(--text-dark); padding: 3.5rem 4rem 2rem
 </section>
 
 <!-- PROCESS -->
-<section class="section s-light" data-theme="light" style="padding-top:6.5rem">
-  <div class="proc-wrap rev">
-    <div class="proc-connector" aria-hidden="true">
-      <div class="proc-line-seg"></div>
-      <div class="proc-line-seg"></div>
-      <div class="proc-line-seg"></div>
-      <div class="proc-line-seg"></div>
+<section class="section s-light" data-theme="light">
+  <div class="s-eyebrow"><span class="s-label">Notre processus</span><span class="s-rule"></span></div>
+  <div class="proc-grid">
+    <div class="proc-left">
+      <h2 class="proc-left-title">Comment nous travaillons ensemble.</h2>
+      <p class="proc-left-desc">Du premier échange au rendu final, chaque étape est pensée pour que vous soyez accompagné avec clarté et confiance.</p>
     </div>
-    <div class="proc-track">
-      <div class="proc"><div class="proc-dot"></div><div class="proc-n">01</div><div class="proc-title">Premier contact</div><div class="proc-desc">Un appel, un mail. Vous décrivez vos besoins, contraintes et vision.</div></div>
-      <div class="proc"><div class="proc-dot"></div><div class="proc-n">02</div><div class="proc-title">Diagnostic</div><div class="proc-desc">Nous analysons votre marque et nous proposons une direction créative claire.</div></div>
-      <div class="proc"><div class="proc-dot"></div><div class="proc-n">03</div><div class="proc-title">Création</div><div class="proc-desc">Notre équipe vous fournit des propositions visuelles et on affine ensemble.</div></div>
-      <div class="proc"><div class="proc-dot"></div><div class="proc-n">04</div><div class="proc-title">Livraison</div><div class="proc-desc">Fichiers finaux, tous formats, guides d'utilisation complets.</div></div>
-      <div class="proc"><div class="proc-dot"></div><div class="proc-n">05</div><div class="proc-title">Suivi</div><div class="proc-desc">Nous restons disponibles pour toute évolution ou nouveau besoin.</div></div>
+    <div class="proc-right">
+      <div class="proc-steps">
+        <div class="proc-step"><span class="proc-step-name">Premier contact</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Un appel, un mail. Vous décrivez vos besoins, contraintes et vision.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Diagnostic</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Nous analysons votre marque et proposons une direction créative claire.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Création</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Notre équipe vous fournit des propositions visuelles et on affine ensemble.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Livraison</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Fichiers finaux, tous formats, guides d'utilisation complets.</span></div>
+        <div class="proc-step"><span class="proc-step-name">Suivi</span><div style="display:flex;justify-content:center;"><div class="proc-step-dot"></div></div><span class="proc-step-desc">Nous restons disponibles pour toute évolution ou nouveau besoin.</span></div>
+      </div>
     </div>
   </div>
 </section>
