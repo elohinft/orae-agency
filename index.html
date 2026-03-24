@@ -679,7 +679,9 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   next.addEventListener('click',()=>{ cur=Math.min(reviews.length-N,cur+1); render(); });
   render();
 })();
-
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
 /* FORM */
 (function(){
   emailjs.init('0vYqN6ujzQ8RRSgVG');
