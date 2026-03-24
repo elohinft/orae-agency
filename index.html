@@ -46,7 +46,11 @@ input, textarea { font-family: var(--ff-b); }
 .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .nav-burger.open span:nth-child(2) { opacity: 0; }
 .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-@media (max-width:900px) { .nav-wrap { padding: 1rem 1.5rem; } .nav-right { display: none; } .nav-burger { display: flex; } }
+@media (max-width:900px) {
+  .nav-wrap { padding: 1rem 1.5rem; width: 100%; left: 0; right: 0; }
+  .nav-right { display: none; }
+  .nav-burger { display: flex; }
+}
 
 /* MOBILE MENU */
 .mobile-menu { position: fixed; inset: 0; z-index: 199; background: rgba(13,11,16,.96); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 5rem 2.5rem 3rem; gap: 0; transform: translateY(-100%); transition: transform .6s var(--ease); }
@@ -111,7 +115,7 @@ input, textarea { font-family: var(--ff-b); }
 .pi:nth-child(3) .pi-fill { background: #bababa; color: rgba(26,24,32,0.05); }
 .pi:nth-child(4) .pi-fill { background: #cecece; color: rgba(26,24,32,0.05); }
 
-/* PORTFOLIO DARK VEIL — toujours présent, disparaît au survol */
+/* PORTFOLIO DARK VEIL */
 .pi::before { content: ''; position: absolute; inset: 0; background: rgba(13,11,16,0.48); z-index: 1; transition: opacity .55s var(--ease); pointer-events: none; }
 .pi:hover::before { opacity: 0; }
 
@@ -160,7 +164,6 @@ input, textarea { font-family: var(--ff-b); }
 .proc-step-name { font-family: var(--ff-h); font-weight: 500; font-size: .85rem; color: var(--text-dark); line-height: 1.4; }
 .proc-step-dot { position: absolute; left: 150px; top: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: var(--light); border: 1px solid rgba(26,24,32,0.4); border-radius: 50%; z-index: 2; }
 .proc-step-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.5); line-height: 1.75; padding-left: 2rem; }
-@media (max-width:900px) { .proc-grid { grid-template-columns: 1fr; gap: 2.5rem; } .proc-steps-line, .proc-steps-scan { left: 0; } .proc-step { grid-template-columns: 120px 1fr; } .proc-step-dot { left: 120px; } }
 
 /* CONTACT */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
@@ -204,8 +207,6 @@ input, textarea { font-family: var(--ff-b); }
 .rev-quote-text { font-family: var(--ff-b); font-size: .78rem; font-weight: 300; color: rgba(26,24,32,0.5); line-height: 1.7; }
 .rev-proj { font-size: .62rem; color: rgba(26,24,32,0.28); letter-spacing: .08em; text-transform: uppercase; margin-top: .4rem; }
 .rev-quote-icon { font-size: 1.1rem; color: rgba(26,24,32,0.1); margin-left: auto; padding-left: .5rem; font-family: Georgia, serif; line-height: 1; flex-shrink: 0; }
-
-/* Controls sous les cards */
 .reviews-controls { display: flex; align-items: center; gap: .85rem; margin-top: 1.25rem; }
 .rev-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(26,24,32,0.2); background: transparent; display: flex; align-items: center; justify-content: center; cursor: none; font-size: .85rem; color: rgba(26,24,32,0.5); transition: all .2s; }
 .rev-btn:hover { background: #1a1820; color: #f1f1f1; border-color: #1a1820; }
@@ -214,7 +215,6 @@ input, textarea { font-family: var(--ff-b); }
 .reviews-right { display: flex; flex-direction: column; padding-top: .5rem; }
 .reviews-right-title { font-family: var(--ff-h); font-weight: 500; font-size: clamp(1.4rem, 2.2vw, 2.1rem); line-height: 1.12; letter-spacing: -.025em; color: var(--text-dark); margin-bottom: 1rem; }
 .reviews-right-desc { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.45); line-height: 1.8; }
-@media (max-width:900px) { .reviews-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
 /* AGENDA CAL */
 .cal-card-link { display: block; text-decoration: none; cursor: none; }
@@ -257,7 +257,6 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
 .ft-legal { font-family: var(--ff-b); font-size: .62rem; color: rgba(26,24,32,0.25); letter-spacing: .04em; }
 .ft-legal a { color: inherit; border-bottom: 1px solid rgba(26,24,32,0.15); transition: opacity .25s; }
 .ft-legal a:hover { opacity: .7; }
-@media (max-width:900px) { footer { padding: 3rem 1.75rem 2rem; } .ft-inner { flex-direction: column; gap: 2rem; } .ft-nav-links { flex-wrap: wrap; gap: 1.2rem; } .ft-bottom { flex-direction: column; align-items: flex-start; } .ft-contacts { flex-direction: column; gap: .5rem; } .ft-contacts .fc-sep { display: none; } }
 
 /* REVEAL */
 .rev { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
@@ -271,6 +270,7 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   .ia-grid { grid-template-columns: 1fr; }
   .ia-grid .about-img { display: flex; aspect-ratio: 3/4; max-width: 100%; }
 }
+
 @media (max-width:900px) {
   .section { padding: 5rem 1.75rem; }
   .nav-links,.nav-sep,.nav-cta { display: none; }
@@ -279,22 +279,49 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   .svc-grid { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
   .agenda-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .port-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: 4/3; }
-  .pi:nth-child(1){grid-column:1/2;grid-row:1/3}
-  .pi:nth-child(2){grid-column:2/3;grid-row:1/2}
-  .pi:nth-child(3){grid-column:2/3;grid-row:2/3}
-  .pi:nth-child(4){display:none}
-  .pi-thumb { aspect-ratio: unset !important; height: 100%; }
+
+  /* AGENDA — texte avant calendrier */
+  .agenda-text { order: -1; }
+
+  /* REVIEWS — titre avant cards */
+  .reviews-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .reviews-right { order: -1; }
+
+  /* PROCESS — titre/texte avant étapes + ligne bien centrée */
+  .proc-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .proc-grid > div:last-child { order: -1; }
+  .proc-steps-line { left: 120px; }
+  .proc-steps-scan { left: 120px; }
+  .proc-step { grid-template-columns: 120px 1fr; }
+  .proc-step-dot { left: 120px; }
+
+  /* PORTFOLIO — nouveau layout mobile */
+  .port-mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 8px;
+    aspect-ratio: unset;
+  }
+  .port-mosaic .pi:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+  .port-mosaic .pi:nth-child(1) .pi-thumb { aspect-ratio: 2/3; height: auto; }
+  .port-mosaic .pi:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .port-mosaic .pi:nth-child(2) .pi-thumb { aspect-ratio: 1/1; height: auto; }
+  .port-mosaic .pi:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .port-mosaic .pi:nth-child(3) .pi-thumb { aspect-ratio: 3/4; height: auto; }
+  .port-mosaic .pi:nth-child(4) { grid-column: 1 / -1; grid-row: 3; display: block; }
+  .port-mosaic .pi:nth-child(4) .pi-thumb { aspect-ratio: 16/7; height: auto; }
+  .pi-thumb { aspect-ratio: unset; height: 100%; }
 }
+
 @media (max-width:600px) {
   .svc-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
-  .port-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: 4/3; }
-  .pi:nth-child(1){grid-column:1/2 !important;grid-row:1/3 !important}
-  .pi:nth-child(2){grid-column:2/3 !important;grid-row:1/2 !important}
-  .pi:nth-child(3){grid-column:2/3 !important;grid-row:2/3 !important}
-  .pi:nth-child(4){display:none !important}
-  .nav-wrap { left: .75rem; right: .75rem; transform: none; justify-content: space-between; }
+  .nav-wrap { left: 0; right: 0; padding: 1rem 1.25rem; }
+  .port-mosaic .pi:nth-child(1) { grid-column: 1 !important; grid-row: 1 / 3 !important; }
+  .port-mosaic .pi:nth-child(2) { grid-column: 2 !important; grid-row: 1 !important; }
+  .port-mosaic .pi:nth-child(3) { grid-column: 2 !important; grid-row: 2 !important; }
+  .port-mosaic .pi:nth-child(4) { grid-column: 1 / -1 !important; grid-row: 3 !important; display: block !important; }
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -344,7 +371,7 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
     </div>
     <div class="hero-right">
       <h1 class="hero-main-title">Orae Agency est une agence de design créatif qui vous rend unique.</h1>
-      <p class="hero-main-desc">Direction artistique, design graphique, web design, product design, illustration,  motion, brand design et stratégie créative. Nous accompagnons les marques ambitieuses dans la construction d'une image forte, cohérente et mémorable ; du premier brief au rendu final.</p>
+      <p class="hero-main-desc">Direction artistique, design graphique, web design, product design, illustration, motion, brand design et stratégie créative. Nous accompagnons les marques ambitieuses dans la construction d'une image forte, cohérente et mémorable ; du premier brief au rendu final.</p>
     </div>
   </div>
   <div class="hero-img-band">
@@ -364,20 +391,14 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
     <article class="pi rev"><div class="pi-thumb"><img src="poster-cool.png" alt="Maison Odalys"><div class="pi-ov"><span class="pi-cat">Print</span></div></div><div class="pi-meta"><span class="pi-name">Maison Odalys</span><span class="pi-yr">2025</span></div></article>
     <article class="pi rev d1"><div class="pi-thumb"><img src="ordi.png" alt="Studio Kern"><div class="pi-ov"><span class="pi-cat">Web Design</span></div></div><div class="pi-meta"><span class="pi-name">Studio Kern</span><span class="pi-yr">2025</span></div></article>
     <article class="pi rev d2">
-    <div class="pi-thumb">
+      <div class="pi-thumb">
         <video autoplay loop muted playsinline preload="auto">
-            <source src="3dliquid.mp4" type="video/mp4">
-            Ton navigateur ne supporte pas la balise vidéo.
+          <source src="3dliquid.mp4" type="video/mp4">
         </video>
-        <div class="pi-ov">
-            <span class="pi-cat">Motion Design</span>
-        </div>
-    </div>
-    <div class="pi-meta">
-        <span class="pi-name">Revue Forma</span>
-        <span class="pi-yr">2024</span>
-    </div>
-</article>
+        <div class="pi-ov"><span class="pi-cat">Motion Design</span></div>
+      </div>
+      <div class="pi-meta"><span class="pi-name">Revue Forma</span><span class="pi-yr">2024</span></div>
+    </article>
     <article class="pi rev d3"><div class="pi-thumb"><img src="creme-eau.png" alt="Atelier Sève"><div class="pi-ov"><span class="pi-cat">Brand Design · Packaging</span></div></div><div class="pi-meta"><span class="pi-name">Atelier Sève</span><span class="pi-yr">2024</span></div></article>
   </div>
 </section>
