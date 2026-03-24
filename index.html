@@ -620,8 +620,15 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   if(!cv) return;
   if(navigator.userAgent.includes('Firefox')){ document.body.style.cursor='auto'; return; }
   const ctx = cv.getContext('2d');
-  function resize(){ cv.width=window.innerWidth; cv.height=window.innerHeight; }
-  resize(); window.addEventListener('resize',resize);
+  const dpr = window.devicePixelRatio || 1;
+  function resize(){
+    cv.width = window.innerWidth * dpr;
+    cv.height = window.innerHeight * dpr;
+    cv.style.width = window.innerWidth + 'px';
+    cv.style.height = window.innerHeight + 'px';
+    ctx.scale(dpr, dpr);
+  }
+  resize(); window.addEventListener('resize', resize);
   let mx=-200, my=-200, bx=-200, by=-200;
   let cursorLight = false;
   document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; });
