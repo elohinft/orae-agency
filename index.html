@@ -22,7 +22,7 @@
 @keyframes logo-breathe { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.12)} }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: var(--ff-b); background: var(--dark); color: var(--text-light); overflow-x: hidden; cursor: none; }
+body { font-family: var(--ff-b); background: var(--dark); color: var(--text-light); overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
 button { cursor: none; border: none; background: none; font-family: inherit; color: inherit; }
 input, textarea { font-family: var(--ff-b); }
@@ -614,14 +614,15 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
 /* CURSOR */
 (function(){
   const cv = document.getElementById('cursor-canvas');
-  if(!cv) return;
-  if(navigator.userAgent.includes('Firefox')){ document.body.style.cursor='auto'; return; }
+  if(!cv || window.matchMedia('(hover:none)').matches) return;
   const ctx = cv.getContext('2d');
   function resize(){ cv.width=window.innerWidth; cv.height=window.innerHeight; }
   resize(); window.addEventListener('resize',resize);
-  let mx=-200, my=-200, bx=-200, by=-200;
+  let mx=window.innerWidth/2, my=window.innerHeight/2;
+  let bx=mx, by=my;
   let cursorLight = false;
-  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; });
+  let active = false;
+  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; if(!active){active=true;} });
   const secs = document.querySelectorAll('[data-theme]');
   function updateTheme(){
     secs.forEach(s=>{ const r=s.getBoundingClientRect(); if(my>=r.top && my<r.bottom) cursorLight = s.dataset.theme==='light'; });
@@ -630,15 +631,17 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   function lerp(a,b,t){return a+(b-a)*t;}
   function draw(){
     ctx.clearRect(0,0,cv.width,cv.height);
+    if(!active){ requestAnimationFrame(draw); return; }
     updateTheme();
     bx=lerp(bx,mx,0.12); by=lerp(by,my,0.12);
     const col = cursorLight ? '26,24,32' : '242,242,242';
     ctx.beginPath(); ctx.arc(bx,by,14,0,Math.PI*2);
     ctx.strokeStyle=`rgba(${col},0.6)`; ctx.lineWidth=1; ctx.stroke();
-    ctx.beginPath(); ctx.arc(mx,my,2,0,Math.PI*2);
+    ctx.beginPath(); ctx.arc(mx,my,2.5,0,Math.PI*2);
     ctx.fillStyle=`rgba(${col},0.9)`; ctx.fill();
     requestAnimationFrame(draw);
   }
+  document.body.style.cursor='none';
   draw();
 })();
 
