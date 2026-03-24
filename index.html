@@ -614,15 +614,14 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
 /* CURSOR */
 (function(){
   const cv = document.getElementById('cursor-canvas');
-  if(!cv || window.matchMedia('(hover:none)').matches) return;
+  if(!cv) return;
+  if(navigator.userAgent.includes('Firefox')){ document.body.style.cursor='auto'; return; }
   const ctx = cv.getContext('2d');
   function resize(){ cv.width=window.innerWidth; cv.height=window.innerHeight; }
   resize(); window.addEventListener('resize',resize);
-  let mx=window.innerWidth/2, my=window.innerHeight/2;
-  let bx=mx, by=my;
+  let mx=-200, my=-200, bx=-200, by=-200;
   let cursorLight = false;
-  let active = false;
-  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; if(!active){active=true;} });
+  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; });
   const secs = document.querySelectorAll('[data-theme]');
   function updateTheme(){
     secs.forEach(s=>{ const r=s.getBoundingClientRect(); if(my>=r.top && my<r.bottom) cursorLight = s.dataset.theme==='light'; });
@@ -631,17 +630,15 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   function lerp(a,b,t){return a+(b-a)*t;}
   function draw(){
     ctx.clearRect(0,0,cv.width,cv.height);
-    if(!active){ requestAnimationFrame(draw); return; }
     updateTheme();
     bx=lerp(bx,mx,0.12); by=lerp(by,my,0.12);
     const col = cursorLight ? '26,24,32' : '242,242,242';
     ctx.beginPath(); ctx.arc(bx,by,14,0,Math.PI*2);
     ctx.strokeStyle=`rgba(${col},0.6)`; ctx.lineWidth=1; ctx.stroke();
-    ctx.beginPath(); ctx.arc(mx,my,2.5,0,Math.PI*2);
+    ctx.beginPath(); ctx.arc(mx,my,2,0,Math.PI*2);
     ctx.fillStyle=`rgba(${col},0.9)`; ctx.fill();
     requestAnimationFrame(draw);
   }
-  document.body.style.cursor='none';
   draw();
 })();
 
