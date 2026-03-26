@@ -232,26 +232,26 @@ input, textarea { font-family: var(--ff-b); }
 .cal-cta { margin-top: .25rem; font-family: var(--ff-h); font-size: .68rem; font-weight: 300; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dark); padding: .6rem 1.6rem; border: 1px solid rgba(26,24,32,0.22); border-radius: 2rem; }
 
 /* FOOTER */
-footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem 2rem; }
+footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem 2rem; }
 .ft-inner { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; }
 .ft-left { display: flex; flex-direction: column; }
 .ft-logo-row { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: inherit; margin-bottom: .4rem; }
 .ft-logo-circle { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.ft-name { font-family: var(--ff-h); font-weight: 400; font-size: .9rem; letter-spacing: -.01em; color: #1a1820; }
-.ft-tagline { font-family: var(--ff-b); font-size: .75rem; color: rgba(26,24,32,0.4); font-weight: 300; margin-top: .3rem; display: block; }
+.ft-logo-circle img { width: 60px; height: auto; }
+.ft-tagline { font-family: var(--ff-b); font-size: .75rem; color: rgba(242,242,242,0.35); font-weight: 300; margin-top: .3rem; display: block; }
 .ft-nav-links { display: flex; align-items: center; gap: 2.5rem; padding-top: .2rem; flex-wrap: wrap; }
-.ft-nav-links a { font-family: var(--ff-h); font-size: .72rem; font-weight: 300; letter-spacing: .02em; color: rgba(26,24,32,0.4); text-decoration: none; transition: color .2s; }
-.ft-nav-links a:hover { color: #1a1820; }
-.ft-nav-links .ft-cta { font-weight: 400; color: rgba(26,24,32,0.7); }
-.ft-nav-links .ft-cta:hover { color: #1a1820; }
-.ft-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(26,24,32,0.08); flex-wrap: wrap; gap: 1rem; }
+.ft-nav-links a { font-family: var(--ff-h); font-size: .72rem; font-weight: 300; letter-spacing: .02em; color: rgba(242,242,242,0.35); text-decoration: none; transition: color .2s; }
+.ft-nav-links a:hover { color: var(--text-light); }
+.ft-nav-links .ft-cta { font-weight: 400; color: rgba(242,242,242,0.6); }
+.ft-nav-links .ft-cta:hover { color: var(--text-light); }
+.ft-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(242,242,242,0.07); flex-wrap: wrap; gap: 1rem; }
 .ft-contacts { display: flex; gap: 0; flex-wrap: wrap; }
-.ft-contacts a { display: flex; align-items: center; gap: .4rem; padding: .3rem .8rem; font-family: var(--ff-b); font-size: .72rem; font-weight: 300; color: rgba(26,24,32,0.4); text-decoration: none; white-space: nowrap; transition: color .2s; }
-.ft-contacts a:hover { color: #1a1820; }
-.ft-contacts .fc-sep { width: 1px; height: 10px; background: rgba(26,24,32,0.1); align-self: center; flex-shrink: 0; }
+.ft-contacts a { display: flex; align-items: center; gap: .4rem; padding: .3rem .8rem; font-family: var(--ff-b); font-size: .72rem; font-weight: 300; color: rgba(242,242,242,0.35); text-decoration: none; white-space: nowrap; transition: color .2s; }
+.ft-contacts a:hover { color: var(--text-light); }
+.ft-contacts .fc-sep { width: 1px; height: 10px; background: rgba(242,242,242,0.1); align-self: center; flex-shrink: 0; }
 .ft-contacts svg { width: 11px; height: 11px; fill: currentColor; flex-shrink: 0; }
-.ft-legal { font-family: var(--ff-b); font-size: .62rem; color: rgba(26,24,32,0.25); letter-spacing: .04em; }
-.ft-legal a { color: inherit; border-bottom: 1px solid rgba(26,24,32,0.15); transition: opacity .25s; }
+.ft-legal { font-family: var(--ff-b); font-size: .62rem; color: rgba(242,242,242,0.2); letter-spacing: .04em; }
+.ft-legal a { color: inherit; border-bottom: 1px solid rgba(242,242,242,0.15); transition: opacity .25s; }
 .ft-legal a:hover { opacity: .7; }
 
 /* REVEAL */
@@ -265,6 +265,7 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   .about-img { display: flex; aspect-ratio: 3/4; max-width: 100%; }
   .ia-grid { grid-template-columns: 1fr; }
   .ia-grid .about-img { display: flex; aspect-ratio: 3/4; max-width: 100%; }
+  .ft-logo-circle img { width: 40px; height: auto; }
 }
 
 @media (max-width:900px) {
@@ -557,11 +558,11 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
 </section>
 
 <!-- FOOTER -->
-<footer data-theme="light">
+<footer data-theme="dark">
   <div class="ft-inner">
     <div class="ft-left">
       <a href="index.html" class="ft-logo-row">
-<div class="ft-logo-circle"><img src="orae_logo_noir_complet.svg" alt="Orae Agency" style="width:80px;height:auto;"></div>
+        <div class="ft-logo-circle"><img src="logo-blanc.png" alt="Orae Agency" style="width:80px;height:auto;"></div>
       </a>
       <span class="ft-tagline">Agence de design créatif — Montpellier et Grenoble</span>
     </div>
