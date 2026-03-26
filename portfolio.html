@@ -119,8 +119,7 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
 .ft-inner { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; }
 .ft-left { display: flex; flex-direction: column; }
 .ft-logo-row { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: inherit; margin-bottom: .4rem; }
-.ft-logo-circle { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex-shrink: 0; }
-.ft-logo-circle svg { width: 20px; height: auto; fill: #1a1820; animation: logo-breathe 3.2s ease-in-out infinite; }
+.ft-logo-circle { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .ft-name { font-family: var(--ff-h); font-weight: 400; font-size: .9rem; letter-spacing: -.01em; color: #1a1820; }
 .ft-tagline { font-family: var(--ff-b); font-size: .75rem; color: rgba(26,24,32,0.4); font-weight: 300; margin-top: .3rem; display: block; }
 .ft-nav-links { display: flex; align-items: center; gap: 2.5rem; padding-top: .2rem; flex-wrap: wrap; }
@@ -154,6 +153,7 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   .ft-bottom { flex-direction: column; align-items: flex-start; }
   .ft-contacts { flex-direction: column; gap: .5rem; }
   .ft-contacts .fc-sep { display: none; }
+  .ft-logo-circle img { width: 40px !important; }
 }
 @media (max-width:600px) { .masonry { columns: 1; } .form-row { grid-template-columns: 1fr; } }
 </style>
@@ -327,8 +327,7 @@ footer { background: var(--light); color: var(--text-dark); padding: 3.5rem 4rem
   <div class="ft-inner">
     <div class="ft-left">
       <a href="index.html" class="ft-logo-row">
-<div class="ft-logo-circle"><img src="orae_logo_noir_complet.svg" alt="Orae Agency" style="width:80px;height:auto;"></div>      
-      </a>
+<div class="ft-logo-circle"><img src="orae_logo_noir_complet.svg" alt="Orae Agency" style="width:60px;height:auto;"></div>      </a>
       <span class="ft-tagline">Agence de design créatif — Montpellier et Grenoble</span>
     </div>
     <nav class="ft-nav-links">
