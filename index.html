@@ -31,7 +31,8 @@ input, textarea { font-family: var(--ff-b); }
 @media (hover:none) { #cursor-canvas { display:none; } }
 
 /* NAV */
-.nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 3rem; background: rgba(241,241,241,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 3rem; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; transition: background .4s ease, backdrop-filter .4s ease, -webkit-backdrop-filter .4s ease; }
+.nav-wrap.scrolled { background: rgba(241,241,241,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .nav-logo-pill { display: flex; align-items: center; text-decoration: none; }
 .nav-logo-pill img { width: 80px; height: auto; }
 .nav-right { display: flex; align-items: center; gap: 2rem; }
@@ -67,7 +68,7 @@ input, textarea { font-family: var(--ff-b); }
 .side-icon svg { width: 15px; height: 15px; fill: currentColor; }
 
 /* HERO */
-.hero-section { background: var(--light); padding: 0; }
+.hero-section { background: var(--light); background-image: url('fond-hero.png'); background-size: cover; background-position: center; padding: 0; }
 .hero-content { display: grid; grid-template-columns: 44% 56%; padding: 8rem 4rem 0 4rem; gap: 0; align-items: center; min-height: 100vh; }
 .hero-left { padding-bottom: 2.5rem; }
 .hero-left-tag { font-family: var(--ff-b); font-size: .82rem; font-weight: 300; color: rgba(26,24,32,0.38); line-height: 1.75; max-width: 200px; }
@@ -683,6 +684,16 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
   prev.addEventListener('click',()=>{ cur=Math.max(0,cur-1); render(); });
   next.addEventListener('click',()=>{ cur=Math.min(reviews.length-N,cur+1); render(); });
   render();
+})();
+
+</script>
+<script>
+(function(){
+  const nav = document.querySelector('.nav-wrap');
+  if(!nav) return;
+  const update = () => nav.classList.toggle('scrolled', window.scrollY > 10);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
