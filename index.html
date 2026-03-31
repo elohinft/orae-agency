@@ -31,8 +31,9 @@ input, textarea { font-family: var(--ff-b); }
 @media (hover:none) { #cursor-canvas { display:none; } }
 
 /* NAV */
-.nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 3rem; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; transition: background .4s ease, box-shadow .4s ease, transform .4s ease; }
-.nav-wrap.scrolled { background: rgba(241,241,241,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(26,24,32,0.06); }
+.nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 3rem; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; transition: background .4s ease, transform .4s ease; }
+.nav-wrap.scrolled { background: rgba(241,241,241,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.nav-wrap.menu-open { background: transparent !important; backdrop-filter: none !important; }
 .nav-hidden { transform: translateY(-110%); }
 .nav-right { display: flex; align-items: center; gap: 2rem; }
 .nav-links { display: flex; align-items: center; list-style: none; gap: 2rem; padding: 0; }
