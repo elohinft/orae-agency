@@ -168,7 +168,7 @@ input, textarea { font-family: var(--ff-b); }
 
 /* ─── PROCESS ─── */
 .proc-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
-.proc-col { padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: flex-end; min-height: 100vh; border-right: .5px solid rgba(242,242,242,0.07); position: relative; overflow: hidden; }
+.proc-col { padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; border-right: .5px solid rgba(242,242,242,0.07); position: relative; overflow: hidden; }
 .proc-col:last-child { border-right: none; }
 .proc-col-bg { position: absolute; inset: -20%; background-image: url('fondnew.png'); background-size: 250%; opacity: 0; transition: opacity .5s ease; filter: brightness(.75); }
 .proc-col:nth-child(1) .proc-col-bg { background-position: 0% 80%; }
@@ -177,32 +177,28 @@ input, textarea { font-family: var(--ff-b); }
 .proc-col:nth-child(4) .proc-col-bg { background-position: 75% 20%; }
 .proc-col:nth-child(5) .proc-col-bg { background-position: 100% 0%; }
 .proc-col:hover .proc-col-bg { opacity: 1; }
-.proc-step-num { position: relative; z-index: 1; font-family: var(--ff-h); font-weight: 500; font-size: 2.2rem; line-height: 1; letter-spacing: -.04em; color: #f1f1f1; margin-bottom: .4rem; }
-.proc-step-name { position: relative; z-index: 1; font-family: var(--ff-h); font-weight: 500; font-size: .85rem; color: #f1f1f1; line-height: 1.2; margin-bottom: .6rem; }
-.proc-step-desc { position: relative; z-index: 1; font-family: var(--ff-b); font-size: .72rem; font-weight: 300; color: rgba(242,242,242,0.4); line-height: 1.75; transition: color .3s; }
+.proc-step-num { position: relative; z-index: 1; font-family: var(--ff-h); font-weight: 500; font-size: 3.5rem; line-height: 1; letter-spacing: -.04em; color: #f1f1f1; margin-bottom: .6rem; }
+.proc-step-name { position: relative; z-index: 1; font-family: var(--ff-h); font-weight: 500; font-size: var(--fs-title); color: #f1f1f1; line-height: 1.12; letter-spacing: -.025em; margin-bottom: .8rem; }
+.proc-step-desc { position: relative; z-index: 1; font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: rgba(242,242,242,0.4); line-height: 1.85; transition: color .3s; }
 .proc-col:hover .proc-step-desc { color: rgba(255,255,255,0.9); }
 
 /* ─── REVIEWS ─── */
-.reviews-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
-.reviews-cards-col { display: flex; flex-direction: column; gap: 1rem; }
-.reviews-col { display: flex; flex-direction: column; gap: .75rem; }
-.rev-card { display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: white; border: .5px solid rgba(26,24,32,0.08); }
-.rev-card.active { border-color: rgba(26,24,32,0.18); }
-.rev-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--light); border: 1px solid rgba(26,24,32,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.rev-avatar-ph { font-family: var(--ff-h); font-size: .62rem; font-weight: 500; color: rgba(26,24,32,0.5); }
-.rev-body { flex: 1; }
-.rev-name { font-family: var(--ff-h); font-weight: 500; font-size: .85rem; color: var(--text-dark); margin-bottom: .3rem; }
-.rev-quote-text { font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: var(--txt-sec-light); line-height: 1.7; }
-.rev-proj { font-size: .62rem; color: rgba(26,24,32,0.28); letter-spacing: .08em; text-transform: uppercase; margin-top: .4rem; }
-.rev-quote-icon { font-size: 1.1rem; color: rgba(26,24,32,0.1); margin-left: auto; padding-left: .5rem; font-family: Georgia, serif; line-height: 1; flex-shrink: 0; }
-.reviews-controls { display: flex; align-items: center; gap: .85rem; margin-top: 1.25rem; }
-.rev-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(26,24,32,0.2); background: transparent; display: flex; align-items: center; justify-content: center; cursor: none; font-size: .85rem; color: rgba(26,24,32,0.5); transition: all .2s; }
+.reviews-grid { display: grid; grid-template-columns: 260px 1fr; gap: 5rem; align-items: center; }
+.reviews-left { display: flex; flex-direction: column; gap: 2rem; }
+.reviews-left-desc { font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: var(--txt-sec-light); line-height: 1.85; }
+.reviews-controls { display: flex; gap: .75rem; }
+.rev-btn { width: 36px; height: 36px; border-radius: 50%; border: .5px solid rgba(26,24,32,0.25); background: transparent; display: flex; align-items: center; justify-content: center; cursor: none; font-size: .85rem; color: rgba(26,24,32,0.5); transition: all .2s; }
 .rev-btn:hover { background: #1a1820; color: #f1f1f1; border-color: #1a1820; }
 .rev-btn:disabled { opacity: .25; pointer-events: none; }
-.rev-progress { font-family: var(--ff-h); font-size: .6rem; letter-spacing: .12em; color: rgba(26,24,32,0.28); }
-.reviews-right { display: flex; flex-direction: column; padding-top: .5rem; }
-.reviews-right-title { font-family: var(--ff-h); font-weight: 500; font-size: var(--fs-title); line-height: 1.12; letter-spacing: -.025em; color: var(--text-dark); margin-bottom: 1rem; }
-.reviews-right-desc { font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: var(--txt-sec-light); line-height: 1.85; }
+.rev-progress { font-family: var(--ff-h); font-size: .6rem; letter-spacing: .12em; color: rgba(26,24,32,0.28); align-self: center; }
+.reviews-right { display: flex; flex-direction: column; gap: 1.5rem; }
+.rev-quote-mark { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 5rem; color: rgba(26,24,32,0.08); line-height: 1; margin-bottom: -.5rem; }
+.rev-quote-text { font-family: var(--ff-h); font-weight: 300; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -.025em; color: var(--text-dark); }
+.rev-quote-sub { font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: var(--txt-sec-light); line-height: 1.85; max-width: 520px; }
+.rev-author { display: flex; align-items: center; gap: .85rem; padding-top: .5rem; }
+.rev-avatar { width: 38px; height: 38px; border-radius: 50%; background: rgba(26,24,32,0.08); display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 500; color: rgba(26,24,32,0.5); flex-shrink: 0; }
+.rev-name { font-size: .82rem; font-weight: 500; color: var(--text-dark); }
+.rev-proj { font-family: var(--ff-b); font-size: .65rem; color: rgba(26,24,32,0.35); letter-spacing: .08em; text-transform: uppercase; margin-top: .15rem; }
 
 /* ─── CONTACT ─── */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
@@ -494,18 +490,15 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
 <section class="section s-light" data-theme="light">
   <div class="s-eyebrow"><span class="s-label">Témoignages</span><span class="s-rule"></span><span class="s-n">06</span></div>
   <div class="reviews-grid">
-    <div class="reviews-cards-col">
-      <div class="reviews-col" id="revCol"></div>
+    <div class="reviews-left">
+      <p class="reviews-left-desc">Ce que nos clients disent de notre travail. Des retours réels, des collaborations mémorables.</p>
       <div class="reviews-controls">
-        <button class="rev-btn" id="revPrev" aria-label="Précédent">↑</button>
+        <button class="rev-btn" id="revPrev" aria-label="Précédent">←</button>
+        <button class="rev-btn" id="revNext" aria-label="Suivant">→</button>
         <span class="rev-progress" id="revProgress">01 / 06</span>
-        <button class="rev-btn" id="revNext" aria-label="Suivant">↓</button>
       </div>
     </div>
-    <div class="reviews-right rev">
-      <h2 class="reviews-right-title">Ce qu'ils disent.</h2>
-      <p class="reviews-right-desc">Nos clients parlent d'eux-mêmes. Voici quelques retours sur notre travail.</p>
-    </div>
+    <div class="reviews-right" id="revCol"></div>
   </div>
 </section>
 
@@ -703,38 +696,36 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
 /* REVIEWS */
 (function(){
   const reviews = [
-    { name:'Camille D.', proj:'Brand Design · Janv. 2025', text:'Orae Agency a totalement transformé l\'image de notre marque. Un travail d\'une précision et d\'une cohérence remarquables.' },
-    { name:'Marc A.', proj:'Direction artistique · Mars 2025', text:'Une vision créative forte, une équipe qui sait exactement où elle va. Le résultat a dépassé toutes nos attentes.' },
-    { name:'Sophie L.', proj:'Identité visuelle · Fév. 2025', text:'Travail soigné, écoute parfaite, délais respectés. Nous avons enfin une identité qui nous ressemble vraiment.' },
-    { name:'Thomas R.', proj:'Motion Design · Nov. 2024', text:'Des animations d\'une fluidité exceptionnelle. L\'engagement sur nos réseaux a bondi de 40%.' },
-    { name:'Inès V.', proj:'Print & Packaging · Déc. 2024', text:'Un sens du détail rare. Chaque support livré est irréprochable.' },
-    { name:'Antoine M.', proj:'Brand Strategy · Oct. 2024', text:'Une collaboration fluide et inspirante. Orae Agency, c\'est bien plus qu\'un prestataire.' },
+    { name:'Camille D.', proj:'Brand Design · Janv. 2025', text:'Orae Agency a totalement transformé l\'image de notre marque. Un travail d\'une précision et d\'une cohérence remarquables.', sub:'L\'équipe a su capter notre vision dès le premier brief et la traduire en une identité visuelle forte et cohérente.' },
+    { name:'Marc A.', proj:'Direction artistique · Mars 2025', text:'Une vision créative forte, une équipe qui sait exactement où elle va. Le résultat a dépassé toutes nos attentes.', sub:'Chaque détail était pensé, chaque choix justifié. Une collaboration d\'une rare qualité.' },
+    { name:'Sophie L.', proj:'Identité visuelle · Fév. 2025', text:'Travail soigné, écoute parfaite, délais respectés. Nous avons enfin une identité qui nous ressemble vraiment.', sub:'Un processus fluide et transparent du début à la fin. Je recommande sans hésiter.' },
+    { name:'Thomas R.', proj:'Motion Design · Nov. 2024', text:'Des animations d\'une fluidité exceptionnelle. L\'engagement sur nos réseaux a bondi de 40%.', sub:'Orae a su transformer notre contenu statique en expériences visuelles mémorables.' },
+    { name:'Inès V.', proj:'Print & Packaging · Déc. 2024', text:'Un sens du détail rare. Chaque support livré est irréprochable.', sub:'De la carte de visite à l\'emballage, tout est cohérent et d\'une finition parfaite.' },
+    { name:'Antoine M.', proj:'Brand Strategy · Oct. 2024', text:'Une collaboration fluide et inspirante. Orae Agency, c\'est bien plus qu\'un prestataire.', sub:'Ils se sont impliqués comme si c\'était leur propre marque. Résultat au-delà de nos espérances.' },
   ];
   const initials = n => n.split(' ').map(x=>x[0]).join('');
   let cur = 0;
-  const N = 3;
   const col = document.getElementById('revCol');
   const prev = document.getElementById('revPrev');
   const next = document.getElementById('revNext');
   const prog = document.getElementById('revProgress');
   if(!col) return;
   function render(){
-    col.innerHTML = '';
-    for(let i=0;i<N;i++){
-      const r = reviews[(cur+i)%reviews.length];
-      const d = document.createElement('div');
-      d.className = 'rev-card'+(i===0?' active':'');
-      d.innerHTML = `<div class="rev-avatar"><span class="rev-avatar-ph">${initials(r.name)}</span></div>
-        <div class="rev-body"><div class="rev-name">${r.name}</div><div class="rev-quote-text">${r.text}</div><div class="rev-proj">${r.proj}</div></div>
-        <div class="rev-quote-icon">❝</div>`;
-      col.appendChild(d);
-    }
+    const r = reviews[cur];
+    col.innerHTML = `
+      <div class="rev-quote-mark">"</div>
+      <p class="rev-quote-text">${r.text}</p>
+      <p class="rev-quote-sub">${r.sub}</p>
+      <div class="rev-author">
+        <div class="rev-avatar">${initials(r.name)}</div>
+        <div><div class="rev-name">${r.name}</div><div class="rev-proj">${r.proj}</div></div>
+      </div>`;
     prog.textContent = String(cur+1).padStart(2,'0')+' / '+String(reviews.length).padStart(2,'0');
     prev.disabled = cur===0;
-    next.disabled = cur>=reviews.length-N;
+    next.disabled = cur>=reviews.length-1;
   }
   prev.addEventListener('click',()=>{ cur=Math.max(0,cur-1); render(); });
-  next.addEventListener('click',()=>{ cur=Math.min(reviews.length-N,cur+1); render(); });
+  next.addEventListener('click',()=>{ cur=Math.min(reviews.length-1,cur+1); render(); });
   render();
 })();
 </script>
