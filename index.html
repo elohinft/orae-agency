@@ -212,17 +212,17 @@ input, textarea { font-family: var(--ff-b); }
 .coord-val { font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: var(--txt-sec-dark); }
 
 /* ─── FORM ─── */
-.form { display: flex; flex-direction: column; gap: 1.25rem; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-.fg { display: flex; flex-direction: column; gap: .4rem; }
-.fl { font-family: var(--ff-h); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--txt-sec-dark); font-weight: 300; }
-.fi { background: rgba(242,242,242,0.04); border: 1px solid rgba(242,242,242,0.1); color: var(--text-light); padding: .85rem 1rem; font-size: var(--fs-body); font-family: var(--ff-b); font-weight: 300; outline: none; transition: border-color .2s; }
-.fi:focus { border-color: rgba(242,242,242,0.3); }
-.fi::placeholder { color: rgba(242,242,242,0.2); }
-.ft { background: rgba(242,242,242,0.04); border: 1px solid rgba(242,242,242,0.1); color: var(--text-light); padding: .85rem 1rem; font-size: var(--fs-body); font-family: var(--ff-b); font-weight: 300; outline: none; resize: vertical; min-height: 140px; transition: border-color .2s; }
-.ft:focus { border-color: rgba(242,242,242,0.3); }
-.ft::placeholder { color: rgba(242,242,242,0.2); }
-.form-submit { font-family: var(--ff-h); font-size: .72rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--text-light); padding: 1rem 2rem; border: 1px solid rgba(242,242,242,0.25); background: transparent; cursor: none; align-self: flex-start; transition: background .2s, border-color .2s; }
+.form { display: flex; flex-direction: column; gap: 2.5rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.fg { display: flex; flex-direction: column; }
+.fl { display: none; }
+.fi { -webkit-appearance: none; appearance: none; background: none; border: none; border-bottom: .5px solid rgba(242,242,242,0.25); color: var(--text-light); padding: .4rem 0 .6rem; font-size: var(--fs-body); font-family: var(--ff-b); font-weight: 300; outline: none; width: 100%; border-radius: 0; transition: border-color .2s; }
+.fi:focus { border-bottom-color: rgba(242,242,242,0.6); }
+.fi::placeholder { color: rgba(242,242,242,0.3); }
+.ft { -webkit-appearance: none; appearance: none; background: none; border: none; border-bottom: .5px solid rgba(242,242,242,0.25); color: var(--text-light); padding: .4rem 0 .6rem; font-size: var(--fs-body); font-family: var(--ff-b); font-weight: 300; outline: none; resize: none; min-height: 70px; width: 100%; border-radius: 0; transition: border-color .2s; }
+.ft:focus { border-bottom-color: rgba(242,242,242,0.6); }
+.ft::placeholder { color: rgba(242,242,242,0.3); }
+.form-submit { font-family: var(--ff-h); font-size: .68rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--text-light); padding: .75rem 1.8rem; border: 1px solid rgba(242,242,242,0.3); background: transparent; cursor: none; align-self: flex-start; transition: background .2s, border-color .2s; }
 .form-submit:hover { background: rgba(242,242,242,0.06); border-color: rgba(242,242,242,0.5); }
 
 /* ─── AGENDA ─── */
