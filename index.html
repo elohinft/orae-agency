@@ -109,6 +109,7 @@ input, textarea { font-family: var(--ff-b); }
 .s-n { font-size: .58rem; opacity: .14; letter-spacing: .05em; }
 .s-title { font-family: var(--ff-h); font-weight: 300; font-size: var(--fs-title); line-height: 1.12; letter-spacing: -.025em; margin-bottom: 3rem; }
 .s-title.right { text-align: right; }
+#services { padding-top: 0; }
 
 /* ─── PORTFOLIO ─── */
 .port-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; }
@@ -166,8 +167,8 @@ input, textarea { font-family: var(--ff-b); }
 .about-tag-sep { color: rgba(26,24,32,0.22); padding: 0 .55rem; font-size: .82rem; user-select: none; }
 
 /* ─── PROCESS ─── */
-.proc-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
-.proc-col { padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; border-right: .5px solid rgba(242,242,242,0.07); position: relative; overflow: hidden; }
+.proc-grid { grid-template-columns: 1fr 1fr; }
+.proc-col { min-height: 50vw; padding-left: var(--margin); }
 .proc-col:last-child { border-right: none; }
 .proc-col-bg { position: absolute; inset: -20%; background-image: url('fondnew.png'); background-size: 250%; opacity: 0; transition: opacity .5s ease; filter: brightness(.75); }
 .proc-col:nth-child(1) .proc-col-bg { background-position: 0% 80%; }
@@ -389,8 +390,6 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
 
 <!-- SERVICES -->
 <section id="services" class="section s-dark" data-theme="dark">
-  <div class="s-eyebrow"><span class="s-label">Expertises</span><span class="s-rule"></span><span class="s-n">12</span></div>
-  <h2 class="s-title right rev">Services.</h2>
   <div class="svc-grid">
     <a href="portfolio.html" class="svc rev"><div class="svc-n">01</div><div class="svc-name">Direction artistique</div><div class="svc-desc">Vision globale, cadrage créatif, supervision des productions visuelles.</div></a>
     <a href="portfolio.html" class="svc rev d1"><div class="svc-n">02</div><div class="svc-name">Brand Design</div><div class="svc-desc">Identité visuelle complète, charte graphique, logo, typographie, couleurs.</div></a>
