@@ -214,6 +214,17 @@ input, textarea { font-family: var(--ff-b); }
 .proc-col:hover .proc-step-desc { color: rgba(255,255,255,0.75); }
 .proc-col:hover .proc-dot { background: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
+/* CONTACT */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 2rem; }
+.contact-info-title { font-family: var(--ff-h); font-weight: 300; font-size: var(--fs-title); letter-spacing: -.025em; color: var(--text-dark); }
+.contact-info-desc { font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: var(--txt-sec-light); line-height: 1.85; }
+.contact-details { display: flex; flex-direction: column; gap: .75rem; padding-top: 1rem; border-top: .5px solid var(--bdl); }
+.contact-detail { display: flex; align-items: center; gap: .75rem; font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; color: var(--txt-sec-light); }
+.contact-detail a { color: var(--text-dark); transition: opacity .2s; }
+.contact-detail a:hover { opacity: .55; }
+.contact-sub { font-family: var(--ff-b); font-size: var(--fs-body); font-weight: 300; line-height: 1.85; color: var(--txt-sec-light); margin-bottom: 2rem; }
+
 /* REVIEWS */
 @keyframes starColorMove {
   0% { color: #F16244; } 35% { color: #F06147; } 65% { color: #C06AAD; } 85% { color: #7970DD; } 100% { color: #F16244; }
@@ -232,7 +243,7 @@ input, textarea { font-family: var(--ff-b); }
 .rev-stars { font-size: .8rem; letter-spacing: .1em; animation: starColorMove 3s ease infinite; }
 .rev-card:hover .rev-stars { animation: starColorMoveHover 3s ease infinite; }
 .rev-quote-text { font-family: var(--ff-b); font-size: .78rem; font-weight: 300; color: #1a1820; line-height: 1.65; transition: color .35s; }
-.rev-quote-text.big { font-family: var(--ff-h); font-size: .88rem; }
+.rev-quote-text.big { font-size: .88rem; }
 .rev-card:hover .rev-quote-text { color: rgba(255,255,255,0.75); }
 .rev-sep { height: 1px; background: rgba(13,11,16,0.07); transition: background .35s; }
 .rev-card:hover .rev-sep { background: rgba(255,255,255,0.1); }
