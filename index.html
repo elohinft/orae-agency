@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -113,7 +114,7 @@ input, textarea { font-family: var(--ff-b); }
 .port-link-arrow { display: inline-block; transition: transform .3s var(--ease); }
 .port-link:hover .port-link-arrow { transform: translateX(4px); }
 .port-grid { display: grid; grid-template-columns: 2fr 1.5fr 1.5fr; grid-template-rows: 300px 300px; gap: 5px; }
-.pmi { position: relative; overflow: hidden; cursor: none; }
+.pmi { position: relative; overflow: hidden; cursor: none; border-radius: 10px; }
 .pmi img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.1s var(--ease); }
 .pmi:hover img { transform: scale(1.04); }
 .pmi-ov { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: .85rem; background: rgba(13,11,16,0); transition: background .4s; }
@@ -404,10 +405,30 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
   85% { border-color: rgba(121,112,221,0.25); }
   100% { border-color: rgba(241,98,68,0.25); }
 }
+
+/* ===== MOBILE TOPBAR ===== */
+.m-topbar { display:none; position:fixed; top:0; left:0; right:0; z-index:202; height:52px; align-items:center; justify-content:center; background:rgba(241,241,241,0.95); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:.5px solid rgba(26,24,32,0.07); }
+.m-topbar a { display:flex; align-items:center; }
+.m-topbar img { height:32px; width:auto; }
+/* ===== MOBILE BOTTOMBAR ===== */
+.m-bar { display:none; position:fixed; bottom:0; left:0; right:0; z-index:202; background:#0d0b10; border-top:.5px solid rgba(242,242,242,0.08); padding:.8rem 0 calc(env(safe-area-inset-bottom,0px) + .55rem); }
+.m-bar-inner { display:flex; align-items:center; width:100%; }
+.m-bar a { font-family:var(--ff-h); font-size:.56rem; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,242,242,0.32); font-weight:300; text-decoration:none; flex:1; text-align:center; padding:.3rem 0; display:flex; align-items:center; justify-content:center; }
+.m-bar a.on { color:#f1f1f1; border-bottom:1px solid rgba(242,242,242,0.45); }
+.m-bar a.rdv { color:rgba(242,242,242,0.65); padding:.25rem .65rem; border:.5px solid rgba(242,242,242,0.25); border-radius:2rem; flex:unset; }
+@media (max-width:600px) {
+  body { padding-top:52px; padding-bottom:74px; cursor:auto; }
+  .nav-logo-fixed, .nav-burger, .mobile-menu, .mobile-menu-overlay, .side-icons, #cursor-canvas { display:none !important; }
+  .m-topbar, .m-bar { display:flex; }
+  .about-img { max-width:65% !important; margin:0 auto; }
+  .pmi { border-radius:10px; }
+}
 </style>
 </head>
 <body>
 <canvas id="cursor-canvas"></canvas>
+<!-- MOBILE TOPBAR -->
+<div class="m-topbar"><a href="index.html"><img src="orae_logo_noir_complet.svg" alt="Orae Agency"></a></div>
 
 <!-- NAV -->
 <a href="index.html" class="nav-logo-fixed" id="nav-logo" aria-label="Orae Agency">
@@ -439,7 +460,7 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
 <!-- SIDE ICONS -->
 <div class="side-icons on-light" id="side-icons">
   <a href="https://www.instagram.com/orae_agency/" target="_blank" class="side-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-<a href="/cdn-cgi/l/email-protection#5f302d3e3a713e383a313c261f38323e3633713c3032" class="side-icon" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a>
+<a href="mailto:hello@orae.agency" class="side-icon" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a>
   <a href="https://www.linkedin.com/company/orae-agency/" target="_blank" class="side-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
 </div>
 
@@ -672,7 +693,7 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
       <h2 class="contact-info-title">Un projet ?<br>Parlons-en.</h2>
       <p class="contact-info-desc">On vous répond sous 24h. Aucun engagement, juste un échange pour voir si on peut construire quelque chose ensemble.</p>
       <div class="contact-details">
-        <div class="contact-detail"><a href="/cdn-cgi/l/email-protection#4f203d2e2a612e282a212c360f28222e2623612c2022"><span class="__cf_email__" data-cfemail="741b0615115a1513111a170d341319151d185a171b19">[email&#160;protected]</span></a></div>
+        <div class="contact-detail"><a href="mailto:hello@orae.agency">hello@orae.agency</a></div>
         <div class="contact-detail"><a href="https://www.instagram.com/orae_agency/" target="_blank">@orae_agency</a></div>
         <div class="contact-detail">Montpellier, France</div>
       </div>
@@ -731,6 +752,17 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
 </section>
 
 <!-- FOOTER -->
+<!-- MOBILE BOTTOM NAV -->
+<nav class="m-bar">
+  <div class="m-bar-inner">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="#services">Services</a>
+    <a href="#about">À propos</a>
+    <a href="#contact">Contact</a>
+    <a href="#agenda" class="rdv">RDV</a>
+  </div>
+</nav>
+
 <footer data-theme="dark">
   <div class="ft-inner">
     <div class="ft-left">
@@ -747,7 +779,7 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem var(
   </div>
   <div class="ft-bottom">
     <div class="ft-contacts">
-      <a href="/cdn-cgi/l/email-protection#26495447430847414348455f66414b474f4a0845494b"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg><span class="__cf_email__" data-cfemail="88e7fae9eda6e9efede6ebf1c8efe5e9e1e4a6ebe7e5">[email&#160;protected]</span></a>
+      <a href="mailto:hello@orae.agency"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>hello@orae.agency</a>
       <span class="fc-sep"></span>
       <span class="fc-sep"></span>
       <a href="https://www.instagram.com/orae_agency/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>
