@@ -88,7 +88,43 @@ input, textarea { font-family: var(--ff-b); }
 .masonry-item:hover .masonry-cat, .masonry-item:hover .masonry-name, .masonry-item:hover .masonry-desc { opacity: 1; transform: translateY(0); }
 .masonry-item.tapped .masonry-cat, .masonry-item.tapped .masonry-name, .masonry-item.tapped .masonry-desc { opacity: 1; transform: translateY(0); }
 @media (max-width:900px) { .masonry { columns: 2; padding: 3rem 1.75rem; } }
-@media (max-width:600px) { .masonry { columns: 1; } }
+
+/* ===== MOBILE TOPBAR ===== */
+.m-topbar { display:none; position:fixed; top:0; left:0; right:0; z-index:202; height:52px; align-items:center; justify-content:center; background:rgba(241,241,241,0.95); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:.5px solid rgba(26,24,32,0.07); }
+.m-topbar a { display:flex; align-items:center; }
+.m-topbar img { height:32px; width:auto; }
+
+/* ===== MOBILE BOTTOMBAR ===== */
+.m-bar { display:none; position:fixed; bottom:0; left:0; right:0; z-index:202; background:#0d0b10; border-top:.5px solid rgba(242,242,242,0.08); padding:.8rem 0 calc(env(safe-area-inset-bottom,0px) + .55rem); }
+.m-bar-inner { display:flex; align-items:center; width:100%; }
+.m-bar a { font-family:var(--ff-h); font-size:.56rem; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,242,242,0.32); font-weight:300; text-decoration:none; flex:1; text-align:center; padding:.3rem 0; display:flex; align-items:center; justify-content:center; }
+.m-bar a.on { color:#f1f1f1; border-bottom:1px solid rgba(242,242,242,0.45); }
+.m-bar a.rdv { color:rgba(242,242,242,0.6); }
+
+/* ===== MOBILE MODAL ===== */
+.m-modal { display:none; position:fixed; inset:0; z-index:300; align-items:center; justify-content:center; padding:1.25rem; background:rgba(13,11,16,0); transition:background .3s; pointer-events:none; }
+.m-modal.open { background:rgba(13,11,16,0.65); pointer-events:all; }
+.m-card { background:#f1f1f1; border-radius:20px; overflow:hidden; width:100%; max-width:400px; max-height:84vh; overflow-y:auto; transform:translateY(24px) scale(0.94); opacity:0; transition:transform .38s cubic-bezier(0.23,1,0.32,1), opacity .3s; position:relative; }
+.m-modal.open .m-card { transform:translateY(0) scale(1); opacity:1; }
+.m-card-img { width:100%; position:relative; background:#ddd; }
+.m-card-img img { width:100%; height:auto; display:block; }
+.m-close { position:absolute; top:.75rem; right:.75rem; width:30px; height:30px; border-radius:50%; background:rgba(13,11,16,0.7); color:#f1f1f1; font-size:.75rem; display:flex; align-items:center; justify-content:center; border:none; cursor:pointer; z-index:2; font-family:inherit; }
+.m-info { padding:1.2rem 1.25rem 1.5rem; }
+.m-cat { font-family:var(--ff-h); font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(26,24,32,0.38); margin-bottom:.4rem; }
+.m-name { font-family:var(--ff-h); font-size:1.3rem; font-weight:300; letter-spacing:-.025em; color:#1a1820; line-height:1.1; margin-bottom:.75rem; }
+.m-desc { font-family:var(--ff-b); font-size:.8rem; color:rgba(26,24,32,0.5); line-height:1.8; }
+.m-sep { height:.5px; background:rgba(26,24,32,0.08); margin:.9rem 0; }
+.m-badge { display:inline-flex; padding:.22rem .65rem; border:.5px solid rgba(26,24,32,0.14); border-radius:2rem; font-family:var(--ff-h); font-size:.55rem; letter-spacing:.08em; text-transform:uppercase; color:rgba(26,24,32,0.35); }
+
+@media (max-width:600px) {
+  body { padding-top:52px; padding-bottom:74px; cursor:auto; }
+  .nav-logo-fixed, .nav-burger, .mobile-menu, .mobile-menu-overlay, .side-icons, #cursor-canvas { display:none !important; }
+  .m-topbar, .m-bar, .m-modal { display:flex; }
+  .masonry { columns:2 !important; column-gap:5px !important; padding:.75rem !important; }
+  .masonry-item { margin-bottom:5px; border-radius:8px; }
+  .masonry-item[data-wide] { column-span:all; }
+  .masonry-thumb img, .masonry-thumb video { height:auto !important; object-fit:unset !important; }
+}
 
 /* ===================== SECTIONS ===================== */
 .section { padding: 6.5rem 4rem; }
@@ -169,32 +205,6 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
 .rev.vis { opacity: 1; transform: translateY(0); }
 .rev.d1{transition-delay:.08s} .rev.d2{transition-delay:.16s}
 
-/* ===================== MOBILE TOPBAR ===================== */
-.mobile-topbar { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 50px; align-items: center; justify-content: center; background: rgba(241,241,241,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: .5px solid rgba(26,24,32,0.06); }
-.mobile-topbar img { height: 22px; width: auto; }
-
-/* ===================== MOBILE BOTTOMBAR ===================== */
-.mobile-bottombar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: #0d0b10; border-top: .5px solid rgba(242,242,242,0.07); padding: .75rem 0 calc(env(safe-area-inset-bottom, 0px) + .5rem); }
-.mobile-bottombar-inner { display: flex; align-items: center; justify-content: space-evenly; width: 100%; }
-.mbb-item { display: flex; align-items: center; justify-content: center; font-family: var(--ff-h); font-size: .58rem; letter-spacing: .07em; text-transform: uppercase; color: rgba(242,242,242,0.32); font-weight: 300; text-decoration: none; padding: .35rem .5rem; flex: 1; text-align: center; }
-.mbb-item.active { color: #f1f1f1; border-bottom: 1px solid rgba(242,242,242,0.4); }
-.mbb-item.cta { color: rgba(242,242,242,0.6); }
-
-/* ===================== MOBILE MODAL ===================== */
-.mobile-ep { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: 1.25rem; background: rgba(13,11,16,0); transition: background .3s ease; }
-.mobile-ep.open { background: rgba(13,11,16,0.68); }
-.ep-card { background: #f1f1f1; border-radius: 20px; overflow: hidden; width: 100%; max-width: 400px; max-height: 82vh; overflow-y: auto; transform: scale(0.92) translateY(16px); opacity: 0; transition: transform .35s cubic-bezier(0.23,1,0.32,1), opacity .3s ease; position: relative; }
-.mobile-ep.open .ep-card { transform: scale(1) translateY(0); opacity: 1; }
-.ep-img-wrap { width: 100%; overflow: hidden; position: relative; background: #ddd; }
-.ep-img-wrap img { width: 100%; height: auto; display: block; }
-.ep-close-btn { position: absolute; top: .75rem; right: .75rem; width: 30px; height: 30px; border-radius: 50%; background: rgba(13,11,16,0.72); display: flex; align-items: center; justify-content: center; font-size: .75rem; color: #f1f1f1; z-index: 2; border: none; font-family: inherit; cursor: pointer; }
-.ep-body { padding: 1.25rem 1.25rem 1.5rem; }
-.ep-cat-lbl { font-family: var(--ff-h); font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(26,24,32,0.38); font-weight: 300; margin-bottom: .4rem; }
-.ep-title { font-family: var(--ff-h); font-size: 1.3rem; font-weight: 300; letter-spacing: -.025em; color: #1a1820; line-height: 1.1; margin-bottom: .75rem; }
-.ep-description { font-family: var(--ff-b); font-size: .8rem; color: rgba(26,24,32,0.5); line-height: 1.8; font-weight: 300; }
-.ep-rule { height: .5px; background: rgba(26,24,32,0.08); margin: .9rem 0; }
-.ep-badge { display: inline-flex; padding: .25rem .7rem; border: .5px solid rgba(26,24,32,0.14); border-radius: 2rem; font-family: var(--ff-h); font-size: .56rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(26,24,32,0.36); font-weight: 300; }
-
 /* ===================== RESPONSIVE ===================== */
 @media (max-width:900px) {
   .nav-wrap { padding: 1rem 1.25rem; }
@@ -214,25 +224,15 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
   .ft-logo-circle img { width: 40px; height: auto; }
 }
 @media (max-width:600px) {
-  .nav-logo-fixed, .nav-burger, .mobile-menu, .mobile-menu-overlay, .side-icons { display: none !important; }
-  .mobile-topbar, .mobile-bottombar, .mobile-ep { display: flex; }
-  body { padding-top: 50px; padding-bottom: 72px; }
-  .masonry { columns: 2 !important; column-gap: 5px !important; display: block !important; padding: .85rem !important; }
-  .masonry-item { break-inside: avoid; margin-bottom: 5px; }
-  .masonry-item[data-wide] { column-span: all; }
-  .masonry-thumb { height: auto !important; }
-  .masonry-thumb img, .masonry-thumb video { height: auto !important; width: 100%; object-fit: unset; display: block; }
+  .masonry { columns: 1; }
   .form-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 <canvas id="cursor-canvas"></canvas>
-
 <!-- MOBILE TOPBAR -->
-<div class="mobile-topbar">
-  <a href="index.html"><img src="orae_logo_noir_complet.svg" alt="Orae Agency"></a>
-</div>
+<div class="m-topbar"><a href="index.html"><img src="orae_logo_noir_complet.svg" alt="Orae Agency"></a></div>
 
 <!-- NAV -->
 <a href="index.html" class="nav-logo-fixed" id="nav-logo" aria-label="Orae Agency">
@@ -266,7 +266,7 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
 <!-- SIDE ICONS -->
 <div class="side-icons on-light" id="side-icons">
   <a href="https://www.instagram.com/orae_agency/" target="_blank" class="side-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-<a href="/cdn-cgi/l/email-protection#a1ced3c0c48fc0c6c4cfc2d8e1c6ccc0c8cd8fc2cecc" class="side-icon" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a>
+<a href="/cdn-cgi/l/email-protection#92fde0f3f7bcf3f5f7fcf1ebd2f5fff3fbfebcf1fdff" class="side-icon" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a>
   <a href="https://www.linkedin.com/company/orae-agency/" target="_blank" class="side-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
 </div>
 
@@ -276,7 +276,7 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
     <div class="masonry-thumb"><img src="deltawork.png" alt="Delta Charger" style="height:500px;">
     <div class="masonry-ov"><span class="masonry-cat">Web Design · 2024</span><span class="masonry-name">Delta Charger</span><span class="masonry-desc">Identité visuelle et site internet pour un fournisseur de bornes de recharge (IRVE).</span></div></div>
   </article>
-  <article class="masonry-item rev d1" data-tall>
+  <article class="masonry-item rev d1">
     <div class="masonry-thumb"><img src="Appsport.png" alt="Fit Pulse" style="height:500px;">
     <div class="masonry-ov"><span class="masonry-cat">Application mobile UX/UI · 2026</span><span class="masonry-name">Fit Pulse</span><span class="masonry-desc">Application mobile sportive.</span></div></div>
   </article>
@@ -292,7 +292,7 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
     <div class="masonry-thumb"><img src="ordi.png" alt="Drop">
     <div class="masonry-ov"><span class="masonry-cat">Web Design · 2025</span><span class="masonry-name">Drop</span><span class="masonry-desc">Site vitrine et direction artistique digitale.</span></div></div>
   </article>
-  <article class="masonry-item rev d2" data-wide>
+  <article class="masonry-item rev d2">
     <div class="masonry-thumb"><img src="cobra.png" alt="Cobra" style="height:400px;">
     <div class="masonry-ov"><span class="masonry-cat">Affiche Artistique · 2024</span><span class="masonry-name">Affiche Cobra Space Adventures</span><span class="masonry-desc">Affiche promotionnelle pour l'anime japonais Cobra.</span></div></div>
   </article>
@@ -327,34 +327,32 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
 </div>
 
 
-<!-- MOBILE BOTTOMBAR -->
-<div class="mobile-bottombar">
-  <div class="mobile-bottombar-inner">
-    <a href="portfolio.html" class="mbb-item active">Portfolio</a>
-    <a href="index.html#services" class="mbb-item">Services</a>
-    <a href="index.html#about" class="mbb-item">À propos</a>
-    <a href="index.html#contact" class="mbb-item">Contact</a>
-    <a href="index.html#agenda" class="mbb-item cta">RDV</a>
+<!-- MOBILE BOTTOM NAV -->
+<nav class="m-bar">
+  <div class="m-bar-inner">
+    <a href="portfolio.html" class="on">Portfolio</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#about">À propos</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#agenda" class="rdv">RDV</a>
   </div>
-</div>
-
+</nav>
 <!-- MOBILE MODAL -->
-<div class="mobile-ep" id="mobileEp">
-  <div class="ep-card">
-    <div class="ep-img-wrap">
-      <img id="epImg" src="" alt="">
-      <button class="ep-close-btn" id="epClose">✕</button>
+<div class="m-modal" id="mModal">
+  <div class="m-card" id="mCard">
+    <div class="m-card-img">
+      <img id="mImg" src="" alt="">
+      <button class="m-close" id="mClose">✕</button>
     </div>
-    <div class="ep-body">
-      <div class="ep-cat-lbl" id="epCat"></div>
-      <div class="ep-title" id="epName"></div>
-      <div class="ep-description" id="epDesc"></div>
-      <div class="ep-rule"></div>
-      <span class="ep-badge" id="epYear"></span>
+    <div class="m-info">
+      <div class="m-cat" id="mCat"></div>
+      <div class="m-name" id="mName"></div>
+      <div class="m-desc" id="mDesc"></div>
+      <div class="m-sep"></div>
+      <span class="m-badge" id="mYear"></span>
     </div>
   </div>
 </div>
-
 <!-- FOOTER -->
 <footer data-theme="dark">
   <div class="ft-inner">
@@ -362,19 +360,19 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
       <a href="index.html" class="ft-logo-row">
         <img src="logo-blanc.svg" alt="Orae Agency" style="width:40px;height:auto;">
       </a>
-      <span class="ft-tagline">Agence de design créatif — Montpellier/span>
+      <span class="ft-tagline">Agence de design créatif — Montpellier</span>
     </div>
     <nav class="ft-nav-links">
       <a href="portfolio.html">Portfolio</a>
-      <a href="#services">Services</a>
-      <a href="#about">À propos</a>
-      <a href="#contact">Contact</a>
-      <a href="#agenda" class="ft-cta">Prendre RDV</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about">À propos</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="index.html#agenda" class="ft-cta">Prendre RDV</a>
     </nav>
   </div>
   <div class="ft-bottom">
     <div class="ft-contacts">
-        <div class="contact-detail"><a href="/cdn-cgi/l/email-protection#8ee1fcefeba0efe9ebe0edf7cee9e3efe7e2a0ede1e3"><span class="__cf_email__" data-cfemail="08677a696d26696f6d666b71486f65696164266b6765">[email&#160;protected]</span></a></div>
+        <div class="contact-detail"><a href="/cdn-cgi/l/email-protection#67081506024906000209041e27000a060e0b4904080a"><span class="__cf_email__" data-cfemail="b1dec3d0d49fd0d6d4dfd2c8f1d6dcd0d8dd9fd2dedc">[email&#160;protected]</span></a></div>
       <span class="fc-sep"></span>
       <span class="fc-sep"></span>
       <a href="https://www.instagram.com/orae_agency/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>
@@ -404,31 +402,35 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
 
 (function(){
   const logo = document.getElementById('nav-logo');
-  if(logo) window.addEventListener('scroll', () => { logo.classList.toggle('hidden', window.scrollY > 80); }, { passive: true });
+  if(logo) window.addEventListener('scroll', () => { logo.classList.toggle('hidden', window.scrollY > 80); }, { passive:true });
 })();
 (function(){
-  if(window.innerWidth > 600) return;
-  const ep = document.getElementById('mobileEp');
-  const epClose = document.getElementById('epClose');
-  if(!ep) return;
-  const open = (item) => {
-    const cat = item.querySelector('.masonry-cat')?.textContent || '';
+  const modal = document.getElementById('mModal');
+  const mClose = document.getElementById('mClose');
+  if(!modal) return;
+  const isMobile = () => window.innerWidth <= 768 || ('ontouchstart' in window);
+  const openModal = (item) => {
+    if(!isMobile()) return;
+    const cat  = item.querySelector('.masonry-cat')?.textContent  || '';
     const name = item.querySelector('.masonry-name')?.textContent || '';
     const desc = item.querySelector('.masonry-desc')?.textContent || '';
-    const img = item.querySelector('img');
+    const img  = item.querySelector('img');
     const parts = cat.split(' · ');
-    document.getElementById('epCat').textContent = cat;
-    document.getElementById('epName').textContent = name;
-    document.getElementById('epDesc').textContent = desc;
-    document.getElementById('epYear').textContent = parts[parts.length - 1] || '';
-    document.getElementById('epImg').src = img ? img.src : '';
-    ep.classList.add('open');
+    document.getElementById('mImg').src  = img ? img.src : '';
+    document.getElementById('mImg').alt  = name;
+    document.getElementById('mCat').textContent  = cat;
+    document.getElementById('mName').textContent = name;
+    document.getElementById('mDesc').textContent = desc;
+    document.getElementById('mYear').textContent = parts[parts.length-1] || '';
+    modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   };
-  const close = () => { ep.classList.remove('open'); document.body.style.overflow = ''; };
-  document.querySelectorAll('.masonry-item').forEach(item => item.addEventListener('click', () => open(item)));
-  epClose.addEventListener('click', close);
-  ep.addEventListener('click', (e) => { if(e.target === ep) close(); });
+  const closeModal = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
+  document.querySelectorAll('.masonry-item').forEach(item => {
+    item.addEventListener('click', () => openModal(item));
+  });
+  mClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
 })();
 (function(){
   const cv = document.getElementById('cursor-canvas');
