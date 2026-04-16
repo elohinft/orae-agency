@@ -154,7 +154,19 @@ input, textarea { font-family: var(--ff-b); }
 .srv-card:hover .srv-name { color: #f1f1f1; }
 .srv-desc { font-family: var(--ff-b); font-size: .78rem; font-weight: 500; color: rgba(28,28,28,0.5); line-height: 1.6; border-top: 1px solid rgba(28,28,28,0.07); padding-top: .8rem; transition: color .35s, border-top-color .35s; }
 .srv-card:hover .srv-desc { color: rgba(241,241,241,0.45); border-top-color: rgba(241,241,241,0.1); }
+.srv-card:first-child { background: #1C1C1C; box-shadow: 0 8px 28px rgba(28,28,28,0.18); }
+.srv-card:first-child .srv-icon-wrap { background-size: 300% 300%; background-image: linear-gradient(135deg,#3A5D49,#5E8371,#698D89,#85A1A4,#91AAAF,#D1CAC4); animation: oilSlick 6s ease-in-out infinite; box-shadow: 0 3px 12px rgba(58,93,73,0.25); }
+.srv-card:first-child .srv-num { color: rgba(241,241,241,0.3); }
+.srv-card:first-child .srv-name { color: #f1f1f1; }
+.srv-card:first-child .srv-desc { color: rgba(241,241,241,0.45); border-top-color: rgba(241,241,241,0.1); }
 @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (hover: none) {
+  .srv-card.srv-active { background: #1C1C1C; box-shadow: 0 8px 28px rgba(28,28,28,0.18); }
+  .srv-card.srv-active .srv-icon-wrap { background-size: 300% 300%; background-image: linear-gradient(135deg,#3A5D49,#5E8371,#698D89,#85A1A4,#91AAAF,#D1CAC4); animation: oilSlick 6s ease-in-out infinite; }
+  .srv-card.srv-active .srv-num { color: rgba(241,241,241,0.3); }
+  .srv-card.srv-active .srv-name { color: #f1f1f1; }
+  .srv-card.srv-active .srv-desc { color: rgba(241,241,241,0.45); border-top-color: rgba(241,241,241,0.1); }
+}
 @media (max-width: 600px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ABOUT */
@@ -315,8 +327,11 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   .proc-col:nth-child(5) .proc-step-num { margin-bottom: 0; font-size: 1.4rem; flex-shrink: 0; }
   .proc-col:nth-child(5) { grid-column: 1 / 3; flex-direction: row; align-items: center; gap: 1rem; }
   .proc-col:hover { transform: none !important; }
-  .proc-col.active .proc-step-name { color: var(--cg1); }
-  .proc-col.active .proc-step-desc { color: rgba(28,28,28,0.55); }
+  .proc-col.active .proc-step-name { color: #fff; }
+  .proc-col.active .proc-step-desc { color: rgba(255,255,255,0.78); }
+  .proc-col.active .proc-step-num { color: rgba(255,255,255,0.3); }
+  .proc-col.active::before { opacity: 1; }
+  .proc-col.active::after { opacity: 1; }
   .proc-dot-wrap { display: none; }
 }
 
@@ -804,19 +819,15 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   draw();
 })();
 
-/* ── PROCESS ACTIF MOBILE ── */
+/* ── PROCESS ACTIF MOBILE — géré par le click JS ci-dessus ── */
 (function(){
   const cols=document.querySelectorAll('.proc-col');
   if(!cols.length)return;
   function update(){
-    if(window.innerWidth>600)return;
-    const mid=window.innerHeight/2;
-    let closest=null,closestDist=Infinity;
-    cols.forEach(c=>{const r=c.getBoundingClientRect();const dist=Math.abs(r.top+r.height/2-mid);if(dist<closestDist){closestDist=dist;closest=c;}});
+    if(window.innerWidth<=600)return;
+    // desktop only: reset active
     cols.forEach(c=>c.classList.remove('active'));
-    if(closest)closest.classList.add('active');
   }
-  window.addEventListener('scroll',update,{passive:true});
   window.addEventListener('resize',update);
   update();
 })();
@@ -899,6 +910,39 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   prev.addEventListener('click',()=>{if(y===START_Y&&m===START_M)return;m--;if(m<0){m=11;y--;}render();});
   next.addEventListener('click',()=>{m++;if(m>11){m=0;y++;}render();});
   render();
+})();
+
+/* ── SERVICES MOBILE CLICK ── */
+(function(){
+  if(window.matchMedia('(hover:none)').matches){
+    const cards=document.querySelectorAll('.srv-card');
+    cards.forEach(card=>{
+      card.addEventListener('click',()=>{
+        const wasActive=card.classList.contains('srv-active');
+        cards.forEach(c=>c.classList.remove('srv-active'));
+        if(!wasActive)card.classList.add('srv-active');
+      });
+    });
+  }
+})();
+
+/* ── ÉTAPES MOBILE CLICK ── */
+(function(){
+  function initMobile(){
+    if(window.innerWidth>600)return;
+    const cols=document.querySelectorAll('.proc-col');
+    if(!cols.length)return;
+    cols.forEach(c=>c.classList.remove('active'));
+    cols[0].classList.add('active');
+    cols.forEach(col=>{
+      col.addEventListener('click',()=>{
+        cols.forEach(c=>c.classList.remove('active'));
+        col.classList.add('active');
+      });
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initMobile);}
+  else{initMobile();}
 })();
 
 /* ── TAGS À PROPOS ANIMÉS ── */
