@@ -39,7 +39,7 @@
   --txt-sec-light: rgba(28,28,28,0.6);
   --txt-sec-dark:  rgba(28,28,28,0.6);
   --fs-body: .88rem;
-  --fs-hero-desc: 1rem;
+  --fs-hero-desc: 1.12rem;
   --fs-title: clamp(1.4rem, 2.2vw, 2.1rem);
   --cg1:#3A5D49;--cg2:#5E8371;--cg3:#698D89;--cg4:#85A1A4;--cg5:#91AAAF;--cg6:#D1CAC4;
 }
@@ -94,7 +94,10 @@ input, textarea { font-family: var(--ff-b); }
 .hero-content { position: relative; z-index: 1; display: flex; flex: 1; align-items: center; padding: 3rem calc(var(--margin) * 1.5); }
 .hero-left { display: flex; flex-direction: column; max-width: 680px; }
 .hero-left-tag { font-family: var(--ff-b); font-size: .6rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: rgba(28,28,28,.5); margin-bottom: 1.6rem; }
-.hero-main-title { font-family: var(--ff-h); font-weight: 500; font-size: clamp(2.4rem, 4.5vw, 5rem); line-height: 1.02; letter-spacing: -.04em; color: #1C1C1C; margin: 0 0 1.5rem; }
+.hero-main-title { font-family: var(--ff-h); font-weight: 500; font-size: clamp(3rem, 5.5vw, 6.5rem); line-height: 1.02; letter-spacing: -.04em; color: #1C1C1C; margin: 0 0 1.5rem; }
+.hero-main-title em { font-family: 'DM Serif Display', serif; font-style: italic; font-weight: 400; }
+.tw-cursor { display: inline-block; width: 3px; height: .75em; background: #1C1C1C; margin-left: 3px; vertical-align: middle; animation: twBlink .7s step-end infinite; }
+@keyframes twBlink { 0%,100%{opacity:1} 50%{opacity:0} }
 .hero-main-desc { font-family: var(--ff-b); font-size: var(--fs-hero-desc); font-weight: 500; line-height: 1.60; color: rgba(28,28,28,0.6); max-width: 480px; margin: 0 0 2.5rem; }
 .hero-cta { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--ff-h); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; padding: .55rem 1.25rem; border: 1px solid rgba(28,28,28,0.3); border-radius: 2rem; color: #1C1C1C; background: none; transition: background .3s, border-color .3s; align-self: flex-start; }
 .hero-cta:hover { background: rgba(28,28,28,0.05); border-color: rgba(28,28,28,0.6); }
@@ -519,7 +522,7 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   <div class="hero-content">
     <div class="hero-left">
       <p class="hero-left-tag">Agence de design · Montpellier</p>
-      <h1 class="hero-main-title">Design créatif<br>pour les marques<br>ambitieuses.</h1>
+      <h1 class="hero-main-title">Design créatif<br>pour les marques<br><em id="tw-typed"></em><span class="tw-cursor" id="tw-cur"></span></h1>
       <p class="hero-main-desc">De la stratégie créative à la réalisation, chaque détail est pensé pour capter, engager et marquer les esprits.</p>
       <a href="portfolio.html" class="hero-cta">Voir nos projets</a>
     </div>
@@ -996,6 +999,32 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
     current=(current+1)%tags.length;
     tags[current].classList.add('lit');
   },1000);
+})();
+
+/* ── HERO TYPEWRITER ── */
+(function(){
+  const word='ambitieuses.';
+  const el=document.getElementById('tw-typed');
+  const cur=document.getElementById('tw-cur');
+  if(!el)return;
+  let idx=0,phase='type';
+  const T=90,D=55,PAUSE=1500,PAUSE_E=400;
+  function step(){
+    if(phase==='type'){
+      el.textContent=word.slice(0,idx++);
+      if(idx>word.length){phase='pause';setTimeout(step,PAUSE);return;}
+      setTimeout(step,T);
+    }else if(phase==='pause'){
+      phase='delete';step();
+    }else if(phase==='delete'){
+      el.textContent=word.slice(0,--idx);
+      if(idx===0){phase='pauseEmpty';setTimeout(step,PAUSE_E);return;}
+      setTimeout(step,D);
+    }else{
+      phase='type';step();
+    }
+  }
+  step();
 })();
 
 /* ── EMAILJS CONTACT ── */
