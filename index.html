@@ -162,7 +162,17 @@ input, textarea { font-family: var(--ff-b); }
 /* SERVICES */
 .services { background: var(--neo); padding: 4rem var(--margin) 6.5rem; }
 .services-top { margin-bottom: 2.5rem; }
-.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.srv-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+.srv-layout-text { padding-top: .5rem; }
+.srv-layout-text .s-title { margin-bottom: 1.2rem; line-height: 1.08; }
+.srv-layout-desc { font-family: var(--ff-b); font-size: var(--fs-body); color: rgba(28,28,28,.55); line-height: 1.85; font-weight: 500; margin-bottom: 2rem; }
+.srv-decon { display: flex; flex-direction: column; gap: 8px; }
+.sd-row1 { display: grid; grid-template-columns: 1.05fr 0.95fr 1fr; gap: 8px; }
+.sd-row2 { display: grid; grid-template-columns: 0.95fr 1.1fr 0.95fr; gap: 8px; margin-left: 5%; margin-right: -5%; }
+.srv-name em { font-family: inherit; font-style: normal; }
+.s-title em, .about-hl em, .contact-info-title em, .agenda-title em { font-family: 'DM Serif Display', serif; font-style: italic; font-weight: 400; }
+@media (max-width: 1200px) { .srv-layout { gap: 3rem; } }
+@media (max-width: 1024px) { .srv-layout { grid-template-columns: 1fr; } .sd-row1,.sd-row2 { grid-template-columns: repeat(3,1fr); margin-left:0;margin-right:0; } }
 .srv-card { background: var(--neo); border-radius: 18px; padding: 1.3rem 1.1rem; display: flex; flex-direction: column; overflow: hidden; border: none; box-shadow: 5px 5px 12px rgba(170,190,196,0.55),-4px -4px 10px rgba(255,255,255,0.9); transition: box-shadow .35s, background .35s; }
 .srv-card:hover { background: #1C1C1C; box-shadow: 0 8px 28px rgba(28,28,28,0.18); }
 .srv-icon-wrap { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; background: var(--neo); box-shadow: 3px 3px 7px rgba(170,190,196,0.5),-2px -2px 5px rgba(255,255,255,0.85); transition: all .35s; }.srv-card:hover .srv-icon-wrap { background-size: 300% 300%; background-image: linear-gradient(135deg,#3A5D49,#5E8371,#698D89,#85A1A4,#91AAAF,#D1CAC4); animation: oilSlick 6s ease-in-out infinite; box-shadow: 0 3px 12px rgba(58,93,73,0.25); }
@@ -178,12 +188,8 @@ input, textarea { font-family: var(--ff-b); }
 .srv-card:hover .srv-name { color: #f1f1f1; }
 .srv-desc { font-family: var(--ff-b); font-size: .78rem; font-weight: 500; color: rgba(28,28,28,0.5); line-height: 1.6; border-top: 1px solid rgba(28,28,28,0.07); padding-top: .8rem; transition: color .35s, border-top-color .35s; }
 .srv-card:hover .srv-desc { color: rgba(241,241,241,0.45); border-top-color: rgba(241,241,241,0.1); }
-.srv-card:first-child { background: #1C1C1C; box-shadow: 0 8px 28px rgba(28,28,28,0.18); }
-.srv-card:first-child .srv-icon-wrap { background-size: 300% 300%; background-image: linear-gradient(135deg,#3A5D49,#5E8371,#698D89,#85A1A4,#91AAAF,#D1CAC4); animation: oilSlick 6s ease-in-out infinite; box-shadow: 0 3px 12px rgba(58,93,73,0.25); }
-.srv-card:first-child .srv-num { color: rgba(241,241,241,0.3); }
-.srv-card:first-child .srv-name { color: #f1f1f1; }
-.srv-card:first-child .srv-desc { color: rgba(241,241,241,0.45); border-top-color: rgba(241,241,241,0.1); }
-@media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+
+@media (max-width: 600px) { .sd-row1,.sd-row2 { grid-template-columns: 1fr 1fr; margin-left:0;margin-right:0; } }
 @media (hover: none) {
   .srv-card.srv-active { background: #1C1C1C; box-shadow: 0 8px 28px rgba(28,28,28,0.18); }
   .srv-card.srv-active .srv-icon-wrap { background-size: 300% 300%; background-image: linear-gradient(135deg,#3A5D49,#5E8371,#698D89,#85A1A4,#91AAAF,#D1CAC4); animation: oilSlick 6s ease-in-out infinite; }
@@ -191,7 +197,6 @@ input, textarea { font-family: var(--ff-b); }
   .srv-card.srv-active .srv-name { color: #f1f1f1; }
   .srv-card.srv-active .srv-desc { color: rgba(241,241,241,0.45); border-top-color: rgba(241,241,241,0.1); }
 }
-@media (max-width: 600px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ABOUT */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -523,140 +528,93 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
 
 <!-- SERVICES -->
 <section id="services" class="services" data-theme="light">
-<div class="services-top">
   <div class="s-eyebrow"><span class="s-label">Nos services</span><span class="s-rule"></span></div>
-  <h2 class="s-title" style="margin-bottom:0;">Ce qu'on crée<br><em>pour vous</em></h2>
-</div>
-  <div class="services-grid">
+  <div class="srv-layout">
 
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+    <div class="srv-decon">
+      <div class="sd-row1">
+
+        <div class="srv-card">
+          <div class="srv-icon-wrap">
+            <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div class="srv-num">01</div>
+          <div class="srv-name">Direction Artistique</div>
+          <div class="srv-desc">Vision globale, cadrage créatif et supervision des productions visuelles.</div>
+        </div>
+
+        <div class="srv-card">
+          <div class="srv-icon-wrap">
+            <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="srv-num">02</div>
+          <div class="srv-name">Identité &amp; Marque</div>
+          <div class="srv-desc">Logo, charte graphique, typographie, couleurs et refonte visuelle.</div>
+        </div>
+
+        <div class="srv-card">
+          <div class="srv-icon-wrap">
+            <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <div class="srv-num">03</div>
+          <div class="srv-name">Stratégie &amp; Conseil</div>
+          <div class="srv-desc">Positionnement, audit visuel, territoire de marque et tone of voice.</div>
+        </div>
+
       </div>
-      <div class="srv-num">01</div>
-      <div class="srv-name">Direction artistique</div>
-      <div class="srv-desc">Vision globale, cadrage créatif et supervision des productions visuelles.</div>
+      <div class="sd-row2">
+
+        <div class="srv-card">
+          <div class="srv-icon-wrap">
+            <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+            <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+          </div>
+          <div class="srv-num">04</div>
+          <div class="srv-name">Web &amp; Digital</div>
+          <div class="srv-desc">UX/UI, product design et développement web sur-mesure.</div>
+        </div>
+
+        <div class="srv-card">
+          <div class="srv-icon-wrap">
+            <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
+            <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
+          </div>
+          <div class="srv-num">05</div>
+          <div class="srv-name">Print &amp; Impression</div>
+          <div class="srv-desc">Affiches, cartes, menus, plaquettes et supports imprimés.</div>
+        </div>
+
+        <div class="srv-card">
+          <div class="srv-icon-wrap">
+            <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <div class="srv-num">06</div>
+          <div class="srv-name">Motion, Social &amp; Pub</div>
+          <div class="srv-desc">Animations, vidéos, templates réseaux et ads Meta & Google.</div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <div class="srv-num">02</div>
-      <div class="srv-name">Brand Design</div>
-      <div class="srv-desc">Identité visuelle complète — logo, charte graphique, typographie, couleurs.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-      </div>
-      <div class="srv-num">03</div>
-      <div class="srv-name">Web Design UX/UI</div>
-      <div class="srv-desc">Interfaces web, landing pages et expériences digitales sur-mesure.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      </div>
-      <div class="srv-num">04</div>
-      <div class="srv-name">Audit sur-mesure</div>
-      <div class="srv-desc">Analyse critique de votre image actuelle et recommandations stratégiques.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      </div>
-      <div class="srv-num">05</div>
-      <div class="srv-name">Refonte visuelle</div>
-      <div class="srv-desc">Modernisation d'une identité existante et repositionnement de marque.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
-      </div>
-      <div class="srv-num">06</div>
-      <div class="srv-name">Print & Impression</div>
-      <div class="srv-desc">Affiches, cartes de visite, menus, plaquettes et supports imprimés.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      </div>
-      <div class="srv-num">07</div>
-      <div class="srv-name">Réseaux sociaux</div>
-      <div class="srv-desc">Posts, stories, templates et kits visuels pour vos plateformes.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-      </div>
-      <div class="srv-num">08</div>
-      <div class="srv-name">Motion Design</div>
-      <div class="srv-desc">Animations, vidéos motion, intros et contenus animés.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h3m3 0h3"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h3m3 0h3"/></svg>
-      </div>
-      <div class="srv-num">09</div>
-      <div class="srv-name">Publicités en ligne</div>
-      <div class="srv-desc">Bannières, visuels pub et ads Meta, Google, LinkedIn.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      </div>
-      <div class="srv-num">10</div>
-      <div class="srv-name">Stratégie de marque</div>
-      <div class="srv-desc">Positionnement, territoire visuel et tone of voice.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49"stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6M9 10h6M9 14h4"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6M9 10h6M9 14h4"/></svg>
-      </div>
-      <div class="srv-num">11</div>
-      <div class="srv-name">Product Design</div>
-      <div class="srv-desc">UX/UI d'applications mobiles et web, design système et prototypage.</div>
-    </div>
-
-    <div class="srv-card">
-      <div class="srv-icon-wrap">
-        <svg class="srv-icon icon-d anim-stroke" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        <svg class="srv-icon icon-h" viewBox="0 0 24 24" fill="none" stroke="#3A5D49" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-      </div>
-      <div class="srv-num">12</div>
-      <div class="srv-name">Développement web</div>
-      <div class="srv-desc">Intégration HTML/CSS/JS, sites sur-mesure et landing pages performantes.</div>
+    <div class="srv-layout-text">
+      <h2 class="s-title">Tout ce qu'on <em>maîtrise.</em></h2>
+      <p class="srv-layout-desc">De la stratégie créative à la réalisation — chaque projet est pensé avec une direction artistique forte et une exécution soignée.</p>
+      <a href="#contact" class="hero-cta">Discutons de votre projet</a>
     </div>
 
   </div>
 </section>
 
+
 <!-- PORTFOLIO -->
 <section id="portfolio" class="section s-light" data-theme="light">
   <div class="s-eyebrow"><span class="s-label">Travaux sélectionnés</span><span class="s-rule"></span></div>
   <div class="port-head">
-    <h2 class="s-title rev">Ce que nous créons.</h2>
+    <h2 class="s-title rev">Ce que nous <em>créons.</em></h2>
   </div>
   <div class="port-grid">
     <div class="pmi rev"><img src="deltawork.png" alt="Delta Charger"><div class="pmi-ov"><span class="pmi-cat">Web Design</span></div></div>
@@ -675,7 +633,7 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   <div class="s-eyebrow"><span class="s-label">À propos</span><span class="s-rule"></span></div>
   <div class="about-grid">
     <div>
-      <h2 class="about-hl rev">Votre agence tout-en-un, du logo au site web, de l'affiche à la pub.</h2>
+      <h2 class="about-hl rev">Votre agence <em>tout-en-un</em>, du logo au site web, de l'affiche à la pub.</h2>
       <div class="about-tags">
         <span class="about-tag">Brand Design</span>
         <span class="about-tag">Direction artistique</span>
@@ -736,7 +694,7 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
       </form>
     </div>
     <div class="contact-info rev">
-      <h2 class="contact-info-title">Un projet ?<br>Parlons-en.</h2>
+      <h2 class="contact-info-title">Un projet ?<br><em>Parlons-en.</em></h2>
       <p class="contact-info-desc">On vous répond sous 24h. Aucun engagement, juste un échange pour voir si on peut construire quelque chose ensemble.</p>
       <div class="contact-details">
         <div class="contact-detail"><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a></div>
@@ -765,7 +723,7 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   <div class="s-eyebrow"><span class="s-label">Prendre rendez-vous</span><span class="s-rule"></span></div>
   <div class="agenda-grid">
     <div class="agenda-left rev">
-      <h2 class="agenda-title">Vous préférez<br>un appel découverte ?</h2>
+      <h2 class="agenda-title">Vous préférez<br>un appel <em>découverte ?</em></h2>
       <p class="agenda-desc">30 min · Gratuit · Sans engagement. Choisissez le créneau qui vous convient directement dans notre calendrier.</p>
       <a href="https://calendar.app.google/ogHZTHyBdJdVQS1Y8" target="_blank" class="agenda-btn">Voir les disponibilités →</a>
     </div>
