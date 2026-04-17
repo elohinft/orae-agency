@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -202,7 +203,7 @@ input, textarea { font-family: var(--ff-b); }
 
 /* PROCESS */
 .proc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; width: 100%; }
-.proc-col { padding: 1.8rem 1.4rem 1.6rem; display: flex; flex-direction: column; min-height: 260px; position: relative; overflow: hidden; border-radius: 20px; background: var(--neo); box-shadow: 5px 5px 12px rgba(170,190,196,0.55),-4px -4px 10px rgba(255,255,255,0.9); transition: box-shadow .4s,transform .4s; cursor: default; border-right: none; }
+.proc-col { padding: 1.8rem 1.4rem 1.6rem; display: flex; flex-direction: column; min-height: 320px; position: relative; overflow: hidden; border-radius: 20px; background: var(--neo); box-shadow: 5px 5px 12px rgba(170,190,196,0.55),-4px -4px 10px rgba(255,255,255,0.9); transition: box-shadow .4s,transform .4s; cursor: default; border-right: none; }
 
 .proc-dot-wrap { display: none; } .proc-col::before { content:''; position:absolute; inset:0; border-radius:20px; background:linear-gradient(145deg,#3A5D49,#5E8371,#698D89,#85A1A4,#91AAAF,#D1CAC4); background-size:300% 300%; opacity:0; transition:opacity .45s ease; animation:oilSlick 8s ease-in-out infinite; z-index:0; } .proc-col:hover::before { opacity:1; } .proc-col:hover { box-shadow:0 12px 28px rgba(58,93,73,0.22); transform:translateY(-3px); } .proc-grain { position:absolute; inset:0; border-radius:20px; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:160px 160px; opacity:.18; mix-blend-mode:overlay; pointer-events:none; z-index:1; }
 
@@ -214,6 +215,11 @@ input, textarea { font-family: var(--ff-b); }
 .proc-col:hover .proc-step-num { color: rgba(255,255,255,0.3); }
 .proc-col:hover .proc-step-name { color: #fff; }
 .proc-col:hover .proc-step-desc { color: rgba(255,255,255,0.78); }
+.proc-col.active::before { opacity: 1; }
+.proc-col.active { box-shadow: 0 12px 28px rgba(58,93,73,0.22); }
+.proc-col.active .proc-step-num { color: rgba(255,255,255,0.3); }
+.proc-col.active .proc-step-name { color: #fff; }
+.proc-col.active .proc-step-desc { color: rgba(255,255,255,0.78); }
 
 /* CONTACT */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
@@ -644,7 +650,7 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
 </section>
 
 <!-- PROCESS -->
-<section class="section s-light" data-theme="light" style="padding-top:4rem;padding-bottom:4rem;">
+<section class="section s-light" data-theme="light" style="padding-top:4rem;padding-bottom:10rem;">
   <div class="proc-grid proc-timeline">
     <div class="proc-col">
       <div class="proc-grain"></div>
@@ -841,17 +847,28 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   draw();
 })();
 
-/* ── PROCESS ACTIF MOBILE — géré par le click JS ci-dessus ── */
+/* ── ÉTAPES DESKTOP — étape 01 active par défaut ── */
 (function(){
-  const cols=document.querySelectorAll('.proc-col');
-  if(!cols.length)return;
-  function update(){
+  function initDesktop(){
     if(window.innerWidth<=600)return;
-    // desktop only: reset active
-    cols.forEach(c=>c.classList.remove('active'));
+    const cols=document.querySelectorAll('.proc-col');
+    if(!cols.length)return;
+    cols[0].classList.add('active');
+    let anyHovered=false;
+    cols.forEach(col=>{
+      col.addEventListener('mouseenter',()=>{
+        anyHovered=true;
+        cols[0].classList.remove('active');
+      });
+      col.addEventListener('mouseleave',()=>{
+        anyHovered=false;
+        setTimeout(()=>{ if(!anyHovered) cols[0].classList.add('active'); },20);
+      });
+    });
   }
-  window.addEventListener('resize',update);
-  update();
+  window.addEventListener('resize',initDesktop);
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initDesktop);}
+  else{initDesktop();}
 })();
 
 /* ── AVIS CLIENTS ── */

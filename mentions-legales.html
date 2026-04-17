@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,6 +17,7 @@
 :root {
   --dark:  #0d0b10;
   --light: #f1f1f1;
+  --neo:   #E8EFF2;
   --text-light: #f3f3f3;
   --text-dark:  #1a1820;
   --ff-h:  'Outfit', sans-serif;
@@ -38,24 +40,30 @@ button { cursor: none; border: none; background: none; font-family: inherit; col
 .nav-logo-fixed { position: fixed; top: 1.1rem; left: 3rem; z-index: 201; transition: opacity .4s ease, transform .4s ease; }
 .nav-logo-fixed img { width: 60px; height: auto; }
 .nav-logo-fixed.hidden { opacity: 0; transform: translateY(-8px); pointer-events: none; }
-.nav-pill { position: fixed; top: 1rem; right: 3rem; z-index: 200; display: flex; align-items: center; gap: 1.75rem; background: rgba(255,255,255,0.55); border: none; border-radius: 100px; padding: .6rem 1.5rem; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 2px 24px rgba(26,24,32,0.06), inset 0 1px 0 rgba(255,255,255,0.8); }
-.nav-pill a { font-family: var(--ff-h); font-size: .73rem; font-weight: 300; letter-spacing: .02em; color: rgba(26,24,32,0.5); text-decoration: none; transition: color .2s; white-space: nowrap; }
-.nav-pill a:hover, .nav-pill a.active { color: #1a1820; }
-.nav-pill .pill-cta { font-weight: 400; color: rgba(26,24,32,0.75); }
-.pill-sep { width: 1px; height: 12px; background: rgba(26,24,32,0.1); }
-.nav-burger { position: fixed; top: 1rem; right: 3rem; z-index: 201; display: none; grid-template-columns: repeat(3,1fr); gap: 5px; padding: 6px; background: none; border: none; cursor: pointer; width: 26px; height: 26px; }
-.nav-burger span { display: block; width: 5px; height: 5px; background: #1a1820; border-radius: 50%; transition: opacity .3s, transform .3s; }
-.nav-burger.open span { background: #f1f1f1; }
-.nav-burger.open span:nth-child(1),.nav-burger.open span:nth-child(3),.nav-burger.open span:nth-child(5),.nav-burger.open span:nth-child(7),.nav-burger.open span:nth-child(9) { opacity: 0.08; transform: scale(0.5); }
-@media (max-width:900px) { .nav-pill { display: none; } .nav-burger { display: grid; } }
+.nav-pill { position: fixed; top: 1rem; right: 3rem; z-index: 200; display: flex; align-items: center; gap: 1.5rem; background: #1C1C1C; border: none; border-radius: 100px; padding: .45rem 1.1rem; box-shadow: 0 4px 20px rgba(28,28,28,0.15); }
+.nav-pill a { font-family: var(--ff-h); font-size: .72rem; font-weight: 400; letter-spacing: .02em; color: rgba(241,241,241,0.5); text-decoration: none; transition: color .2s; white-space: nowrap; }
+.nav-pill a:hover, .nav-pill a.active { color: #f1f1f1; }
+.nav-pill .pill-cta { font-weight: 400; color: #f1f1f1; background: rgba(255,255,255,0.12); border-radius: 2rem; padding: .3rem .9rem; }
+.pill-sep { width: 1px; height: 12px; background: rgba(241,241,241,0.15); }
+.mob-pill { position: fixed; top: .9rem; left: 50%; transform: translateX(-50%); z-index: 201; background: var(--neo); border-radius: 100px; padding: .45rem .55rem .45rem 1.1rem; display: none; align-items: center; gap: .7rem; box-shadow: 2px 2px 6px rgba(170,190,196,0.35),-1px -1px 4px rgba(255,255,255,0.7); border: none; cursor: pointer; }
+.mob-pill-sep { width: 1px; height: 14px; background: rgba(28,28,28,0.1); pointer-events: none; }
+.mob-pill-burger { width: 30px; height: 30px; border-radius: 50%; background: var(--neo); box-shadow: 2px 2px 5px rgba(170,190,196,0.5),-1px -1px 4px rgba(255,255,255,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; pointer-events: none; }
+.mob-pill-burger span { display: block; height: 1.5px; border-radius: 2px; background: #1C1C1C; transition: .3s; }
+.mob-pill-burger span:nth-child(1) { width: 10px; }
+.mob-pill-burger span:nth-child(2) { width: 13px; }
+.mob-pill-burger span:nth-child(3) { width: 8px; }
+@media (max-width:900px) { .nav-pill { display: none; } .mob-pill { display: flex; } }
 
-/* ===================== MOBILE MENU ===================== */
-.mobile-menu { position: fixed; top: 0; right: 0; bottom: 0; z-index: 199; width: 65vw; max-width: 280px; background: rgba(13,11,16,0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 5rem 2.5rem 3rem; gap: 2.5rem; transform: translateX(100%); transition: transform .5s cubic-bezier(0.23,1,0.32,1); }
-.mobile-menu.open { transform: translateX(0); }
-.mobile-menu a { font-family: var(--ff-h); font-size: 1.15rem; font-weight: 300; color: rgba(242,242,242,0.75); letter-spacing: .02em; transition: color .2s; }
-.mobile-menu a:hover { color: #f1f1f1; }
-.mm-foot { position: absolute; bottom: 2.5rem; left: 2.5rem; font-size: .6rem; opacity: .18; letter-spacing: .12em; color: var(--text-light); }
-.mobile-menu-overlay { display: none; position: fixed; inset: 0; z-index: 198; background: rgba(13,11,16,0.35); opacity: 0; transition: opacity .4s ease; pointer-events: none; }
+/* MOBILE MENU */
+.mobile-menu { position: fixed; top: 0; left: 0; right: 0; z-index: 199; background: var(--neo); padding: 4.5rem 1.2rem 1.4rem; transform: translateY(-110%); transition: transform .45s cubic-bezier(0.23,1,0.32,1); box-shadow: 0 6px 20px rgba(28,28,28,0.08); }
+.mobile-menu.open { transform: translateY(0); }
+.mobile-menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mobile-menu a { font-family: var(--ff-h); font-size: .85rem; font-weight: 500; color: rgba(28,28,28,0.5); letter-spacing: -.01em; transition: color .2s; display: block; background: var(--neo); border-radius: 14px; padding: .9rem 1rem; box-shadow: 4px 4px 9px rgba(170,190,196,0.5),-3px -3px 7px rgba(255,255,255,0.88); }
+.mobile-menu a:hover { color: #1C1C1C; }
+.mobile-menu a.mm-rdv { grid-column: 1 / 3; background: #1C1C1C; color: #f1f1f1; box-shadow: none; font-weight: 400; text-align: center; }
+.mobile-menu a.mm-rdv:hover { background: #2e2e2e; color: #f1f1f1; }
+.mm-foot { font-family: var(--ff-b); font-size: .58rem; opacity: .25; letter-spacing: .1em; text-transform: uppercase; color: #1C1C1C; text-align: center; margin-top: .8rem; }
+.mobile-menu-overlay { display: none; position: fixed; inset: 0; z-index: 198; background: rgba(28,28,28,0.25); opacity: 0; transition: opacity .4s ease; pointer-events: none; backdrop-filter: blur(2px); }
 .mobile-menu-overlay.open { opacity: 1; pointer-events: all; }
 @media (max-width: 768px) { .mobile-menu-overlay { display: block; } }
 
@@ -127,7 +135,7 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
 .m-bar a.rdv { color:rgba(242,242,242,0.65); padding:.25rem .65rem; border:.5px solid rgba(242,242,242,0.25); border-radius:2rem; flex:unset; }
 @media (max-width:600px) {
   body { padding-top:52px; padding-bottom:74px; cursor:auto; }
-  .nav-logo-fixed, .nav-burger, .mobile-menu, .mobile-menu-overlay, .side-icons, #cursor-canvas { display:none !important; }
+  .nav-logo-fixed, .mob-pill, .mobile-menu, .mobile-menu-overlay, .side-icons, #cursor-canvas { display:none !important; }
   .m-topbar, .m-bar { display:flex; }
   .ml-wrap { padding: 2rem 1.25rem 4rem; }
 }
@@ -142,7 +150,6 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
 <a href="index.html" class="nav-logo-fixed" id="nav-logo" aria-label="Orae Agency">
   <img src="orae_logo_noir_complet.svg" alt="Orae Agency">
 </a>
-
 <nav class="nav-pill" id="nav-pill">
   <a href="portfolio.html">Portfolio</a>
   <a href="index.html#services">Services</a>
@@ -151,18 +158,20 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
   <span class="pill-sep"></span>
   <a href="index.html#agenda" class="pill-cta">Prendre RDV</a>
 </nav>
-
-<button class="nav-burger" id="burger" aria-label="Menu">
-  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+<button class="mob-pill" id="burger" aria-label="Menu">
+  <img src="orae_logo_noir_complet.svg" alt="orae" style="height:22px;width:auto;display:block;pointer-events:none;">
+  <span class="mob-pill-sep"></span>
+  <span class="mob-pill-burger"><span></span><span></span><span></span></span>
 </button>
-
 <div class="mobile-menu-overlay" id="mm-overlay"></div>
 <div class="mobile-menu" id="mm">
-  <a href="portfolio.html">Portfolio</a>
-  <a href="index.html#services">Services</a>
-  <a href="index.html#about">À propos</a>
-  <a href="index.html#contact">Contact</a>
-  <a href="index.html#agenda">Prendre RDV</a>
+  <div class="mobile-menu-grid">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#about">À propos</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#agenda" class="mm-rdv">Prendre RDV →</a>
+  </div>
   <div class="mm-foot">Orae Agency — Montpellier.</div>
 </div>
 
