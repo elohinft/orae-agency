@@ -308,6 +308,14 @@ footer { background: var(--dark); color: var(--text-light); padding: 3.5rem 4rem
     logo.classList.toggle('hidden', window.scrollY > 80);
   }, { passive: true });
 })();
+
+(function(){
+  const b=document.getElementById('burger'),m=document.getElementById('mm'),ov=document.getElementById('mm-overlay');
+  const close=()=>{m.classList.remove('open');b.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';};
+  b.addEventListener('click',()=>{const o=m.classList.toggle('open');b.classList.toggle('open',o);ov.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';});
+  ov.addEventListener('click',close);m.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+})();
+
 (function(){
   const b=document.getElementById('burger'),m=document.getElementById('mm'),ov=document.getElementById('mm-overlay');
   const close=()=>{m.classList.remove('open');b.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';};
