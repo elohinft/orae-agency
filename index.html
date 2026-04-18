@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -192,7 +193,16 @@ input, textarea { font-family: var(--ff-b); }
 .srv-desc { font-family: var(--ff-b); font-size: .78rem; font-weight: 500; color: rgba(28,28,28,0.5); line-height: 1.6; border-top: 1px solid rgba(28,28,28,0.07); padding-top: .8rem; transition: color .35s, border-top-color .35s; }
 .srv-card:hover .srv-desc { color: rgba(241,241,241,0.45); border-top-color: rgba(241,241,241,0.1); }
 
-@media (max-width: 600px) { .sd-row1,.sd-row2 { grid-template-columns: 1fr 1fr; margin-left:0;margin-right:0; } }
+@media (max-width: 600px) {
+  .srv-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .srv-layout-text { order: -1; }
+  .srv-decon { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .sd-row1, .sd-row2 { display: contents; }
+  .sd-row1 .srv-card:first-child, .sd-row2 .srv-card:last-child { grid-column: 1 / 3; }
+  .srv-card { min-height: unset; padding: 1rem; }
+  .srv-icon-wrap { margin-bottom: .8rem; }
+  .srv-desc { font-size: .65rem; }
+}
 @media (hover: none) {
   .srv-card.srv-active { background: #1C1C1C; box-shadow: 0 8px 28px rgba(28,28,28,0.18); }
   .srv-card.srv-active .srv-icon-wrap { background-size: 300% 300%; background-image: linear-gradient(135deg,#3A5D49,#5E8371,#698D89,#85A1A4,#91AAAF,#D1CAC4); animation: oilSlick 6s ease-in-out infinite; }
@@ -427,7 +437,6 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
 @media (max-width:600px) {
   body { padding-top:0; padding-bottom:0; cursor:auto; }
   .nav-logo-fixed, .nav-burger, .mobile-menu-overlay, .side-icons, #cursor-canvas { display:none !important; }
-  
   .about-img { max-width:65% !important; margin:0 auto; }
   .pmi { border-radius:10px; }
 }
@@ -636,6 +645,10 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
   <div class="s-eyebrow"><span class="s-label">À propos</span><span class="s-rule"></span></div>
   <div class="about-grid">
     <div>
+      <p class="about-p rev d1">Orae Agency est une équipe de designers graphiques basée à Montpellier.<br>Que ce soit pour un logo, un site internet, une publicité, une application, une affiche, un packaging ou une identité visuelle complète, nous accompagnons les marques, les startups et les entrepreneurs ambitieux dans la construction d'une image forte, cohérente et mémorable.</p>
+      <p class="about-p rev d2">Nous travaillons majoritairement à distance, au travers d'échanges réguliers sur Google Meet, par téléphone et par mail — et nous nous déplaçons ponctuellement selon la nature du projet. Du premier brief au rendu final, nous imaginons, dirigeons et concevons chaque élément avec soin. Parce qu'une bonne image ne se limite pas à un beau logo ; elle se construit, se raconte et se ressent.</p>
+    </div>
+    <div>
       <h2 class="about-hl rev">Votre agence <em>tout-en-un</em>, du logo au site web, de l'affiche à la pub.</h2>
       <div class="about-tags">
         <span class="about-tag">Brand Design</span>
@@ -645,10 +658,6 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
         <span class="about-tag">Stratégie visuelle</span>
         <span class="about-tag">Montpellier &amp; à Distance</span>
       </div>
-    </div>
-    <div>
-      <p class="about-p rev d1">Orae Agency est une équipe de designers graphiques basée à Montpellier.<br>Que ce soit pour un logo, un site internet, une publicité, une application, une affiche, un packaging ou une identité visuelle complète, nous accompagnons les marques, les startups et les entrepreneurs ambitieux dans la construction d'une image forte, cohérente et mémorable.</p>
-      <p class="about-p rev d2">Nous travaillons majoritairement à distance, au travers d'échanges réguliers sur Google Meet, par téléphone et par mail — et nous nous déplaçons ponctuellement selon la nature du projet. Du premier brief au rendu final, nous imaginons, dirigeons et concevons chaque élément avec soin. Parce qu'une bonne image ne se limite pas à un beau logo ; elle se construit, se raconte et se ressent.</p>
     </div>
   </div>
 </section>
@@ -683,6 +692,15 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
 <section id="contact" class="section s-light" data-theme="light" style="background:var(--neo);">
   <div class="s-eyebrow"><span class="s-label">Travaillons ensemble</span><span class="s-rule"></span></div>
   <div class="contact-grid">
+    <div class="contact-info rev">
+      <h2 class="contact-info-title">Un projet ?<br><em>Parlons-en.</em></h2>
+      <p class="contact-info-desc">On vous répond sous 24h. Aucun engagement, juste un échange pour voir si on peut construire quelque chose ensemble.</p>
+      <div class="contact-details">
+        <div class="contact-detail"><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a></div>
+        <div class="contact-detail"><a href="https://www.instagram.com/orae_agency/" target="_blank">@orae_agency</a></div>
+        <div class="contact-detail">Montpellier, France</div>
+      </div>
+    </div>
     <div class="rev d1">
       <form class="form" id="cform">
         <div class="form-row">
@@ -695,15 +713,6 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
         <div class="fg"><textarea class="ft" name="message" placeholder="Décrivez votre projet, vos besoins, votre vision..." required></textarea></div>
         <button type="submit" class="form-submit" id="fsub">Envoyer</button>
       </form>
-    </div>
-    <div class="contact-info rev">
-      <h2 class="contact-info-title">Un projet ?<br><em>Parlons-en.</em></h2>
-      <p class="contact-info-desc">On vous répond sous 24h. Aucun engagement, juste un échange pour voir si on peut construire quelque chose ensemble.</p>
-      <div class="contact-details">
-        <div class="contact-detail"><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a></div>
-        <div class="contact-detail"><a href="https://www.instagram.com/orae_agency/" target="_blank">@orae_agency</a></div>
-        <div class="contact-detail">Montpellier, France</div>
-      </div>
     </div>
   </div>
 </section>
@@ -725,11 +734,6 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
 <section id="agenda" class="section s-light" data-theme="light">
   <div class="s-eyebrow"><span class="s-label">Prendre rendez-vous</span><span class="s-rule"></span></div>
   <div class="agenda-grid">
-    <div class="agenda-left rev">
-      <h2 class="agenda-title">Vous préférez<br>un appel <em>découverte ?</em></h2>
-      <p class="agenda-desc">30 min · Gratuit · Sans engagement. Choisissez le créneau qui vous convient directement dans notre calendrier.</p>
-      <a href="https://calendar.app.google/ogHZTHyBdJdVQS1Y8" target="_blank" class="agenda-btn">Voir les disponibilités →</a>
-    </div>
     <div class="rev d1">
       <div class="cal-interactive">
         <div class="cal-pills-row">
@@ -752,6 +756,11 @@ footer { background: #1C1C1C; color: #f1f1f1; padding: 3.5rem var(--margin) 2rem
           <span class="cal-footer-txt">Disponible lun — ven, 9h — 18h</span>
         </div>
       </div>
+    </div>
+    <div class="agenda-left rev">
+      <h2 class="agenda-title">Vous préférez<br>un appel <em>découverte ?</em></h2>
+      <p class="agenda-desc">30 min · Gratuit · Sans engagement. Choisissez le créneau qui vous convient directement dans notre calendrier.</p>
+      <a href="https://calendar.app.google/ogHZTHyBdJdVQS1Y8" target="_blank" class="agenda-btn">Voir les disponibilités →</a>
     </div>
   </div>
 </section>
