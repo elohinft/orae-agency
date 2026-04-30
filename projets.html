@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projets — Orae Agency</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,500&family=Bodoni+Moda:ital,opsz,wght@1,6..96,700;1,6..96,800&family=DM+Sans:opsz,wght@9..40,300&family=Urbanist:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── PAGE LOADER ── */
+    #page-loader {
+      position: fixed; inset: 0;
+      background: #1c1c1e;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+    }
+    #page-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-logo {
+      width: 44px; height: 15px;
+      object-fit: contain;
+      opacity: 0.6;
+    }
+    .loader-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(234,238,242,0.15);
+      border-top-color: #eaeef2;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    body {
+      background: #eaeef2;
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', Futura, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .page { width: 1440px; margin: 0 auto; }
+
+    /* ── BURGER HEADER ── */
+    .site-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      padding: 28px 40px;
+      pointer-events: none;
+    }
+    .site-logo-fixed {
+      width: 60px; height: 21px;
+      object-fit: contain;
+      display: block;
+      pointer-events: all;
+      filter: brightness(0);
+    }
+    .burger-wrap {
+      position: fixed;
+      top: 14px; right: 32px;
+      z-index: 1001;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #eaeef2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .burger-wrap.dark { background: #1c1c1e; }
+    .burger {
+      background: none; border: none;
+      cursor: pointer;
+      display: flex; flex-direction: column; gap: 5px; padding: 0;
+    }
+    .burger span {
+      display: block; height: 1.5px; background: #1c1c1e;
+      transition: transform 0.32s ease, opacity 0.2s ease, width 0.2s ease;
+    }
+    .burger span:nth-child(1) { width: 22px; }
+    .burger span:nth-child(2) { width: 16px; }
+    .burger span:nth-child(3) { width: 10px; }
+    .burger-wrap.dark .burger span { background: #eaeef2; }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 18px; }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 18px; }
+
+    /* ── NAV OVERLAY ── */
+    .nav-overlay {
+      position: fixed;
+      top: 0; right: 0; bottom: 0; left: auto;
+      width: 300px;
+      background: #1c1c1e;
+      z-index: 1000;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 48px;
+      transform: translateX(100%);
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.38s cubic-bezier(0.77,0,0.18,1), visibility 0s linear 0.38s;
+      box-shadow: none;
+    }
+    .nav-overlay.open {
+      transform: translateX(0);
+      visibility: visible; pointer-events: all;
+      transition: transform 0.38s cubic-bezier(0.77,0,0.18,1), visibility 0s linear 0s;
+    }
+    .nav-overlay ul { list-style: none; }
+    .nav-overlay ul li { margin-bottom: 8px; }
+    .nav-overlay ul li a {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', Futura, sans-serif;
+      font-weight: 400; font-size: 14px; line-height: 24px;
+      letter-spacing: 0.6px;
+      color: #b8b5b5; text-decoration: none; display: block;
+      transition: color 0.15s;
+    }
+    .nav-overlay ul li a:hover,
+    .nav-overlay ul li.active a {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-style: italic; font-weight: 700; color: #fff;
+    }
+
+    /* ── PROJECTS MAGAZINE ── */
+    #projects {
+      background: #eaeef2;
+      width: 1440px;
+      padding-top: 80px;
+    }
+
+    .mag-section {
+      display: flex;
+      align-items: stretch;
+      padding: 80px;
+      gap: 64px;
+      box-sizing: border-box;
+    }
+    .mag-section:nth-child(odd)  { flex-direction: row; }
+    .mag-section:nth-child(even) { flex-direction: row-reverse; }
+
+    /* ── Colonne texte ── */
+    .mag-text {
+      flex: 42 1 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .mag-eyebrow {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #b0b0b0;
+      margin: 0 0 22px;
+    }
+    .mag-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 34px;
+      line-height: 44px;
+      color: #1c1c1e;
+      margin: 0 0 32px;
+    }
+    .mag-title em {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 37px;
+    }
+    .mag-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+      margin-bottom: 40px;
+    }
+    .mag-body p {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', sans-serif;
+      font-size: 12.5px;
+      line-height: 21px;
+      color: #888;
+      letter-spacing: 0.3px;
+      margin: 0;
+    }
+    .mag-link {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      color: #1c1c1e;
+      text-decoration: none;
+      border-bottom: 1px solid #1c1c1e;
+      padding-bottom: 2px;
+      align-self: flex-start;
+      transition: all 0.15s;
+    }
+    .mag-link:hover {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    /* ── Colonne images ── */
+    .mag-images {
+      flex: 58 1 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Mosaic : grille éditoriale — 1 grande à gauche, 2 empilées à droite */
+    .mag-mosaic {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 620px;
+      height: 460px;
+    }
+    .mag-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .mag-mosaic > .mag-img:first-child { grid-row: 1 / span 2; }
+    .mag-mosaic > .mag-img:nth-child(n+4) { display: none; }
+    .mag-img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease, opacity 0.18s ease;
+    }
+    .mag-img:hover img { transform: scale(1.03); }
+
+    .mag-thumbs {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .mag-thumb {
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .mag-thumb img {
+      display: block;
+      height: 60px;
+      width: auto;
+      max-width: 120px;
+      object-fit: cover;
+    }
+    .mag-thumb.active { opacity: 1; outline: 2px solid #1c1c1e; outline-offset: -2px; }
+    .mag-thumb:hover  { opacity: 0.7; }
+
+    /* ── CONTACT ── */
+    #contact {
+      position: relative;
+      width: 1440px;
+      height: 760px;
+      background: #1c1c1e;
+      overflow: hidden;
+    }
+    .ct-input {
+      position: absolute;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-family: 'Century Gothic', Futura, sans-serif;
+      font-size: 14px;
+      line-height: 34.245px;
+      letter-spacing: 0.8px;
+      outline: none;
+      padding: 0 0 4px 0;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .ct-input::placeholder { color: rgba(255,255,255,0.3); }
+    .ct-input:focus { border-bottom-color: rgba(255,255,255,0.65); }
+    #ct-nom   { left: 111px; top: 230px; width: 696px; height: 34px; }
+    #ct-num   { left: 110px; top: 310px; width: 279px; height: 34px; }
+    #ct-email { left: 528px; top: 310px; width: 279px; height: 34px; }
+    #ct-msg   { left: 111px; top: 400px; width: 696px; height: 80px; resize: none; vertical-align: top; }
+    .ct-service {
+      position: absolute;
+      left: 111px; top: 510px;
+      font-family: 'Century Gothic', Futura, sans-serif;
+      font-size: 12px; color: #fff; letter-spacing: 0.5px; line-height: 28px;
+      white-space: nowrap; display: flex; align-items: center; gap: 0;
+    }
+    .ct-srv-opts { display: flex; align-items: center; }
+    .ct-srv-opt { cursor: pointer; color: rgba(255,255,255,0.4); font-weight: 600; font-size: inherit; transition: color 0.15s; padding-bottom: 1px; }
+    .ct-srv-opt:hover { color: rgba(255,255,255,0.75); }
+    .ct-srv-opt.sel { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.55); }
+    .ct-srv-sep { color: rgba(255,255,255,0.2); margin: 0 4px; font-weight: 400; }
+    .ct-facultatif { margin-left: 12px; font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.4px; font-weight: 400; }
+    .ct-info { position: absolute; left: 936px; top: 200px; width: 388px; color: #eaeef2; }
+    .ct-info-title { font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 40.506px; line-height: 43.4px; color: #eaeef2; margin: 0; }
+    .ct-info-title em { font-family: 'Bodoni Moda', Georgia, serif; font-style: italic; font-weight: 700; font-size: 43.4px; }
+    .ct-info-details { margin-top: 24px; font-family: 'Century Gothic', Futura, sans-serif; font-size: 14px; line-height: 25px; letter-spacing: 0.8px; color: #eaeef2; }
+    .ct-info-details p { margin: 0; }
+    .ct-submit {
+      position: absolute; left: 110px; top: 570px;
+      appearance: none; -webkit-appearance: none;
+      background: none; border: none; border-bottom: 1px solid #eaeef2;
+      color: #eaeef2; font-family: 'Century Gothic', Futura, sans-serif;
+      font-size: 14px; letter-spacing: 0.8px; line-height: 25px;
+      cursor: pointer; padding: 0 0 2px 0; transition: all 0.15s;
+    }
+    .ct-submit:hover { font-family: 'Bodoni Moda', Georgia, serif; font-style: italic; font-weight: 700; }
+
+    /* ── CTA ── */
+    #cta {
+      position: relative;
+      width: 1440px;
+      height: 1024px;
+      background: #eaeef2;
+      overflow: hidden;
+    }
+    .cta-heading {
+      position: absolute; top: 154px; left: 334px; width: 772px;
+      font-family: 'Poppins', sans-serif; font-size: 64.763px; line-height: 78px;
+      text-align: center; color: #1c1c1c; margin: 0; font-weight: 400;
+    }
+    .cta-heading .h-num    { font-weight: 600; }
+    .cta-heading .h-ital   { font-style: italic; font-weight: 500; }
+    .cta-heading .h-grey   { color: #b0b0b0; font-weight: 400; }
+    .cta-heading .h-projet { font-family: 'Bodoni Moda', Georgia, serif; font-style: italic; font-weight: 700; font-size: 70px; }
+    .cta-heading .h-bold   { font-weight: 600; color: #343434; }
+    .cta-call-btn {
+      position: absolute; top: 430px; left: 50%; transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 10px;
+      background: none; border: none; border-bottom: 1px solid #1c1c1c;
+      color: #1c1c1c; font-family: 'Century Gothic', Futura, sans-serif;
+      font-size: 14px; letter-spacing: 0.8px; line-height: 25px;
+      padding: 0 0 2px 0; cursor: pointer; text-decoration: none;
+      white-space: nowrap; transition: all 0.15s;
+    }
+    .cta-call-btn:hover { font-family: 'Bodoni Moda', Georgia, serif; font-style: italic; font-weight: 700; transform: translateX(-50%); }
+    .cta-phone { width: 14px; height: 14px; flex-shrink: 0; animation: phone-ring 2.4s ease-in-out infinite; }
+    @keyframes phone-ring {
+      0%, 55%, 100% { transform: rotate(0deg) scale(1); }
+      60% { transform: rotate(-20deg) scale(1.15); }
+      67% { transform: rotate(20deg) scale(1.15); }
+      74% { transform: rotate(-13deg) scale(1.08); }
+      81% { transform: rotate(13deg) scale(1.08); }
+      88% { transform: rotate(-6deg) scale(1.03); }
+      95% { transform: rotate(0deg) scale(1); }
+    }
+    .cta-cols {
+      position: absolute; top: 620px; left: 102px; right: 102px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .cta-col { position: relative; }
+    .cta-col:not(:last-child)::after {
+      content: ''; position: absolute; right: -36px; top: 0;
+      width: 1px; height: 142px; background: rgba(28,28,28,0.18);
+    }
+    .cta-col-title { font-family: 'Century Gothic', Futura, sans-serif; font-size: 20px; line-height: 53.076px; color: #000; white-space: nowrap; margin: 0; padding-left: 22px; }
+    .cta-col-title strong { font-weight: 700; }
+    .cta-col-desc { font-family: 'Century Gothic', Futura, sans-serif; font-size: 14px; line-height: 22px; color: #8c8c8c; width: 240px; margin: 0; padding-left: 22px; }
+
+    /* ── FOOTER ── */
+    #footer {
+      width: 1440px;
+      background: #eaeef2;
+      border-top: 1px solid rgba(28,28,28,0.07);
+      padding: 22px 102px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ft-logo { width: 34px; height: 12px; object-fit: contain; filter: brightness(0); opacity: 0.35; display: block; }
+    .ft-copy { font-family: 'Century Gothic', Futura, sans-serif; font-size: 10px; color: rgba(28,28,28,0.38); letter-spacing: 0.5px; }
+    .ft-nav { display: flex; gap: 24px; }
+    .ft-nav a { font-family: 'Century Gothic', Futura, sans-serif; font-size: 10px; color: rgba(28,28,28,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+    .ft-nav a:hover { color: rgba(28,28,28,0.7); }
+    .ft-legal { font-family: 'Century Gothic', Futura, sans-serif; font-size: 10px; color: rgba(28,28,28,0.25); text-decoration: none; letter-spacing: 0.4px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+
+      /* ── Global ── */
+      .page, #proj-hero, #projects, #contact, #cta, #footer { width: 100%; }
+
+      /* ── Burger / Header ── */
+      .site-header { padding: 18px 20px; }
+      .burger-wrap { top: 16px; right: 16px; width: 44px; height: 44px; }
+      .nav-overlay {
+        left: 0; width: 100%; padding: 72px 28px 48px;
+        transform: translateY(100%);
+      }
+      .nav-overlay.open { transform: translateY(0); }
+      .nav-overlay ul li { margin-bottom: 4px; }
+      .nav-overlay ul li a { font-size: 22px; line-height: 36px; }
+
+      /* ── PROJETS MAGAZINE ── */
+      .mag-section { flex-direction: column !important; min-height: auto; padding: 40px 20px; gap: 24px; }
+      .mag-text { flex: none; padding: 0; }
+      .mag-eyebrow { font-size: 12px; margin-bottom: 14px; }
+      .mag-title { font-size: 26px; line-height: 34px; margin-bottom: 20px; }
+      .mag-title em { font-size: 28px; }
+      .mag-body { grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; }
+      .mag-body p { font-size: 14px; line-height: 22px; }
+      .mag-link { font-size: 13px; }
+      .mag-images { flex: none; height: auto !important; padding: 0 !important; gap: 14px; }
+      .mag-mosaic {
+        grid-template-columns: 1.4fr 1fr;
+        grid-template-rows: 130px 130px;
+        height: auto;
+        max-width: 100%;
+        gap: 8px;
+      }
+      .mag-img img { width: 100% !important; height: 100% !important; max-height: none !important; object-fit: cover; }
+      .mag-thumbs { height: auto; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+      .mag-thumb { width: 64px; height: 64px; }
+
+      /* ── CONTACT ── */
+      #contact { height: auto; overflow: visible; padding: 56px 20px 64px; display: flex; flex-direction: column; }
+      .ct-info {
+        position: relative; left: auto; top: auto;
+        width: 100%; margin-bottom: 40px;
+      }
+      .ct-info-title { font-size: 26px; line-height: 32px; }
+      .ct-info-title em { font-size: 28px; }
+      .ct-info-details { font-size: 14px; }
+      #ct-form { display: flex; flex-direction: column; }
+      .ct-input {
+        position: relative; left: auto !important; top: auto !important;
+        width: 100% !important; height: 44px !important;
+        display: block; margin-bottom: 14px; font-size: 14px;
+      }
+      #ct-msg { height: 110px !important; }
+      .ct-service {
+        position: relative; left: auto; top: auto;
+        flex-wrap: wrap; white-space: normal; margin-bottom: 14px; gap: 6px; font-size: 12px;
+      }
+      .ct-srv-opts { flex-wrap: wrap; gap: 4px 0; }
+      .ct-submit {
+        position: relative; left: auto; top: auto;
+        display: inline-block; margin-top: 20px; align-self: flex-start;
+      }
+
+      /* ── CTA ── */
+      #cta { height: auto; overflow: visible; padding: 56px 20px 72px; }
+      .cta-heading {
+        position: relative; top: auto; left: auto; width: auto;
+        font-size: 32px; line-height: 42px; text-align: left; margin: 0;
+      }
+      .cta-heading .h-projet { font-size: 34px; }
+      .cta-call-btn {
+        position: relative; top: auto; left: auto;
+        transform: none; display: inline-flex; margin-top: 28px;
+      }
+      .cta-call-btn:hover { transform: none; }
+      .cta-cols {
+        position: relative; top: auto; left: auto; right: auto;
+        flex-direction: column; gap: 28px; margin-top: 44px;
+      }
+      .cta-col { width: 100%; }
+      .cta-col:not(:last-child)::after { display: none; }
+      .cta-col-title { font-size: 16px; white-space: normal; padding-left: 0; }
+      .cta-col-desc { width: auto; padding-left: 0; font-size: 14px; }
+
+      /* ── FOOTER ── */
+      #footer {
+        flex-direction: column; align-items: flex-start;
+        gap: 16px; padding: 28px 20px;
+      }
+      .ft-nav { gap: 14px; flex-wrap: wrap; }
+    }
+
+    @media (max-width: 480px) {
+      .cta-heading { font-size: 26px; line-height: 34px; }
+      .cta-heading .h-projet { font-size: 28px; }
+    }
+
+    /* ── LIGHTBOX ── */
+    #lb-overlay {
+      position: fixed; inset: 0;
+      background: rgba(28,28,28,0.84);
+      z-index: 2000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.28s ease, visibility 0s linear 0.28s;
+    }
+    #lb-overlay.open {
+      opacity: 1; visibility: visible;
+      transition: opacity 0.28s ease;
+    }
+    #lb-modal {
+      display: flex;
+      align-items: stretch;
+      max-height: 84vh;
+      max-width: 90vw;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+    #lb-img-side {
+      flex-shrink: 0;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #lb-img {
+      display: block;
+      max-height: 84vh;
+      max-width: 58vw;
+      width: auto; height: auto;
+      object-fit: contain;
+      transition: opacity 0.18s ease;
+    }
+    #lb-text-side {
+      width: 340px;
+      flex-shrink: 0;
+      background: #fff;
+      padding: 52px 44px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .lb-close {
+      position: absolute;
+      top: 18px; right: 20px;
+      background: none; border: none;
+      font-size: 22px; line-height: 1;
+      color: rgba(28,28,28,0.3);
+      cursor: pointer; padding: 6px;
+      transition: color 0.15s;
+    }
+    .lb-close:hover { color: #1c1c1e; }
+    .lb-eyebrow {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', sans-serif;
+      font-size: 10px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: #b0b0b0;
+      margin: 0 0 18px;
+    }
+    .lb-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400; font-size: 28px; line-height: 38px;
+      color: #1c1c1e; margin: 0 0 24px;
+    }
+    .lb-title em {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-style: italic; font-weight: 700; font-size: 31px;
+    }
+    .lb-desc {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0 18px; margin-bottom: 30px;
+    }
+    .lb-desc p {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', sans-serif;
+      font-size: 11px; line-height: 18px;
+      color: #999; letter-spacing: 0.3px; margin: 0;
+    }
+    .lb-link {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', sans-serif;
+      font-size: 12px; letter-spacing: 0.5px;
+      color: #1c1c1e; text-decoration: none;
+      border-bottom: 1px solid #1c1c1e; padding-bottom: 2px;
+      align-self: flex-start; margin-bottom: 30px;
+      transition: all 0.15s;
+    }
+    .lb-link:hover {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-style: italic; font-weight: 700;
+    }
+    .lb-nav { display: flex; align-items: center; gap: 14px; }
+    .lb-nav-btn {
+      background: none; border: none;
+      font-size: 18px; color: rgba(28,28,28,0.4);
+      cursor: pointer; padding: 0; line-height: 1;
+      transition: color 0.15s;
+    }
+    .lb-nav-btn:hover { color: #1c1c1e; }
+    .lb-counter {
+      font-family: 'AvantGarde Bk BT', 'Century Gothic', sans-serif;
+      font-size: 10px; letter-spacing: 1px;
+      color: rgba(28,28,28,0.3);
+    }
+    @media (max-width: 820px) {
+      #lb-overlay { align-items: center; justify-content: center; }
+      #lb-modal {
+        position: relative;
+      }
+      #lb-text-side { position: static; }
+      .lb-close {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        top: auto;
+        color: rgba(234,238,242,0.75);
+        font-size: 28px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 50%;
+        width: 44px; height: 44px;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .lb-close:hover { color: #fff; background: rgba(255,255,255,0.15); }
+      #lb-modal {
+        flex-direction: column;
+        width: 83vw;
+        max-width: 83vw;
+        max-height: 76vh;
+        overflow-y: auto;
+        border-radius: 4px;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+      }
+      #lb-img-side { flex-shrink: 0; order: 2; background: none; }
+      #lb-img {
+        width: 100%;
+        height: auto;
+        max-width: 83vw;
+        max-height: none;
+        object-fit: unset;
+        display: block;
+      }
+      #lb-text-side {
+        order: 1;
+        width: auto;
+        padding: 22px 22px 26px;
+        flex-shrink: 0;
+      }
+      .lb-eyebrow { margin-bottom: 10px; }
+      .lb-title { font-size: 20px; line-height: 28px; margin-bottom: 14px; }
+      .lb-title em { font-size: 22px; }
+      .lb-desc { grid-template-columns: 1fr; gap: 8px; margin-bottom: 18px; }
+      .lb-desc p { font-size: 11px; line-height: 17px; }
+      .lb-link { margin-bottom: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ LOADER ════════════════════════════════════════════ -->
+<div id="page-loader">
+  <div class="loader-ring"></div>
+</div>
+
+<!-- Lightbox -->
+
+<!-- Logo -->
+<header class="site-header" id="site-header">
+  <a href="orae-agency.html">
+    <img src="https://www.figma.com/api/mcp/asset/0106f3f9-60df-4ba4-bca8-352459dab637"
+         alt="Orae Agency" class="site-logo-fixed">
+  </a>
+</header>
+
+<!-- Burger -->
+<div class="burger-wrap" id="burger-wrap">
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- Nav overlay -->
+<nav class="nav-overlay" id="nav-overlay">
+  <ul>
+    <li><a href="orae-agency.html">accueil</a></li>
+    <li class="active"><a href="projets.html">projets</a></li>
+    <li><a href="orae-agency.html#contact">contact</a></li>
+    <li><a href="https://calendar.app.google/ogHZTHyBdJdVQS1Y8" target="_blank" rel="noopener">prendre RDV</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- ══ PROJETS MAGAZINE ══════════════════════════════════════ -->
+  <section id="projects">
+
+    <!-- 1 — Brand Design -->
+    <div class="mag-section" id="brand">
+      <div class="mag-text">
+        <p class="mag-eyebrow">Brand Design — Identité visuelle</p>
+        <h2 class="mag-title">L'<em>identité</em> d'une marque qui dure.</h2>
+        <div class="mag-body">
+          <p>Logo, charte graphique, typographie, palette, iconographie, supports — nous construisons des systèmes visuels complets qui tiennent dans le temps. Chaque décision découle de l'ADN de votre marque, pas de tendances passagères.</p>
+          <p>Refonte totale, création from scratch ou extension de charte existante : peu importe le point de départ, on bâtit une identité cohérente et reconnaissable sur tous vos supports.</p>
+        </div>
+        <a href="#contact" class="mag-link">Parlez-nous de votre marque</a>
+      </div>
+      <div class="mag-images">
+        <div class="mag-mosaic">
+          <div class="mag-img"><img src="images/Lueur 1.png" alt="Lueur"></div>
+          <div class="mag-img"><img src="images/Aroma1.png" alt="Aroma"></div>
+          <div class="mag-img"><img src="images/Reborn.png" alt="Reborn"></div>
+        </div>
+        <div class="mag-thumbs">
+          <div class="mag-thumb active"><img src="images/Lueur 2.png" alt=""></div>
+          <div class="mag-thumb"><img src="images/Reborn2.0.png" alt=""></div>
+          <div class="mag-thumb"><img src="images/Delta.png" alt="Delta"></div>
+          <div class="mag-thumb"><img src="images/Brand drop.png" alt="Brand drop"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 — Print -->
+    <div class="mag-section" id="print">
+      <div class="mag-text">
+        <p class="mag-eyebrow">Print — Impression & Édition</p>
+        <h2 class="mag-title">Des supports <em>imprimés</em> soignés.</h2>
+        <div class="mag-body">
+          <p>Affiches, flyers, brochures, catalogues, packaging, livrets — nous concevons chaque support imprimé avec autant de soin que le digital. Composition, typographie, mise en page : tout est pensé pour que l'objet soit lu, gardé, ressenti.</p>
+          <p>Du tirage limité à la production commerciale, grand format ou petite pièce : nous adaptons notre approche à vos contraintes techniques et à votre univers de marque.</p>
+        </div>
+        <a href="#contact" class="mag-link">Un projet print ?</a>
+      </div>
+      <div class="mag-images">
+        <div class="mag-mosaic">
+          <div class="mag-img"><img src="images/reflexiongue.png?v=2" alt="Réflexion"></div>
+          <div class="mag-img"><img src="images/Affiche goth.png" alt="Affiche goth"></div>
+          <div class="mag-img"><img src="images/affiche chrys.png?v=2" alt="Affiche Chrys"></div>
+        </div>
+        <div class="mag-thumbs">
+          <div class="mag-thumb"><img src="images/affiche oxytocin.png" alt="Affiche Oxytocin"></div>
+          <div class="mag-thumb"><img src="images/armanoid.png" alt="Armanoid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 — Web Design -->
+    <div class="mag-section" id="web">
+      <div class="mag-text">
+        <p class="mag-eyebrow">Web Design — UX & Interfaces</p>
+        <h2 class="mag-title">Des sites pensés pour <em>convertir</em>.</h2>
+        <div class="mag-body">
+          <p>Sites vitrines, applications web, landing pages — nous concevons des interfaces qui servent autant l'image de marque que l'expérience utilisateur. Beau et fonctionnel ne s'opposent pas : ils se renforcent.</p>
+          <p>De l'arborescence au pixel final, chaque décision est pensée pour que l'utilisateur avance naturellement, sans friction, jusqu'à l'action que vous attendez de lui.</p>
+        </div>
+        <a href="#contact" class="mag-link">Parlez-nous de votre projet digital</a>
+      </div>
+      <div class="mag-images">
+        <div class="mag-mosaic">
+          <div class="mag-img"><img src="images/Webdesign.png" alt="Web design"></div>
+          <div class="mag-img"><img src="images/web design2.png" alt="Web design"></div>
+          <div class="mag-img"><img src="images/Web design3.png" alt="Web design"></div>
+        </div>
+        <div class="mag-thumbs">
+          <div class="mag-thumb"><img src="images/webdesign 4.png" alt="Web design"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 — Réseaux sociaux & Publicités en ligne -->
+    <div class="mag-section" id="pub">
+      <div class="mag-text">
+        <p class="mag-eyebrow">Publicités — Réseaux sociaux & Ads</p>
+        <h2 class="mag-title">Des <em>visuels</em> pour vos campagnes.</h2>
+        <div class="mag-body">
+          <p>Formats sponsorisés, stories, carrousels, bannières — nous créons des contenus publicitaires pensés pour performer. Chaque visuel est conçu pour capter l'attention en moins d'une seconde dans un feed saturé.</p>
+          <p>Campagne one-shot ou production mensuelle : nous créons des assets cohérents avec votre identité, adaptés à chaque plateforme et calibrés pour convertir.</p>
+        </div>
+        <a href="#contact" class="mag-link">Lancer une campagne</a>
+      </div>
+      <div class="mag-images">
+        <div class="mag-mosaic">
+          <div class="mag-img"><img src="images/Reborn2.0.png" alt=""></div>
+          <div class="mag-img"><img src="images/Aroma2.png" alt=""></div>
+          <div class="mag-img"><img src="images/Lueur 2.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ CONTACT ══════════════════════════════════════════════ -->
+  <section id="contact">
+    <div class="ct-info">
+      <p class="ct-info-title">Parlons de votre <em>projet</em>.</p>
+      <div class="ct-info-details">
+        <p>email : orae.agency@gmail.com</p>
+        <p>&nbsp;</p>
+        <p>tel : 0611252584</p>
+        <p>&nbsp;</p>
+        <p>instagram : orae_agency</p>
+        <p>&nbsp;</p>
+        <p>Montpellier, France</p>
+      </div>
+    </div>
+    <form id="ct-form">
+      <input class="ct-input" id="ct-nom"   type="text"  name="nom"     placeholder="Nom de l'entreprise" />
+      <input class="ct-input" id="ct-num"   type="tel"   name="tel"     placeholder="Téléphone" />
+      <input class="ct-input" id="ct-email" type="email" name="email"   placeholder="Email *" required />
+      <div class="ct-service">
+        <span>Service :&nbsp;</span>
+        <div class="ct-srv-opts">
+          <span class="ct-srv-opt" onclick="selSrv(this)">Web Design</span><span class="ct-srv-sep">/</span>
+          <span class="ct-srv-opt" onclick="selSrv(this)">Brand design</span><span class="ct-srv-sep">/</span>
+          <span class="ct-srv-opt" onclick="selSrv(this)">Publicités / Réseaux sociaux</span><span class="ct-srv-sep">/</span>
+          <span class="ct-srv-opt" onclick="selSrv(this)">Motion</span><span class="ct-srv-sep">/</span>
+          <span class="ct-srv-opt" onclick="selSrv(this)">Print</span><span class="ct-srv-sep">/</span>
+          <span class="ct-srv-opt" onclick="selSrv(this)">Autre</span>
+        </div>
+        <span class="ct-facultatif">(facultatif)</span>
+      </div>
+      <input type="hidden" name="service" id="ct-service-val" value="" />
+      <textarea class="ct-input" id="ct-msg" name="message" placeholder="Message *" required></textarea>
+      <button class="ct-submit" type="submit" id="ct-submit-btn">Envoyer le message</button>
+    </form>
+  </section>
+
+  <!-- ══ CTA FINAL ══════════════════════════════════════════════ -->
+  <section id="cta">
+    <p class="cta-heading">
+      <span class="h-num">30</span> <span class="h-ital">minutes</span> <span class="h-grey">pour parler de</span> <span class="h-projet">votre projet</span>, <span class="h-bold">gratuitement</span>.
+    </p>
+    <a href="https://calendar.app.google/ogHZTHyBdJdVQS1Y8" target="_blank" rel="noopener" class="cta-call-btn">
+      <svg class="cta-phone" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      Réserver un appel personnalisé
+    </a>
+    <div class="cta-cols">
+      <div class="cta-col">
+        <p class="cta-col-title"><strong>30</strong> minutes max</p>
+        <p class="cta-col-desc">Un échange ciblé pour cerner vos besoins sans vous faire perdre de temps.</p>
+      </div>
+      <div class="cta-col">
+        <p class="cta-col-title"><strong>Gratuit</strong></p>
+        <p class="cta-col-desc">Aucune facturation, aucun engagement. Juste une conversation sincère et utile.</p>
+      </div>
+      <div class="cta-col">
+        <p class="cta-col-title">Sans engagement</p>
+        <p class="cta-col-desc">Vous repartez libre de votre décision. La collaboration se décide ensemble.</p>
+      </div>
+      <div class="cta-col">
+        <p class="cta-col-title">En <strong>appel ou visio</strong></p>
+        <p class="cta-col-desc">Zoom, Google Meet ou simple appel — on s'adapte entièrement à vous.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+  <footer id="footer">
+    <a href="orae-agency.html"><img class="ft-logo" src="https://www.figma.com/api/mcp/asset/0106f3f9-60df-4ba4-bca8-352459dab637" alt="Orae Agency"></a>
+    <p class="ft-copy">Orae Agency © 2024</p>
+    <nav class="ft-nav">
+      <a href="orae-agency.html">accueil</a>
+      <a href="projets.html">projets</a>
+      <a href="orae-agency.html#contact">contact</a>
+    </nav>
+    <a href="#" class="ft-legal">mentions légales</a>
+  </footer>
+
+</div><!-- /.page -->
+
+<script>
+  /* ── Loader ── */
+  (function() {
+    const loader = document.getElementById('page-loader');
+    function hide() { loader.classList.add('hidden'); }
+    if (document.readyState === 'complete') { hide(); }
+    else { window.addEventListener('load', hide); }
+    setTimeout(hide, 4000);
+  })();
+
+  /* ── Burger ── */
+  (function() {
+    const burger     = document.getElementById('burger');
+    const overlay    = document.getElementById('nav-overlay');
+    const burgerWrap = document.getElementById('burger-wrap');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+    overlay.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        burger.classList.remove('open');
+        overlay.classList.remove('open');
+      });
+    });
+
+    const lightSections = ['projects', 'cta', 'footer'];
+    const darkSections  = ['contact'];
+    const allSections   = [...lightSections, ...darkSections].map(id => document.getElementById(id)).filter(Boolean);
+    function updateBurgerTheme() {
+      const y = window.scrollY + 60;
+      let onDark = false;
+      allSections.forEach(sec => {
+        if (!sec) return;
+        const top = sec.offsetTop, bot = top + sec.offsetHeight;
+        if (y >= top && y < bot && darkSections.includes(sec.id)) onDark = true;
+      });
+      burgerWrap.classList.toggle('dark', onDark);
+    }
+    window.addEventListener('scroll', updateBurgerTheme, { passive: true });
+    updateBurgerTheme();
+  })();
+
+
+  /* ── Lightbox ── */
+  (function() {
+    // Collecter les données de chaque section une fois (avant les swaps auto)
+    const sections = {};
+    document.querySelectorAll('.mag-section').forEach(sec => {
+      const id = sec.id;
+      if (!id) return;
+      const srcs = [];
+      sec.querySelectorAll('.mag-img img, .mag-thumb img').forEach(img => {
+        const s = img.getAttribute('src');
+        if (s && !srcs.includes(s)) srcs.push(s);
+      });
+      sections[id] = {
+        srcs,
+        eyebrow:  sec.querySelector('.mag-eyebrow')?.textContent || '',
+        title:    sec.querySelector('.mag-title')?.innerHTML     || '',
+        desc:     sec.querySelector('.mag-body')?.innerHTML      || '',
+        linkHref: sec.querySelector('.mag-link')?.getAttribute('href') || '#',
+        linkText: sec.querySelector('.mag-link')?.textContent    || '',
+      };
+    });
+
+    // Créer le DOM de la lightbox
+    const overlay = document.createElement('div');
+    overlay.id = 'lb-overlay';
+    overlay.innerHTML = `
+      <div id="lb-modal">
+        <div id="lb-img-side"><img id="lb-img" src="" alt=""></div>
+        <div id="lb-text-side">
+          <button class="lb-close" id="lb-close-btn" aria-label="Fermer">×</button>
+          <p class="lb-eyebrow" id="lb-eyebrow"></p>
+          <h2 class="lb-title"  id="lb-title"></h2>
+          <div class="lb-desc"  id="lb-desc"></div>
+          <a  class="lb-link"   id="lb-link" href="#"></a>
+          <div class="lb-nav">
+            <button class="lb-nav-btn" id="lb-prev" aria-label="Précédent">←</button>
+            <button class="lb-nav-btn" id="lb-next" aria-label="Suivant">→</button>
+            <span class="lb-counter" id="lb-counter"></span>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    const lbImg     = document.getElementById('lb-img');
+    const lbEyebrow = document.getElementById('lb-eyebrow');
+    const lbTitle   = document.getElementById('lb-title');
+    const lbDesc    = document.getElementById('lb-desc');
+    const lbLink    = document.getElementById('lb-link');
+    const lbCounter = document.getElementById('lb-counter');
+
+    let cur = null, curIdx = 0;
+
+    function open(sectionId, clickedSrc) {
+      cur = sections[sectionId];
+      if (!cur) return;
+      curIdx = cur.srcs.indexOf(clickedSrc);
+      if (curIdx < 0) curIdx = 0;
+      lbEyebrow.textContent = cur.eyebrow;
+      lbTitle.innerHTML     = cur.title;
+      lbDesc.innerHTML      = cur.desc;
+      lbLink.href           = cur.linkHref;
+      lbLink.textContent    = cur.linkText;
+      renderImg();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function renderImg() {
+      lbImg.style.opacity = '0';
+      setTimeout(() => {
+        lbImg.src = cur.srcs[curIdx];
+        lbImg.style.opacity = '1';
+      }, 120);
+      lbCounter.textContent = (cur.srcs.length > 1) ? `${curIdx + 1} / ${cur.srcs.length}` : '';
+    }
+
+    function close() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function prev() { if (!cur) return; curIdx = (curIdx - 1 + cur.srcs.length) % cur.srcs.length; renderImg(); }
+    function next() { if (!cur) return; curIdx = (curIdx + 1) % cur.srcs.length; renderImg(); }
+
+    document.getElementById('lb-close-btn').addEventListener('click', close);
+    document.getElementById('lb-prev').addEventListener('click', prev);
+    document.getElementById('lb-next').addEventListener('click', next);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape')     close();
+      if (e.key === 'ArrowLeft')  prev();
+      if (e.key === 'ArrowRight') next();
+    });
+
+    // Ajouter les handlers de clic sur toutes les images de projet
+    document.querySelectorAll('.mag-section').forEach(sec => {
+      sec.querySelectorAll('.mag-img img, .mag-thumb img').forEach(img => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', e => {
+          e.stopPropagation(); // empêche le swap thumb de se déclencher
+          open(sec.id, img.getAttribute('src'));
+        });
+      });
+    });
+  })();
+
+  /* ── Protection images ── */
+  (function() {
+    document.addEventListener('contextmenu', e => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+    document.addEventListener('dragstart', e => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+    const style = document.createElement('style');
+    style.textContent = 'img { -webkit-user-drag: none; user-drag: none; -webkit-user-select: none; user-select: none; }';
+    document.head.appendChild(style);
+  })();
+
+  function selSrv(el) {
+    document.querySelectorAll('.ct-srv-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    const hidden = document.getElementById('ct-service-val');
+    if (hidden) hidden.value = el.textContent;
+  }
+
+  /* ── EmailJS ── */
+  (function() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.onload = () => {
+      emailjs.init('0vYqN6ujzQ8RRSgVG');
+      const form = document.getElementById('ct-form');
+      const btn  = document.getElementById('ct-submit-btn');
+      if (!form || !btn) return;
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        btn.textContent = 'Envoi…';
+        btn.disabled = true;
+        emailjs.sendForm('service_fk5ox1j', 'template_dv45gte', form)
+          .then(() => {
+            btn.textContent = 'Message envoyé ✓';
+            form.reset();
+            document.querySelectorAll('.ct-srv-opt').forEach(o => o.classList.remove('sel'));
+          })
+          .catch(() => {
+            btn.textContent = 'Erreur — réessayez';
+            btn.disabled = false;
+          });
+      });
+    };
+    document.head.appendChild(script);
+  })();
+
+
+  /* ── Magazine — swap thumb ↔ mosaic (clic + auto), jamais de doublon ── */
+  (function () {
+    // Helper : échange les src entre deux <img> avec fade
+    function swapImages(imgA, imgB) {
+      if (!imgA || !imgB) return;
+      const srcA = imgA.getAttribute('src');
+      const srcB = imgB.getAttribute('src');
+      if (srcA === srcB) return;
+
+      // Précharge les deux pour éviter le flash blanc
+      const pre = new Image();
+      const doSwap = () => {
+        imgA.style.transition = 'opacity 0.5s ease';
+        imgB.style.transition = 'opacity 0.5s ease';
+        imgA.style.opacity = '0';
+        imgB.style.opacity = '0';
+        setTimeout(() => {
+          imgA.setAttribute('src', srcB);
+          imgB.setAttribute('src', srcA);
+          requestAnimationFrame(() => {
+            imgA.style.opacity = '1';
+            imgB.style.opacity = '1';
+          });
+        }, 500);
+      };
+      if (pre.complete || pre.naturalWidth) doSwap();
+      else { pre.onload = doSwap; pre.onerror = doSwap; pre.src = srcB; }
+    }
+
+    document.querySelectorAll('.mag-images').forEach(container => {
+      const mosaicImgs = Array.from(container.querySelectorAll('.mag-mosaic .mag-img img'));
+      const thumbsStrip = container.querySelector('.mag-thumbs');
+      if (!thumbsStrip) return;
+      const thumbImgs = Array.from(thumbsStrip.querySelectorAll('.mag-thumb img'));
+      if (thumbImgs.length === 0 || mosaicImgs.length === 0) return;
+
+      // Précharge toutes les images de la section
+      [...mosaicImgs, ...thumbImgs].forEach(i => { const p = new Image(); p.src = i.getAttribute('src'); });
+
+      // Clic sur thumb → swap avec une mosaic au choix (la première par défaut)
+      thumbsStrip.querySelectorAll('.mag-thumb').forEach(thumbEl => {
+        thumbEl.addEventListener('click', () => {
+          const tImg = thumbEl.querySelector('img');
+          // swap avec la mosaic dont le ratio correspond le mieux à la thumb
+          const tAR = (tImg.naturalWidth || 1) / (tImg.naturalHeight || 1);
+          let bestIdx = 0, bestDiff = Infinity;
+          mosaicImgs.forEach((m, i) => {
+            const r = m.getBoundingClientRect();
+            if (r.height === 0) return;
+            const sAR = r.width / r.height;
+            const diff = Math.abs(Math.log(sAR / tAR));
+            if (diff < bestDiff) { bestDiff = diff; bestIdx = i; }
+          });
+          swapImages(mosaicImgs[bestIdx], tImg);
+        });
+      });
+
+      // Auto-rotation : toutes les ~5s, swap d'une thumb random avec une mosaic random
+      let timer = setInterval(() => {
+        const mIdx = Math.floor(Math.random() * mosaicImgs.length);
+        const tIdx = Math.floor(Math.random() * thumbImgs.length);
+        swapImages(mosaicImgs[mIdx], thumbImgs[tIdx]);
+      }, 4500 + Math.random() * 1000);
+
+      // Pause au hover sur la zone images
+      container.addEventListener('mouseenter', () => clearInterval(timer));
+      container.addEventListener('mouseleave', () => {
+        timer = setInterval(() => {
+          const mIdx = Math.floor(Math.random() * mosaicImgs.length);
+          const tIdx = Math.floor(Math.random() * thumbImgs.length);
+          swapImages(mosaicImgs[mIdx], thumbImgs[tIdx]);
+        }, 4500 + Math.random() * 1000);
+      });
+    });
+  })();
+</script>
+
+
+</body>
+</html>
