@@ -116,10 +116,13 @@
       text-align: left;
     }
     .about-values { border-top: 1px solid rgba(33,34,38,.12); }
-    .about-value-row { display: flex; flex-direction: column; gap: 8px; padding: 22px 0; border-bottom: 1px solid rgba(33,34,38,.12); opacity: 0; transform: translateY(28px); transition: opacity .75s cubic-bezier(0.22,1,0.36,1), transform .75s cubic-bezier(0.22,1,0.36,1); }
-    .about-value-row.visible { opacity: 1; transform: translateY(0); }
-    .about-value-name { font-family: var(--urban); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--dark); }
-    .about-value-desc { font-family: var(--urban); font-size: 13px; line-height: 1.7; color: var(--dark); opacity: .55; }
+    .about-value-row { display: flex; flex-direction: column; gap: 8px; padding: 22px 0; border-bottom: 1px solid rgba(33,34,38,.12); opacity: 0; transform: translateX(-36px); transition: opacity .7s cubic-bezier(0.22,1,0.36,1), transform .7s cubic-bezier(0.22,1,0.36,1); }
+    .about-value-row.visible { opacity: 1; transform: translateX(0); }
+    .about-value-name { font-family: var(--urban); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--dark); display: block; overflow: hidden; }
+    .about-value-name-inner { display: block; transform: translateY(110%); transition: transform .55s cubic-bezier(0.22,1,0.36,1) .18s; }
+    .about-value-row.visible .about-value-name-inner { transform: translateY(0); }
+    .about-value-desc { font-family: var(--urban); font-size: 13px; line-height: 1.7; color: var(--dark); opacity: 0; transition: opacity .45s ease .38s; }
+    .about-value-row.visible .about-value-desc { opacity: .55; }
     .about-bottom { display: flex; align-items: center; justify-content: space-between; }
     .about-founder { display: flex; align-items: center; gap: 18px; }
     .about-founder-photo { width: 52px; height: 52px; border-radius: 50%; background: #ccc; overflow: hidden; flex-shrink: 0; }
@@ -234,7 +237,6 @@
 
       #about { padding: 140px 24px 140px; }
       .about-texts { grid-template-columns: 1fr; gap: 32px; }
-      .about-value-row { grid-template-columns: 1fr; gap: 6px; }
       .about-bottom { flex-direction: column; align-items: flex-start; gap: 36px; }
       .about-cta { display: block; }
 
@@ -315,15 +317,15 @@
         <p class="about-big-text">L'agence créative Orae est née d'une génération qui a grandi avec le digital et l'évolution constante des outils créatifs. Cela nous permet d'aborder chaque projet avec un regard actuel, une grande capacité d'adaptation et une vraie compréhension des nouveaux usages. À vos côtés, nous créons des identités réfléchies, durables et sur mesure, pensées pour donner une vraie singularité à votre projet.</p>
       <div class="about-values">
         <div class="about-value-row">
-          <span class="about-value-name">Singularité</span>
+          <span class="about-value-name"><span class="about-value-name-inner">Singularité</span></span>
           <p class="about-value-desc">Révéler ce qui vous distingue pour créer une identité impossible à confondre.</p>
         </div>
         <div class="about-value-row">
-          <span class="about-value-name">Justesse</span>
+          <span class="about-value-name"><span class="about-value-name-inner">Justesse</span></span>
           <p class="about-value-desc">Donner du sens à chaque choix pour créer un design aussi beau que cohérent.</p>
         </div>
         <div class="about-value-row">
-          <span class="about-value-name">Impact</span>
+          <span class="about-value-name"><span class="about-value-name-inner">Impact</span></span>
           <p class="about-value-desc">Concevoir des visuels qui marquent les esprits et renforcent votre présence.</p>
         </div>
       </div>
@@ -739,7 +741,7 @@
         });
       }, { threshold: 0.25 });
       rows.forEach((row, i) => {
-        row.style.transitionDelay = (i * 0.12) + 's';
+        row.style.transitionDelay = (i * 0.15) + 's';
         io.observe(row);
       });
     })();
