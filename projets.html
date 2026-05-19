@@ -376,6 +376,9 @@
       setTimeout(() => l.remove(), 550);
     });
 
+    /* ── Désactive clic droit sur toutes les images ── */
+    document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
     /* ── Cursor ── */
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {

@@ -337,7 +337,7 @@
       </div>
       <div class="about-bottom">
         <div class="about-founder">
-          <div class="about-founder-photo"></div>
+          <div class="about-founder-photo"><img src="images/oui.png" alt="" draggable="false" /></div>
           <div>
             <span class="about-founder-name">Elorah I.</span>
             <span class="about-founder-role">Fondatrice d'Orae</span>
@@ -513,6 +513,9 @@
       setTimeout(() => { animDone = true; tryHide(); }, DURATION + 300);
       window.addEventListener('load', () => { pageLoaded = true; tryHide(); });
     })();
+
+    /* ── Désactive clic droit sur toutes les images ── */
+    document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
     /* ── Cursor ── */
     const cursor = document.getElementById('cursor');
