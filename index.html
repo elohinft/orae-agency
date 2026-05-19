@@ -101,8 +101,8 @@
     .mm-logo-big { display: block; width: 108%; margin-left: -2%; }
 
     /* ─────── HERO ─────── */
-    #hero { position: relative; width: 100%; min-height: 100svh; background: var(--light); overflow: hidden; display: flex; align-items: flex-end; }
-    .hero-big-title { font-family: var(--heavy); font-weight: 900; color: var(--dark); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .9; padding: 0 0 0.18em; width: 100%; user-select: none; }
+    #hero { position: relative; width: 100%; min-height: 100svh; background: var(--dark); overflow: hidden; display: flex; align-items: flex-end; }
+    .hero-big-title { font-family: var(--heavy); font-weight: 900; color: var(--light); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .9; padding: 0 0 0.18em; width: 100%; user-select: none; }
     /* ─────── À PROPOS ─────── */
     #about { background: var(--light); color: var(--dark); padding: 180px 52px 200px; }
     .about-inner { max-width: 1200px; margin: 0 auto; }
@@ -296,16 +296,16 @@
   </div>
 
   <!-- ─────── NAV ─────── -->
-  <nav id="main-nav" data-theme="light">
+  <nav id="main-nav" data-theme="dark">
     <ul class="nav-links">
       <li><a href="#about"    data-target="about">L'agence</a></li>
       <li><a href="#services" data-target="services">Services</a></li>
       <li><a href="projets.html">Projets</a></li>
       <li><a href="#contact"  data-target="contact">Contact</a></li>
     </ul>
-    <img src="logo-black.svg" alt="Orae" class="nav-logo-img" id="navLogo" />
+    <img src="logo-whitze.svg" alt="Orae" class="nav-logo-img" id="navLogo" />
     <a href="#contact" class="nav-cta">Discutons de votre projet</a>
-    <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="burger" id="burgerBtn" aria-label="Menu" style="color:var(--light)"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- ─────── HERO ─────── -->
@@ -555,7 +555,7 @@
       const nav     = document.getElementById('main-nav');
       const navLogo = document.getElementById('navLogo');
       const links   = document.querySelectorAll('.nav-links li a[data-target]');
-      const darkIds = ['steps', 'contact'];
+      const darkIds = ['hero', 'steps', 'contact'];
 
       // rootMargin réduit le viewport à une ligne au centre → détecte quelle section domine
       const obs = new IntersectionObserver((entries) => {
