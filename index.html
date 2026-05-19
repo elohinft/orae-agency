@@ -101,11 +101,8 @@
     .mm-logo-big { display: block; width: 108%; margin-left: -2%; }
 
     /* ─────── HERO ─────── */
-    #hero { position: relative; width: 100%; min-height: 100svh; background: var(--light); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .hero-text { position: relative; z-index: 10; text-align: center; pointer-events: none; user-select: none; line-height: 1.05; }
-    .hero-text-line { display: block; font-family: var(--inter); font-size: clamp(44px, 7.5vw, 110px); letter-spacing: -0.04em; color: var(--dark); }
-    .hero-text-line--light { font-weight: 300; }
-    .hero-text-line--bold  { font-weight: 900; }
+    #hero { position: relative; width: 100%; min-height: 100svh; background: var(--light); overflow: hidden; display: flex; align-items: flex-end; }
+    .hero-big-title { font-family: var(--heavy); font-weight: 900; color: var(--dark); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .9; padding: 0 0 0.18em; width: 100%; user-select: none; }
     /* ─────── À PROPOS ─────── */
     #about { background: var(--light); color: var(--dark); padding: 180px 52px 200px; }
     .about-inner { max-width: 1200px; margin: 0 auto; }
@@ -313,10 +310,7 @@
 
   <!-- ─────── HERO ─────── -->
   <section id="hero">
-    <div class="hero-text">
-      <span class="hero-text-line hero-text-line--light">agence</span>
-      <div class="hero-text-line hero-text-line--bold" id="heroMorphTitle">de direction artistique</div>
-    </div>
+    <span class="hero-big-title" id="heroBigTitle">agence créative</span>
   </section>
 
   <!-- ─────── À PROPOS ─────── -->
@@ -612,6 +606,7 @@
     }
     async function fitTitles() {
       await document.fonts.ready;
+      fitEl(document.getElementById('heroBigTitle'));
       fitEl(document.getElementById('servicesBigTitle'));
       fitEl(document.getElementById('contactBigTitle'));
     }
@@ -727,22 +722,6 @@
           '( rêver ? )',
           '( oser ? )',
         ]);
-        titleAPIs.hero = mount('heroMorphTitle', [
-          'de design créatif',
-          'de création visuelle',
-          'de direction artistique',
-          "d'identité de marque",
-        ], { cooldown: 0.4, morphTime: 0.55 });
-
-        // Fade out hero text after all 4 variants have been shown once
-        setTimeout(() => {
-          const ht = document.querySelector('.hero-text');
-          if (ht) {
-            ht.style.transition = 'opacity 1.5s ease';
-            ht.style.opacity = '0';
-            setTimeout(() => { ht.style.visibility = 'hidden'; }, 1600);
-          }
-        }, 3700);
 
         // Restart à chaque retour dans le viewport
         const io = new IntersectionObserver((entries) => {
@@ -874,77 +853,6 @@
   </script>
   <script>
     window.addEventListener('pageshow', e => { if (e.persisted) window.location.reload(); });
-  </script>
-  <script>
-  /* ── Hero : train ondulant ── */
-  (function () {
-    const hero = document.getElementById('hero');
-    if (!hero) return;
-
-    const IMGS = [
-      'images/lueur-1.png','images/reborn.png','images/affiche-chrys.png',
-      'images/reflexiongue.png','images/delta.png','images/lueur-2.png',
-      'images/reborne-smile.png','images/aroma1.png','images/affiche-oxytocin.png',
-      'images/armanoid.png','images/affiche-goth.png','images/brand-drop.png',
-    ];
-
-    const N = IMGS.length, W = 148, H = 200, GAP = 18;
-    const STEP = W + GAP, TOTAL = N * STEP;
-    const SPEED = 130, AMP = 120, FREQ = 0.006;
-
-    // Two layers so cards weave behind and in front of hero-text (z-index:10)
-    const wrapBack  = document.createElement('div');
-    const wrapFront = document.createElement('div');
-    wrapBack.style.cssText  = 'position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:5;';
-    wrapFront.style.cssText = 'position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:15;';
-    hero.appendChild(wrapBack);
-    hero.appendChild(wrapFront);
-
-    const cards = IMGS.map((src) => {
-      const el = document.createElement('div');
-      el.style.cssText = `position:absolute;width:${W}px;height:${H}px;overflow:hidden;will-change:transform;top:0;left:0;`;
-      const img = document.createElement('img');
-      img.src = src;
-      img.draggable = false;
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;pointer-events:auto;cursor:pointer;';
-      img.addEventListener('click', () => { window.location.href = 'projets.html'; });
-      img.addEventListener('contextmenu', e => e.preventDefault());
-      el.appendChild(img);
-      wrapBack.appendChild(el);
-      return { el, inFront: false };
-    });
-
-    // Start cards spread across the viewport (centered) so train is visible immediately
-    const states = cards.map((_, i) => ({
-      x: i * STEP - (N / 2) * STEP + window.innerWidth / 2,
-    }));
-
-    let last = 0;
-    function frame(ts) {
-      requestAnimationFrame(frame);
-      const dt = Math.min(ts - (last || ts), 50);
-      last = ts;
-      const cy = hero.offsetHeight / 2;
-
-      states.forEach((s, i) => {
-        s.x -= SPEED * dt / 1000;
-        if (s.x < -W - 50) s.x += TOTAL;
-
-        const sinVal  = Math.sin(FREQ * s.x);
-        const y       = cy - H / 2 + AMP * sinVal;
-        const rot     = Math.atan(AMP * FREQ * Math.cos(FREQ * s.x)) * (180 / Math.PI) * 0.45;
-        const inFront = sinVal > 0;
-
-        if (inFront !== cards[i].inFront) {
-          (inFront ? wrapFront : wrapBack).appendChild(cards[i].el);
-          cards[i].inFront = inFront;
-        }
-
-        cards[i].el.style.transform = `translate(${(s.x - W / 2).toFixed(1)}px,${y.toFixed(1)}px) rotate(${rot.toFixed(2)}deg)`;
-      });
-    }
-    requestAnimationFrame(frame);
-  })();
   </script>
 </body>
 </html>
