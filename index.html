@@ -102,9 +102,6 @@
 
     /* ─────── HERO ─────── */
     #hero { position: relative; width: 100%; min-height: 100svh; background: var(--light); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .hero-phs { position: absolute; inset: 0; pointer-events: none; }
-    .hero-ph { position: absolute; overflow: hidden; border-radius: 0; transition: opacity 0.3s ease; }
-    .hero-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
     /* ─────── À PROPOS ─────── */
     #about { background: var(--light); color: var(--dark); padding: 180px 52px 200px; }
     .about-inner { max-width: 1200px; margin: 0 auto; }
@@ -221,9 +218,6 @@
     .footer-logo-big { display: block; width: 108%; margin-left: -2%; }
 
     /* ─────── RESPONSIVE ─────── */
-    @media (max-width: 1080px) and (min-width: 769px) {
-      .hero-ph { max-width: 15.5vw !important; max-height: 20vw !important; }
-    }
     @media (max-width: 768px) {
       #main-nav { padding: 20px 24px; }
       .nav-links, .nav-cta { display: none; }
@@ -235,15 +229,6 @@
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
       #hero { min-height: 100svh; }
-      .hero-ph--mid { display: none; }
-      /* Positions éparpillées pour les 6 images visibles (col1 + col5) */
-      .hero-ph { max-width: none !important; max-height: none !important; }
-      #heroPhs .hero-ph:nth-child(1)  { left: 3%  !important; top: 7%    !important; right: auto !important; bottom: auto !important; width: 44vw !important; height: 34vw !important; }
-      #heroPhs .hero-ph:nth-child(2)  { left: 14% !important; top: 44%   !important; right: auto !important; bottom: auto !important; width: 38vw !important; height: 28vw !important; }
-      #heroPhs .hero-ph:nth-child(3)  { left: 4%  !important; bottom: 9% !important; right: auto !important; top: auto    !important; width: 42vw !important; height: 33vw !important; }
-      #heroPhs .hero-ph:nth-child(11) { right: 3% !important; top: 5%    !important; left: auto  !important; bottom: auto !important; width: 41vw !important; height: 32vw !important; }
-      #heroPhs .hero-ph:nth-child(12) { right: 11%!important; top: 41%   !important; left: auto  !important; bottom: auto !important; width: 36vw !important; height: 26vw !important; }
-      #heroPhs .hero-ph:nth-child(13) { right: 4% !important; bottom: 7% !important; left: auto  !important; top: auto    !important; width: 44vw !important; height: 36vw !important; }
       .contact-big-title { padding: 80px 0 20px; }
       .about-big-text { text-align: left; font-size: clamp(17px, 4.5vw, 24px); }
       .about-value-row { grid-template-columns: 1fr; gap: 6px; padding: 20px 0; }
@@ -322,28 +307,7 @@
   </nav>
 
   <!-- ─────── HERO ─────── -->
-  <section id="hero">
-    <div class="hero-phs" id="heroPhs">
-      <!-- col 1 — bord gauche (toujours visible) -->
-      <div class="hero-ph"               style="left:2%;   top:90px;    width:170px; height:168px"></div>
-      <div class="hero-ph hero-ph--side" style="left:2%;   top:40%;     width:160px; height:140px"></div>
-      <div class="hero-ph"               style="left:2%;   bottom:5%;   width:170px; height:168px"></div>
-      <!-- col 2 — intérieur gauche (hautes) -->
-      <div class="hero-ph hero-ph--mid"  style="left:23%;  top:90px;    width:158px; height:215px"></div>
-      <div class="hero-ph hero-ph--mid"  style="left:23%;  bottom:5%;   width:158px; height:188px"></div>
-      <!-- col 3 — centre (3 niveaux) -->
-      <div class="hero-ph hero-ph--mid"  style="left:44%;  top:108px;   width:152px; height:152px"></div>
-      <div class="hero-ph hero-ph--mid"  style="left:44%;  top:47%;     width:148px; height:135px"></div>
-      <div class="hero-ph hero-ph--mid"  style="left:44%;  bottom:5%;   width:152px; height:152px"></div>
-      <!-- col 4 — intérieur droit (hautes) -->
-      <div class="hero-ph hero-ph--mid"  style="left:65%;  top:90px;    width:158px; height:215px"></div>
-      <div class="hero-ph hero-ph--mid"  style="left:65%;  bottom:5%;   width:158px; height:188px"></div>
-      <!-- col 5 — bord droit (toujours visible) -->
-      <div class="hero-ph"               style="right:2%;  top:90px;    width:170px; height:168px"></div>
-      <div class="hero-ph hero-ph--side" style="right:2%;  top:40%;     width:160px; height:140px"></div>
-      <div class="hero-ph"               style="right:2%;  bottom:5%;   width:170px; height:168px"></div>
-    </div>
-  </section>
+  <section id="hero"></section>
 
   <!-- ─────── À PROPOS ─────── -->
   <section id="about">
@@ -878,54 +842,6 @@
   <script>
     window.addEventListener('pageshow', e => { if (e.persisted) window.location.reload(); });
   </script>
-  <script>
-  /* ── Hero : image cycling ── */
-  (function () {
-    const ALL_IMAGES = [
-      'images/lueur-1.png','images/lueur-2.png','images/lueur-coq.png',
-      'images/reborn.png','images/reborn-goute.png','images/reborn2-0.png','images/reborne-smile.png',
-      'images/armanoid.png','images/aroma1.png','images/aroma2.png',
-      'images/affiche-goth.png','images/affiche-chrys.png','images/affiche-oxytocin.png',
-      'images/brand-drop.png','images/droplogo.png','images/webdesign.png','images/web-design2.png',
-      'images/web-design3.png','images/webdesign-4.png','images/delta.png','images/reflexiongue.png',
-    ];
-
-    const phs = Array.from(document.querySelectorAll('.hero-ph'));
-
-    /* Pool shufflé — Fisher-Yates */
-    function shuffle(arr) {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    /* Initialisation : chaque slot reçoit une image unique */
-    const pool = shuffle(ALL_IMAGES);
-    const current = [];  // src actuellement affiché par slot
-    const imgs = [];
-    phs.forEach((ph, i) => {
-      const img = document.createElement('img');
-      img.alt = ''; img.draggable = false;
-      ph.appendChild(img);
-      const src = pool[i % pool.length];
-      img.src = src;
-      current[i] = src;
-      imgs.push(img);
-    });
-
-    /* Cycle rapide — toutes les images avancent ensemble, décalage 12ms/slot */
-    let tick = 1;
-    setInterval(() => {
-      const t = tick;
-      tick = (tick + 1) % pool.length;
-      imgs.forEach((img, i) => {
-        setTimeout(() => { img.src = pool[(t + i) % pool.length]; }, i * 12);
-      });
-    }, 180);
-  })();
-  </script>
+  <script src="orbital-gallery.js"></script>
 </body>
 </html>
