@@ -105,22 +105,21 @@
     /* ─────── À PROPOS ─────── */
     #about { background: var(--light); color: var(--dark); padding: 180px 52px 200px; }
     .about-inner { max-width: 1200px; margin: 0 auto; }
+    .about-cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
     .about-big-text {
       font-family: var(--inter);
-      font-size: clamp(18px, 2.1vw, 32px);
+      font-size: clamp(18px, 2vw, 30px);
       font-weight: 800;
       line-height: 1.22;
       letter-spacing: -0.03em;
       color: var(--dark);
-      text-align: justify;
-      text-align-last: left;
-      margin-bottom: 72px;
+      text-align: left;
     }
-    .about-values { border-top: 1px solid rgba(33,34,38,.12); margin-bottom: 64px; }
-    .about-value-row { display: grid; grid-template-columns: 1fr 1.7fr; gap: 60px; padding: 26px 0; border-bottom: 1px solid rgba(33,34,38,.12); align-items: center; opacity: 0; transform: translateY(36px); transition: opacity .75s cubic-bezier(0.22,1,0.36,1), transform .75s cubic-bezier(0.22,1,0.36,1); }
+    .about-values { border-top: 1px solid rgba(33,34,38,.12); }
+    .about-value-row { display: flex; flex-direction: column; gap: 8px; padding: 22px 0; border-bottom: 1px solid rgba(33,34,38,.12); opacity: 0; transform: translateY(28px); transition: opacity .75s cubic-bezier(0.22,1,0.36,1), transform .75s cubic-bezier(0.22,1,0.36,1); }
     .about-value-row.visible { opacity: 1; transform: translateY(0); }
-    .about-value-name { font-family: var(--urban); font-size: clamp(12px, 1.05vw, 15px); font-weight: 500; letter-spacing: .04em; color: var(--dark); }
-    .about-value-desc { font-family: var(--urban); font-size: 14px; line-height: 1.75; color: var(--dark); opacity: .6; }
+    .about-value-name { font-family: var(--urban); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--dark); }
+    .about-value-desc { font-family: var(--urban); font-size: 13px; line-height: 1.7; color: var(--dark); opacity: .55; }
     .about-bottom { display: flex; align-items: center; justify-content: space-between; }
     .about-founder { display: flex; align-items: center; gap: 18px; }
     .about-founder-photo { width: 52px; height: 52px; border-radius: 50%; background: #ccc; overflow: hidden; flex-shrink: 0; }
@@ -230,8 +229,8 @@
 
       #hero { min-height: 100svh; }
       .contact-big-title { padding: 80px 0 20px; }
-      .about-big-text { text-align: left; font-size: clamp(17px, 4.5vw, 24px); }
-      .about-value-row { grid-template-columns: 1fr; gap: 6px; padding: 20px 0; }
+      .about-cols { grid-template-columns: 1fr; gap: 48px; margin-bottom: 52px; }
+      .about-big-text { font-size: clamp(17px, 4.5vw, 24px); }
 
       #about { padding: 140px 24px 140px; }
       .about-texts { grid-template-columns: 1fr; gap: 32px; }
@@ -312,7 +311,8 @@
   <!-- ─────── À PROPOS ─────── -->
   <section id="about">
     <div class="about-inner">
-      <p class="about-big-text">L'agence créative Orae est née d'une génération qui a grandi avec le digital et l'évolution constante des outils créatifs. Cela nous permet d'aborder chaque projet avec un regard actuel, une grande capacité d'adaptation et une vraie compréhension des nouveaux usages. À vos côtés, nous créons des identités réfléchies, durables et sur mesure, pensées pour donner une vraie singularité à votre projet.</p>
+      <div class="about-cols">
+        <p class="about-big-text">L'agence créative Orae est née d'une génération qui a grandi avec le digital et l'évolution constante des outils créatifs. Cela nous permet d'aborder chaque projet avec un regard actuel, une grande capacité d'adaptation et une vraie compréhension des nouveaux usages. À vos côtés, nous créons des identités réfléchies, durables et sur mesure, pensées pour donner une vraie singularité à votre projet.</p>
       <div class="about-values">
         <div class="about-value-row">
           <span class="about-value-name">Singularité</span>
@@ -326,6 +326,7 @@
           <span class="about-value-name">Impact</span>
           <p class="about-value-desc">Concevoir des visuels qui marquent les esprits et renforcent votre présence.</p>
         </div>
+      </div>
       </div>
       <div class="about-bottom">
         <div class="about-founder">
