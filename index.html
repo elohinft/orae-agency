@@ -102,6 +102,9 @@
 
     /* ─────── HERO ─────── */
     #hero { position: relative; width: 100%; min-height: 100svh; background: var(--light); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .hero-bottom-title { position: absolute; bottom: 0; left: 0; right: 0; z-index: 10; font-family: var(--heavy); font-weight: 900; color: var(--dark); text-transform: uppercase; letter-spacing: -0.02em; white-space: nowrap; text-align: center; line-height: .85; padding-bottom: 36px; user-select: none; transition: opacity .9s ease; pointer-events: none; }
+    #orbital-gallery { opacity: 0; transition: opacity 1.4s ease; }
+    #orbital-gallery.revealed { opacity: 1; }
     /* ─────── À PROPOS ─────── */
     #about { background: var(--light); color: var(--dark); padding: 180px 52px 200px; }
     .about-inner { max-width: 1200px; margin: 0 auto; }
@@ -149,7 +152,7 @@
     /* ─────── ÉTAPES ─────── */
     #steps { background: var(--dark); color: var(--light); padding: 100px 52px 140px; overflow: hidden; }
     .steps-list { display: flex; flex-direction: column; gap: 0; }
-    .step-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 48px; padding: 28px 0; }
+    .step-item { display: flex; align-items: flex-start; justify-content: flex-start; gap: 32px; padding: 28px 0; }
     /* Z-layout : items pairs inversés */
     .step-item:nth-child(even) { flex-direction: row-reverse; }
     /* Slot machine numbers */
@@ -308,7 +311,9 @@
   </nav>
 
   <!-- ─────── HERO ─────── -->
-  <section id="hero"></section>
+  <section id="hero">
+    <div class="hero-bottom-title" id="heroBottomTitle">AGENCE CRÉATIVE</div>
+  </section>
 
   <!-- ─────── À PROPOS ─────── -->
   <section id="about">
@@ -600,6 +605,7 @@
     }
     async function fitTitles() {
       await document.fonts.ready;
+      fitEl(document.getElementById('heroBottomTitle'));
       fitEl(document.getElementById('servicesBigTitle'));
       fitEl(document.getElementById('contactBigTitle'));
     }
@@ -701,6 +707,22 @@
       // Textes courts garantis plus étroits que les originaux → aucun débordement
       const titleAPIs = {};
       document.fonts.ready.then(() => requestAnimationFrame(() => {
+        // Hero intro title
+        fitEl(document.getElementById('heroBottomTitle'));
+        mount('heroBottomTitle', [
+          'AGENCE CRÉATIVE',
+          'STUDIO ORAE',
+          'DESIGN & BRAND',
+          'BRAND STUDIO',
+        ], { cooldown: 0.9, morphTime: 1.1 });
+        setTimeout(() => {
+          const t = document.getElementById('heroBottomTitle');
+          const g = document.getElementById('orbital-gallery');
+          if (t) t.style.opacity = '0';
+          if (g) g.classList.add('revealed');
+          setTimeout(() => { if (t) t.style.display = 'none'; }, 950);
+        }, 4200);
+
         titleAPIs.services = mount('servicesBigTitle', [
           '( SERVICES )',
           '( DESIGN )',

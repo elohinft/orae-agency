@@ -70,7 +70,7 @@
         'object-position:center', // centre le contenu visible
         'border-radius:0',
         'pointer-events:auto',
-        'cursor:none',
+        'cursor:pointer',
         'user-select:none',
         'will-change:transform',
         'backface-visibility:visible',
@@ -82,6 +82,7 @@
     items.forEach(item => {
       item.el.addEventListener('mouseenter', () => { item.hovered = true;  });
       item.el.addEventListener('mouseleave', () => { item.hovered = false; });
+      item.el.addEventListener('click', () => { window.location.href = 'projets.html'; });
     });
 
     let containerHovered = false;
