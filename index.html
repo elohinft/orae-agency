@@ -139,8 +139,8 @@
     /* ─────── SERVICES ─────── */
     #services { background: var(--light); color: var(--dark); padding: 120px 0 340px; overflow: hidden; }
     .services-title-wrap { overflow: visible; }
-    .services-big-title { font-family: var(--heavy); font-weight: 900; color: var(--dark); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .85; padding: 0; user-select: none; }
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; row-gap: 100px; padding: 100px 52px 0; text-align: center; }
+    .services-big-title { font-family: var(--heavy); font-weight: 900; color: var(--dark); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .9; padding: 0 0 0.22em; user-select: none; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; row-gap: 100px; padding: 160px 52px 0; text-align: center; }
     .service-card { display: flex; flex-direction: column; align-items: center; }
     .service-num-line { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 32px; }
     .service-num { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--dark); opacity: .35; flex-shrink: 0; }
@@ -209,7 +209,7 @@
     .form-submit { margin-top: 28px; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--light); background: none; border: none; border-bottom: 1px solid rgba(244,243,243,.25); padding: 0 0 2px; cursor: none; opacity: .5; font-weight: 400; transition: opacity .2s, font-style .15s, font-weight .1s; }
     .form-submit:hover { opacity: 1; font-style: italic; font-weight: 500; }
     .form-consent { margin-top: 20px; font-family: var(--mono); font-size: 8px; letter-spacing: .07em; color: var(--light); opacity: .32; line-height: 1.6; }
-    .contact-big-title { display: block; width: 100%; text-align: center; font-family: var(--heavy); font-weight: 900; color: var(--light); letter-spacing: -0.02em; white-space: nowrap; overflow: visible; padding: 120px 0 80px; user-select: none; }
+    .contact-big-title { display: block; width: 100%; text-align: center; font-family: var(--heavy); font-weight: 900; color: var(--light); letter-spacing: -0.02em; white-space: nowrap; overflow: visible; padding: 120px 0 calc(80px + 0.22em); user-select: none; }
 
     /* ─────── FOOTER ─────── */
     footer { background: var(--dark); color: var(--light); overflow: hidden; padding: 0; }
@@ -732,7 +732,17 @@
           'de création visuelle',
           'de direction artistique',
           "d'identité de marque",
-        ], { cooldown: 1.3, morphTime: 1.2 });
+        ], { cooldown: 0.4, morphTime: 0.55 });
+
+        // Fade out hero text after all 4 variants have been shown once
+        setTimeout(() => {
+          const ht = document.querySelector('.hero-text');
+          if (ht) {
+            ht.style.transition = 'opacity 1.5s ease';
+            ht.style.opacity = '0';
+            setTimeout(() => { ht.style.visibility = 'hidden'; }, 1600);
+          }
+        }, 3700);
 
         // Restart à chaque retour dans le viewport
         const io = new IntersectionObserver((entries) => {
@@ -880,7 +890,7 @@
 
     const N = IMGS.length, W = 148, H = 200, GAP = 18;
     const STEP = W + GAP, TOTAL = N * STEP;
-    const SPEED = 70, AMP = 120, FREQ = 0.006;
+    const SPEED = 130, AMP = 120, FREQ = 0.006;
 
     // Two layers so cards weave behind and in front of hero-text (z-index:10)
     const wrapBack  = document.createElement('div');
