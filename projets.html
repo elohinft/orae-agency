@@ -117,11 +117,11 @@
       font-family: var(--heavy);
       font-weight: 900;
       color: var(--light);
-      text-transform: uppercase;
       letter-spacing: -0.02em;
       white-space: nowrap;
       overflow: hidden;
-      line-height: .88;
+      line-height: .9;
+      padding: 0 0 0.22em;
       user-select: none;
     }
 
@@ -174,14 +174,11 @@
     /* ── FOOTER ── */
     footer { background: var(--dark); color: var(--light); overflow: hidden; padding: 0; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; padding: 44px 52px 36px; }
-    .footer-left { display: flex; gap: 36px; align-items: center; flex-wrap: wrap; }
+    .footer-left { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
     .footer-left span, .footer-left a { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; opacity: .4; color: var(--light); transition: opacity .2s; }
     .footer-left a:hover { opacity: .85; }
-    .footer-right { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+    .footer-right { display: flex; flex-direction: column; gap: 5px; text-align: left; }
     .footer-right a { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--light); opacity: .55; transition: opacity .2s; }
-    .footer-right a:hover { opacity: 1; }
-    .footer-logo-wrap { line-height: 0; overflow: hidden; height: 280px; margin-top: -10px; }
-    .footer-logo-big { display: block; width: 108%; margin-left: -2%; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
@@ -211,9 +208,6 @@
       .modal-close { font-size: 16px; opacity: .8; top: 8px; right: 8px; padding: 6px; }
 
       .footer-top { flex-direction: column; gap: 28px; padding: 52px 24px; }
-      .footer-right { text-align: left; }
-      .footer-logo-wrap { height: 110px; overflow: hidden; margin-top: 0; }
-      .footer-logo-big { width: 120%; margin-left: -4%; }
     }
   </style>
 </head>
@@ -258,7 +252,7 @@
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
     <div class="proj-hero-body">
-      <span class="proj-big-title" id="projBigTitle">( NOS PROJETS )</span>
+      <span class="proj-big-title" id="projBigTitle">( nos projets )</span>
     </div>
   </section>
 
@@ -362,9 +356,6 @@
         <a href="https://instagram.com/orae_agency" target="_blank">Instagram</a>
         <a href="#" target="_blank">LinkedIn</a>
       </div>
-    </div>
-    <div class="footer-logo-wrap" aria-hidden="true">
-      <img src="logo-whitze.svg" alt="" class="footer-logo-big" />
     </div>
   </footer>
 
@@ -505,11 +496,11 @@
   </script>
 
   <script>
-    function fitEl(el) {
+    function fitEl(el, maxPx) {
       if (!el) return;
       const parentW = el.parentElement.getBoundingClientRect().width;
       if (!parentW) return;
-      let lo = 10, hi = 600;
+      let lo = 10, hi = maxPx || 600;
       el.style.whiteSpace = 'nowrap';
       while (hi - lo > 0.5) {
         const mid = (lo + hi) / 2;
@@ -581,9 +572,9 @@
 
     async function fitTitles() {
       await document.fonts.ready;
-      fitEl(document.getElementById('projBigTitle'));
+      fitEl(document.getElementById('projBigTitle'), 300);
       requestAnimationFrame(() => {
-        const api = window._projMount('projBigTitle', ['( NOS PROJETS )', '( PORTFOLIO )', '( CREATION )']);
+        const api = window._projMount('projBigTitle', ['( nos projets )', '( portfolio )', '( création )']);
         if (api) {
           const io = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) api.reset(); });
