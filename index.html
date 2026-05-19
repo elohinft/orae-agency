@@ -155,7 +155,7 @@
     .step-item:nth-child(even) { flex-direction: row-reverse; }
     /* Slot machine numbers */
     .step-num {
-      font-family: var(--inter); font-size: 300px; font-weight: 900;
+      font-family: var(--inter); font-size: clamp(80px, 14vw, 180px); font-weight: 900;
       line-height: 1; letter-spacing: -0.04em; color: var(--light);
       display: flex; flex-shrink: 0;
     }
@@ -591,11 +591,11 @@
     }, { passive: true });
 
     /* ── Big titles: auto-fit to container width ── */
-    function fitEl(el) {
+    function fitEl(el, maxPx) {
       if (!el) return;
       const parentW = el.parentElement.getBoundingClientRect().width;
       if (!parentW) return;
-      let lo = 10, hi = 600;
+      let lo = 10, hi = maxPx || 600;
       el.style.whiteSpace = 'nowrap';
       while (hi - lo > 0.5) {
         const mid = (lo + hi) / 2;
@@ -607,8 +607,9 @@
     async function fitTitles() {
       await document.fonts.ready;
       fitEl(document.getElementById('heroBigTitle'));
-      fitEl(document.getElementById('servicesBigTitle'));
-      fitEl(document.getElementById('contactBigTitle'));
+      const heroSize = parseFloat(document.getElementById('heroBigTitle').style.fontSize) || 600;
+      fitEl(document.getElementById('servicesBigTitle'), heroSize);
+      fitEl(document.getElementById('contactBigTitle'), heroSize);
     }
     fitTitles();
     window.addEventListener('resize', fitTitles);
