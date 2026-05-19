@@ -103,7 +103,7 @@
     /* ─────── HERO ─────── */
     #hero { position: relative; width: 100%; min-height: 100svh; background: var(--light); overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .hero-text { position: relative; z-index: 10; text-align: center; pointer-events: none; user-select: none; line-height: 1.05; }
-    .hero-text-line { display: block; font-family: var(--inter); font-size: clamp(38px, 6.5vw, 96px); letter-spacing: -0.04em; color: var(--dark); }
+    .hero-text-line { display: block; font-family: var(--inter); font-size: clamp(44px, 7.5vw, 110px); letter-spacing: -0.04em; color: var(--dark); }
     .hero-text-line--light { font-weight: 300; }
     .hero-text-line--bold  { font-weight: 900; }
     /* ─────── À PROPOS ─────── */
@@ -315,7 +315,7 @@
   <section id="hero">
     <div class="hero-text">
       <span class="hero-text-line hero-text-line--light">agence</span>
-      <span class="hero-text-line hero-text-line--bold">de design créatif</span>
+      <div class="hero-text-line hero-text-line--bold" id="heroMorphTitle">de direction artistique</div>
     </div>
   </section>
 
@@ -700,6 +700,8 @@
             morph = 0;
             s2.style.filter = 'none'; s2.style.opacity = '1';
             s1.style.filter = 'none'; s1.style.opacity = '0';
+            s2.textContent = texts[idx % texts.length];
+            s1.textContent = texts[(idx + 1) % texts.length];
           }
         }
         tick();
@@ -725,6 +727,12 @@
           '( REVER ? )',
           '( OSER ? )',
         ]);
+        titleAPIs.hero = mount('heroMorphTitle', [
+          'de design créatif',
+          'de création visuelle',
+          'de direction artistique',
+          "d'identité de marque",
+        ], { cooldown: 1.3, morphTime: 1.2 });
 
         // Restart à chaque retour dans le viewport
         const io = new IntersectionObserver((entries) => {
@@ -858,7 +866,7 @@
     window.addEventListener('pageshow', e => { if (e.persisted) window.location.reload(); });
   </script>
   <script>
-  /* ── Hero : cartes volantes ── */
+  /* ── Hero : train ondulant ── */
   (function () {
     const hero = document.getElementById('hero');
     if (!hero) return;
@@ -870,34 +878,35 @@
       'images/armanoid.png','images/affiche-goth.png','images/brand-drop.png',
     ];
 
-    const N = 9, W = 148, H = 204, BASE_SPEED = 115;
+    const N = IMGS.length, W = 148, H = 200, GAP = 18;
+    const STEP = W + GAP, TOTAL = N * STEP;
+    const SPEED = 70, AMP = 120, FREQ = 0.006;
 
-    const wrap = document.createElement('div');
-    wrap.style.cssText = 'position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;';
-    hero.appendChild(wrap);
+    // Two layers so cards weave behind and in front of hero-text (z-index:10)
+    const wrapBack  = document.createElement('div');
+    const wrapFront = document.createElement('div');
+    wrapBack.style.cssText  = 'position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:5;';
+    wrapFront.style.cssText = 'position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:15;';
+    hero.appendChild(wrapBack);
+    hero.appendChild(wrapFront);
 
-    const cards = Array.from({ length: N }, (_, i) => {
-      const el  = document.createElement('div');
+    const cards = IMGS.map((src) => {
+      const el = document.createElement('div');
       el.style.cssText = `position:absolute;width:${W}px;height:${H}px;overflow:hidden;will-change:transform;top:0;left:0;`;
       const img = document.createElement('img');
-      img.src       = IMGS[i % IMGS.length];
+      img.src = src;
       img.draggable = false;
       img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;pointer-events:auto;cursor:pointer;';
-      img.addEventListener('click',        () => { window.location.href = 'projets.html'; });
-      img.addEventListener('contextmenu',  e  => e.preventDefault());
+      img.addEventListener('click', () => { window.location.href = 'projets.html'; });
+      img.addEventListener('contextmenu', e => e.preventDefault());
       el.appendChild(img);
-      wrap.appendChild(el);
-      return { el, img, imgIdx: i % IMGS.length };
+      wrapBack.appendChild(el);
+      return { el, inFront: false };
     });
 
-    const vw = () => window.innerWidth;
-    const vh = () => window.innerHeight;
-
+    // Start cards spread across the viewport (centered) so train is visible immediately
     const states = cards.map((_, i) => ({
-      x:     (i / N) * (vw() + W * 2) + W,
-      yOff:  (Math.random() - 0.5) * 220,
-      rot:   (Math.random() - 0.5) * 34,
-      speed: 0.85 + Math.random() * 0.35,
+      x: i * STEP - (N / 2) * STEP + window.innerWidth / 2,
     }));
 
     let last = 0;
@@ -905,29 +914,23 @@
       requestAnimationFrame(frame);
       const dt = Math.min(ts - (last || ts), 50);
       last = ts;
-      const cx = vw() / 2, cy = vh() / 2;
+      const cy = hero.offsetHeight / 2;
 
       states.forEach((s, i) => {
-        s.x -= s.speed * BASE_SPEED * dt / 1000;
+        s.x -= SPEED * dt / 1000;
+        if (s.x < -W - 50) s.x += TOTAL;
 
-        if (s.x < -W - 120) {
-          s.x     = vw() + W + Math.random() * 180;
-          s.yOff  = (Math.random() - 0.5) * 240;
-          s.rot   = (Math.random() - 0.5) * 36;
-          s.speed = 0.8 + Math.random() * 0.4;
-          cards[i].imgIdx = (cards[i].imgIdx + N) % IMGS.length;
-          cards[i].img.src = IMGS[cards[i].imgIdx];
+        const sinVal  = Math.sin(FREQ * s.x);
+        const y       = cy - H / 2 + AMP * sinVal;
+        const rot     = Math.atan(AMP * FREQ * Math.cos(FREQ * s.x)) * (180 / Math.PI) * 0.45;
+        const inFront = sinVal > 0;
+
+        if (inFront !== cards[i].inFront) {
+          (inFront ? wrapFront : wrapBack).appendChild(cards[i].el);
+          cards[i].inFront = inFront;
         }
 
-        const distRatio  = Math.abs(s.x - cx) / (cx + W);
-        const cluster    = Math.max(0, 1 - distRatio * 1.3);
-        const x   = s.x - W / 2;
-        const y   = cy + s.yOff * (0.5 + cluster * 0.5) - H / 2;
-        const rot = s.rot * (0.2 + cluster * 0.8);
-        const sc  = 0.88 + cluster * 0.18;
-
-        cards[i].el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
-        cards[i].el.style.zIndex    = Math.round(cluster * 8);
+        cards[i].el.style.transform = `translate(${(s.x - W / 2).toFixed(1)}px,${y.toFixed(1)}px) rotate(${rot.toFixed(2)}deg)`;
       });
     }
     requestAnimationFrame(frame);
