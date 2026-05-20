@@ -64,8 +64,7 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid transparent; transition: opacity .4s ease, color .35s, background .35s, border-color .35s; opacity: 0; pointer-events: none; }
-    #main-nav.is-visible { opacity: 1; pointer-events: auto; background: #111111; border-color: rgba(255,255,255,0.16); color: var(--light); }
+    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.16); transition: color .35s, background .35s, border-color .35s; opacity: 1; pointer-events: auto; background: #111111; color: var(--light); }
     .nav-logo-img { height: 14px; width: auto; display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
     .nav-links { display: flex; gap: 22px; list-style: none; }
     .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: 1; transition: opacity .2s, font-style .15s, font-weight .1s; }
@@ -544,11 +543,8 @@
       });
     })();
 
-    /* ── Nav : apparaît au premier scroll ── */
+    /* ── Nav ── */
     const mainNav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) mainNav.classList.add('is-visible');
-    }, { passive: true });
 
     /* ── Scroll line ── */
     const scrollLine = document.getElementById('scrollLine');
