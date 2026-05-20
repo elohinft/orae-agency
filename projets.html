@@ -8,7 +8,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@900&family=Urbanist:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@700&family=Poppins:wght@900&family=Urbanist:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,16 +62,18 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--light); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 28px 52px; transition: color .35s, background .35s; background: rgba(17,17,17,0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.16); transition: color .35s, background .35s, border-color .35s; background: #111111; }
     #main-nav[data-theme="dark"]  { color: var(--light); }
     #main-nav[data-theme="light"] { color: var(--dark); }
     .nav-logo-img { height: 14px; width: auto; display: block; }
     .nav-logo-link { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); line-height: 0; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
-    .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: .45; transition: opacity .2s, font-style .15s; }
+    .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: 1; transition: opacity .2s, font-style .15s; }
     .nav-links li a:hover { opacity: 1; font-style: italic; }
-    .nav-cta { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; text-decoration: underline; text-underline-offset: 4px; opacity: .65; transition: opacity .2s, font-style .15s; }
+    .nav-cta { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; text-decoration: underline; text-underline-offset: 4px; opacity: 1; transition: opacity .2s, font-style .15s; }
     .nav-cta:hover { opacity: 1; font-style: italic; }
+    .nav-email { display: none; color: inherit; line-height: 0; opacity: .6; transition: opacity .2s; cursor: none; }
+    .nav-email:hover { opacity: 1; }
 
     /* ── BURGER ── */
     .burger { display: none; flex-direction: column; align-items: flex-end; gap: 5px; background: none; border: none; padding: 0; cursor: none; z-index: 202; color: var(--light); transition: color .35s; }
@@ -88,7 +90,7 @@
     .mobile-menu.open { display: flex; }
     .mm-topbar { display: flex; align-items: center; padding: 0 24px; height: 60px; border-bottom: 1px solid rgba(33,34,38,.1); flex-shrink: 0; }
     .mm-brand { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--dark); opacity: .45; }
-    .mm-nav { flex: 1; display: flex; flex-direction: column; }
+    .mm-nav { flex: 1; display: flex; flex-direction: column; padding-top: 72px; }
     .mm-link { display: block; font-family: var(--inter); font-size: clamp(34px, 10.5vw, 52px); font-weight: 700; letter-spacing: -0.02em; color: var(--dark) !important; line-height: 1; padding: 18px 24px; border-bottom: 1px solid rgba(33,34,38,.1); transition: opacity .2s; text-decoration: none !important; }
     .mm-link:hover { opacity: .45; }
     .mm-email { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em; color: var(--dark); opacity: .45; padding: 14px 24px; text-decoration: none; border-top: 1px solid rgba(33,34,38,.1); }
@@ -123,6 +125,7 @@
       line-height: .9;
       padding: 0 0 0.22em;
       user-select: none;
+      font-size: clamp(28px, 12vw, 300px);
     }
 
     /* ── SCROLLER ── */
@@ -132,6 +135,8 @@
       padding: 0 24px 80px;
       overflow: hidden;
       height: 160vh;
+      content-visibility: auto;
+      contain-intrinsic-size: 0 600px;
     }
     .scroller-col {
       flex: 1;
@@ -182,11 +187,12 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      #main-nav { padding: 20px 24px; }
+      #main-nav { padding: 10px 20px; top: 8px; left: 10px; right: 10px; }
       .nav-links, .nav-cta { display: none; }
       .nav-logo-img { height: 14px; }
-      .burger { display: flex; }
-      #main-nav.menu-open { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+      .nav-email { display: flex; align-items: center; }
+      .burger { display: flex; margin-left: auto; }
+      #main-nav.menu-open { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-color: transparent !important; }
       #main-nav.menu-open .burger { color: var(--dark) !important; }
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
@@ -208,6 +214,7 @@
       .modal-close { font-size: 16px; opacity: .8; top: 8px; right: 8px; padding: 6px; }
 
       .footer-top { flex-direction: column; gap: 28px; padding: 52px 24px; }
+      .footer-right { align-items: flex-end; text-align: right; width: 100%; }
     }
   </style>
 </head>
@@ -241,6 +248,9 @@
   <!-- HERO -->
   <section class="proj-hero">
     <nav id="main-nav" data-theme="dark">
+      <a href="mailto:orae.agency@gmail.com" class="nav-email" aria-label="Envoyer un email">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </a>
       <ul class="nav-links">
         <li><a href="index.html#about">L'agence</a></li>
         <li><a href="index.html#services">Services</a></li>
@@ -259,72 +269,86 @@
   <!-- SCROLLER -->
   <div class="proj-scroller">
     <div class="scroller-col">
-      <img src="images/lueur-1.png" alt="Lueur" />
-      <img src="images/reborn.png" alt="Reborn" />
-      <img src="images/delta.png" alt="Delta" />
-      <img src="images/webdesign.png" alt="Web Design" />
-      <img src="images/affiche-goth.png" alt="Goth" />
-      <img src="images/lueur-1.png" alt="" aria-hidden="true" />
-      <img src="images/reborn.png" alt="" aria-hidden="true" />
-      <img src="images/delta.png" alt="" aria-hidden="true" />
-      <img src="images/webdesign.png" alt="" aria-hidden="true" />
-      <img src="images/affiche-goth.png" alt="" aria-hidden="true" />
+      <img src="images/lueur-1.webp" alt="Lueur" loading="lazy" decoding="async" />
+      <img src="images/reborn.webp" alt="Reborn" loading="lazy" decoding="async" />
+      <img src="images/22.webp" alt="Explorations IA" loading="lazy" decoding="async" />
+      <img src="images/delta.webp" alt="Delta" loading="lazy" decoding="async" />
+      <img src="images/webdesign.webp" alt="Web Design" loading="lazy" decoding="async" />
+      <img src="images/affiche-goth.webp" alt="Goth" loading="lazy" decoding="async" />
+      <img src="images/lueur-1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/reborn.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/22.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/delta.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/webdesign.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/affiche-goth.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
     <div class="scroller-col">
-      <img src="images/lueur-2.png" alt="Lueur" />
-      <img src="images/reborn-goute.png" alt="Reborn" />
-      <img src="images/aroma1.png" alt="Aroma" />
-      <img src="images/web-design2.png" alt="Web Design" />
-      <img src="images/affiche-oxytocin.png" alt="Oxytocin" />
-      <img src="images/lueur-2.png" alt="" aria-hidden="true" />
-      <img src="images/reborn-goute.png" alt="" aria-hidden="true" />
-      <img src="images/aroma1.png" alt="" aria-hidden="true" />
-      <img src="images/web-design2.png" alt="" aria-hidden="true" />
-      <img src="images/affiche-oxytocin.png" alt="" aria-hidden="true" />
+      <img src="images/lueur-2.webp" alt="Lueur" loading="lazy" decoding="async" />
+      <img src="images/lueurbague.webp" alt="Lueur" loading="lazy" decoding="async" />
+      <img src="images/reborn-goute.webp" alt="Reborn" loading="lazy" decoding="async" />
+      <img src="images/jap.webp" alt="Japon" loading="lazy" decoding="async" />
+      <img src="images/aroma1.webp" alt="Aroma" loading="lazy" decoding="async" />
+      <img src="images/web-design2.webp" alt="Web Design" loading="lazy" decoding="async" />
+      <img src="images/affiche-oxytocin.webp" alt="Oxytocin" loading="lazy" decoding="async" />
+      <img src="images/lueur-2.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/lueurbague.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/reborn-goute.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/jap.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/aroma1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/web-design2.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/affiche-oxytocin.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
     <div class="scroller-col">
-      <img src="images/armanoid.png" alt="Armanoid" />
-      <img src="images/reborn2-0.png" alt="Reborn" />
-      <img src="images/aroma2.png" alt="Aroma" />
-      <img src="images/webdesign-4.png" alt="Web Design" />
-      <img src="images/affiche-chrys.png" alt="Chrys" />
-      <img src="images/lueur-coq.png" alt="Lueur" />
-      <img src="images/armanoid.png" alt="" aria-hidden="true" />
-      <img src="images/reborn2-0.png" alt="" aria-hidden="true" />
-      <img src="images/aroma2.png" alt="" aria-hidden="true" />
-      <img src="images/webdesign-4.png" alt="" aria-hidden="true" />
-      <img src="images/affiche-chrys.png" alt="" aria-hidden="true" />
-      <img src="images/lueur-coq.png" alt="" aria-hidden="true" />
+      <img src="images/armanoid.webp" alt="Armanoid" loading="lazy" decoding="async" />
+      <img src="images/iceprompt.webp" alt="Explorations IA" loading="lazy" decoding="async" />
+      <img src="images/reborn2-0.webp" alt="Reborn" loading="lazy" decoding="async" />
+      <img src="images/Dlogo.webp" alt="Logotypes" loading="lazy" decoding="async" />
+      <img src="images/webdesign-4.webp" alt="Web Design" loading="lazy" decoding="async" />
+      <img src="images/affiche-chrys.webp" alt="Chrys" loading="lazy" decoding="async" />
+      <img src="images/lueur-coq.webp" alt="Lueur" loading="lazy" decoding="async" />
+      <img src="images/armanoid.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/iceprompt.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/reborn2-0.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/Dlogo.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/webdesign-4.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/affiche-chrys.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/lueur-coq.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
     <div class="scroller-col">
-      <img src="images/reborne-smile.png" alt="Reborn" />
-      <img src="images/brand-drop.png" alt="Brand Drop" />
-      <img src="images/web-design3.png" alt="Web Design" />
-      <img src="images/reflexiongue.png" alt="Réflexion" />
-      <img src="images/reborne-smile.png" alt="" aria-hidden="true" />
-      <img src="images/brand-drop.png" alt="" aria-hidden="true" />
-      <img src="images/web-design3.png" alt="" aria-hidden="true" />
-      <img src="images/reflexiongue.png" alt="" aria-hidden="true" />
+      <img src="images/reborne-smile.webp" alt="Reborn" loading="lazy" decoding="async" />
+      <img src="images/hprompt.webp" alt="Explorations IA" loading="lazy" decoding="async" />
+      <img src="images/brand-drop.webp" alt="Brand Drop" loading="lazy" decoding="async" />
+      <img src="images/web-design3.webp" alt="Web Design" loading="lazy" decoding="async" />
+      <img src="images/reflexiongue.webp" alt="Réflexion" loading="lazy" decoding="async" />
+      <img src="images/reborne-smile.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/hprompt.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/brand-drop.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/web-design3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/reflexiongue.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
     <div class="scroller-col">
-      <img src="images/affiche-goth.png" alt="Goth" />
-      <img src="images/lueur-coq.png" alt="Lueur" />
-      <img src="images/reborn2-0.png" alt="Reborn" />
-      <img src="images/webdesign-4.png" alt="Web Design" />
-      <img src="images/affiche-goth.png" alt="" aria-hidden="true" />
-      <img src="images/lueur-coq.png" alt="" aria-hidden="true" />
-      <img src="images/reborn2-0.png" alt="" aria-hidden="true" />
-      <img src="images/webdesign-4.png" alt="" aria-hidden="true" />
+      <img src="images/affiche-goth.webp" alt="Goth" loading="lazy" decoding="async" />
+      <img src="images/Rmousse.webp" alt="Mousse" loading="lazy" decoding="async" />
+      <img src="images/lueur-coq.webp" alt="Lueur" loading="lazy" decoding="async" />
+      <img src="images/6prompt.webp" alt="Explorations IA" loading="lazy" decoding="async" />
+      <img src="images/reborn2-0.webp" alt="Reborn" loading="lazy" decoding="async" />
+      <img src="images/webdesign-4.webp" alt="Web Design" loading="lazy" decoding="async" />
+      <img src="images/affiche-goth.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/Rmousse.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/lueur-coq.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/6prompt.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/reborn2-0.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/webdesign-4.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
     <div class="scroller-col">
-      <img src="images/aroma2.png" alt="Aroma" />
-      <img src="images/affiche-chrys.png" alt="Chrys" />
-      <img src="images/delta.png" alt="Delta" />
-      <img src="images/reborn.png" alt="Reborn" />
-      <img src="images/aroma2.png" alt="" aria-hidden="true" />
-      <img src="images/affiche-chrys.png" alt="" aria-hidden="true" />
-      <img src="images/delta.png" alt="" aria-hidden="true" />
-      <img src="images/reborn.png" alt="" aria-hidden="true" />
+      <img src="images/affiche-chrys.webp" alt="Chrys" loading="lazy" decoding="async" />
+      <img src="images/logom.webp" alt="Logotypes" loading="lazy" decoding="async" />
+      <img src="images/delta.webp" alt="Delta" loading="lazy" decoding="async" />
+      <img src="images/reborn.webp" alt="Reborn" loading="lazy" decoding="async" />
+      <img src="images/affiche-chrys.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/logom.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/delta.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="images/reborn.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -361,10 +385,13 @@
 
   <script>
     /* ── Page loader ── */
-    window.addEventListener('load', () => {
-      const l = document.getElementById('page-loader');
-      l.classList.add('hidden');
-      setTimeout(() => l.remove(), 550);
+    const _loaderStart = Date.now();
+    document.fonts.ready.then(() => {
+      const wait = Math.max(0, 150 - (Date.now() - _loaderStart));
+      setTimeout(() => {
+        const l = document.getElementById('page-loader');
+        if (l) { l.classList.add('hidden'); setTimeout(() => l.remove(), 550); }
+      }, wait);
     });
 
     /* ── Désactive clic droit sur toutes les images ── */
@@ -414,20 +441,26 @@
 
     /* ── Modal ── */
     const projects = [
-      { cat: '/identité visuelle/ /branding/', title: 'Lueur',      cta: '[j\'aimerais créer mon identité de marque]',         desc: 'Création d\'une identité lumineuse et cohérente pour une marque engagée. Direction artistique, palette chromatique et déclinaisons sur supports digitaux et imprimés.',                                                                              imgs: ['lueur-1.png','lueur-2.png','lueur-coq.png'] },
-      { cat: '/branding/ /packaging/',         title: 'Reborn',     cta: '[je souhaiterais transformer l\'image de ma marque]', desc: 'Nouveau départ pour un label émergent dans l\'univers du lifestyle. Logotype, typographie propriétaire et charte graphique complète déclinée sur tous les supports.',                                                                    imgs: ['reborn.png','reborn-goute.png','reborn2-0.png','reborne-smile.png'] },
-      { cat: '/identité visuelle/',            title: 'Armanoid',   cta: '[j\'aimerais un système d\'identité sur mesure]',     desc: 'Identité graphique pour un studio créatif indépendant. Système de signes modulaire et déclinable, pensé pour une communication forte sur tous les formats.',                                                                        imgs: ['armanoid.png'] },
-      { cat: '/identité visuelle/ /packaging/',title: 'Aroma',      cta: '[je souhaiterais un design packaging pour ma gamme]', desc: 'Design sensoriel pour une gamme de produits aromatiques. L\'identité traduit l\'olfactif en visuel — typographie délicate, palette naturelle et matières nobles.',                                                                  imgs: ['aroma1.png','aroma2.png'] },
-      { cat: '/branding/',                     title: 'Delta',      cta: '[j\'aimerais une marque sobre et impactante]',        desc: 'Identité minimaliste pour un studio d\'architecture. Jeu sur la géométrie et les contrastes, pour une marque sobre, rigoureuse et profondément impactante.',                                                                        imgs: ['delta.png'] },
-      { cat: '/branding/ /identité visuelle/', title: 'Brand Drop', cta: '[je souhaiterais lancer ma marque]',                  desc: 'Système de marque complet pour un label streetwear. Du logo aux applications print, une identité tranchante pensée pour résonner dans le monde physique comme digital.',                                                                imgs: ['brand-drop.png'] },
-      { cat: '/site web/ /ui-ux/',             title: 'Onyx',       cta: '[j\'aimerais un site web sur mesure]',                desc: 'Design et intégration d\'une interface web sur mesure. Expérience utilisateur fluide, micro-animations soignées et logique responsive mobile-first du premier au dernier pixel.',                                                    imgs: ['webdesign.png'] },
-      { cat: '/site web/ /ui-ux/',             title: 'Sève',       cta: '[je souhaiterais un site vitrine qui convertit]',     desc: 'Conception d\'un site vitrine pensé pour convertir. Architecture de l\'information claire, typographie rigoureuse et direction visuelle cohérente de bout en bout.',                                                                imgs: ['web-design2.png'] },
-      { cat: '/site web/ /ui-ux/',             title: 'Auric',      cta: '[j\'aimerais retravailler mon site]',                 desc: 'Transformation complète d\'une interface digitale. Parcours utilisateur repensé, hiérarchie visuelle renforcée et identité de marque pleinement intégrée dans chaque écran.',                                                        imgs: ['web-design3.png'] },
-      { cat: '/site web/ /ui-ux/',             title: 'Zéphyr',     cta: '[je souhaiterais un univers digital distinctif]',     desc: 'Création d\'un univers digital distinctif. Chaque détail — espacement, couleur, animation — est pensé pour renforcer la marque et guider l\'utilisateur naturellement.',                                                            imgs: ['webdesign-4.png'] },
-      { cat: '/identité visuelle/',            title: 'Réflexion',  cta: '[je souhaiterais repenser mon logo]',                 desc: 'Exploration graphique autour du concept de réflexion et de dualité. Une identité en miroir, jouant sur la symétrie, les formes organiques et les doubles lectures visuelles.',                                                        imgs: ['reflexiongue.png'] },
-      { cat: '/impression/ /affiche/',         title: 'Oxytocin',   cta: '[j\'aimerais une affiche pour mon événement]',        desc: 'Affiche événementielle pour le projet Oxytocin. Typographie expressive, composition en tension et palette chromatique saturée pour un impact visuel maximal à grande échelle.',                                                    imgs: ['affiche-oxytocin.png'] },
-      { cat: '/impression/ /affiche/',         title: 'Chrys',      cta: '[je souhaiterais un projet imprimé sur-mesure]',      desc: 'Série d\'affiches pour Chrysalis, collection de mode capsule. Une esthétique poétique et organique entre transformation et légèreté, avec une direction artistique entièrement sur-mesure.',                                        imgs: ['affiche-chrys.png'] },
-      { cat: '/impression/ /affiche/',         title: 'Goth',       cta: '[j\'aimerais une direction artistique forte]',        desc: 'Direction artistique pour une affiche à l\'esthétique sombre et tranchante. Typographie alternative, contrastes forts et composition brutale pour une présence visuelle incontournable.',                                           imgs: ['affiche-goth.png'] },
+      { cat: '/identité visuelle/ /branding/', title: 'Lueur',      cta: '[j\'aimerais créer mon identité de marque]',         desc: 'Création d\'une identité lumineuse et cohérente pour une marque engagée. Direction artistique, palette chromatique et déclinaisons sur supports digitaux et imprimés.',                                                                              imgs: ['lueur-1.webp','lueur-2.webp','lueur-coq.webp','lueurbague.webp'] },
+      { cat: '/branding/ /packaging/',         title: 'Reborn',     cta: '[je souhaiterais transformer l\'image de ma marque]', desc: 'Nouveau départ pour un label émergent dans l\'univers du lifestyle. Logotype, typographie propriétaire et charte graphique complète déclinée sur tous les supports.',                                                                    imgs: ['reborn.webp','reborn-goute.webp','reborn2-0.webp','reborne-smile.webp'] },
+      { cat: '/identité visuelle/',            title: 'Armanoid',   cta: '[j\'aimerais un système d\'identité sur mesure]',     desc: 'Identité graphique pour un studio créatif indépendant. Système de signes modulaire et déclinable, pensé pour une communication forte sur tous les formats.',                                                                        imgs: ['armanoid.webp'] },
+      { cat: '/identité visuelle/ /packaging/',title: 'Aroma',      cta: '[je souhaiterais un design packaging pour ma gamme]', desc: 'Design sensoriel pour une gamme de produits aromatiques. L\'identité traduit l\'olfactif en visuel — typographie délicate, palette naturelle et matières nobles.',                                                                  imgs: ['aroma1.webp'] },
+      { cat: '/branding/',                     title: 'Delta',      cta: '[j\'aimerais une marque sobre et impactante]',        desc: 'Identité minimaliste pour un studio d\'architecture. Jeu sur la géométrie et les contrastes, pour une marque sobre, rigoureuse et profondément impactante.',                                                                        imgs: ['delta.webp'] },
+      { cat: '/branding/ /identité visuelle/', title: 'Brand Drop', cta: '[je souhaiterais lancer ma marque]',                  desc: 'Système de marque complet pour un label streetwear. Du logo aux applications print, une identité tranchante pensée pour résonner dans le monde physique comme digital.',                                                                imgs: ['brand-drop.webp'] },
+      { cat: '/site web/ /ui-ux/',             title: 'Onyx',       cta: '[j\'aimerais un site web sur mesure]',                desc: 'Design et intégration d\'une interface web sur mesure. Expérience utilisateur fluide, micro-animations soignées et logique responsive mobile-first du premier au dernier pixel.',                                                    imgs: ['webdesign.webp'] },
+      { cat: '/site web/ /ui-ux/',             title: 'Sève',       cta: '[je souhaiterais un site vitrine qui convertit]',     desc: 'Conception d\'un site vitrine pensé pour convertir. Architecture de l\'information claire, typographie rigoureuse et direction visuelle cohérente de bout en bout.',                                                                imgs: ['web-design2.webp'] },
+      { cat: '/site web/ /ui-ux/',             title: 'Auric',      cta: '[j\'aimerais retravailler mon site]',                 desc: 'Transformation complète d\'une interface digitale. Parcours utilisateur repensé, hiérarchie visuelle renforcée et identité de marque pleinement intégrée dans chaque écran.',                                                        imgs: ['web-design3.webp'] },
+      { cat: '/site web/ /ui-ux/',             title: 'Zéphyr',     cta: '[je souhaiterais un univers digital distinctif]',     desc: 'Création d\'un univers digital distinctif. Chaque détail — espacement, couleur, animation — est pensé pour renforcer la marque et guider l\'utilisateur naturellement.',                                                            imgs: ['webdesign-4.webp'] },
+      { cat: '/identité visuelle/',            title: 'Réflexion',  cta: '[je souhaiterais repenser mon logo]',                 desc: 'Exploration graphique autour du concept de réflexion et de dualité. Une identité en miroir, jouant sur la symétrie, les formes organiques et les doubles lectures visuelles.',                                                        imgs: ['reflexiongue.webp'] },
+      { cat: '/impression/ /affiche/',         title: 'Oxytocin',   cta: '[j\'aimerais une affiche pour mon événement]',        desc: 'Affiche événementielle pour le projet Oxytocin. Typographie expressive, composition en tension et palette chromatique saturée pour un impact visuel maximal à grande échelle.',                                                    imgs: ['affiche-oxytocin.webp'] },
+      { cat: '/impression/ /affiche/',         title: 'Chrys',      cta: '[je souhaiterais un projet imprimé sur-mesure]',      desc: 'Série d\'affiches pour Chrysalis, collection de mode capsule. Une esthétique poétique et organique entre transformation et légèreté, avec une direction artistique entièrement sur-mesure.',                                        imgs: ['affiche-chrys.webp'] },
+      { cat: '/impression/ /affiche/',         title: 'Goth',       cta: '[j\'aimerais une direction artistique forte]',        desc: 'Direction artistique pour une affiche à l\'esthétique sombre et tranchante. Typographie alternative, contrastes forts et composition brutale pour une présence visuelle incontournable.',                                           imgs: ['affiche-goth.webp'] },
+      { cat: '/ia générative/ /expériences/', title: 'Explorations IA', cta: '[j\'aimerais explorer les possibilités de l\'IA créative]', desc: 'Expériences visuelles entièrement générées par intelligence artificielle. Explorations formelles à la frontière du design et de la génération algorithmique — prompts, matières et compositions issus d\'une direction artistique humaine.', imgs: ['22.webp', 'hprompt.webp', '6prompt.webp', 'iceprompt.webp'] },
+      { cat: '/identité visuelle/ /direction artistique/', title: 'Japon', cta: '[j\'aimerais une direction artistique culturelle]', desc: 'Exploration graphique à travers le prisme de l\'esthétique japonaise. Composition épurée, équilibre entre plein et vide, typographie soignée — une direction artistique où la retenue devient force visuelle.', imgs: ['jap.webp'] },
+      { cat: '/branding/ /logotype/', title: 'Logotypes', cta: '[j\'aimerais un logotype sur mesure]', desc: 'Création de logotypes sur mesure — formes simples, identité forte. Chaque signe est pensé pour être immédiatement reconnaissable, déclinable sur tous les supports et porteur de la personnalité de la marque.', imgs: ['Dlogo.webp', 'logom.webp'] },
+      { cat: '/identité visuelle/ /branding/', title: 'Mousse', cta: '[j\'aimerais créer mon identité de marque]', desc: 'Identité visuelle pour une marque aux textures douces et à l\'univers sensoriel affirmé. Direction artistique organique, palette apaisante et déclinaisons pensées pour séduire autant en digital qu\'en imprimé.', imgs: ['Rmousse.webp'] },
+      { cat: '/branding/ /identité visuelle/', title: 'Drop T-Shirt', cta: '[j\'aimerais créer mon identité de marque]', desc: 'Identité visuelle et direction artistique pour une marque de streetwear. Graphisme fort, typographie impactante et univers de marque cohérent décliné sur les supports print et digitaux.', imgs: ['droptshirt.webp'] },
+      { cat: '/identité visuelle/ /branding/', title: 'EGM', cta: '[j\'aimerais créer mon identité de marque]', desc: 'Création d\'une identité visuelle complète. Logotype, charte graphique et déclinaisons pensés pour une marque à forte personnalité, reconnaissable et cohérente sur tous les supports.', imgs: ['egm.webp'] },
     ];
 
     const p = 'images/';
@@ -520,8 +553,8 @@
       function mount(elId, texts, opts) {
         const el = document.getElementById(elId);
         if (!el || !texts.length) return null;
-        const MT      = (opts && opts.morphTime) || 1.5;
-        const CD      = (opts && opts.cooldown)  || 0.5;
+        const MT      = (opts && opts.morphTime) || 1.0;
+        const CD      = (opts && opts.cooldown)  || 0.35;
         const initIdx = (opts && opts.startIdx)  || 0;
         const origText = el.textContent.trim();
         const cs = getComputedStyle(el);
@@ -543,9 +576,9 @@
         el.appendChild(grid);
         let idx = initIdx, morph = 0, cooldown = CD, last = Date.now(), paused = false;
         function paint(f) {
-          s2.style.filter  = `blur(${Math.min(8/f-8,100)}px)`; s2.style.opacity = Math.pow(f,0.4);
+          s2.style.filter  = `blur(${Math.min(8/f-8,20)}px)`; s2.style.opacity = Math.pow(f,0.4);
           const inv = 1-f;
-          s1.style.filter  = `blur(${Math.min(8/inv-8,100)}px)`; s1.style.opacity = Math.pow(inv,0.4);
+          s1.style.filter  = `blur(${Math.min(8/inv-8,20)}px)`; s1.style.opacity = Math.pow(inv,0.4);
           s1.textContent = texts[idx % texts.length]; s2.textContent = texts[(idx+1) % texts.length];
         }
         function tick() {
@@ -572,20 +605,25 @@
 
     async function fitTitles() {
       await document.fonts.ready;
-      fitEl(document.getElementById('projBigTitle'), 300);
-      requestAnimationFrame(() => {
-        const api = window._projMount('projBigTitle', ['( nos projets )', '( portfolio )', '( création )']);
-        if (api) {
-          const io = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) api.reset(); });
-          }, { threshold: 0.2 });
-          const el = document.getElementById('projBigTitle');
-          if (el) io.observe(el);
-        }
-      });
+      const el = document.getElementById('projBigTitle');
+      if (!el) return;
+      fitEl(el, 300);
+      if (!el.dataset.morphMounted) {
+        el.dataset.morphMounted = '1';
+        requestAnimationFrame(() => {
+          const api = window._projMount('projBigTitle', ['( nos projets )', '( portfolio )', '( créations )']);
+          if (api) {
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach(e => { if (e.isIntersecting) api.reset(); });
+            }, { threshold: 0.2 });
+            const el2 = document.getElementById('projBigTitle');
+            if (el2) io.observe(el2);
+          }
+        });
+      }
     }
     fitTitles();
-    window.addEventListener('resize', fitTitles);
+    let _fitTimer2; window.addEventListener('resize', () => { clearTimeout(_fitTimer2); _fitTimer2 = setTimeout(fitTitles, 120); });
   </script>
 </body>
 </html>
