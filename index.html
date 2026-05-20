@@ -954,9 +954,12 @@
       // inUse bloque toute image visible OU en cours de transition
       const inUse = new Set();
 
-      function pickNext() {
-        const avail = IMGS.filter(s => !inUse.has(s));
-        const pool = avail.length ? avail : IMGS;
+      const NO_CENTER = new Set(['drop3d.webp']);
+
+      function pickNext(ci) {
+        const exclude = (ci === 2) ? NO_CENTER : null;
+        const avail = IMGS.filter(s => !inUse.has(s) && (!exclude || !exclude.has(s)));
+        const pool = avail.length ? avail : IMGS.filter(s => !exclude || !exclude.has(s));
         return pool[Math.floor(Math.random() * pool.length)];
       }
 
@@ -964,7 +967,7 @@
         const img = document.createElement('img');
         img.draggable = false;
 
-        const first = pickNext();
+        const first = pickNext(ci);
         inUse.add(first);
         cell._cur = first;
         img.src = P + first;
@@ -973,7 +976,7 @@
 
         setTimeout(() => {
           setInterval(() => {
-            const next = pickNext();
+            const next = pickNext(ci);
             const prev = cell._cur;
 
             // Bloquer next immédiatement (JS single-thread → pas de race)
