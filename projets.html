@@ -514,6 +514,16 @@
       svg.innerHTML = '<defs><filter id="morph-threshold"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 255 -140"/></filter></defs>';
       document.body.insertBefore(svg, document.body.firstChild);
 
+      function getSectionBg(node) {
+        let n = node.parentElement;
+        while (n && n !== document.documentElement) {
+          const bg = window.getComputedStyle(n).backgroundColor;
+          if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') return bg;
+          n = n.parentElement;
+        }
+        return 'transparent';
+      }
+
       function mount(elId, texts, opts) {
         const el = document.getElementById(elId);
         if (!el || !texts.length) return null;
@@ -536,6 +546,8 @@
         el.textContent = '';
         el.style.paddingTop = '0'; el.style.paddingBottom = '0';
         el.style.display = 'block'; el.style.overflow = 'hidden';
+        el.style.backgroundColor = getSectionBg(el);
+        el.style.filter = 'url(#morph-threshold) blur(0.6px)';
         el.appendChild(grid);
         let idx = initIdx, morph = 0, cooldown = CD, last = Date.now(), paused = false;
         function paint(f) {
