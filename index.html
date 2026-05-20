@@ -217,11 +217,8 @@
     .about-bottom { display: flex; align-items: center; justify-content: space-between; }
     .about-founder { display: flex; align-items: center; gap: 18px; }
     @keyframes about-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-    @keyframes about-orbit { from{transform:rotate(0deg) translateX(34px) rotate(0deg)} to{transform:rotate(360deg) translateX(34px) rotate(-360deg)} }
-    .about-founder-photo { width: 52px; height: 52px; border-radius: 50%; background: #ccc; overflow: visible; flex-shrink: 0; position: relative; animation: about-float 3.2s ease-in-out infinite; }
-    .about-founder-photo img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; clip-path: circle(50%); }
-    .about-founder-photo::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(17,17,17,0.15); pointer-events: none; }
-    .about-founder-photo::after { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--dark); top: 50%; left: 50%; margin: -3.5px 0 0 -3.5px; animation: about-orbit 4s linear infinite; pointer-events: none; }
+    .about-founder-photo { width: 52px; height: 52px; border-radius: 50%; background: #ccc; overflow: hidden; flex-shrink: 0; position: relative; animation: about-float 3.2s ease-in-out infinite; }
+    .about-founder-photo img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
     .about-founder-name { font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: .04em; color: var(--dark); display: block; }
     .about-founder-role { font-family: var(--urban); font-size: 12px; font-weight: 400; color: var(--dark); opacity: .55; display: block; margin-top: 3px; }
     .about-cta { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--dark); text-decoration: underline; text-underline-offset: 4px; opacity: .55; transition: opacity .2s, font-style .15s; }
