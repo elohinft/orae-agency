@@ -157,8 +157,10 @@
     .flash-cell { flex: 1; position: relative; overflow: hidden; background: #1a1a1a; }
     .flash-cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; }
     @media (max-width: 768px) {
-      .hero-flash-strip { left: 0; right: 0; top: 10vh; height: 50vh; gap: 5px; }
-      .flash-cell:nth-child(5) { display: none; }
+      .hero-flash-strip { top: 0; height: 100%; gap: 4px; }
+      .flash-cell:nth-child(4), .flash-cell:nth-child(5) { display: none; }
+      #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.1) 45%, transparent 70%); pointer-events: none; z-index: 1; }
+      .hero-big-title { z-index: 2; }
     }
 
     /* ─────── À PROPOS ─────── */
@@ -292,7 +294,6 @@
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
       #hero { height: 100svh; min-height: 100svh; }
-      .hero-flash-strip { top: 22vh; height: 48vh; }
       .hero-big-title { position: absolute; bottom: 0; margin-top: 0; padding: 0 0 6vh; line-height: 1; white-space: normal; }
       .contact-big-title { padding: 36px 0 12px; }
       .about-cols { grid-template-columns: 1fr; gap: 48px; margin-bottom: 52px; }
