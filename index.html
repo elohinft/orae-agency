@@ -104,7 +104,7 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.18); transition: color .35s, background .4s, border-color .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--light); }
+    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.65); transition: color .35s, background .4s, border-color .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--light); }
     #main-nav.is-scrolled { background: #111111; border-color: rgba(255,255,255,0.16); }
     .nav-logo-img { height: 14px; width: auto; display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
     .nav-links { display: flex; gap: 22px; list-style: none; }
@@ -113,7 +113,7 @@
     .nav-links li a.is-active { color: var(--mid) !important; opacity: 1; font-style: normal; font-weight: 400; }
     .nav-cta { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; text-decoration: underline; text-underline-offset: 4px; opacity: 1; transition: opacity .2s, font-style .15s, font-weight .1s; }
     .nav-cta:hover { opacity: 1; font-style: italic; font-weight: 500; }
-    .nav-email { display: none; color: inherit; line-height: 0; opacity: .6; transition: opacity .2s; cursor: none; }
+    .nav-email { display: none; color: inherit; line-height: 0; opacity: 1; transition: opacity .2s; cursor: none; }
     .nav-email:hover { opacity: 1; }
     @keyframes nav-email-blink {
       0%, 100% { opacity: .6; }
