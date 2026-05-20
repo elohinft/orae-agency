@@ -146,13 +146,6 @@
       font-size: clamp(28px, 12vw, 300px);
       position: relative;
     }
-    .proj-big-title::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--dark);
-      pointer-events: none;
-    }
 
     /* ── SCROLLER ── */
     .proj-scroller {
@@ -547,14 +540,14 @@
         svgEl.innerHTML = `<defs><filter id="${filterId}"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 255 -140"/></filter></defs>`;
 
         el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2); el.appendChild(svgEl);
-        el.style.filter = `url(#${filterId}) blur(0.6px)`;
+        // Aucun filter sur el — appliqué par span uniquement → zéro fond gris iOS
 
         let idx = initIdx, morph = 0, cooldown = 0, last = Date.now(), paused = false;
 
         function setStyles(f) {
-          s2.style.filter = `blur(${Math.min(8/f-8,100)}px)`; s2.style.opacity = Math.pow(f,0.4);
           const inv = 1-f;
-          s1.style.filter = `blur(${Math.min(8/inv-8,100)}px)`; s1.style.opacity = Math.pow(inv,0.4);
+          s2.style.filter = `url(#${filterId}) blur(${Math.min(8/f-8,100)}px)`; s2.style.opacity = Math.pow(f,0.4);
+          s1.style.filter = `url(#${filterId}) blur(${Math.min(8/inv-8,100)}px)`; s1.style.opacity = Math.pow(inv,0.4);
           s1.textContent = texts[idx % texts.length]; s2.textContent = texts[(idx+1) % texts.length];
         }
         function doCooldown() {

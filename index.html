@@ -228,7 +228,6 @@
     #services { background: var(--light); color: var(--dark); padding: 120px 0 340px; overflow: hidden; content-visibility: auto; contain-intrinsic-size: 0 800px; }
     .services-title-wrap { overflow: visible; }
     .services-big-title { font-family: var(--heavy); font-weight: 900; color: var(--dark); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .9; padding: 0.2em 0 0.32em; user-select: none; font-size: clamp(32px, 10vw, 600px); position: relative; }
-    .services-big-title::before { content: ''; position: absolute; inset: 0; background: var(--light); pointer-events: none; }
     .services-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; row-gap: 100px; padding: 160px 52px 0; text-align: center; }
     .service-card { display: flex; flex-direction: column; align-items: center; }
     .service-num-line { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 32px; }
@@ -299,7 +298,6 @@
     .form-submit:hover { opacity: 1; font-style: italic; font-weight: 500; }
     .form-consent { margin-top: 20px; font-family: var(--mono); font-size: 8px; letter-spacing: .07em; color: var(--light); opacity: .32; line-height: 1.6; }
     .contact-big-title { display: block; width: 100%; text-align: center; font-family: var(--heavy); font-weight: 900; color: var(--light); letter-spacing: -0.02em; white-space: nowrap; overflow: visible; padding: 120px 0 calc(80px + 0.22em); user-select: none; font-size: clamp(32px, 10vw, 600px); position: relative; }
-    .contact-big-title::before { content: ''; position: absolute; inset: 0; background: var(--dark); pointer-events: none; }
 
     /* ─────── FOOTER ─────── */
     footer { background: var(--dark); color: var(--light); overflow: hidden; padding: 0; }
@@ -739,7 +737,8 @@
         el.appendChild(s1);
         el.appendChild(s2);
         el.appendChild(svgEl);
-        el.style.filter = `url(#${filterId}) blur(0.6px)`;
+        // Aucun filter sur el — le filtre est appliqué par span uniquement
+        // → aucun buffer de composition sur l'élément parent → zéro fond gris iOS
 
         let idx      = initIdx;
         let morph    = 0;
@@ -748,10 +747,11 @@
         let paused   = false;
 
         function setStyles(f) {
-          s2.style.filter  = `blur(${Math.min(8 / f - 8, 100)}px)`;
-          s2.style.opacity = Math.pow(f, 0.4);
           const inv = 1 - f;
-          s1.style.filter  = `blur(${Math.min(8 / inv - 8, 100)}px)`;
+          // threshold + blur sur chaque span individuel (pas sur le parent)
+          s2.style.filter  = `url(#${filterId}) blur(${Math.min(8 / f - 8, 100)}px)`;
+          s2.style.opacity = Math.pow(f, 0.4);
+          s1.style.filter  = `url(#${filterId}) blur(${Math.min(8 / inv - 8, 100)}px)`;
           s1.style.opacity = Math.pow(inv, 0.4);
           s1.textContent   = texts[idx % texts.length];
           s2.textContent   = texts[(idx + 1) % texts.length];
