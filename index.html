@@ -104,7 +104,8 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.16); transition: color .35s, background .35s, border-color .35s; opacity: 1; pointer-events: auto; background: #111111; color: var(--light); }
+    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.18); transition: color .35s, background .4s, border-color .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--light); }
+    #main-nav.is-scrolled { background: #111111; border-color: rgba(255,255,255,0.16); }
     .nav-logo-img { height: 14px; width: auto; display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
     .nav-links { display: flex; gap: 22px; list-style: none; }
     .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: 1; transition: opacity .2s, font-style .15s, font-weight .1s; }
@@ -311,7 +312,8 @@
 
     /* ─────── RESPONSIVE ─────── */
     @media (max-width: 768px) {
-      #main-nav { padding: 10px 20px; top: 8px; left: 10px; right: 10px; opacity: 1; pointer-events: auto; background: #111111; border-color: rgba(255,255,255,0.16); }
+      #main-nav { padding: 10px 20px; top: 8px; left: 10px; right: 10px; opacity: 1; pointer-events: auto; }
+      .hero-big-title { display: none; }
       .nav-links, .nav-cta { display: none; }
       .nav-logo-img { height: 14px; }
       .nav-email { display: flex; align-items: center; }
@@ -635,6 +637,13 @@
 
     /* ── Nav ── */
     const mainNav = document.getElementById('main-nav');
+    const heroSection = document.getElementById('hero');
+    function updateNav() {
+      const heroBottom = heroSection ? heroSection.getBoundingClientRect().bottom : 0;
+      mainNav.classList.toggle('is-scrolled', heroBottom <= 60);
+    }
+    updateNav();
+    window.addEventListener('scroll', updateNav, { passive: true });
 
     /* ── Scroll line ── */
     const scrollLine = document.getElementById('scrollLine');
