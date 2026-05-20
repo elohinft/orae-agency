@@ -536,7 +536,6 @@
         el.textContent = '';
         el.style.paddingTop = '0'; el.style.paddingBottom = '0';
         el.style.display = 'block'; el.style.overflow = 'hidden';
-        el.style.filter = 'url(#morph-threshold)';
         el.appendChild(grid);
         let idx = initIdx, morph = 0, cooldown = CD, last = Date.now(), paused = false;
         function paint(f) {
