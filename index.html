@@ -326,7 +326,8 @@
 
       #hero { height: 100svh; min-height: 100svh; }
       .hero-big-title { position: absolute; bottom: 0; margin-top: 0; padding: 0 0 6vh; line-height: 1; white-space: normal; }
-      .contact-big-title { padding: 36px 0 12px; }
+      .services-big-title { line-height: 1; padding: 0.3em 0 0.4em; }
+      .contact-big-title { padding: 0.3em 0 0.4em; }
       .about-cols { grid-template-columns: 1fr; gap: 48px; margin-bottom: 52px; }
       .about-big-text { font-size: clamp(17px, 4.5vw, 24px); }
 
@@ -676,6 +677,8 @@
         fitEl(heroEl, 800, 1.0);
         heroEl.textContent = saved;
         heroEl.style.whiteSpace = 'normal';
+        fitEl(document.getElementById('servicesBigTitle'), 300, 0.83);
+        fitEl(document.getElementById('contactBigTitle'), 300, 0.80);
       } else {
         fitEl(heroEl, 800, 1.0);
         if (window.innerWidth > 768) {
