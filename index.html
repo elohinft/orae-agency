@@ -54,7 +54,12 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     * { -webkit-tap-highlight-color: transparent; outline: none; }
-    @media (pointer: coarse) { body { cursor: auto; } #cursor { display: none; } }
+    @media (pointer: coarse) {
+      body { cursor: auto; }
+      #cursor { display: none; }
+      body::after { display: none; }
+      .form-field input, .form-field textarea, .form-submit { cursor: auto; }
+    }
 
     :root {
       --dark:  #111111;
@@ -329,7 +334,7 @@
 
       #about { padding: 72px 24px 100px; }
       .about-texts { grid-template-columns: 1fr; gap: 32px; }
-      .about-bottom { flex-direction: column; align-items: flex-start; gap: 36px; }
+      .about-bottom { flex-direction: column; align-items: flex-start; gap: 36px; margin-top: 0; }
       .about-cta { display: block; }
 
       #services { padding-top: 60px; padding-bottom: 100px; }
@@ -958,6 +963,7 @@
       }
 
       cells.forEach((cell, ci) => {
+        if (getComputedStyle(cell).display === 'none') return;
         const img = document.createElement('img');
         img.draggable = false;
 
