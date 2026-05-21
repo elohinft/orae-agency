@@ -368,7 +368,7 @@
     <div class="mm-nav">
       <a href="#about"       class="mm-link">L'agence</a>
       <a href="#services"    class="mm-link">Services</a>
-      <a href="/projets/" class="mm-link">Projets</a>
+      <a href="/projets.html" class="mm-link">Projets</a>
       <a href="#contact"     class="mm-link">Contact</a>
     </div>
     <div class="mm-bottom">
@@ -387,7 +387,7 @@
     <ul class="nav-links">
       <li><a href="#about"    data-target="about">L'agence</a></li>
       <li><a href="#services" data-target="services">Services</a></li>
-      <li><a href="/projets/">Projets</a></li>
+      <li><a href="/projets.html">Projets</a></li>
       <li><a href="#contact"  data-target="contact">Contact</a></li>
     </ul>
     <img src="logo-whitze.svg" alt="Orae" class="nav-logo-img" id="navLogo" decoding="async" />
@@ -438,7 +438,7 @@
             <span class="about-founder-role">Fondatrice de l'agence Orae</span>
           </div>
         </div>
-        <a href="/projets/" class="about-cta">Voir nos projets &nbsp;→</a>
+        <a href="/projets.html" class="about-cta">Voir nos projets &nbsp;→</a>
       </div>
     </div>
   </section>
@@ -660,7 +660,10 @@
       while (hi - lo > 0.5) {
         const mid = (lo + hi) / 2;
         el.style.fontSize = mid + 'px';
-        if (el.scrollWidth <= parentW) lo = mid; else hi = mid;
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const textW = range.getBoundingClientRect().width;
+        if (textW <= parentW) lo = mid; else hi = mid;
       }
       el.style.fontSize = Math.floor(lo * (mult ?? 0.94)) + 'px';
     }
@@ -677,81 +680,65 @@
         fitEl(document.getElementById('servicesBigTitle'), 300, 0.83);
         fitEl(document.getElementById('contactBigTitle'), 300, 0.80);
       } else {
-        fitEl(heroEl, 800, 1.0);
-        if (window.innerWidth > 768) {
-          const heroSize = parseFloat(heroEl.style.fontSize) || 600;
-          fitEl(document.getElementById('servicesBigTitle'), heroSize);
-          fitEl(document.getElementById('contactBigTitle'), heroSize);
-        }
+        fitEl(document.getElementById('servicesBigTitle'), 600);
+        fitEl(document.getElementById('contactBigTitle'), 600);
       }
     }
     fitTitles();
     let _fitTimer;
     window.addEventListener('resize', () => { clearTimeout(_fitTimer); _fitTimer = setTimeout(fitTitles, 120); });
 
-
-    /* ── Morphing: gros titres sections ── */
-    /* Structure calquée sur le composant React liquid-text :
-       SVG filter placé DANS l'élément filtré, spans en position:absolute */
+    /* ── Morphing titres ── */
     (function () {
-      function mount(elId, texts, opts) {
+      // SVG filter global dans le body — style inline, jamais class="hidden"
+      const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgEl.setAttribute('aria-hidden', 'true');
+      svgEl.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;';
+      svgEl.innerHTML = `<defs>
+        <filter id="threshold" color-interpolation-filters="sRGB"
+                x="0" y="0" width="100%" height="100%">
+          <feColorMatrix in="SourceGraphic" type="matrix" result="out"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/>
+        </filter>
+      </defs>`;
+      document.body.appendChild(svgEl);
+
+      function mount(elId, texts) {
         const el = document.getElementById(elId);
         if (!el || !texts.length) return null;
 
-        const MT      = 1.5;
-        const CD      = 0.5;
-        const initIdx = (opts && opts.startIdx) || 0;
-
+        const MT = 1.5, CD = 0.5;
         const origText = el.textContent.trim();
         const cs = getComputedStyle(el);
         const pt = cs.paddingTop, pb = cs.paddingBottom;
 
-        // Vider l'élément
-        el.textContent    = '';
-        el.style.paddingTop    = '0';
-        el.style.paddingBottom = '0';
-        el.style.position      = 'relative';
-        el.style.display       = 'block';
-        el.style.overflow      = 'hidden';
+        el.textContent = '';
+        el.style.paddingTop = '0'; el.style.paddingBottom = '0';
+        el.style.position = 'relative'; el.style.display = 'block'; el.style.overflow = 'visible';
+        // Change 2 : filter sur le parent en style inline + background transparent
+        el.style.filter = 'url(#threshold)';
+        el.style.background = 'transparent';
+        el.style.webkitBackgroundClip = 'unset';
 
-        // Anchor invisible : définit la hauteur de l'élément (inclut le padding original)
         const anchor = document.createElement('span');
         anchor.style.cssText = `display:block;visibility:hidden;white-space:nowrap;text-align:center;padding-top:${pt};padding-bottom:${pb};`;
         anchor.textContent = origText;
 
-        // Deux spans en position absolue — exactement comme le composant React
         const s1 = document.createElement('span');
         const s2 = document.createElement('span');
-        const sCSS = `position:absolute;left:0;right:0;top:${pt};display:block;white-space:nowrap;text-align:center;`;
-        s1.style.cssText = sCSS;
-        s2.style.cssText = sCSS;
+        const sCSS = `position:absolute;left:0;right:0;top:${pt};display:block;white-space:nowrap;text-align:center;background-color:transparent;`;
+        s1.style.cssText = sCSS; s2.style.cssText = sCSS;
+        el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2);
 
-        // SVG filter DANS l'élément filtré (structure exacte du composant React)
-        const filterId = 'morph-' + elId;
-        const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svgEl.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-        svgEl.style.cssText = 'display:none;';
-        svgEl.innerHTML = `<defs><filter id="${filterId}"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 255 -140"/></filter></defs>`;
-
-        el.appendChild(anchor);
-        el.appendChild(s1);
-        el.appendChild(s2);
-        el.appendChild(svgEl);
-        // Aucun filter sur el — le filtre est appliqué par span uniquement
-        // → aucun buffer de composition sur l'élément parent → zéro fond gris iOS
-
-        let idx      = initIdx;
-        let morph    = 0;
-        let cooldown = 0;
-        let last     = Date.now();
-        let paused   = false;
+        let idx = 0, morph = 0, cooldown = 0, last = Date.now(), paused = false;
 
         function setStyles(f) {
           const inv = 1 - f;
-          // threshold + blur sur chaque span individuel (pas sur le parent)
-          s2.style.filter  = `url(#${filterId}) blur(${Math.min(8 / f - 8, 100)}px)`;
+          const blur2 = f < 0.001 ? 0 : Math.min(8 / f - 8, 40);
+          const blur1 = inv < 0.001 ? 0 : Math.min(8 / inv - 8, 40);
+          s2.style.filter  = blur2 > 0 ? `blur(${blur2}px)` : 'none';
           s2.style.opacity = Math.pow(f, 0.4);
-          s1.style.filter  = `url(#${filterId}) blur(${Math.min(8 / inv - 8, 100)}px)`;
+          s1.style.filter  = blur1 > 0 ? `blur(${blur1}px)` : 'none';
           s1.style.opacity = Math.pow(inv, 0.4);
           s1.textContent   = texts[idx % texts.length];
           s2.textContent   = texts[(idx + 1) % texts.length];
@@ -768,8 +755,7 @@
         function tick() {
           requestAnimationFrame(tick);
           if (paused) return;
-          const now = Date.now(), dt = (now - last) / 1000;
-          last = now;
+          const now = Date.now(), dt = (now - last) / 1000; last = now;
           cooldown -= dt;
           if (cooldown <= 0) {
             morph -= cooldown; cooldown = 0;
@@ -777,32 +763,22 @@
             if (f > 1) { cooldown = CD; f = 1; }
             setStyles(f);
             if (f === 1) idx++;
-          } else {
-            doCooldown();
-          }
+          } else { doCooldown(); }
         }
         tick();
 
         return {
-          reset() { idx = initIdx; morph = 0; cooldown = 0; last = Date.now(); paused = false; },
+          reset() { idx = 0; morph = 0; cooldown = 0; last = Date.now(); paused = false; },
           pause() { paused = true; },
         };
       }
 
       const titleAPIs = {};
-      document.fonts.ready.then(() => requestAnimationFrame(() => {
-        titleAPIs.services = mount('servicesBigTitle', [
-          '( services )',
-          '( design )',
-          '( ux / ui )',
-          '( brand )',
-        ]);
-        titleAPIs.contact = mount('contactBigTitle', [
-          '( un projet ? )',
-          '( créer ? )',
-          '( rêver ? )',
-          '( oser ? )',
-        ]);
+      document.fonts.ready.then(() => {
+        titleAPIs.services = mount('servicesBigTitle',
+          ['( services )', '( design )', '( ux / ui )', '( brand )']);
+        titleAPIs.contact = mount('contactBigTitle',
+          ['( un projet ? )', '( créer ? )', '( rêver ? )', '( oser ? )']);
         const io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             const key = entry.target.id === 'servicesBigTitle' ? 'services' : 'contact';
@@ -814,7 +790,7 @@
           const el = document.getElementById(id);
           if (el) io.observe(el);
         });
-      }));
+      });
     })();
 
     /* ── About values: fade-up on scroll ── */
@@ -942,7 +918,7 @@
         'armanoid.webp',
         'affiche-chrys.webp','affiche-goth.webp','affiche-oxytocin.webp',
         'delta.webp','brand-drop.webp','reflexiongue.webp',
-        '22.webp','hprompt.webp','6prompt.webp',
+        '22.webp','hprompt.webp',
         'jap.webp','Dlogo.webp','logom.webp',
         'Rmousse.webp','iceprompt.webp',
         'droptshirt.webp','egm.webp',
