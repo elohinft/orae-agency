@@ -353,7 +353,7 @@
     /* ── Modal ── */
     const projects = [
       { cat: '/identité visuelle/ /branding/', title: 'Lueur',      cta: '[j\'aimerais créer mon identité de marque]',         desc: 'Création d\'une identité lumineuse et cohérente pour une marque engagée. Direction artistique, palette chromatique et déclinaisons sur supports digitaux et imprimés.',                                                                              imgs: ['lueur-1.webp','lueur-2.webp','lueur-coq.webp','lueurbague.webp'] },
-      { cat: '/branding/ /packaging/',         title: 'Reborn',     cta: '[je souhaiterais transformer l\'image de ma marque]', desc: 'Nouveau départ pour un label émergent dans l\'univers du lifestyle. Logotype, typographie propriétaire et charte graphique complète déclinée sur tous les supports.',                                                                    imgs: ['reborn.webp','reborn-goute.webp','reborn2-0.webp','reborne-smile.webp','rebornparfum.webp'] },
+      { cat: '/branding/ /packaging/',         title: 'Reborn',     cta: '[je souhaiterais transformer l\'image de ma marque]', desc: 'Nouveau départ pour un label émergent dans l\'univers du lifestyle. Logotype, typographie propriétaire et charte graphique complète déclinée sur tous les supports.',                                                                    imgs: ['rebornparfum.webp','reborn.webp','reborn-goute.webp','reborn2-0.webp','reborne-smile.webp'] },
       { cat: '/identité visuelle/',            title: 'Armanoid',   cta: '[j\'aimerais un système d\'identité sur mesure]',     desc: 'Identité graphique pour un studio créatif indépendant. Système de signes modulaire et déclinable, pensé pour une communication forte sur tous les formats.',                                                                        imgs: ['armanoid.webp'] },
       { cat: '/branding/',                     title: 'Delta',      cta: '[j\'aimerais une marque sobre et impactante]',        desc: 'Identité minimaliste pour un studio d\'architecture. Jeu sur la géométrie et les contrastes, pour une marque sobre, rigoureuse et profondément impactante.',                                                                        imgs: ['delta.webp'] },
       { cat: '/branding/ /identité visuelle/', title: 'Drop', cta: '[je souhaiterais lancer ma marque]',                  desc: 'Système de marque complet pour un label streetwear. Du logo aux applications print, une identité tranchante pensée pour résonner dans le monde physique comme digital.',                                                                imgs: ['brand-drop.webp','droplogo.webp','droptshirt.webp','drop3d.webp'] },
@@ -429,7 +429,7 @@
         proj.imgs.forEach((src, i) => {
           const img = document.createElement('img');
           img.src = p + src; img.alt = proj.title;
-          if (proj.imgs.length % 2 !== 0 && i === proj.imgs.length - 1) img.style.gridColumn = '1 / -1';
+          if (proj.imgs.length % 2 !== 0 && i === 0) img.style.gridColumn = '1 / -1';
           grid.appendChild(img);
         });
         mImgs.appendChild(grid);
