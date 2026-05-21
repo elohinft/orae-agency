@@ -758,7 +758,7 @@
           if (cooldown <= 0) {
             morph -= cooldown; cooldown = 0;
             let f = morph / MT;
-            if (f > 1) { cooldown = CD; f = 1; }
+            if (f > 1) { cooldown = CD; morph = 0; f = 1; }
             setStyles(f);
             if (f === 1) idx++;
           } else { doCooldown(); }
