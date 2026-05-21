@@ -778,14 +778,26 @@
           ['( services )', '( design )', '( ux / ui )', '( brand )']);
         titleAPIs.contact = mount('contactBigTitle',
           ['( un projet ? )', '( créer ? )', '( rêver ? )', '( oser ? )']);
+        titleAPIs.val1 = mount('aboutVal1',
+          ['( singularité )', '( unicité )', '( distinction )', '( caractère )']);
+        titleAPIs.val2 = mount('aboutVal2',
+          ['( justesse )', '( précision )', '( cohérence )', '( rigueur )']);
+        titleAPIs.val3 = mount('aboutVal3',
+          ['( impact )', '( force )', '( présence )', '( éclat )']);
         const io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
-            const key = entry.target.id === 'servicesBigTitle' ? 'services' : 'contact';
+            const id = entry.target.id;
+            const key = id === 'servicesBigTitle' ? 'services'
+                      : id === 'contactBigTitle'  ? 'contact'
+                      : id === 'aboutVal1'         ? 'val1'
+                      : id === 'aboutVal2'         ? 'val2'
+                      : id === 'aboutVal3'         ? 'val3' : null;
+            if (!key) return;
             if (entry.isIntersecting) { if (titleAPIs[key]) titleAPIs[key].reset(); }
             else                      { if (titleAPIs[key]) titleAPIs[key].pause(); }
           });
         }, { threshold: 0.2 });
-        ['servicesBigTitle', 'contactBigTitle'].forEach(id => {
+        ['servicesBigTitle', 'contactBigTitle', 'aboutVal1', 'aboutVal2', 'aboutVal3'].forEach(id => {
           const el = document.getElementById(id);
           if (el) io.observe(el);
         });
@@ -806,59 +818,6 @@
       rows.forEach((row, i) => {
         row.style.transitionDelay = (i * 0.15) + 's';
         io.observe(row);
-      });
-    })();
-
-    /* ── About values: morph synonyms ── */
-    (function () {
-      const defs = [
-        { id: 'aboutVal1', texts: ['singularité', 'unicité', 'distinction', 'caractère'] },
-        { id: 'aboutVal2', texts: ['justesse', 'précision', 'cohérence', 'rigueur'] },
-        { id: 'aboutVal3', texts: ['impact', 'force', 'présence', 'éclat'] },
-      ];
-      const MT = 1.2, CD = 2;
-      document.fonts.ready.then(() => {
-        defs.forEach(({ id, texts }) => {
-          const el = document.getElementById(id);
-          if (!el) return;
-          el.textContent = '';
-          el.style.cssText += 'position:relative;display:block;overflow:visible;background:transparent;';
-          const anchor = document.createElement('span');
-          anchor.style.cssText = 'visibility:hidden;white-space:nowrap;display:block;';
-          anchor.textContent = texts[0];
-          const s1 = document.createElement('span'), s2 = document.createElement('span');
-          const sc = 'position:absolute;left:0;right:0;top:0;display:block;white-space:nowrap;background-color:transparent;transition:none;';
-          s1.style.cssText = sc; s2.style.cssText = sc;
-          el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2);
-          let idx = 0, morph = 0, cooldown = 0, last = Date.now(), paused = true;
-          function setStyles(f) {
-            const inv = 1 - f;
-            const b2 = f < 0.001 ? 0 : Math.min(2/f - 2, 4);
-            const b1 = inv < 0.001 ? 0 : Math.min(2/inv - 2, 4);
-            s2.style.filter = b2 > 0 ? `blur(${b2}px)` : 'none'; s2.style.opacity = f;
-            s1.style.filter = b1 > 0 ? `blur(${b1}px)` : 'none'; s1.style.opacity = inv;
-            s1.textContent = texts[idx % texts.length]; s2.textContent = texts[(idx + 1) % texts.length];
-          }
-          function doCooldown() {
-            morph = 0; s2.style.filter = 'none'; s2.style.opacity = '1';
-            s1.style.filter = 'none'; s1.style.opacity = '0';
-            s2.textContent = texts[idx % texts.length]; s1.textContent = texts[(idx + 1) % texts.length];
-          }
-          function tick() {
-            requestAnimationFrame(tick); if (paused) return;
-            const now = Date.now(), dt = (now - last) / 1000; last = now; cooldown -= dt;
-            if (cooldown <= 0) { morph -= cooldown; cooldown = 0; let f = morph / MT; if (f > 1) { cooldown = CD; f = 1; } setStyles(f); if (f === 1) idx++; }
-            else { doCooldown(); }
-          }
-          tick();
-          const row = el.closest('.about-value-row');
-          if (row) {
-            const io = new IntersectionObserver(entries => {
-              entries.forEach(e => { if (e.isIntersecting) { paused = false; last = Date.now(); } else { paused = true; } });
-            }, { threshold: 0.25 });
-            io.observe(row);
-          }
-        });
       });
     })();
 
