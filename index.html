@@ -440,7 +440,7 @@
         <div class="about-founder">
           <div class="about-founder-photo"><img src="images/oui.webp" alt="" draggable="false" loading="lazy" decoding="async" /></div>
           <div>
-            <span class="about-founder-name">Elorah I.</span>
+            <span class="about-founder-name" id="founderName"></span>
             <span class="about-founder-role">Fondatrice de l'agence Orae</span>
           </div>
         </div>
@@ -592,6 +592,9 @@
         if (l) { l.classList.add('hidden'); setTimeout(() => l.remove(), 550); }
       }, wait);
     });
+
+    /* ── Founder name (non-indexable) ── */
+    (function(){ const el = document.getElementById('founderName'); if(el) el.textContent = atob('RWxvcmFoIEku'); })();
 
     /* ── Désactive clic droit sur toutes les images ── */
     document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
