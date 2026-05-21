@@ -374,9 +374,10 @@
 
     /* ── Build scroller from projects array ── */
     (function() {
+      const NO_SCROLL = new Set(['webdesign.webp','web-design2.webp','webdesign-4.webp']);
       // Round-robin par projet pour ne jamais avoir deux images de la même marque côte à côte
       const buckets = projects.map((proj, idx) =>
-        proj.imgs.map(src => ({ src, title: proj.title, idx }))
+        proj.imgs.filter(src => !NO_SCROLL.has(src)).map(src => ({ src, title: proj.title, idx }))
       );
       const allImgs = [];
       while (buckets.some(b => b.length)) {
