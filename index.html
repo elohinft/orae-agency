@@ -209,7 +209,7 @@
     .about-values { border-top: 1px solid rgba(33,34,38,.12); }
     .about-value-row { display: flex; flex-direction: column; gap: 8px; padding: 22px 0; border-bottom: 1px solid rgba(33,34,38,.12); opacity: 0; transform: translateX(-36px); transition: opacity .7s cubic-bezier(0.22,1,0.36,1), transform .7s cubic-bezier(0.22,1,0.36,1); }
     .about-value-row.visible { opacity: 1; transform: translateX(0); }
-    .about-value-name { font-family: var(--heavy); font-size: 18px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--dark); display: block; overflow: visible; }
+    .about-value-name { font-family: var(--heavy); font-size: 18px; font-weight: 900; letter-spacing: .06em; text-transform: none; color: var(--dark); display: block; overflow: visible; }
     .about-value-name-inner { display: block; }
     .about-value-desc { font-family: var(--urban); font-size: 13px; line-height: 1.7; color: var(--dark); opacity: 0; transition: opacity .45s ease .38s; }
     .about-value-row.visible .about-value-desc { opacity: .55; }
@@ -416,15 +416,15 @@
         <p class="about-big-text">L'agence créative Orae, basée à Montpellier, est née d'une génération qui a grandi avec le digital et l'évolution constante des outils créatifs.<br>À vos côtés, nous créons des identités réfléchies, durables et sur mesure, pensées pour donner une vraie singularité à votre projet.</p>
       <div class="about-values">
         <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal1">Singularité</span></span>
+          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal1">singularité</span></span>
           <p class="about-value-desc">Révéler ce qui vous distingue pour créer une identité impossible à confondre.</p>
         </div>
         <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal2">Justesse</span></span>
+          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal2">justesse</span></span>
           <p class="about-value-desc">Donner du sens à chaque choix pour créer un design aussi beau que cohérent.</p>
         </div>
         <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal3">Impact</span></span>
+          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal3">impact</span></span>
           <p class="about-value-desc">Concevoir des visuels qui marquent les esprits et renforcent votre présence.</p>
         </div>
       </div>
@@ -812,9 +812,9 @@
     /* ── About values: morph synonyms ── */
     (function () {
       const defs = [
-        { id: 'aboutVal1', texts: ['Singularité', 'Unicité', 'Distinction', 'Caractère'] },
-        { id: 'aboutVal2', texts: ['Justesse',    'Précision', 'Cohérence',  'Rigueur'   ] },
-        { id: 'aboutVal3', texts: ['Impact',      'Force',    'Présence',   'Éclat'     ] },
+        { id: 'aboutVal1', texts: ['singularité', 'unicité', 'distinction', 'caractère'] },
+        { id: 'aboutVal2', texts: ['justesse', 'précision', 'cohérence', 'rigueur'] },
+        { id: 'aboutVal3', texts: ['impact', 'force', 'présence', 'éclat'] },
       ];
       const MT = 1.2, CD = 2;
       document.fonts.ready.then(() => {
