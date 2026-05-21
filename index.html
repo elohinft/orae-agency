@@ -702,10 +702,10 @@
       </defs>`;
       document.body.appendChild(svgEl);
 
-      function mount(elId, texts) {
+      function mount(elId, texts, align) {
         const el = document.getElementById(elId);
         if (!el || !texts.length) return null;
-
+        const ta = align || 'center';
         const MT = 1.5, CD = 0.5;
         const origText = el.textContent.trim();
         const cs = getComputedStyle(el);
@@ -714,18 +714,17 @@
         el.textContent = '';
         el.style.paddingTop = '0'; el.style.paddingBottom = '0';
         el.style.position = 'relative'; el.style.display = 'block'; el.style.overflow = 'visible';
-        // Change 2 : filter sur le parent en style inline + background transparent
         el.style.filter = 'url(#threshold)';
         el.style.background = 'transparent';
         el.style.webkitBackgroundClip = 'unset';
 
         const anchor = document.createElement('span');
-        anchor.style.cssText = `display:block;visibility:hidden;white-space:nowrap;text-align:center;padding-top:${pt};padding-bottom:${pb};`;
+        anchor.style.cssText = `display:block;visibility:hidden;white-space:nowrap;text-align:${ta};padding-top:${pt};padding-bottom:${pb};`;
         anchor.textContent = origText;
 
         const s1 = document.createElement('span');
         const s2 = document.createElement('span');
-        const sCSS = `position:absolute;left:0;right:0;top:${pt};display:block;white-space:nowrap;text-align:center;background-color:transparent;`;
+        const sCSS = `position:absolute;left:0;right:0;top:${pt};display:block;white-space:nowrap;text-align:${ta};background-color:transparent;`;
         s1.style.cssText = sCSS; s2.style.cssText = sCSS;
         el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2);
 
@@ -779,11 +778,11 @@
         titleAPIs.contact = mount('contactBigTitle',
           ['( un projet ? )', '( créer ? )', '( rêver ? )', '( oser ? )']);
         titleAPIs.val1 = mount('aboutVal1',
-          ['( singularité )', '( unicité )', '( distinction )', '( caractère )']);
+          ['( singularité )', '( unicité )', '( distinction )', '( caractère )'], 'left');
         titleAPIs.val2 = mount('aboutVal2',
-          ['( justesse )', '( précision )', '( cohérence )', '( rigueur )']);
+          ['( justesse )', '( précision )', '( cohérence )', '( rigueur )'], 'left');
         titleAPIs.val3 = mount('aboutVal3',
-          ['( impact )', '( force )', '( présence )', '( éclat )']);
+          ['( impact )', '( force )', '( présence )', '( éclat )'], 'left');
         const io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             const id = entry.target.id;
