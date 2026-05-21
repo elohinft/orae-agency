@@ -702,11 +702,11 @@
       </defs>`;
       document.body.appendChild(svgEl);
 
-      function mount(elId, texts, align) {
+      function mount(elId, texts, align, mt, cd) {
         const el = document.getElementById(elId);
         if (!el || !texts.length) return null;
         const ta = align || 'center';
-        const MT = 1.5, CD = 0.5;
+        const MT = mt || 1.5, CD = cd !== undefined ? cd : 0.5;
         const origText = el.textContent.trim();
         const cs = getComputedStyle(el);
         const pt = cs.paddingTop, pb = cs.paddingBottom;
@@ -778,11 +778,11 @@
         titleAPIs.contact = mount('contactBigTitle',
           ['( un projet ? )', '( créer ? )', '( rêver ? )', '( oser ? )']);
         titleAPIs.val1 = mount('aboutVal1',
-          ['( singularité )', '( unicité )', '( distinction )', '( caractère )'], 'left');
+          ['( singularité )', '( unicité )', '( distinction )', '( caractère )'], 'left', 0.8, 0);
         titleAPIs.val2 = mount('aboutVal2',
-          ['( justesse )', '( précision )', '( cohérence )', '( rigueur )'], 'left');
+          ['( justesse )', '( précision )', '( cohérence )', '( rigueur )'], 'left', 0.8, 0);
         titleAPIs.val3 = mount('aboutVal3',
-          ['( impact )', '( force )', '( présence )', '( éclat )'], 'left');
+          ['( impact )', '( force )', '( présence )', '( éclat )'], 'left', 0.8, 0);
         const io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             const id = entry.target.id;
