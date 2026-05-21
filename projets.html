@@ -123,29 +123,6 @@
       overflow-x: hidden;
       background: var(--dark);
     }
-    .proj-hero-body {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 130px 0 100px;
-    }
-    .proj-big-title {
-      display: block;
-      width: 100%;
-      text-align: center;
-      font-family: var(--heavy);
-      font-weight: 900;
-      color: var(--light);
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-      overflow: visible;
-      line-height: 1.1;
-      padding: 0.12em 0 0.22em;
-      user-select: none;
-      font-size: clamp(28px, 12vw, 300px);
-      position: relative;
-    }
 
     /* ── SCROLLER ── */
     .proj-scroller {
@@ -215,7 +192,6 @@
       #main-nav.menu-open .burger { color: var(--dark) !important; }
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
-      .proj-hero-body { padding: 100px 0 60px; }
 
       .proj-scroller { height: 65vh; padding: 0 12px 0; gap: 6px; }
       .scroller-col:nth-child(5),
@@ -280,20 +256,15 @@
       <a href="/#contact" class="nav-cta">Discutons de votre projet</a>
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
-    <div class="proj-hero-body">
-      <span class="proj-big-title" id="projBigTitle">( nos projets )</span>
+    <div class="proj-scroller" id="projScroller">
+      <div class="scroller-col"></div>
+      <div class="scroller-col"></div>
+      <div class="scroller-col"></div>
+      <div class="scroller-col"></div>
+      <div class="scroller-col"></div>
+      <div class="scroller-col"></div>
     </div>
   </section>
-
-  <!-- SCROLLER -->
-  <div class="proj-scroller" id="projScroller">
-    <div class="scroller-col"></div>
-    <div class="scroller-col"></div>
-    <div class="scroller-col"></div>
-    <div class="scroller-col"></div>
-    <div class="scroller-col"></div>
-    <div class="scroller-col"></div>
-  </div>
 
   <!-- MODAL -->
   <div class="proj-modal" id="projModal" role="dialog" aria-modal="true">
@@ -508,93 +479,19 @@
       el.style.fontSize = Math.floor(lo * 0.94) + 'px';
     }
 
-    /* ── Morphing — structure calquée sur composant React liquid-text ── */
-    (function () {
-      function mount(elId, texts, opts) {
-        const el = document.getElementById(elId);
-        if (!el || !texts.length) return null;
-        const MT      = 1.5;
-        const CD      = 0.5;
-        const initIdx = (opts && opts.startIdx) || 0;
-        const origText = el.textContent.trim();
-        const cs = getComputedStyle(el);
-        const pt = cs.paddingTop, pb = cs.paddingBottom;
+    // SVG filter global dans le body
+    const _svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    _svgEl.setAttribute('aria-hidden', 'true');
+    _svgEl.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;';
+    _svgEl.innerHTML = `<defs>
+      <filter id="threshold" color-interpolation-filters="sRGB"
+              x="-10%" y="-10%" width="120%" height="120%">
+        <feColorMatrix in="SourceGraphic" type="matrix" result="out"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/>
+      </filter>
+    </defs>`;
+    document.body.appendChild(_svgEl);
 
-        el.textContent = '';
-        el.style.paddingTop = '0'; el.style.paddingBottom = '0';
-        el.style.position = 'relative'; el.style.display = 'block'; el.style.overflow = 'hidden';
-
-        const anchor = document.createElement('span');
-        anchor.style.cssText = `display:block;visibility:hidden;white-space:nowrap;text-align:center;padding-top:${pt};padding-bottom:${pb};`;
-        anchor.textContent = origText;
-
-        const s1 = document.createElement('span');
-        const s2 = document.createElement('span');
-        const sCSS = `position:absolute;left:0;right:0;top:${pt};display:block;white-space:nowrap;text-align:center;`;
-        s1.style.cssText = sCSS; s2.style.cssText = sCSS;
-
-        const filterId = 'morph-' + elId;
-        const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svgEl.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-        svgEl.style.cssText = 'display:none;';
-        svgEl.innerHTML = `<defs><filter id="${filterId}"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 255 -140"/></filter></defs>`;
-
-        el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2); el.appendChild(svgEl);
-        // Aucun filter sur el — appliqué par span uniquement → zéro fond gris iOS
-
-        let idx = initIdx, morph = 0, cooldown = 0, last = Date.now(), paused = false;
-
-        function setStyles(f) {
-          const inv = 1-f;
-          s2.style.filter = `url(#${filterId}) blur(${Math.min(8/f-8,100)}px)`; s2.style.opacity = Math.pow(f,0.4);
-          s1.style.filter = `url(#${filterId}) blur(${Math.min(8/inv-8,100)}px)`; s1.style.opacity = Math.pow(inv,0.4);
-          s1.textContent = texts[idx % texts.length]; s2.textContent = texts[(idx+1) % texts.length];
-        }
-        function doCooldown() {
-          morph = 0; s2.style.filter='none'; s2.style.opacity='1'; s1.style.filter='none'; s1.style.opacity='0';
-          s2.textContent = texts[idx % texts.length]; s1.textContent = texts[(idx+1) % texts.length];
-        }
-        function tick() {
-          requestAnimationFrame(tick);
-          if (paused) return;
-          const now = Date.now(), dt = (now-last)/1000; last = now;
-          cooldown -= dt;
-          if (cooldown <= 0) {
-            morph -= cooldown; cooldown = 0;
-            let f = morph/MT;
-            if (f > 1) { cooldown = CD; f = 1; }
-            setStyles(f);
-            if (f === 1) idx++;
-          } else { doCooldown(); }
-        }
-        tick();
-        return { reset() { idx=initIdx; morph=0; cooldown=0; last=Date.now(); paused=false; }, pause() { paused=true; } };
-      }
-
-      window._projMount = mount;
-    })();
-
-    async function fitTitles() {
-      await document.fonts.ready;
-      const el = document.getElementById('projBigTitle');
-      if (!el) return;
-      fitEl(el, 300);
-      if (!el.dataset.morphMounted) {
-        el.dataset.morphMounted = '1';
-        requestAnimationFrame(() => {
-          const api = window._projMount('projBigTitle', ['( nos projets )', '( portfolio )', '( créations )']);
-          if (api) {
-            const io = new IntersectionObserver((entries) => {
-              entries.forEach(e => { if (e.isIntersecting) api.reset(); });
-            }, { threshold: 0.2 });
-            const el2 = document.getElementById('projBigTitle');
-            if (el2) io.observe(el2);
-          }
-        });
-      }
-    }
-    fitTitles();
-    let _fitTimer2; window.addEventListener('resize', () => { clearTimeout(_fitTimer2); _fitTimer2 = setTimeout(fitTitles, 120); });
   </script>
 </body>
 </html>
