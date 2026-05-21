@@ -816,27 +816,27 @@
         { id: 'aboutVal2', texts: ['Justesse',    'Précision', 'Cohérence',  'Rigueur'   ] },
         { id: 'aboutVal3', texts: ['Impact',      'Force',    'Présence',   'Éclat'     ] },
       ];
-      const MT = 2, CD = 1.5;
+      const MT = 1.2, CD = 2;
       document.fonts.ready.then(() => {
         defs.forEach(({ id, texts }) => {
           const el = document.getElementById(id);
           if (!el) return;
           el.textContent = '';
-          el.style.cssText += 'position:relative;display:block;overflow:visible;filter:url(#threshold);background:transparent;';
+          el.style.cssText += 'position:relative;display:block;overflow:visible;background:transparent;';
           const anchor = document.createElement('span');
           anchor.style.cssText = 'visibility:hidden;white-space:nowrap;display:block;';
           anchor.textContent = texts[0];
           const s1 = document.createElement('span'), s2 = document.createElement('span');
-          const sc = 'position:absolute;left:0;right:0;top:0;display:block;white-space:nowrap;background-color:transparent;';
+          const sc = 'position:absolute;left:0;right:0;top:0;display:block;white-space:nowrap;background-color:transparent;transition:none;';
           s1.style.cssText = sc; s2.style.cssText = sc;
           el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2);
           let idx = 0, morph = 0, cooldown = 0, last = Date.now(), paused = true;
           function setStyles(f) {
             const inv = 1 - f;
-            const b2 = f < 0.001 ? 0 : Math.min(8/f - 8, 40);
-            const b1 = inv < 0.001 ? 0 : Math.min(8/inv - 8, 40);
-            s2.style.filter = b2 > 0 ? `blur(${b2}px)` : 'none'; s2.style.opacity = Math.pow(f, 0.4);
-            s1.style.filter = b1 > 0 ? `blur(${b1}px)` : 'none'; s1.style.opacity = Math.pow(inv, 0.4);
+            const b2 = f < 0.001 ? 0 : Math.min(2/f - 2, 4);
+            const b1 = inv < 0.001 ? 0 : Math.min(2/inv - 2, 4);
+            s2.style.filter = b2 > 0 ? `blur(${b2}px)` : 'none'; s2.style.opacity = f;
+            s1.style.filter = b1 > 0 ? `blur(${b1}px)` : 'none'; s1.style.opacity = inv;
             s1.textContent = texts[idx % texts.length]; s2.textContent = texts[(idx + 1) % texts.length];
           }
           function doCooldown() {
