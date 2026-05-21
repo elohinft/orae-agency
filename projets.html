@@ -86,6 +86,7 @@
 
     /* ── NAV ── */
     #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.65); transition: color .35s, background .4s, border-color .4s; background: transparent; color: var(--light); }
+    #main-nav.is-scrolled { background: #111111; border-color: transparent; }
     .nav-logo-img { height: 14px; width: auto; display: block; }
     .nav-logo-link { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); line-height: 0; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
@@ -343,6 +344,14 @@
         document.getElementById('navLogo').src = 'logo-whitze.svg';
       });
     });
+
+    /* ── Nav scroll ── */
+    (function() {
+      const nav = document.getElementById('main-nav');
+      function updateNav() { nav.classList.toggle('is-scrolled', window.scrollY > 60); }
+      updateNav();
+      window.addEventListener('scroll', updateNav, { passive: true });
+    })();
 
     /* ── Scroll line ── */
     const scrollLine = document.getElementById('scrollLine');
