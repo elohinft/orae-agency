@@ -372,10 +372,14 @@
 
     /* ── Build scroller from projects array ── */
     (function() {
+      // Round-robin par projet pour ne jamais avoir deux images de la même marque côte à côte
+      const buckets = projects.map((proj, idx) =>
+        proj.imgs.map(src => ({ src, title: proj.title, idx }))
+      );
       const allImgs = [];
-      projects.forEach((proj, idx) => {
-        proj.imgs.forEach(src => allImgs.push({ src, title: proj.title, idx }));
-      });
+      while (buckets.some(b => b.length)) {
+        buckets.forEach(b => { if (b.length) allImgs.push(b.shift()); });
+      }
       const cols = document.querySelectorAll('#projScroller .scroller-col');
       const nCols = cols.length;
       cols.forEach((col, c) => {
