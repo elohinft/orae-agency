@@ -209,9 +209,8 @@
     .about-values { border-top: 1px solid rgba(33,34,38,.12); }
     .about-value-row { display: flex; flex-direction: column; gap: 8px; padding: 22px 0; border-bottom: 1px solid rgba(33,34,38,.12); opacity: 0; transform: translateX(-36px); transition: opacity .7s cubic-bezier(0.22,1,0.36,1), transform .7s cubic-bezier(0.22,1,0.36,1); }
     .about-value-row.visible { opacity: 1; transform: translateX(0); }
-    .about-value-name { font-family: var(--urban); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--dark); display: block; overflow: hidden; }
-    .about-value-name-inner { display: block; transform: translateY(110%); transition: transform .55s cubic-bezier(0.22,1,0.36,1) .18s; }
-    .about-value-row.visible .about-value-name-inner { transform: translateY(0); }
+    .about-value-name { font-family: var(--urban); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--dark); display: block; overflow: visible; }
+    .about-value-name-inner { display: block; }
     .about-value-desc { font-family: var(--urban); font-size: 13px; line-height: 1.7; color: var(--dark); opacity: 0; transition: opacity .45s ease .38s; }
     .about-value-row.visible .about-value-desc { opacity: .55; }
     .about-bottom { display: flex; align-items: center; justify-content: space-between; }
@@ -417,15 +416,15 @@
         <p class="about-big-text">L'agence créative Orae, basée à Montpellier, est née d'une génération qui a grandi avec le digital et l'évolution constante des outils créatifs.<br>À vos côtés, nous créons des identités réfléchies, durables et sur mesure, pensées pour donner une vraie singularité à votre projet.</p>
       <div class="about-values">
         <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner">Singularité</span></span>
+          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal1">Singularité</span></span>
           <p class="about-value-desc">Révéler ce qui vous distingue pour créer une identité impossible à confondre.</p>
         </div>
         <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner">Justesse</span></span>
+          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal2">Justesse</span></span>
           <p class="about-value-desc">Donner du sens à chaque choix pour créer un design aussi beau que cohérent.</p>
         </div>
         <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner">Impact</span></span>
+          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal3">Impact</span></span>
           <p class="about-value-desc">Concevoir des visuels qui marquent les esprits et renforcent votre présence.</p>
         </div>
       </div>
@@ -807,6 +806,59 @@
       rows.forEach((row, i) => {
         row.style.transitionDelay = (i * 0.15) + 's';
         io.observe(row);
+      });
+    })();
+
+    /* ── About values: morph synonyms ── */
+    (function () {
+      const defs = [
+        { id: 'aboutVal1', texts: ['Singularité', 'Unicité', 'Distinction', 'Caractère'] },
+        { id: 'aboutVal2', texts: ['Justesse',    'Précision', 'Cohérence',  'Rigueur'   ] },
+        { id: 'aboutVal3', texts: ['Impact',      'Force',    'Présence',   'Éclat'     ] },
+      ];
+      const MT = 2, CD = 1.5;
+      document.fonts.ready.then(() => {
+        defs.forEach(({ id, texts }) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.textContent = '';
+          el.style.cssText += 'position:relative;display:block;overflow:visible;filter:url(#threshold);background:transparent;';
+          const anchor = document.createElement('span');
+          anchor.style.cssText = 'visibility:hidden;white-space:nowrap;display:block;';
+          anchor.textContent = texts[0];
+          const s1 = document.createElement('span'), s2 = document.createElement('span');
+          const sc = 'position:absolute;left:0;right:0;top:0;display:block;white-space:nowrap;background-color:transparent;';
+          s1.style.cssText = sc; s2.style.cssText = sc;
+          el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2);
+          let idx = 0, morph = 0, cooldown = 0, last = Date.now(), paused = true;
+          function setStyles(f) {
+            const inv = 1 - f;
+            const b2 = f < 0.001 ? 0 : Math.min(8/f - 8, 40);
+            const b1 = inv < 0.001 ? 0 : Math.min(8/inv - 8, 40);
+            s2.style.filter = b2 > 0 ? `blur(${b2}px)` : 'none'; s2.style.opacity = Math.pow(f, 0.4);
+            s1.style.filter = b1 > 0 ? `blur(${b1}px)` : 'none'; s1.style.opacity = Math.pow(inv, 0.4);
+            s1.textContent = texts[idx % texts.length]; s2.textContent = texts[(idx + 1) % texts.length];
+          }
+          function doCooldown() {
+            morph = 0; s2.style.filter = 'none'; s2.style.opacity = '1';
+            s1.style.filter = 'none'; s1.style.opacity = '0';
+            s2.textContent = texts[idx % texts.length]; s1.textContent = texts[(idx + 1) % texts.length];
+          }
+          function tick() {
+            requestAnimationFrame(tick); if (paused) return;
+            const now = Date.now(), dt = (now - last) / 1000; last = now; cooldown -= dt;
+            if (cooldown <= 0) { morph -= cooldown; cooldown = 0; let f = morph / MT; if (f > 1) { cooldown = CD; f = 1; } setStyles(f); if (f === 1) idx++; }
+            else { doCooldown(); }
+          }
+          tick();
+          const row = el.closest('.about-value-row');
+          if (row) {
+            const io = new IntersectionObserver(entries => {
+              entries.forEach(e => { if (e.isIntersecting) { paused = false; last = Date.now(); } else { paused = true; } });
+            }, { threshold: 0.25 });
+            io.observe(row);
+          }
+        });
       });
     })();
 
