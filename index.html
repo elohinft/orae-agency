@@ -787,26 +787,18 @@
           ['( services )', '( design )', '( ux / ui )', '( brand )']);
         titleAPIs.contact = mount('contactBigTitle',
           ['( un projet ? )', '( créer ? )', '( rêver ? )', '( oser ? )']);
-        titleAPIs.val1 = mount('aboutVal1',
-          ['( singularité )', '( unicité )', '( distinction )', '( caractère )'], 'left', 1.2, 2.0);
-        titleAPIs.val2 = mount('aboutVal2',
-          ['( justesse )', '( précision )', '( cohérence )', '( rigueur )'], 'left', 1.2, 2.0);
-        titleAPIs.val3 = mount('aboutVal3',
-          ['( impact )', '( force )', '( présence )', '( éclat )'], 'left', 1.2, 2.0);
         const io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             const id = entry.target.id;
             const key = id === 'servicesBigTitle' ? 'services'
                       : id === 'contactBigTitle'  ? 'contact'
-                      : id === 'aboutVal1'         ? 'val1'
-                      : id === 'aboutVal2'         ? 'val2'
-                      : id === 'aboutVal3'         ? 'val3' : null;
+                      : null;
             if (!key) return;
             if (entry.isIntersecting) { if (titleAPIs[key]) titleAPIs[key].reset(); }
             else                      { if (titleAPIs[key]) titleAPIs[key].pause(); }
           });
         }, { threshold: 0.2 });
-        ['servicesBigTitle', 'contactBigTitle', 'aboutVal1', 'aboutVal2', 'aboutVal3'].forEach(id => {
+        ['servicesBigTitle', 'contactBigTitle'].forEach(id => {
           const el = document.getElementById(id);
           if (el) io.observe(el);
         });
