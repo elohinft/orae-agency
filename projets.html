@@ -366,7 +366,6 @@
       { cat: '/identité visuelle/',            title: 'Armanoid',   cta: '[j\'aimerais un système d\'identité sur mesure]',     desc: 'Identité graphique pour un studio créatif indépendant. Système de signes modulaire et déclinable, pensé pour une communication forte sur tous les formats.',                                                                        imgs: ['armanoid.webp'] },
       { cat: '/branding/',                     title: 'Delta',      cta: '[j\'aimerais une marque sobre et impactante]',        desc: 'Identité minimaliste pour un studio d\'architecture. Jeu sur la géométrie et les contrastes, pour une marque sobre, rigoureuse et profondément impactante.',                                                                        imgs: ['delta.webp'] },
       { cat: '/branding/ /identité visuelle/', title: 'Drop', cta: '[je souhaiterais lancer ma marque]',                  desc: 'Système de marque complet pour un label streetwear. Du logo aux applications print, une identité tranchante pensée pour résonner dans le monde physique comme digital.',                                                                imgs: ['brand-drop.webp','droplogo.webp','droptshirt.webp','drop3d.webp'] },
-      { cat: '/site web/ /ui-ux/',             title: 'web design',  cta: '[j\'aimerais un site web sur mesure]',                desc: 'Projets de web design conceptuels. Interfaces sur mesure, expériences utilisateur fluides et directions visuelles cohérentes — du site vitrine à l\'application digitale, chaque écran pensé pour renforcer la marque.',                    imgs: ['webdesign.webp','web-design2.webp','web-design3.webp','webdesign-4.webp'] },
       { cat: '/identité visuelle/',            title: 'Réflexion',  cta: '[je souhaiterais repenser mon logo]',                 desc: 'Exploration graphique autour du concept de réflexion et de dualité. Une identité en miroir, jouant sur la symétrie, les formes organiques et les doubles lectures visuelles.',                                                        imgs: ['reflexiongue.webp'] },
       { cat: '/impression/ /affiche/',         title: 'Oxytocin',   cta: '[j\'aimerais une affiche pour mon événement]',        desc: 'Affiche événementielle pour le projet Oxytocin. Typographie expressive, composition en tension et palette chromatique saturée pour un impact visuel maximal à grande échelle.',                                                    imgs: ['affiche-oxytocin.webp'] },
       { cat: '/impression/ /affiche/',         title: 'Chrys',      cta: '[je souhaiterais un projet imprimé sur-mesure]',      desc: 'Série d\'affiches pour Chrysalis, collection de mode capsule. Une esthétique poétique et organique entre transformation et légèreté, avec une direction artistique entièrement sur-mesure.',                                        imgs: ['affiche-chrys.webp'] },
@@ -383,10 +382,9 @@
 
     /* ── Build scroller from projects array ── */
     (function() {
-      const NO_SCROLL = new Set(['webdesign.webp','web-design2.webp','webdesign-4.webp']);
       // Round-robin par projet pour ne jamais avoir deux images de la même marque côte à côte
       const buckets = projects.map((proj, idx) =>
-        proj.imgs.filter(src => !NO_SCROLL.has(src)).map(src => ({ src, title: proj.title, idx }))
+        proj.imgs.map(src => ({ src, title: proj.title, idx }))
       );
       const allImgs = [];
       while (buckets.some(b => b.length)) {
