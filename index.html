@@ -202,7 +202,7 @@
     /* ─────── À PROPOS ─────── */
     #about { background: var(--light); color: var(--dark); padding: 180px 52px 200px; content-visibility: auto; contain-intrinsic-size: 0 800px; }
     .about-inner { max-width: 1200px; margin: 0 auto; }
-    .about-cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
+    .about-cols { margin-bottom: 80px; }
     .about-big-text {
       font-family: var(--inter);
       font-size: clamp(18px, 2vw, 30px);
@@ -211,14 +211,9 @@
       letter-spacing: -0.03em;
       color: var(--dark);
       text-align: left;
+      max-width: 820px;
     }
-    .about-values { border-top: 1px solid rgba(33,34,38,.12); }
-    .about-value-row { display: flex; flex-direction: column; gap: 8px; padding: 22px 0; border-bottom: 1px solid rgba(33,34,38,.12); opacity: 0; transform: translateX(-36px); transition: opacity .7s cubic-bezier(0.22,1,0.36,1), transform .7s cubic-bezier(0.22,1,0.36,1); }
-    .about-value-row.visible { opacity: 1; transform: translateX(0); }
-    .about-value-name { font-family: var(--heavy); font-size: 18px; font-weight: 900; letter-spacing: .06em; text-transform: none; color: var(--dark); display: block; overflow: visible; }
-    .about-value-name-inner { display: block; }
-    .about-value-desc { font-family: var(--urban); font-size: 13px; line-height: 1.7; color: var(--dark); opacity: 0; transition: opacity .45s ease .38s; }
-    .about-value-row.visible .about-value-desc { opacity: .55; }
+    .about-big-text p + p { margin-top: 0.9em; }
     .about-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 36px; }
     .about-founder { display: flex; align-items: center; gap: 18px; }
     @keyframes about-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
@@ -330,8 +325,8 @@
       .hero-big-title { position: absolute; bottom: 0; margin-top: 0; padding: 0 0 6vh; line-height: 1; white-space: normal; }
       .services-big-title { line-height: 1; padding: 0.3em 0 0.4em; }
       .contact-big-title { padding: 0.3em 0 0.4em; }
-      .about-cols { grid-template-columns: 1fr; gap: 48px; margin-bottom: 52px; }
-      .about-big-text { font-size: clamp(17px, 4.5vw, 24px); }
+      .about-cols { margin-bottom: 52px; }
+      .about-big-text { font-size: clamp(17px, 4.5vw, 24px); max-width: 100%; }
 
       #about { padding: 72px 24px 100px; }
       .about-texts { grid-template-columns: 1fr; gap: 32px; }
@@ -421,21 +416,11 @@
   <section id="about">
     <div class="about-inner">
       <div class="about-cols">
-        <p class="about-big-text">L'agence créative Orae, basée à Montpellier, est née d'une génération qui a grandi avec le digital et l'évolution constante des outils créatifs.<br>À vos côtés, nous créons des identités réfléchies, durables et sur mesure, pensées pour donner une vraie singularité à votre projet.</p>
-      <div class="about-values">
-        <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal1">singularité</span></span>
-          <p class="about-value-desc">Révéler ce qui vous distingue pour créer une identité impossible à confondre.</p>
+        <div class="about-big-text">
+          <p>Basée à Montpellier, [Nom de l'agence] imagine des identités visuelles fortes pour les marques, les projets culturels et les univers qui veulent marquer les esprits.</p>
+          <p>Direction artistique, affiches, visuels éditoriaux et design graphique : chaque création est pensée pour transmettre une émotion, créer une présence et donner une véritable personnalité à votre image.</p>
+          <p>Parce qu'aujourd'hui, les marques que l'on retient sont celles que l'on ressent.</p>
         </div>
-        <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal2">justesse</span></span>
-          <p class="about-value-desc">Donner du sens à chaque choix pour créer un design aussi beau que cohérent.</p>
-        </div>
-        <div class="about-value-row">
-          <span class="about-value-name"><span class="about-value-name-inner" id="aboutVal3">impact</span></span>
-          <p class="about-value-desc">Concevoir des visuels qui marquent les esprits et renforcent votre présence.</p>
-        </div>
-      </div>
       </div>
       <div class="about-bottom">
         <div class="about-founder">
@@ -459,26 +444,26 @@
       <div class="service-card">
         <div class="service-num-line"><span class="service-num">01</span><div class="service-line"></div></div>
         <h3 class="service-name">DIRECTION<br>ARTISTIQUE</h3>
-        <p class="service-desc">Nous construisons une direction artistique cohérente et distinctive qui donne à votre marque une vision forte, une voix singulière et une image mémorable.</p>
+        <p class="service-desc">Création d'univers visuels uniques et cohérents pour les marques, projets culturels, événements et identités artistiques.</p>
         <a href="#contact" class="service-cta">[définir ma direction artistique]</a>
       </div>
       <div class="service-card">
         <div class="service-num-line"><span class="service-num">02</span><div class="service-line"></div></div>
-        <h3 class="service-name">DESIGN<br>GRAPHIQUE</h3>
-        <p class="service-desc">Nous concevons des identités visuelles et supports de communication qui incarnent l'essence de votre marque et marquent durablement les esprits.</p>
+        <h3 class="service-name">IDENTITÉ<br>VISUELLE & WEB</h3>
+        <p class="service-desc">Logos, chartes graphiques, sites internet et supports de communication pensés pour donner une image forte, sensible et mémorable à votre projet.</p>
         <a href="#contact" class="service-cta">[créer mon identité visuelle]</a>
       </div>
       <div class="service-card">
         <div class="service-num-line"><span class="service-num">03</span><div class="service-line"></div></div>
-        <h3 class="service-name">UX / UI<br>DESIGN</h3>
-        <p class="service-desc">Nous concevons des interfaces digitales intuitives et soignées, pensées pour offrir une expérience fluide et transformer vos visiteurs en clients fidèles.</p>
-        <a href="#contact" class="service-cta">[concevoir mon interface]</a>
+        <h3 class="service-name">AFFICHES &<br>CRÉATIONS VISUELLES</h3>
+        <p class="service-desc">Conception d'affiches artistiques, visuels promotionnels, pochettes et créations graphiques pour la musique, la mode, les festivals et les univers créatifs.</p>
+        <a href="#contact" class="service-cta">[concevoir mes affiches]</a>
       </div>
       <div class="service-card">
         <div class="service-num-line"><span class="service-num">04</span><div class="service-line"></div></div>
-        <h3 class="service-name">PROMPT<br>IA</h3>
-        <p class="service-desc">Nous intégrons les outils d'IA générative comme levier créatif pour enrichir votre production visuelle, accélérer les livraisons et explorer de nouveaux territoires graphiques.</p>
-        <a href="#contact" class="service-cta">[explorer l'IA créative]</a>
+        <h3 class="service-name">ILLUSTRATION &<br>CRÉATION SUR MESURE</h3>
+        <p class="service-desc">Illustrations réalisées à la main ou en numérique, compositions originales et créations artisanales pensées pour apporter une véritable singularité à votre image.</p>
+        <a href="#contact" class="service-cta">[commander une illustration]</a>
       </div>
     </div>
   </section>
