@@ -211,9 +211,10 @@
       letter-spacing: -0.03em;
       color: var(--dark);
       text-align: left;
-      max-width: 820px;
     }
     .about-big-text p + p { margin-top: 0.9em; }
+    .tw-cursor { display: inline-block; width: 2px; height: .9em; background: var(--dark); vertical-align: text-bottom; margin-left: 3px; animation: tw-blink .65s step-end infinite; }
+    @keyframes tw-blink { 0%,100%{opacity:1} 50%{opacity:0} }
     .about-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 36px; }
     .about-founder { display: flex; align-items: center; gap: 18px; }
     @keyframes about-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
@@ -801,6 +802,41 @@
           if (el) io.observe(el);
         });
       });
+    })();
+
+    /* ── About typewriter ── */
+    (function() {
+      const container = document.querySelector('.about-big-text');
+      if (!container) return;
+      const paragraphs = Array.from(container.querySelectorAll('p'));
+      const texts = paragraphs.map(p => p.textContent);
+      paragraphs.forEach(p => { p.textContent = ''; });
+      let started = false;
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      async function typeAll() {
+        const cursor = document.createElement('span');
+        cursor.className = 'tw-cursor';
+        for (let pi = 0; pi < paragraphs.length; pi++) {
+          const p = paragraphs[pi];
+          const text = texts[pi];
+          p.appendChild(cursor);
+          for (let i = 0; i <= text.length; i++) {
+            if (cursor.previousSibling && cursor.previousSibling.nodeType === 3) {
+              cursor.previousSibling.textContent = text.slice(0, i);
+            } else {
+              p.insertBefore(document.createTextNode(text.slice(0, i)), cursor);
+            }
+            await sleep(16);
+          }
+          await sleep(pi < paragraphs.length - 1 ? 180 : 900);
+          if (pi < paragraphs.length - 1) p.removeChild(cursor);
+          else cursor.remove();
+        }
+      }
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !started) { started = true; typeAll(); }
+      }, { threshold: 0.15 });
+      io.observe(document.getElementById('about'));
     })();
 
     /* ── About values: fade-up on scroll ── */
