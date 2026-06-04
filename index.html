@@ -89,10 +89,10 @@
     a { color: inherit; text-decoration: none; }
 
     /* ── LOADER ── */
-    #page-loader { position: fixed; inset: 0; z-index: 99999; background: var(--dark); display: flex; align-items: center; justify-content: center; transition: opacity .5s ease; }
+    #page-loader { position: fixed; inset: 0; z-index: 99999; background: var(--light); display: flex; align-items: center; justify-content: center; transition: opacity .5s ease; }
     #page-loader.hidden { opacity: 0; pointer-events: none; }
     .loader-morph { position: relative; width: 96px; height: 96px; display: flex; align-items: center; justify-content: center; }
-    .loader-morph span { position: absolute; width: 14px; height: 14px; background: var(--light); }
+    .loader-morph span { position: absolute; width: 14px; height: 14px; background: var(--dark); }
     .loader-morph span:nth-child(1) { animation: morph-0 2s infinite ease-in-out; }
     .loader-morph span:nth-child(2) { animation: morph-1 2s infinite ease-in-out; animation-delay: .2s; }
     .loader-morph span:nth-child(3) { animation: morph-2 2s infinite ease-in-out; animation-delay: .4s; }
@@ -152,7 +152,7 @@
     .mm-logo-big { display: block; width: 108%; margin-left: -2%; }
 
     /* ─────── HERO ─────── */
-    #hero { position: relative; width: 100%; height: 100svh; background: var(--dark); overflow: hidden; }
+    #hero { position: relative; width: 100%; height: 100svh; background: var(--light); overflow: hidden; }
     .hero-big-title { font-family: var(--heavy); font-weight: 900; color: var(--light); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .9; padding: 0; width: 100%; user-select: none; position: absolute; bottom: 0; left: 0; font-size: clamp(32px, 10vw, 200px); }
 
     /* ─── HERO FLASH STRIP ─── */
@@ -165,7 +165,7 @@
       grid-template-columns: 0.8fr 1.1fr 1.5fr 1.1fr 0.8fr;
       grid-template-rows: 1fr 1fr 1.2fr;
     }
-    .flash-cell { position: relative; overflow: hidden; background: #1a1a1a; }
+    .flash-cell { position: relative; overflow: hidden; background: #e0dede; }
     .flash-cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; }
     /* Desktop : bandes latérales + portrait + image centrale dominante */
     .flash-cell:nth-child(1) { grid-column: 1;   grid-row: 1 / 4; }
@@ -353,14 +353,6 @@
       .footer-top { flex-direction: column; gap: 28px; padding: 52px 24px; }
       .footer-right { align-items: flex-end; text-align: right; width: 100%; }
     }
-    /* ── TEST DARK MODE ── */
-    body { background: #111111 !important; }
-    #about, #services, #steps { background: #111111 !important; }
-    #about *, #services *, #steps * { color: #F4F3F3 !important; }
-    .service-line { background: #F4F3F3 !important; opacity: .1 !important; }
-    .tw-cursor { background: #F4F3F3 !important; }
-    ::-webkit-scrollbar-track { background: #111111 !important; }
-    ::-webkit-scrollbar-thumb { background: rgba(244,243,243,.2) !important; }
   </style>
 </head>
 <body>
@@ -432,13 +424,6 @@
         </div>
       </div>
       <div class="about-bottom">
-        <div class="about-founder">
-          <div class="about-founder-photo"><img src="images/oui.webp" alt="" draggable="false" loading="lazy" decoding="async" /></div>
-          <div>
-            <span class="about-founder-name" id="founderName"></span>
-            <span class="about-founder-role">Fondatrice de l'agence Orae</span>
-          </div>
-        </div>
         <a href="/projets.html" class="about-cta">Voir nos projets &nbsp;→</a>
       </div>
     </div>
