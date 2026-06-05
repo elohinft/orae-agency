@@ -187,30 +187,37 @@
     }
     .hero-content {
       padding-left: 28%; padding-right: 5%;
-      display: flex; flex-direction: column; gap: 0;
+      display: flex; flex-direction: column;
+      align-items: flex-start;
+    }
+    .hero-title {
+      position: relative;
+      display: inline-flex; flex-direction: column;
+      padding-top: 28px; /* espace pour l'eyebrow absolu */
+      font-family: var(--heavy); font-weight: 700;
+      font-size: clamp(72px, 11.5vw, 170px);
+      line-height: 0.88; color: var(--light);
+      text-transform: uppercase; letter-spacing: -0.02em;
+      user-select: none;
     }
     .hero-eyebrow {
-      display: flex; align-items: center; gap: 14px;
-      color: #888; font-size: 14px; margin-bottom: 10px;
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 14px; font-weight: 400;
+      text-transform: none; letter-spacing: 0;
+      color: #888; line-height: 1;
       opacity: 0;
       animation: hero-fade 0.4s ease-out 0.05s forwards;
     }
     .hero-eyebrow span { font-family: var(--mono); font-weight: 400; }
     .hero-eyebrow .ew-medium { font-weight: 500; }
     .hero-eyebrow-dash {
-      display: inline-block; width: 80px; height: 1px;
-      background: #888; flex-shrink: 0;
+      flex: 1; min-width: 0; height: 1px; background: #888;
     }
     .hero-montpellier {
       font-family: var(--heavy); font-weight: 400;
       font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #888;
-    }
-    .hero-title {
-      font-family: var(--heavy); font-weight: 700;
-      font-size: clamp(72px, 11.5vw, 170px);
-      line-height: 0.88; color: var(--light);
-      text-transform: uppercase; letter-spacing: -0.02em;
-      user-select: none;
+      flex-shrink: 0;
     }
     .hero-title-line1 {
       display: block; opacity: 0;
@@ -447,12 +454,12 @@
   <!-- ─────── HERO ─────── -->
   <section id="hero">
     <div class="hero-content">
-      <p class="hero-eyebrow">
-        <span>(</span><span class="ew-medium">studio</span><span>de</span><span class="ew-medium">design</span><span>)</span>
-        <span class="hero-eyebrow-dash" aria-hidden="true"></span>
-        <span class="hero-montpellier">Montpellier</span>
-      </p>
       <div class="hero-title" aria-label="Design Studio">
+        <p class="hero-eyebrow">
+          <span>(</span><span class="ew-medium">studio</span><span>de</span><span class="ew-medium">design</span><span>)</span>
+          <span class="hero-eyebrow-dash" aria-hidden="true"></span>
+          <span class="hero-montpellier">Montpellier</span>
+        </p>
         <span class="hero-title-line1">DESIGN</span>
         <span class="hero-title-line2">STUDIO</span>
       </div>
@@ -625,6 +632,15 @@
         if (l) { l.classList.add('hidden'); setTimeout(() => l.remove(), 550); }
       }, wait);
     });
+
+    /* ── Eyebrow = largeur exacte du titre hero ── */
+    function syncHeroEyebrow() {
+      const title   = document.querySelector('.hero-title');
+      const eyebrow = document.querySelector('.hero-eyebrow');
+      if (title && eyebrow) eyebrow.style.width = title.offsetWidth + 'px';
+    }
+    document.fonts.ready.then(syncHeroEyebrow);
+    window.addEventListener('resize', syncHeroEyebrow);
 
     /* ── Founder name (non-indexable) ── */
     (function(){ const el = document.getElementById('founderName'); if(el) el.textContent = atob('RWxvcmFoIEku'); })();
