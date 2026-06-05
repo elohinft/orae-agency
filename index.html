@@ -254,29 +254,34 @@
     .hero-bar-right  { text-align: right; font-size: 13px; }
 
     /* ─────── À PROPOS ─────── */
-    #about { background: var(--light); color: var(--dark); padding: 180px 52px 200px; content-visibility: auto; contain-intrinsic-size: 0 800px; }
-    .about-inner { max-width: 1200px; margin: 0 auto; }
-    .about-cols { margin-bottom: 80px; }
+    @keyframes sDown { from { transform: translateY(-50%) translateZ(0); } to { transform: translateY(0%) translateZ(0); } }
+    @keyframes sUp   { from { transform: translateY(0%) translateZ(0); }  to { transform: translateY(-50%) translateZ(0); } }
+
+    #about { background: var(--light); color: var(--dark); display: grid; grid-template-columns: 1fr 1fr; height: 100vh; overflow: hidden; }
+
+    /* ─── Scroller gauche ─── */
+    .about-scroller-wrap { display: flex; gap: 8px; overflow: hidden; height: 100%; }
+    .about-scroller-col {
+      flex: 1; display: flex; flex-direction: column; gap: 8px;
+      will-change: transform; backface-visibility: hidden;
+    }
+    .about-scroller-col:nth-child(1) { animation: sDown 24s linear infinite; }
+    .about-scroller-col:nth-child(2) { margin-top: -80px; animation: sUp 30s linear infinite; }
+    .about-scroller-col img { width: 100%; aspect-ratio: 3/4; display: block; object-fit: cover; background: #ccc; }
+
+    /* ─── Texte droite ─── */
+    .about-text-wrap { display: flex; flex-direction: column; justify-content: center; padding: 100px 60px 100px 52px; }
     .about-big-text {
       font-family: var(--inter);
-      font-size: clamp(18px, 2vw, 30px);
-      font-weight: 800;
-      line-height: 1.22;
-      letter-spacing: -0.03em;
+      font-size: clamp(14px, 1.15vw, 18px);
+      font-weight: 400;
+      line-height: 1.75;
+      letter-spacing: 0;
       color: var(--dark);
-      text-align: center;
+      opacity: .75;
     }
-    .about-big-text p + p { margin-top: 0.9em; }
-    .tw-cursor { display: inline-block; width: 2px; height: .9em; background: var(--dark); vertical-align: text-bottom; margin-left: 3px; animation: tw-blink .65s step-end infinite; }
-    @keyframes tw-blink { 0%,100%{opacity:1} 50%{opacity:0} }
-    .about-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 36px; }
-    .about-founder { display: flex; align-items: center; gap: 18px; }
-    @keyframes about-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-    .about-founder-photo { width: 52px; height: 52px; border-radius: 50%; background: #ccc; overflow: hidden; flex-shrink: 0; position: relative; animation: about-float 3.2s ease-in-out infinite; }
-    .about-founder-photo img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
-    .about-founder-name { font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: .04em; color: var(--dark); display: block; }
-    .about-founder-role { font-family: var(--urban); font-size: 12px; font-weight: 400; color: var(--dark); opacity: .55; display: block; margin-top: 3px; }
-    .about-cta { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--dark); text-decoration: underline; text-underline-offset: 4px; opacity: .55; transition: opacity .2s, font-style .15s; }
+    .about-big-text p + p { margin-top: 1.6em; }
+    .about-cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 44px; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dark); text-decoration: underline; text-underline-offset: 4px; opacity: .5; transition: opacity .2s, font-style .15s; }
     .about-cta:hover { opacity: 1; font-style: italic; }
 
     /* ─────── SERVICES ─────── */
@@ -385,10 +390,10 @@
       .about-cols { margin-bottom: 52px; }
       .about-big-text { font-size: clamp(17px, 4.5vw, 24px); max-width: 100%; }
 
-      #about { padding: 72px 24px 100px; }
-      .about-texts { grid-template-columns: 1fr; gap: 32px; }
-      .about-bottom { flex-direction: column; align-items: flex-start; gap: 36px; margin-top: 0; }
-      .about-cta { display: block; }
+      #about { grid-template-columns: 1fr; }
+      .about-scroller-wrap { height: 50vh; }
+      .about-text-wrap { padding: 52px 24px 72px; }
+      .about-big-text { font-size: clamp(14px, 4vw, 17px); }
 
       #services { padding-top: 60px; padding-bottom: 100px; }
       .services-grid { grid-template-columns: 1fr; row-gap: 72px; padding: 60px 24px 0; }
@@ -475,17 +480,17 @@
 
   <!-- ─────── À PROPOS ─────── -->
   <section id="about">
-    <div class="about-inner">
-      <div class="about-cols">
-        <div class="about-big-text">
-          <p>Orae Agency est un studio de direction artistique fondé à Montpellier, imaginant des identités visuelles fortes pour les marques, les projets culturels et les univers qui veulent marquer les esprits.</p>
-          <p>Direction artistique, affiches, visuels éditoriaux et design graphique : chaque création est pensée pour transmettre une émotion, créer une présence et donner une véritable personnalité à votre image.</p>
-          <p>Parce qu'aujourd'hui, les marques que l'on retient sont celles que l'on ressent.</p>
-        </div>
+    <div class="about-scroller-wrap" id="aboutScroller">
+      <div class="about-scroller-col"></div>
+      <div class="about-scroller-col"></div>
+    </div>
+    <div class="about-text-wrap">
+      <div class="about-big-text">
+        <p>Orae Agency est un studio de direction artistique fondé à Montpellier, imaginant des identités visuelles fortes pour les marques, les projets culturels et les univers qui veulent marquer les esprits.</p>
+        <p>Direction artistique, affiches, visuels éditoriaux et design graphique : chaque création est pensée pour transmettre une émotion, créer une présence et donner une véritable personnalité à votre image.</p>
+        <p>Parce qu'aujourd'hui, les marques que l'on retient sont celles que l'on ressent.</p>
       </div>
-      <div class="about-bottom">
-        <a href="/projets.html" class="about-cta">Voir nos projets &nbsp;→</a>
-      </div>
+      <a href="/projets.html" class="about-cta">Voir nos projets &nbsp;→</a>
     </div>
   </section>
 
@@ -647,6 +652,31 @@
 
     /* ── Désactive clic droit sur toutes les images ── */
     document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
+    /* ── About scroller ── */
+    (function() {
+      const imgs = [
+        'brand-drop.webp','droplogo.webp','droptshirt.webp','drop3d.webp',
+        'timereflection.webp','technight.webp','blackpixel.webp','breath.webp',
+        'affiche-oxytocin.webp','affiche-chrys.webp','affiche-goth.webp',
+        'jap.webp','logom.webp','Rmousse.webp','egm.webp'
+      ];
+      const cols = document.querySelectorAll('#aboutScroller .about-scroller-col');
+      cols.forEach((col, c) => {
+        const colImgs = imgs.filter((_, i) => i % cols.length === c);
+        function mkImg(src, hidden) {
+          const img = document.createElement('img');
+          img.src = '/images/' + src;
+          img.alt = hidden ? '' : '';
+          img.loading = c === 0 ? 'eager' : 'lazy';
+          img.decoding = 'async';
+          if (hidden) img.setAttribute('aria-hidden', 'true');
+          return img;
+        }
+        colImgs.forEach(src => col.appendChild(mkImg(src, false)));
+        colImgs.forEach(src => col.appendChild(mkImg(src, true)));
+      });
+    })();
 
     /* ── Cursor ── */
     const cursor = document.getElementById('cursor');
