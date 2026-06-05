@@ -257,28 +257,29 @@
     @keyframes sDown { from { transform: translateY(-50%) translateZ(0); } to { transform: translateY(0%) translateZ(0); } }
     @keyframes sUp   { from { transform: translateY(0%) translateZ(0); }  to { transform: translateY(-50%) translateZ(0); } }
 
-    #about { background: var(--light); color: var(--dark); display: grid; grid-template-columns: 1fr 1fr; height: 100vh; overflow: hidden; }
+    #about { background: var(--light); color: var(--dark); display: grid; grid-template-columns: 1fr 1fr; padding-top: 140px; padding-bottom: 100px; overflow: hidden; }
 
     /* ─── Scroller gauche ─── */
-    .about-scroller-wrap { display: flex; gap: 8px; overflow: hidden; height: 100%; }
+    .about-scroller-wrap { display: flex; gap: 8px; overflow: hidden; height: 75vh; }
     .about-scroller-col {
       flex: 1; display: flex; flex-direction: column; gap: 8px;
       will-change: transform; backface-visibility: hidden;
     }
-    .about-scroller-col:nth-child(1) { animation: sDown 24s linear infinite; }
-    .about-scroller-col:nth-child(2) { margin-top: -80px; animation: sUp 30s linear infinite; }
+    .about-scroller-col:nth-child(1) { animation: sDown 9s linear infinite; }
+    .about-scroller-col:nth-child(2) { margin-top: -80px; animation: sUp 12s linear infinite; }
     .about-scroller-col img { width: 100%; aspect-ratio: 3/4; display: block; object-fit: cover; background: #ccc; }
 
     /* ─── Texte droite ─── */
-    .about-text-wrap { display: flex; flex-direction: column; justify-content: center; padding: 100px 60px 100px 52px; }
+    .about-text-wrap { display: flex; flex-direction: column; justify-content: center; padding: 0 9vw; }
     .about-big-text {
       font-family: var(--inter);
-      font-size: clamp(14px, 1.15vw, 18px);
+      font-size: clamp(13px, 1.05vw, 16px);
       font-weight: 400;
-      line-height: 1.75;
+      line-height: 1.8;
       letter-spacing: 0;
       color: var(--dark);
-      opacity: .75;
+      opacity: .72;
+      max-width: 380px;
     }
     .about-big-text p + p { margin-top: 1.6em; }
     .about-cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 44px; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dark); text-decoration: underline; text-underline-offset: 4px; opacity: .5; transition: opacity .2s, font-style .15s; }
@@ -390,10 +391,10 @@
       .about-cols { margin-bottom: 52px; }
       .about-big-text { font-size: clamp(17px, 4.5vw, 24px); max-width: 100%; }
 
-      #about { grid-template-columns: 1fr; }
-      .about-scroller-wrap { height: 50vh; }
-      .about-text-wrap { padding: 52px 24px 72px; }
-      .about-big-text { font-size: clamp(14px, 4vw, 17px); }
+      #about { grid-template-columns: 1fr; padding-top: 72px; padding-bottom: 60px; }
+      .about-scroller-wrap { height: 45vh; }
+      .about-text-wrap { padding: 48px 28px 0; }
+      .about-big-text { font-size: clamp(14px, 4vw, 16px); max-width: none; }
 
       #services { padding-top: 60px; padding-bottom: 100px; }
       .services-grid { grid-template-columns: 1fr; row-gap: 72px; padding: 60px 24px 0; }
@@ -656,10 +657,9 @@
     /* ── About scroller ── */
     (function() {
       const imgs = [
-        'brand-drop.webp','droplogo.webp','droptshirt.webp','drop3d.webp',
-        'timereflection.webp','technight.webp','blackpixel.webp','breath.webp',
-        'affiche-oxytocin.webp','affiche-chrys.webp','affiche-goth.webp',
-        'jap.webp','logom.webp','Rmousse.webp','egm.webp'
+        'drop3d.webp','timereflection.webp','technight.webp','blackpixel.webp',
+        'breath.webp','affiche-oxytocin.webp','affiche-chrys.webp',
+        'affiche-goth.webp','jap.webp','Rmousse.webp','egm.webp'
       ];
       const cols = document.querySelectorAll('#aboutScroller .about-scroller-col');
       cols.forEach((col, c) => {
