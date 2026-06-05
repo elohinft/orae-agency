@@ -137,7 +137,7 @@
 
     /* ── NAV ── */
     #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.65); transition: color .35s, background .4s, border-color .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--light); }
-    #main-nav.is-scrolled { background: #111111; border-color: rgba(255,255,255,0.22); }
+    #main-nav.is-scrolled { background: var(--dark); border-color: rgba(255,255,255,0.22); }
     #main-nav.is-scrolled.over-dark { border-color: rgba(255,255,255,0.22); }
     .nav-logo-img { height: 14px; width: auto; display: block; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
@@ -265,7 +265,9 @@
       will-change: transform; backface-visibility: hidden;
     }
     .about-scroller-col:nth-child(1) { animation: sDown 9s linear infinite; }
-    .about-scroller-col:nth-child(2) { margin-top: -80px; animation: sUp 12s linear infinite; }
+    .about-scroller-col:nth-child(2) { margin-top: -90px;  animation: sUp  12s linear infinite; }
+    .about-scroller-col:nth-child(3) { margin-top: -45px;  animation: sDown 8s linear infinite; }
+    .about-scroller-col:nth-child(4) { margin-top: -130px; animation: sUp  11s linear infinite; }
     .about-scroller-col img { width: 100%; aspect-ratio: 3/4; display: block; object-fit: cover; background: #ccc; }
 
     /* ─── Section texte ─── */
@@ -480,6 +482,8 @@
   <!-- ─────── SCROLLER PROJETS ─────── -->
   <section id="about">
     <div class="about-scroller-wrap" id="aboutScroller">
+      <div class="about-scroller-col"></div>
+      <div class="about-scroller-col"></div>
       <div class="about-scroller-col"></div>
       <div class="about-scroller-col"></div>
     </div>
