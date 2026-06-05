@@ -257,10 +257,9 @@
     @keyframes sDown { from { transform: translateY(-50%) translateZ(0); } to { transform: translateY(0%) translateZ(0); } }
     @keyframes sUp   { from { transform: translateY(0%) translateZ(0); }  to { transform: translateY(-50%) translateZ(0); } }
 
-    #about { background: var(--light); color: var(--dark); display: grid; grid-template-columns: 1fr 1fr; padding-top: 140px; padding-bottom: 100px; overflow: hidden; }
-
-    /* ─── Scroller gauche ─── */
-    .about-scroller-wrap { display: flex; gap: 8px; overflow: hidden; height: 75vh; }
+    /* ─── Scroller pleine largeur, collé au hero ─── */
+    #about { background: var(--light); height: 100vh; overflow: hidden; }
+    .about-scroller-wrap { display: flex; gap: 8px; overflow: hidden; height: 100%; width: 100%; }
     .about-scroller-col {
       flex: 1; display: flex; flex-direction: column; gap: 8px;
       will-change: transform; backface-visibility: hidden;
@@ -269,14 +268,14 @@
     .about-scroller-col:nth-child(2) { margin-top: -80px; animation: sUp 12s linear infinite; }
     .about-scroller-col img { width: 100%; aspect-ratio: 3/4; display: block; object-fit: cover; background: #ccc; }
 
-    /* ─── Texte droite ─── */
-    .about-text-wrap { display: flex; flex-direction: column; justify-content: center; padding: 0 9vw; }
+    /* ─── Section texte ─── */
+    #about-text { background: var(--light); color: var(--dark); display: flex; justify-content: center; align-items: center; padding: 140px 0; }
+    .about-text-wrap { display: flex; flex-direction: column; align-items: flex-start; }
     .about-big-text {
       font-family: var(--inter);
       font-size: clamp(13px, 1.05vw, 16px);
       font-weight: 400;
       line-height: 1.8;
-      letter-spacing: 0;
       color: var(--dark);
       opacity: .72;
       max-width: 380px;
@@ -287,10 +286,8 @@
     .about-cta:hover { opacity: 1; font-style: italic; }
 
     /* ─────── SERVICES ─────── */
-    #services { background: var(--light); color: var(--dark); padding: 120px 0 340px; overflow: hidden; content-visibility: auto; contain-intrinsic-size: 0 800px; }
-    .services-title-wrap { overflow: visible; }
-    .services-big-title { font-family: var(--heavy); font-weight: 900; color: var(--dark); letter-spacing: -0.02em; white-space: nowrap; display: block; text-align: center; line-height: .9; padding: 0.2em 0 0.32em; user-select: none; font-size: clamp(32px, 10vw, 600px); position: relative; }
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; row-gap: 100px; padding: 160px 52px 0; text-align: center; }
+    #services { background: var(--light); color: var(--dark); padding: 120px 52px 200px; overflow: hidden; content-visibility: auto; contain-intrinsic-size: 0 800px; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; row-gap: 100px; text-align: center; }
     .service-card { display: flex; flex-direction: column; align-items: center; }
     .service-num-line { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 32px; }
     .service-num { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--dark); opacity: .35; flex-shrink: 0; }
@@ -342,7 +339,8 @@
 
     /* ─────── CONTACT ─────── */
     #contact { background: var(--dark); color: var(--light); overflow: hidden; margin-top: -2px; }
-    .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; padding: 0 52px 140px; align-items: start; }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; padding: 80px 52px 140px; align-items: start; }
+    .contact-section-title { font-family: var(--heavy); font-weight: 700; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--light); opacity: .45; margin-bottom: 32px; }
     .contact-intro { font-family: var(--urban); font-size: 14px; font-weight: 400; line-height: 1.85; color: var(--light); opacity: .65; max-width: 320px; margin-bottom: 52px; }
     .contact-info { display: flex; flex-direction: column; gap: 24px; }
     .contact-info-item { display: flex; flex-direction: column; gap: 4px; }
@@ -359,7 +357,6 @@
     .form-submit { margin-top: 28px; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--light); background: none; border: none; border-bottom: 1px solid rgba(244,243,243,.25); padding: 0 0 2px; cursor: none; opacity: .5; font-weight: 400; transition: opacity .2s, font-style .15s, font-weight .1s; }
     .form-submit:hover { opacity: 1; font-style: italic; font-weight: 500; }
     .form-consent { margin-top: 20px; font-family: var(--mono); font-size: 8px; letter-spacing: .07em; color: var(--light); opacity: .32; line-height: 1.6; }
-    .contact-big-title { display: block; width: 100%; text-align: center; font-family: var(--heavy); font-weight: 900; color: var(--light); letter-spacing: -0.02em; white-space: nowrap; overflow: visible; padding: 120px 0 calc(80px + 0.22em); user-select: none; font-size: clamp(32px, 10vw, 600px); position: relative; }
 
     /* ─────── FOOTER ─────── */
     footer { background: var(--dark); color: var(--light); overflow: hidden; padding: 0; }
@@ -392,10 +389,10 @@
       .about-cols { margin-bottom: 52px; }
       .about-big-text { font-size: clamp(17px, 4.5vw, 24px); max-width: 100%; }
 
-      #about { grid-template-columns: 1fr; padding-top: 72px; padding-bottom: 60px; }
-      .about-scroller-wrap { height: 45vh; }
-      .about-text-wrap { padding: 48px 28px 0; }
+      #about { height: 60vh; }
+      #about-text { padding: 80px 0; }
       .about-big-text { font-size: clamp(14px, 4vw, 16px); max-width: none; }
+      .contact-inner { grid-template-columns: 1fr; padding: 52px 24px 80px; gap: 48px; }
 
       #services { padding-top: 60px; padding-bottom: 100px; }
       .services-grid { grid-template-columns: 1fr; row-gap: 72px; padding: 60px 24px 0; }
@@ -480,12 +477,16 @@
     </div>
   </section>
 
-  <!-- ─────── À PROPOS ─────── -->
+  <!-- ─────── SCROLLER PROJETS ─────── -->
   <section id="about">
     <div class="about-scroller-wrap" id="aboutScroller">
       <div class="about-scroller-col"></div>
       <div class="about-scroller-col"></div>
     </div>
+  </section>
+
+  <!-- ─────── À PROPOS TEXTE ─────── -->
+  <section id="about-text">
     <div class="about-text-wrap">
       <div class="about-big-text">
         <p>Orae Agency est un studio de direction artistique fondé à Montpellier, imaginant des identités visuelles fortes pour les marques, les projets culturels et les univers qui veulent marquer les esprits.</p>
@@ -498,9 +499,6 @@
 
   <!-- ─────── SERVICES ─────── -->
   <section id="services">
-    <div class="services-title-wrap">
-      <span class="services-big-title" id="servicesBigTitle">( services )</span>
-    </div>
     <div class="services-grid">
       <div class="service-card">
         <div class="service-num-line"><span class="service-num">01</span><div class="service-line"></div></div>
@@ -567,7 +565,6 @@
 
   <!-- ─────── CONTACT ─────── -->
   <section id="contact">
-    <div class="contact-big-title" id="contactBigTitle">( un projet&nbsp;? )</div>
     <div class="contact-inner">
       <div class="contact-left">
         <p class="contact-intro">Un projet en tête ? Parlons-en simplement, sans engagement ni jargon. Que votre idée soit encore en réflexion ou déjà prête, écrivez-nous et voyons ensemble comment lui donner vie.</p>
@@ -591,6 +588,7 @@
         </div>
       </div>
       <div class="contact-right">
+        <p class="contact-section-title">Contact</p>
         <form class="contact-form" id="contactForm">
           <div class="form-row">
             <div class="form-field"><input type="text"  name="entreprise" placeholder="nom de l'entreprise*" required /></div>
@@ -751,151 +749,7 @@
       scrollLine.style.width = (window.scrollY / (document.body.scrollHeight - innerHeight) * 100) + '%';
     }, { passive: true });
 
-    /* ── Big titles: auto-fit to container width ── */
-    function fitEl(el, maxPx, mult) {
-      if (!el) return;
-      const parentW = el.parentElement.getBoundingClientRect().width;
-      if (!parentW) return;
-      let lo = 10, hi = maxPx || 600;
-      el.style.whiteSpace = 'nowrap';
-      while (hi - lo > 0.5) {
-        const mid = (lo + hi) / 2;
-        el.style.fontSize = mid + 'px';
-        const range = document.createRange();
-        range.selectNodeContents(el);
-        const textW = range.getBoundingClientRect().width;
-        if (textW <= parentW) lo = mid; else hi = mid;
-      }
-      el.style.fontSize = Math.floor(lo * (mult ?? 0.94)) + 'px';
-    }
-    async function fitTitles() {
-      await document.fonts.ready;
-      const heroEl = document.getElementById('heroBigTitle');
-      if (window.innerWidth <= 768 && heroEl) {
-        // Deux lignes : on calibre sur le mot le plus large
-        const saved = heroEl.textContent;
-        heroEl.textContent = 'CRÉATIVE';
-        fitEl(heroEl, 800, 1.0);
-        heroEl.textContent = saved;
-        heroEl.style.whiteSpace = 'normal';
-        fitEl(document.getElementById('servicesBigTitle'), 300, 0.83);
-        fitEl(document.getElementById('contactBigTitle'), 300, 0.80);
-      } else {
-        fitEl(document.getElementById('servicesBigTitle'), 600);
-        fitEl(document.getElementById('contactBigTitle'), 600);
-      }
-    }
-    fitTitles();
-    let _fitTimer;
-    window.addEventListener('resize', () => { clearTimeout(_fitTimer); _fitTimer = setTimeout(fitTitles, 120); });
 
-    /* ── Morphing titres ── */
-    (function () {
-      // SVG filter global dans le body — style inline, jamais class="hidden"
-      const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svgEl.setAttribute('aria-hidden', 'true');
-      svgEl.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;';
-      svgEl.innerHTML = `<defs>
-        <filter id="threshold" color-interpolation-filters="sRGB"
-                x="0" y="0" width="100%" height="100%">
-          <feColorMatrix in="SourceGraphic" type="matrix" result="out"
-            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/>
-        </filter>
-      </defs>`;
-      document.body.appendChild(svgEl);
-
-      function mount(elId, texts, align, mt, cd) {
-        const el = document.getElementById(elId);
-        if (!el || !texts.length) return null;
-        const ta = align || 'center';
-        const MT = mt || 1.5, CD = cd !== undefined ? cd : 0.5;
-        const origText = el.textContent.trim();
-        const cs = getComputedStyle(el);
-        const pt = cs.paddingTop, pb = cs.paddingBottom;
-
-        el.textContent = '';
-        el.style.paddingTop = '0'; el.style.paddingBottom = '0';
-        el.style.position = 'relative'; el.style.display = 'block'; el.style.overflow = 'visible';
-        el.style.filter = 'url(#threshold)';
-        el.style.background = 'transparent';
-        el.style.webkitBackgroundClip = 'unset';
-
-        const anchor = document.createElement('span');
-        anchor.style.cssText = `display:block;visibility:hidden;white-space:nowrap;text-align:${ta};padding-top:${pt};padding-bottom:${pb};`;
-        anchor.textContent = origText;
-
-        const s1 = document.createElement('span');
-        const s2 = document.createElement('span');
-        const sCSS = `position:absolute;left:0;right:0;top:${pt};display:block;white-space:nowrap;text-align:${ta};background-color:transparent;`;
-        s1.style.cssText = sCSS; s2.style.cssText = sCSS;
-        el.appendChild(anchor); el.appendChild(s1); el.appendChild(s2);
-
-        let idx = 0, morph = 0, cooldown = 0, last = Date.now(), paused = false;
-
-        function setStyles(f) {
-          const inv = 1 - f;
-          const blur2 = f < 0.001 ? 0 : Math.min(8 / f - 8, 40);
-          const blur1 = inv < 0.001 ? 0 : Math.min(8 / inv - 8, 40);
-          s2.style.filter  = blur2 > 0 ? `blur(${blur2}px)` : 'none';
-          s2.style.opacity = Math.pow(f, 0.4);
-          s1.style.filter  = blur1 > 0 ? `blur(${blur1}px)` : 'none';
-          s1.style.opacity = Math.pow(inv, 0.4);
-          s1.textContent   = texts[idx % texts.length];
-          s2.textContent   = texts[(idx + 1) % texts.length];
-        }
-
-        function doCooldown() {
-          morph = 0;
-          s2.style.filter = 'none'; s2.style.opacity = '1';
-          s1.style.filter = 'none'; s1.style.opacity = '0';
-          s2.textContent = texts[idx % texts.length];
-          s1.textContent = texts[(idx + 1) % texts.length];
-        }
-
-        function tick() {
-          requestAnimationFrame(tick);
-          if (paused) return;
-          const now = Date.now(), dt = (now - last) / 1000; last = now;
-          cooldown -= dt;
-          if (cooldown <= 0) {
-            morph -= cooldown; cooldown = 0;
-            let f = morph / MT;
-            if (f > 1) { cooldown = CD; morph = 0; f = 1; }
-            setStyles(f);
-            if (f === 1) idx++;
-          } else { doCooldown(); }
-        }
-        tick();
-
-        return {
-          reset() { idx = 0; morph = 0; cooldown = 0; last = Date.now(); paused = false; },
-          pause() { paused = true; },
-        };
-      }
-
-      const titleAPIs = {};
-      document.fonts.ready.then(() => {
-        titleAPIs.services = mount('servicesBigTitle',
-          ['( services )', '( direction )', '( affiches )', '( identité )']);
-        titleAPIs.contact = mount('contactBigTitle',
-          ['( un projet ? )', '( créer ? )', '( rêver ? )', '( oser ? )']);
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            const id = entry.target.id;
-            const key = id === 'servicesBigTitle' ? 'services'
-                      : id === 'contactBigTitle'  ? 'contact'
-                      : null;
-            if (!key) return;
-            if (entry.isIntersecting) { if (titleAPIs[key]) titleAPIs[key].reset(); }
-            else                      { if (titleAPIs[key]) titleAPIs[key].pause(); }
-          });
-        }, { threshold: 0.2 });
-        ['servicesBigTitle', 'contactBigTitle'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) io.observe(el);
-        });
-      });
-    })();
 
     /* ── About typewriter ── */
     (function() {
