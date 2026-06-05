@@ -139,7 +139,7 @@
     #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.65); transition: color .35s, background .4s, border-color .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--light); }
     #main-nav.is-scrolled { background: #111111; border-color: rgba(255,255,255,0.22); }
     #main-nav.is-scrolled.over-dark { border-color: rgba(255,255,255,0.22); }
-    .nav-logo-img { height: 14px; width: auto; display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+    .nav-logo-img { height: 14px; width: auto; display: block; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
     .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: 1; transition: opacity .2s, font-style .15s, font-weight .1s; }
     .nav-links li a:hover { opacity: .6; font-style: italic; font-weight: 500; }
@@ -340,8 +340,8 @@
     @media (max-width: 768px) {
       #main-nav { padding: 10px 20px; top: 8px; left: 10px; right: 10px; opacity: 1; pointer-events: auto; }
       .hero-big-title { display: none; }
-      .nav-links, .nav-cta { display: none; }
-      .nav-logo-img { height: 14px; }
+      .nav-links { display: none; }
+      .nav-logo-img { display: none; }
       .nav-email { display: flex; align-items: center; }
       .burger { display: flex; margin-left: auto; }
       /* Nav transparent quand le menu blanc est ouvert */
@@ -421,7 +421,6 @@
       <li><a href="#contact"  data-target="contact">Contact</a></li>
     </ul>
     <img src="logo-whitze.svg" alt="Orae" class="nav-logo-img" id="navLogo" decoding="async" />
-    <a href="#contact" class="nav-cta">Discutons de votre projet</a>
     <button class="burger" id="burgerBtn" aria-label="Menu" style="color:var(--light)"><span></span><span></span><span></span></button>
   </nav>
 
