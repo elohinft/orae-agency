@@ -342,7 +342,7 @@
     /* ─────── CONTACT ─────── */
     #contact { background: var(--dark); color: var(--light); overflow: hidden; margin-top: -2px; }
     .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; padding: 80px 52px 140px; align-items: start; }
-    .contact-section-title { font-family: var(--heavy); font-weight: 700; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--light); opacity: .45; margin-bottom: 32px; }
+    .contact-section-title { font-family: var(--heavy); font-weight: 700; font-size: 80px; letter-spacing: -0.02em; text-transform: uppercase; color: var(--light); white-space: nowrap; display: block; margin-bottom: 52px; line-height: 1; }
     .contact-intro { font-family: var(--urban); font-size: 14px; font-weight: 400; line-height: 1.85; color: var(--light); opacity: .65; max-width: 320px; margin-bottom: 52px; }
     .contact-info { display: flex; flex-direction: column; gap: 24px; }
     .contact-info-item { display: flex; flex-direction: column; gap: 4px; }
@@ -734,6 +734,27 @@
     }
     updateNav();
     window.addEventListener('scroll', updateNav, { passive: true });
+
+    /* ── Contact title : fit à la largeur du formulaire ── */
+    (function() {
+      function fitContactTitle() {
+        const title = document.querySelector('.contact-section-title');
+        const form  = document.querySelector('.contact-form');
+        if (!title || !form) return;
+        const maxW = form.offsetWidth;
+        if (!maxW) return;
+        let lo = 10, hi = 300;
+        title.style.whiteSpace = 'nowrap';
+        while (hi - lo > 0.5) {
+          const mid = (lo + hi) / 2;
+          title.style.fontSize = mid + 'px';
+          if (title.scrollWidth <= maxW) lo = mid; else hi = mid;
+        }
+        title.style.fontSize = Math.floor(lo) + 'px';
+      }
+      document.fonts.ready.then(fitContactTitle);
+      window.addEventListener('resize', fitContactTitle);
+    })();
 
     /* ── Nav over dark sections ── */
     const navHeight = 60;
