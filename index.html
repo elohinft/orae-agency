@@ -345,6 +345,9 @@
 
     /* ─────── FOOTER ─────── */
     footer { background: var(--dark-bg); color: var(--light); overflow: hidden; padding: 0; }
+    .footer-center { display: none; }
+    .footer-center a { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--light); opacity: .55; transition: opacity .2s; }
+    .footer-center a:hover { opacity: .85; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; padding: 44px 52px 36px; }
     .footer-left { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
     .footer-left span, .footer-left a { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; opacity: .4; color: var(--light); transition: opacity .2s; }
@@ -354,49 +357,63 @@
 
     /* ─────── RESPONSIVE ─────── */
     @media (max-width: 768px) {
+      /* ── NAV ── */
       #main-nav { padding: 10px 20px; top: 8px; left: 10px; right: 10px; opacity: 1; pointer-events: auto; }
       .nav-links { display: none; }
-      .nav-logo-img { display: none; }
+      .nav-logo-img { display: block; }
       .nav-email { display: flex; align-items: center; }
-      .burger { display: flex; margin-left: auto; }
-      /* Nav transparent quand le menu blanc est ouvert */
+      .burger { display: flex; margin-left: 0; }
       #main-nav.menu-open { opacity: 1 !important; pointer-events: auto !important; background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-color: transparent !important; }
       #main-nav.menu-open .burger { color: var(--dark) !important; }
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
+      /* ── HERO ── */
       #hero { height: 100svh; min-height: 100svh; }
       .hero-content { padding-left: 6%; padding-right: 6%; }
       .hero-title { font-size: clamp(64px, 18vw, 100px); }
+      .hero-eyebrow { font-size: 8px; gap: 4px; }
+      .hero-montpellier { font-size: 8px; letter-spacing: 0.12em; }
+      .hero-eyebrow-dash { min-width: 10px; }
       .hero-bar { padding: 14px 20px; }
       .hero-bar span, .hero-bar a { font-size: 8px; letter-spacing: 0.12em; }
-      .services-big-title { line-height: 1; padding: 0.3em 0 0.4em; }
-      .contact-big-title { padding: 0.3em 0 0.4em; }
-      .about-cols { margin-bottom: 52px; }
-      .about-big-text { font-size: clamp(17px, 4.5vw, 24px); max-width: 100%; }
 
+      /* ── ABOUT SCROLLER : 3 colonnes ── */
       #about { height: 60vh; }
-      #about-text { padding: 80px 0; }
-      .about-big-text { font-size: clamp(14px, 4vw, 16px); max-width: none; }
-      .contact-inner { grid-template-columns: 1fr; padding: 52px 24px 80px; gap: 48px; }
+      .about-scroller-col:nth-child(3) { display: flex; margin-top: -45px; }
+      .about-scroller-col:nth-child(4) { display: none; }
+      .about-scroller-col:nth-child(1) { animation-duration: 18s; }
+      .about-scroller-col:nth-child(2) { margin-top: -60px; animation-duration: 22s; }
 
-      #services { padding-top: 60px; padding-bottom: 100px; }
-      .services-grid { grid-template-columns: 1fr; row-gap: 72px; padding: 60px 24px 0; }
+      /* ── ABOUT TEXTE ── */
+      #about-text { padding: 72px 32px; }
+      .about-big-text { font-size: 12px; line-height: 1.45; max-width: none; }
+      .about-big-text p + p { margin-top: 1.1em; }
+
+      /* ── SERVICES ── */
+      #services { padding: 60px 24px 100px; }
+      .services-grid { grid-template-columns: 1fr; row-gap: 64px; padding: 48px 0 0; }
       .service-name { font-size: 8.5vw; }
+      .service-desc { font-size: 12px; line-height: 1.45; }
 
+      /* ── STEPS ── */
       #steps { padding: 72px 24px 120px; overflow: visible; }
       .step-item { gap: 16px; align-items: center; }
       .step-num { font-size: 18vw; overflow: visible; }
       .digit-wrapper { height: 1.08em; }
       .digit-reel { margin-top: 5px; }
       .step-text-wrap { padding-top: 0; }
+      .step-desc { font-size: 12px; line-height: 1.45; }
 
+      /* ── CONTACT ── */
       .contact-inner { grid-template-columns: 1fr; padding: 60px 24px 100px; gap: 64px; }
       .contact-right { order: -1; }
       .form-row { flex-direction: column; gap: 24px; margin-bottom: 24px; }
 
-
-      .footer-top { flex-direction: column; gap: 28px; padding: 52px 24px; }
-      .footer-right { align-items: flex-end; text-align: right; width: 100%; }
+      /* ── FOOTER ── */
+      .footer-top { flex-direction: row; justify-content: space-between; align-items: flex-start; padding: 40px 20px; gap: 0; }
+      .footer-center { display: flex; flex-direction: column; align-items: center; }
+      .footer-right { align-items: flex-end; text-align: right; }
+      .footer-right-email { display: none; }
     }
   </style>
 </head>
@@ -605,8 +622,11 @@
         <span>Montpellier, France</span>
         <a href="#">Mentions légales</a>
       </div>
-      <div class="footer-right">
+      <div class="footer-center">
         <a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a>
+      </div>
+      <div class="footer-right">
+        <a href="mailto:orae.agency@gmail.com" class="footer-right-email">orae.agency@gmail.com</a>
         <a href="tel:+33611252584">[06 11 25 25 84]</a>
         <a href="https://instagram.com/orae_agency" target="_blank">Instagram</a>
         <a href="https://www.linkedin.com/company/orae-agency" target="_blank">LinkedIn</a>

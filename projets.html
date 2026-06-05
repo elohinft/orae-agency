@@ -305,18 +305,21 @@
     @media (max-width: 768px) {
       #main-nav { padding: 10px 20px; top: 8px; left: 10px; right: 10px; }
       .nav-links { display: none; }
-      .nav-logo-link { display: none; }
+      .nav-logo-link { display: block; }
       .nav-email { display: flex; align-items: center; }
-      .burger { display: flex; margin-left: auto; }
+      .burger { display: flex; margin-left: 0; }
       #main-nav.menu-open { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-color: transparent !important; }
       #main-nav.menu-open .burger { color: var(--dark) !important; }
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
 
-      .proj-display-title span { font-size: 80px; }
-      .proj-label { width: 90px; padding-top: 8px; }
-      .proj-label-top, .proj-label-year { font-size: 11px; }
-      .proj-bar { height: 150px; margin: 0 18px; }
+      .proj-hero { padding-top: 50px; overflow: hidden; }
+      .proj-hero-inner { margin-left: 0; }
+      .proj-display-title span { font-size: 65px; }
+      .proj-label { width: 62px; padding-top: 6px; }
+      .proj-label-top { font-size: 9px; letter-spacing: 0.18em; }
+      .proj-label-year { font-size: 9px; letter-spacing: 0.09em; }
+      .proj-bar { height: 90px; margin: 0 14px; }
       .proj-scroller-section { padding-bottom: 80px; }
       .proj-scroller { height: 320vh; padding: 0 8px 0; gap: 6px; }
       .scroller-col:nth-child(3) { display: none; }
