@@ -306,26 +306,8 @@
     /* Z-layout : items pairs inversés */
     .step-item:nth-child(even) { flex-direction: row-reverse; }
     /* Slot machine numbers */
-    .step-num {
-      font-family: var(--inter); font-size: clamp(80px, 14vw, 180px); font-weight: 900;
-      line-height: 1; letter-spacing: -0.04em; color: var(--dark);
-      display: flex; flex-shrink: 0;
-    }
-    .digit-wrapper {
-      height: 1em;
-      overflow: hidden;
-      display: block;
-    }
-    .digit-reel {
-      display: flex;
-      flex-direction: column;
-      will-change: transform;
-    }
-    .digit-reel span {
-      display: block;
-      line-height: 1;
-      text-align: center;
-    }
+    .step-num { display: flex; flex-shrink: 0; align-items: center; line-height: 0; }
+    .step-num canvas { image-rendering: pixelated; display: block; }
     .step-text-wrap { padding-top: 36px; opacity: 0; transform: translateX(20px); transition: opacity .6s ease, transform .6s ease; }
     .step-item:nth-child(even) .step-text-wrap { transform: translateX(-20px); }
     .step-item.visible .step-text-wrap { opacity: .82; transform: translateX(0); }
@@ -828,67 +810,142 @@
       });
     })();
 
-    /* ── Steps: slot-machine numbers ── */
+    /* ── Steps: pixel stipple canvas numbers ── */
     (function() {
+      const DIGIT_MAPS = {
+        0: ['011110','100001','100001','100001','100001','100001','011110'],
+        1: ['001100','011100','001100','001100','001100','001100','111111'],
+        2: ['011110','100001','000001','001110','010000','100000','111111'],
+        3: ['111110','000001','000001','011110','000001','000001','111110'],
+        4: ['000010','000110','001010','010010','111111','000010','000010'],
+        5: ['111111','100000','100000','111110','000001','100001','011110'],
+        6: ['011110','100000','100000','111110','100001','100001','011110'],
+        7: ['111111','000001','000010','000100','001000','010000','100000'],
+        8: ['011110','100001','100001','011110','100001','100001','011110'],
+        9: ['011110','100001','100001','011111','000001','000001','011110'],
+      };
+
+      const PIX  = 5;
+      const COLS = 6, ROWS = 7;
+      const DW   = COLS * PIX;  // 30px
+      const DH   = ROWS * PIX;  // 35px
+      const DGAP = PIX;          // 5px between digits
+      const R = 30, G = 29, B = 31; // #1E1D1F
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
       const steps = document.querySelectorAll('.step-item');
 
       steps.forEach(item => {
         const numEl = item.querySelector('.step-num');
         if (!numEl) return;
-        const digits = numEl.textContent.trim().split('');
-        numEl.textContent = '';
+        const targetDigits = numEl.textContent.trim().split('').map(Number);
+        const ND = targetDigits.length;
+        const CW = ND * DW + (ND - 1) * DGAP;
+        const CH = DH;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-        digits.forEach(targetDigit => {
-          const target  = parseInt(targetDigit, 10);
-          const wrapper = document.createElement('span');
-          wrapper.className = 'digit-wrapper';
-          const reel = document.createElement('span');
-          reel.className = 'digit-reel';
-          for (let i = 0; i < 21; i++) {
-            const s = document.createElement('span');
-            s.textContent = i < 20 ? (i % 10) : target;
-            reel.appendChild(s);
+        const canvas = document.createElement('canvas');
+        canvas.width  = CW * dpr;
+        canvas.height = CH * dpr;
+
+        function resize() {
+          const h = Math.max(80, Math.min(180, window.innerWidth * 0.14));
+          canvas.style.height = h + 'px';
+          canvas.style.width  = (CW / CH * h) + 'px';
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        numEl.textContent = '';
+        numEl.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+
+        const offsets = targetDigits.map(() => 0);
+        let spinning = false;
+
+        function draw() {
+          ctx.clearRect(0, 0, CW, CH);
+          ctx.save();
+          ctx.beginPath(); ctx.rect(0, 0, CW, CH); ctx.clip();
+
+          offsets.forEach((off, di) => {
+            const ox   = di * (DW + DGAP);
+            const frac = off - Math.floor(off);
+
+            for (let d = -2; d <= 2; d++) {
+              const digVal = ((Math.floor(off) + d) % 10 + 10) % 10;
+              const oy     = d * DH - frac * DH;
+              const dist   = Math.abs(d - frac);
+              const alpha  = dist < 0.5 ? 1 :
+                             dist < 1.5 ? 1 - (dist - 0.5) :
+                             Math.max(0, 0.15 - (dist - 1.5) * 0.15);
+              if (alpha <= 0) continue;
+              ctx.fillStyle = `rgba(${R},${G},${B},${alpha})`;
+              const map = DIGIT_MAPS[digVal];
+              for (let row = 0; row < ROWS; row++) {
+                const py = oy + row * PIX;
+                if (py + PIX <= 0 || py >= CH) continue;
+                for (let col = 0; col < COLS; col++) {
+                  if (map[row][col] === '1')
+                    ctx.fillRect(ox + col * PIX, py, PIX - 1, PIX - 1);
+                }
+              }
+            }
+          });
+          ctx.restore();
+        }
+
+        function spin() {
+          if (spinning) return;
+          spinning = true;
+          offsets.fill(0);
+          const targetOffsets = targetDigits.map(t => 20 + t);
+          const t0 = performance.now();
+          const DURATION = 1300;
+
+          function tick(now) {
+            let done = true;
+            targetDigits.forEach((_, di) => {
+              const elapsed = now - t0 - di * 80;
+              if (elapsed <= 0) { done = false; return; }
+              const t = Math.min(elapsed / DURATION, 1);
+              offsets[di] = targetOffsets[di] * easeOut(t);
+              if (t < 1) done = false;
+            });
+            draw();
+            if (!done) requestAnimationFrame(tick);
+            else {
+              targetDigits.forEach((_, di) => { offsets[di] = targetOffsets[di]; });
+              draw();
+              spinning = false;
+            }
           }
-          wrapper.appendChild(reel);
-          numEl.appendChild(wrapper);
-        });
+          requestAnimationFrame(tick);
+        }
+
+        draw();
+        item._pixelSpin = spin;
       });
 
-      function spinItem(item) {
-        item.querySelectorAll('.digit-reel').forEach((reel, di) => {
-          reel.style.transition = 'none';
-          reel.style.transform  = 'translateY(0)';
-          reel.getBoundingClientRect();
-          setTimeout(() => {
-            reel.style.transition = 'transform 1.3s cubic-bezier(0.22,1,0.36,1)';
-            reel.style.transform  = 'translateY(-20em)';
-          }, di * 80);
-        });
-      }
-
-      // Rejoue à chaque retour dans le viewport + retire .visible pour ré-animer le texte
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (!entry.isIntersecting) {
-            entry.target.classList.remove('visible');
-            return;
-          }
+          if (!entry.isIntersecting) { entry.target.classList.remove('visible'); return; }
           entry.target.classList.add('visible');
-          spinItem(entry.target);
+          if (entry.target._pixelSpin) entry.target._pixelSpin();
         });
       }, { threshold: 0.3 });
       steps.forEach(item => io.observe(item));
 
-      // Hover (souris) + tap (mobile) : spin + highlight
       steps.forEach((step, i) => {
         step.addEventListener('mouseenter', () => {
-          spinItem(step);
+          if (step._pixelSpin) step._pixelSpin();
           steps.forEach((s, j) => { if (j !== i) s.style.opacity = '.25'; });
         });
-        step.addEventListener('mouseleave', () => {
-          steps.forEach(s => s.style.opacity = '');
-        });
-        step.addEventListener('touchstart', () => spinItem(step), { passive: true });
+        step.addEventListener('mouseleave', () => steps.forEach(s => s.style.opacity = ''));
+        step.addEventListener('touchstart', () => { if (step._pixelSpin) step._pixelSpin(); }, { passive: true });
       });
     })();
 
