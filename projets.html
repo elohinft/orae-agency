@@ -146,11 +146,97 @@
     .mm-logo-wrap { line-height: 0; overflow: hidden; }
     .mm-logo-big { display: block; width: 108%; margin-left: -2%; }
 
-    /* ── PROJ HERO ── */
+    /* ── PROJ TITLE HERO ── */
     .proj-hero {
       position: relative;
+      min-height: 100vh;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .proj-hero-inner {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .proj-label {
+      width: 120px;
+      text-align: right;
       display: flex;
       flex-direction: column;
+      gap: 5px;
+      padding-top: 12px;
+      opacity: 0;
+      animation: heroFadeIn 0.4s ease-out 0s forwards;
+    }
+
+    .proj-label-top {
+      font-family: 'Chillax', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.3;
+    }
+
+    .proj-label-year {
+      font-family: 'Chillax', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.3;
+    }
+
+    .proj-bar {
+      width: 1px;
+      height: 220px;
+      background: rgba(255,255,255,0.6);
+      margin: 0 28px;
+      flex-shrink: 0;
+      transform-origin: top center;
+      transform: scaleY(0);
+      animation: heroScaleY 0.5s ease-out 0.2s forwards;
+    }
+
+    .proj-display-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 0.88;
+    }
+
+    .proj-display-title span {
+      display: block;
+      font-family: 'Lunchtype', sans-serif;
+      font-weight: 700;
+      font-size: 150px;
+      text-transform: uppercase;
+      color: #e8e6f0;
+      line-height: 0.88;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .proj-display-title span:nth-child(1) { animation: heroFadeUp 0.5s ease-out 0.4s forwards; }
+    .proj-display-title span:nth-child(2) { animation: heroFadeUp 0.5s ease-out 0.55s forwards; }
+    .proj-display-title span:nth-child(3) { animation: heroFadeUp 0.5s ease-out 0.7s forwards; }
+
+    @keyframes heroFadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes heroFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroScaleY {
+      to { transform: scaleY(1); }
+    }
+
+    /* ── PROJ SCROLLER SECTION ── */
+    .proj-scroller-section {
+      position: relative;
       overflow-x: hidden;
       background: var(--dark);
       padding-bottom: 100px;
@@ -221,8 +307,12 @@
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
 
+      .proj-display-title span { font-size: 80px; }
+      .proj-label { width: 90px; padding-top: 8px; }
+      .proj-label-top, .proj-label-year { font-size: 11px; }
+      .proj-bar { height: 150px; margin: 0 18px; }
+      .proj-scroller-section { padding-bottom: 80px; }
       .proj-scroller { height: 320vh; padding: 0 8px 0; gap: 6px; }
-      .proj-hero { padding-bottom: 80px; }
       .scroller-col:nth-child(3) { display: none; }
       .scroller-col:nth-child(4) { display: none; }
       .scroller-col:nth-child(1) { animation-duration: 18s; }
@@ -282,6 +372,21 @@
       <a href="/" class="nav-logo-link"><img src="/logo-whitze.svg" alt="Orae" class="nav-logo-img" id="navLogo" /></a>
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
+    <div class="proj-hero-inner">
+      <div class="proj-label">
+        <span class="proj-label-top">Projets</span>
+        <span class="proj-label-year">2022–2026</span>
+      </div>
+      <div class="proj-bar"></div>
+      <div class="proj-display-title">
+        <span>PORT</span>
+        <span>FO</span>
+        <span>LIO</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-scroller-section">
     <div class="proj-scroller" id="projScroller">
       <div class="scroller-col"></div>
       <div class="scroller-col"></div>
