@@ -1130,46 +1130,67 @@
     if (!line1 || !line2) return;
 
     const target = 'DESIGN STUDIO';
-    const pool   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const total  = target.length;
-    const speed  = 60;
-    const hold   = 9;
-    let frame = 0;
+    const pool  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const total = target.length;
+    const speed = 60;
+    const hold  = 9;
+    let iv      = null;
 
-    document.fonts.ready.then(function() {
-      /* Verrouille la largeur de chaque span sur sa valeur finale
-         pour que MONTPELLIER reste aligné pendant tout le scramble */
-      var w1 = line1.getBoundingClientRect().width;
-      var w2 = line2.getBoundingClientRect().width;
-      line1.style.cssText += ';display:inline-block;width:' + w1 + 'px;overflow-x:hidden;overflow-y:visible';
-      line2.style.cssText += ';display:inline-block;width:' + w2 + 'px;overflow-x:hidden;overflow-y:visible';
+    function lockSpans(w1, w2) {
+      [line1, line2].forEach(function(el, idx) {
+        var w = idx === 0 ? w1 : w2;
+        el.style.display    = 'inline-block';
+        el.style.width      = w + 'px';
+        el.style.overflowX  = 'hidden';
+        el.style.overflowY  = 'visible';
+      });
+    }
 
-      const iv = setInterval(function() {
-        const chars = target.split('').map(function(ch, i) {
+    function unlockSpans() {
+      [line1, line2].forEach(function(el) {
+        el.style.display   = '';
+        el.style.width     = '';
+        el.style.overflowX = '';
+        el.style.overflowY = '';
+      });
+    }
+
+    function runScramble(w1, w2) {
+      if (iv) clearInterval(iv);
+      lockSpans(w1, w2);
+      var frame = 0;
+      iv = setInterval(function() {
+        var chars = target.split('').map(function(ch, i) {
           if (ch === ' ') return ' ';
           if (frame >= i * hold + hold) return ch;
           return pool[Math.floor(Math.random() * pool.length)];
         }).join('');
-
         line1.textContent = chars.slice(0, 6);
         line2.textContent = chars.slice(7);
-
         frame++;
         if (frame >= (total - 1) * hold + hold) {
           line1.textContent = 'DESIGN';
           line2.textContent = 'STUDIO';
-          /* Restitue le display original */
-          line1.style.display    = '';
-          line1.style.width      = '';
-          line1.style.overflowX  = '';
-          line1.style.overflowY  = '';
-          line2.style.display    = '';
-          line2.style.width      = '';
-          line2.style.overflowX  = '';
-          line2.style.overflowY  = '';
+          unlockSpans();
           clearInterval(iv);
+          iv = null;
         }
       }, speed);
+    }
+
+    document.fonts.ready.then(function() {
+      var w1 = line1.getBoundingClientRect().width;
+      var w2 = line2.getBoundingClientRect().width;
+
+      /* Chargement initial */
+      runScramble(w1, w2);
+
+      /* Rejoue au survol de l'un ou l'autre mot */
+      [line1, line2].forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+          runScramble(w1, w2);
+        });
+      });
     });
   })();
   </script>
