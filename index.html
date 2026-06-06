@@ -1127,30 +1127,48 @@
   (function() {
     const line1  = document.querySelector('.hero-title-line1');
     const line2  = document.querySelector('.hero-title-line2');
+    if (!line1 || !line2) return;
+
     const target = 'DESIGN STUDIO';
-    const pool   = 'ABCDEFGHIJKLNOPQRSTUVXYZ';
+    const pool   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const total  = target.length;
     const speed  = 60;
     const hold   = 9;
     let frame = 0;
 
-    const iv = setInterval(() => {
-      const chars = target.split('').map((ch, i) => {
-        if (ch === ' ') return ' ';
-        if (frame >= i * hold + hold) return ch;
-        return pool[Math.floor(Math.random() * pool.length)];
-      }).join('');
+    document.fonts.ready.then(function() {
+      /* Verrouille la largeur de chaque span sur sa valeur finale
+         pour que MONTPELLIER reste aligné pendant tout le scramble */
+      var w1 = line1.getBoundingClientRect().width;
+      var w2 = line2.getBoundingClientRect().width;
+      line1.style.cssText += ';display:inline-block;width:' + w1 + 'px;overflow:hidden';
+      line2.style.cssText += ';display:inline-block;width:' + w2 + 'px;overflow:hidden';
 
-      if (line1) line1.textContent = chars.slice(0, 6);
-      if (line2) line2.textContent = chars.slice(7);
+      const iv = setInterval(function() {
+        const chars = target.split('').map(function(ch, i) {
+          if (ch === ' ') return ' ';
+          if (frame >= i * hold + hold) return ch;
+          return pool[Math.floor(Math.random() * pool.length)];
+        }).join('');
 
-      frame++;
-      if (frame >= (total - 1) * hold + hold) {
-        if (line1) line1.textContent = 'DESIGN';
-        if (line2) line2.textContent = 'STUDIO';
-        clearInterval(iv);
-      }
-    }, speed);
+        line1.textContent = chars.slice(0, 6);
+        line2.textContent = chars.slice(7);
+
+        frame++;
+        if (frame >= (total - 1) * hold + hold) {
+          line1.textContent = 'DESIGN';
+          line2.textContent = 'STUDIO';
+          /* Restitue le display original */
+          line1.style.display = '';
+          line1.style.width   = '';
+          line1.style.overflow = '';
+          line2.style.display = '';
+          line2.style.width   = '';
+          line2.style.overflow = '';
+          clearInterval(iv);
+        }
+      }, speed);
+    });
   })();
   </script>
 
