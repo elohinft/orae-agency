@@ -1125,28 +1125,39 @@
   <script>
   /* ── Scramble hero title ── */
   (function() {
-    const line1  = document.querySelector('.hero-title-line1');
-    const line2  = document.querySelector('.hero-title-line2');
+    var line1 = document.querySelector('.hero-title-line1');
+    var line2 = document.querySelector('.hero-title-line2');
     if (!line1 || !line2) return;
 
-    const target = 'DESIGN STUDIO';
-    const pool  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const total = target.length;
-    const speed = 60;
-    const hold  = 9;
-    let iv      = null;
+    var target = 'DESIGN STUDIO';
+    var pool   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var total  = target.length;
+    var speed  = 60;
+    var hold   = 9;
+    var iv     = null;
 
     function lockSpans(w1, w2) {
       line1.style.width = w1 + 'px';
       line2.style.width = w2 + 'px';
     }
-
     function unlockSpans() {
       line1.style.width = '';
       line2.style.width = '';
     }
 
-    function runScramble(w1, w2) {
+    /* Construit un pool par position : seules les lettres
+       dont la largeur canvas ≤ largeur de la lettre cible */
+    function buildPools(ctx) {
+      return target.split('').map(function(ch) {
+        if (ch === ' ') return null;
+        var maxW = ctx.measureText(ch).width;
+        return pool.split('').filter(function(c) {
+          return ctx.measureText(c).width <= maxW;
+        });
+      });
+    }
+
+    function runScramble(w1, w2, perPosPools) {
       if (iv) clearInterval(iv);
       lockSpans(w1, w2);
       var frame = 0;
@@ -1154,7 +1165,8 @@
         var chars = target.split('').map(function(ch, i) {
           if (ch === ' ') return ' ';
           if (frame >= i * hold + hold) return ch;
-          return pool[Math.floor(Math.random() * pool.length)];
+          var p = perPosPools[i];
+          return p[Math.floor(Math.random() * p.length)];
         }).join('');
         line1.textContent = chars.slice(0, 6);
         line2.textContent = chars.slice(7);
@@ -1173,13 +1185,19 @@
       var w1 = line1.getBoundingClientRect().width;
       var w2 = line2.getBoundingClientRect().width;
 
-      /* Chargement initial */
-      runScramble(w1, w2);
+      /* Canvas pour mesurer les largeurs avec la vraie police */
+      var cvs = document.createElement('canvas');
+      var ctx = cvs.getContext('2d');
+      var cs  = getComputedStyle(line1);
+      ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
 
-      /* Rejoue au survol de l'un ou l'autre mot */
+      var perPosPools = buildPools(ctx);
+
+      runScramble(w1, w2, perPosPools);
+
       [line1, line2].forEach(function(el) {
         el.addEventListener('mouseenter', function() {
-          runScramble(w1, w2);
+          runScramble(w1, w2, perPosPools);
         });
       });
     });
