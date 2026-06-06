@@ -278,13 +278,7 @@
     .gallery-col:last-child { border-right: none; }
     #about:hover .gallery-col { flex-grow: 1; }
     #about .gallery-col:hover { flex-grow: 3.2; }
-    .col-line {
-      position: absolute; left: 50%; top: 12%; bottom: 12%; width: 1px;
-      background: rgba(255,255,255,0.18);
-      transform: translateX(-50%);
-      transition: opacity 0.4s ease; z-index: 2; pointer-events: none;
-    }
-    .gallery-col:hover .col-line { opacity: 0; }
+    .col-line { display: none; }
     .col-slide {
       position: absolute; inset: 0;
       opacity: 0; display: block;
