@@ -1129,27 +1129,13 @@
     var line2 = document.querySelector('.hero-title-line2');
     if (!line1 || !line2) return;
 
-    var target = 'DESIGN STUDIO';
-    var pool   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var total  = target.length;
-    var speed  = 60;
-    var hold   = 9;
-    var iv     = null;
+    var pool  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var speed = 60;
+    var hold  = 9;
 
-    function lockSpans(w1, w2) {
-      line1.style.width = w1 + 'px';
-      line2.style.width = w2 + 'px';
-    }
-    function unlockSpans() {
-      line1.style.width = '';
-      line2.style.width = '';
-    }
-
-    /* Construit un pool par position : seules les lettres
-       dont la largeur canvas ≤ largeur de la lettre cible */
-    function buildPools(ctx) {
-      return target.split('').map(function(ch) {
-        if (ch === ' ') return null;
+    /* Pool par position pour un mot donné */
+    function buildPools(ctx, word) {
+      return word.split('').map(function(ch) {
         var maxW = ctx.measureText(ch).width;
         return pool.split('').filter(function(c) {
           return ctx.measureText(c).width <= maxW;
@@ -1157,49 +1143,45 @@
       });
     }
 
-    function runScramble(w1, w2, perPosPools) {
-      if (iv) clearInterval(iv);
-      lockSpans(w1, w2);
+    /* Scramble d'un seul span / mot */
+    function scrambleWord(el, word, pools) {
+      if (el._iv) clearInterval(el._iv);
+      var locked = el.getBoundingClientRect().width;
+      el.style.width = locked + 'px';
       var frame = 0;
-      iv = setInterval(function() {
-        var chars = target.split('').map(function(ch, i) {
-          if (ch === ' ') return ' ';
+      var total = word.length;
+      el._iv = setInterval(function() {
+        el.textContent = word.split('').map(function(ch, i) {
           if (frame >= i * hold + hold) return ch;
-          var p = perPosPools[i];
+          var p = pools[i];
           return p[Math.floor(Math.random() * p.length)];
         }).join('');
-        line1.textContent = chars.slice(0, 6);
-        line2.textContent = chars.slice(7);
         frame++;
         if (frame >= (total - 1) * hold + hold) {
-          line1.textContent = 'DESIGN';
-          line2.textContent = 'STUDIO';
-          unlockSpans();
-          clearInterval(iv);
-          iv = null;
+          el.textContent  = word;
+          el.style.width  = '';
+          clearInterval(el._iv);
+          el._iv = null;
         }
       }, speed);
     }
 
     document.fonts.ready.then(function() {
-      var w1 = line1.getBoundingClientRect().width;
-      var w2 = line2.getBoundingClientRect().width;
-
-      /* Canvas pour mesurer les largeurs avec la vraie police */
       var cvs = document.createElement('canvas');
       var ctx = cvs.getContext('2d');
       var cs  = getComputedStyle(line1);
       ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
 
-      var perPosPools = buildPools(ctx);
+      var pools1 = buildPools(ctx, 'DESIGN');
+      var pools2 = buildPools(ctx, 'STUDIO');
 
-      runScramble(w1, w2, perPosPools);
+      /* Chargement : les deux */
+      scrambleWord(line1, 'DESIGN', pools1);
+      scrambleWord(line2, 'STUDIO', pools2);
 
-      [line1, line2].forEach(function(el) {
-        el.addEventListener('mouseenter', function() {
-          runScramble(w1, w2, perPosPools);
-        });
-      });
+      /* Hover : uniquement le mot survolé */
+      line1.addEventListener('mouseenter', function() { scrambleWord(line1, 'DESIGN', pools1); });
+      line2.addEventListener('mouseenter', function() { scrambleWord(line2, 'STUDIO', pools2); });
     });
   })();
   </script>
