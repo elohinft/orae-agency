@@ -287,7 +287,7 @@
     .gallery-col:hover .col-line { opacity: 0; }
     .col-slide {
       position: absolute; inset: 0;
-      opacity: 0;
+      opacity: 0; display: block;
       transform: scale(1.1);
       transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
       object-fit: cover; width: 100%; height: 100%;
@@ -511,33 +511,33 @@
   <section id="about">
     <div class="gallery-col">
       <span class="col-line" aria-hidden="true"></span>
-      <div class="col-slide active" style="background:#1a0a2e"></div>
-      <div class="col-slide" style="background:#2d1050"></div>
-      <div class="col-slide" style="background:#0f0620"></div>
+      <img class="col-slide active" src="/images/norway.webp"          alt="" draggable="false" loading="eager">
+      <img class="col-slide"        src="/images/affiche-oxytocin.webp" alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/egm.webp"             alt="" draggable="false" loading="lazy">
     </div>
     <div class="gallery-col">
       <span class="col-line" aria-hidden="true"></span>
-      <div class="col-slide active" style="background:#0d0d0d"></div>
-      <div class="col-slide" style="background:#181818"></div>
-      <div class="col-slide" style="background:#080808"></div>
+      <img class="col-slide active" src="/images/timereflection.webp"  alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/affiche-chrys.webp"   alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/logom.webp"           alt="" draggable="false" loading="lazy">
     </div>
     <div class="gallery-col">
       <span class="col-line" aria-hidden="true"></span>
-      <div class="col-slide active" style="background:#0a1f0f"></div>
-      <div class="col-slide" style="background:#0d2e14"></div>
-      <div class="col-slide" style="background:#061208"></div>
+      <img class="col-slide active" src="/images/breath.webp"          alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/affiche-goth.webp"    alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/reborn.webp"          alt="" draggable="false" loading="lazy">
     </div>
     <div class="gallery-col">
       <span class="col-line" aria-hidden="true"></span>
-      <div class="col-slide active" style="background:#1f0a0a"></div>
-      <div class="col-slide" style="background:#2e0e0e"></div>
-      <div class="col-slide" style="background:#120606"></div>
+      <img class="col-slide active" src="/images/blackpixel.webp"      alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/jap.webp"             alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/drop3d.webp"          alt="" draggable="false" loading="lazy">
     </div>
     <div class="gallery-col">
       <span class="col-line" aria-hidden="true"></span>
-      <div class="col-slide active" style="background:#0a0f1f"></div>
-      <div class="col-slide" style="background:#0e162e"></div>
-      <div class="col-slide" style="background:#06080f"></div>
+      <img class="col-slide active" src="/images/technight.webp"       alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/Rmousse.webp"         alt="" draggable="false" loading="lazy">
+      <img class="col-slide"        src="/images/reborn.webp"          alt="" draggable="false" loading="lazy">
     </div>
     <a href="/projets.html" class="gallery-cta">voir le portfolio →</a>
   </section>
