@@ -398,6 +398,8 @@
       /* ── ABOUT GALERIE ── */
       #about { height: 60vh; }
       .gallery-cta { bottom: 16px; right: 20px; }
+      .gallery-col:hover { flex: 1; }
+      .gallery-col.expanded { flex: 3.2; }
 
       /* ── ABOUT TEXTE ── */
       #about-text { padding: 72px 32px; }
@@ -697,9 +699,11 @@
     /* ── Désactive clic droit sur toutes les images ── */
     document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
-    /* ── Galerie accordion — image cycling ── */
+    /* ── Galerie accordion — image cycling + tap mobile ── */
     (function() {
       const cols = document.querySelectorAll('#about .gallery-col');
+
+      // Image cycling
       cols.forEach(function(col, i) {
         const slides = col.querySelectorAll('.col-slide');
         if (slides.length < 2) return;
@@ -711,6 +715,17 @@
         }
         setTimeout(function() { setInterval(cycle, 1000); }, i * 280);
       });
+
+      // Tap to expand on touch devices
+      if (window.matchMedia('(pointer: coarse)').matches) {
+        cols.forEach(function(col) {
+          col.addEventListener('click', function() {
+            const already = col.classList.contains('expanded');
+            cols.forEach(function(c) { c.classList.remove('expanded'); });
+            if (!already) col.classList.add('expanded');
+          });
+        });
+      }
     })();
 
     /* ── Cursor ── */
