@@ -1122,6 +1122,37 @@
       });
     })();
   </script>
+  <script>
+    /* ── Scramble hero title ── */
+    (function () {
+      var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+      function scramble(el, target, startDelay) {
+        setTimeout(function () {
+          var iter = 0;
+          var maxIter = target.replace(/ /g, '').length * 5;
+          var iv = setInterval(function () {
+            el.textContent = target.split('').map(function (ch, i) {
+              if (ch === ' ') return ' ';
+              if (i < Math.floor(iter / 5)) return ch;
+              return CHARS[Math.floor(Math.random() * CHARS.length)];
+            }).join('');
+            if (++iter > maxIter) {
+              el.textContent = target;
+              clearInterval(iv);
+            }
+          }, 40);
+        }, startDelay);
+      }
+
+      /* line1 visible à ~800ms (delay 0.3s + durée 0.5s)
+         line2 visible à ~1000ms (delay 0.5s + durée 0.5s) */
+      var line1 = document.querySelector('.hero-title-line1');
+      var line2 = document.querySelector('.hero-title-line2');
+      if (line1) scramble(line1, 'DESIGN', 800);
+      if (line2) scramble(line2, 'STUDIO', 1000);
+    })();
+  </script>
 
 </body>
 </html>
