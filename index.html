@@ -1137,22 +1137,13 @@
     let iv      = null;
 
     function lockSpans(w1, w2) {
-      [line1, line2].forEach(function(el, idx) {
-        var w = idx === 0 ? w1 : w2;
-        el.style.display    = 'inline-block';
-        el.style.width      = w + 'px';
-        el.style.overflowX  = 'hidden';
-        el.style.overflowY  = 'visible';
-      });
+      line1.style.width = w1 + 'px';
+      line2.style.width = w2 + 'px';
     }
 
     function unlockSpans() {
-      [line1, line2].forEach(function(el) {
-        el.style.display   = '';
-        el.style.width     = '';
-        el.style.overflowX = '';
-        el.style.overflowY = '';
-      });
+      line1.style.width = '';
+      line2.style.width = '';
     }
 
     function runScramble(w1, w2) {
