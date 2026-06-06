@@ -282,7 +282,7 @@
       position: absolute; inset: 0;
       opacity: 0; display: block;
       transform: scale(1.1);
-      transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
+      transition: opacity 0.8s ease, transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
       object-fit: cover; width: 100%; height: 100%;
     }
     .col-slide.active { opacity: 1; }
@@ -525,7 +525,6 @@
       <span class="col-line" aria-hidden="true"></span>
       <img class="col-slide active" src="/images/technight.webp"       alt="" draggable="false" loading="lazy">
       <img class="col-slide"        src="/images/Rmousse.webp"         alt="" draggable="false" loading="lazy">
-      <img class="col-slide"        src="/images/reborn.webp"          alt="" draggable="false" loading="lazy">
     </div>
   </section>
 
@@ -713,7 +712,7 @@
           cur = (cur + 1) % slides.length;
           slides[cur].classList.add('active');
         }
-        setTimeout(function() { setInterval(cycle, 1000); }, i * 280);
+        setTimeout(function() { setInterval(cycle, 2500); }, i * 600);
       });
 
       // Tap to expand on touch devices
