@@ -1141,8 +1141,8 @@
          pour que MONTPELLIER reste aligné pendant tout le scramble */
       var w1 = line1.getBoundingClientRect().width;
       var w2 = line2.getBoundingClientRect().width;
-      line1.style.cssText += ';display:inline-block;width:' + w1 + 'px;overflow:hidden';
-      line2.style.cssText += ';display:inline-block;width:' + w2 + 'px;overflow:hidden';
+      line1.style.cssText += ';display:inline-block;width:' + w1 + 'px;overflow-x:hidden;overflow-y:visible';
+      line2.style.cssText += ';display:inline-block;width:' + w2 + 'px;overflow-x:hidden;overflow-y:visible';
 
       const iv = setInterval(function() {
         const chars = target.split('').map(function(ch, i) {
@@ -1159,12 +1159,14 @@
           line1.textContent = 'DESIGN';
           line2.textContent = 'STUDIO';
           /* Restitue le display original */
-          line1.style.display = '';
-          line1.style.width   = '';
-          line1.style.overflow = '';
-          line2.style.display = '';
-          line2.style.width   = '';
-          line2.style.overflow = '';
+          line1.style.display    = '';
+          line1.style.width      = '';
+          line1.style.overflowX  = '';
+          line1.style.overflowY  = '';
+          line2.style.display    = '';
+          line2.style.width      = '';
+          line2.style.overflowX  = '';
+          line2.style.overflowY  = '';
           clearInterval(iv);
         }
       }, speed);
