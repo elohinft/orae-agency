@@ -243,8 +243,7 @@
     /* ─── HERO BOTTOM BAR ─── */
     .hero-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
-      display: grid; grid-template-columns: 1fr auto 1fr;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       padding: 20px 40px;
       opacity: 0;
       animation: hero-fade 0.4s ease-out 0.7s forwards;
@@ -254,8 +253,6 @@
       font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--light); text-decoration: none;
     }
-    .hero-bar-center { text-align: center; }
-    .hero-bar-right  { text-align: right; }
 
     /* ─────── À PROPOS ─────── */
     @keyframes sDown { from { transform: translateY(-50%) translateZ(0); } to { transform: translateY(0%) translateZ(0); } }
@@ -392,8 +389,8 @@
       .hero-eyebrow { font-size: 8px; gap: 4px; }
       .hero-montpellier { font-size: 8px; letter-spacing: 0.12em; }
       .hero-eyebrow-dash { min-width: 10px; }
-      .hero-bar { padding: 14px 20px; }
-      .hero-bar span, .hero-bar a { font-size: 8px; letter-spacing: 0.12em; }
+      .hero-bar { padding: 14px 20px; justify-content: space-between; }
+      .hero-bar span, .hero-bar a { font-size: 8px; letter-spacing: 0.10em; }
 
       /* ── ABOUT GALERIE ── */
       #about { height: 60vh; }
