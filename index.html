@@ -264,18 +264,40 @@
     .hero-content { position: relative; z-index: 1; }
     .hero-bar     { z-index: 1; }
 
-    /* ─── Scroller pleine largeur, collé au hero ─── */
-    #about { background: var(--light); height: 100vh; overflow: hidden; }
-    .about-scroller-wrap { display: flex; gap: 8px; overflow: hidden; height: 100%; width: 100%; }
-    .about-scroller-col {
-      flex: 1; display: flex; flex-direction: column; gap: 8px;
-      will-change: transform; backface-visibility: hidden;
+    /* ─── Galerie accordion ─── */
+    #about {
+      position: relative; width: 100vw; height: 100vh;
+      display: flex; overflow: hidden;
+      background: var(--dark-bg);
     }
-    .about-scroller-col:nth-child(1) { animation: sDown 9s linear infinite; }
-    .about-scroller-col:nth-child(2) { margin-top: -90px;  animation: sUp  12s linear infinite; }
-    .about-scroller-col:nth-child(3) { margin-top: -45px;  animation: sDown 8s linear infinite; }
-    .about-scroller-col:nth-child(4) { margin-top: -130px; animation: sUp  11s linear infinite; }
-    .about-scroller-col img { width: 100%; aspect-ratio: 3/4; display: block; object-fit: cover; background: var(--dark-bg); border-radius: 6px; }
+    .gallery-col {
+      flex: 1; position: relative; overflow: hidden; cursor: none;
+      border-right: 1px solid #252525;
+      transition: flex 0.6s cubic-bezier(0.77, 0, 0.18, 1);
+    }
+    .gallery-col:last-child { border-right: none; }
+    #about:has(.gallery-col:hover) .gallery-col { flex: 1; }
+    #about .gallery-col:hover { flex: 3.2; }
+    .col-line {
+      position: absolute; left: 50%; top: 12%; bottom: 12%; width: 1px;
+      background: rgba(255,255,255,0.18);
+      transform: translateX(-50%);
+      transition: opacity 0.4s ease; z-index: 2; pointer-events: none;
+    }
+    .gallery-col:hover .col-line { opacity: 0; }
+    .col-slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.5s ease;
+      object-fit: cover; width: 100%; height: 100%;
+    }
+    .col-slide.active { opacity: 1; }
+    .gallery-cta {
+      position: fixed; bottom: 28px; right: 36px; z-index: 100;
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      text-decoration: none; transition: color 0.2s; pointer-events: auto;
+    }
+    .gallery-cta:hover { color: rgba(255,255,255,0.8); font-style: italic; }
 
     /* ─── Section texte ─── */
     #about-text { background: var(--light); color: var(--dark); display: flex; justify-content: center; align-items: center; padding: 140px 0; }
@@ -384,12 +406,9 @@
       .hero-bar { padding: 14px 20px; }
       .hero-bar span, .hero-bar a { font-size: 8px; letter-spacing: 0.12em; }
 
-      /* ── ABOUT SCROLLER : 3 colonnes ── */
+      /* ── ABOUT GALERIE ── */
       #about { height: 60vh; }
-      .about-scroller-col:nth-child(3) { display: flex; margin-top: -45px; }
-      .about-scroller-col:nth-child(4) { display: none; }
-      .about-scroller-col:nth-child(1) { animation-duration: 18s; }
-      .about-scroller-col:nth-child(2) { margin-top: -60px; animation-duration: 22s; }
+      .gallery-cta { bottom: 16px; right: 20px; }
 
       /* ── ABOUT TEXTE ── */
       #about-text { padding: 72px 32px; }
@@ -485,14 +504,39 @@
     </div>
   </section>
 
-  <!-- ─────── SCROLLER PROJETS ─────── -->
+  <!-- ─────── GALERIE ACCORDION ─────── -->
   <section id="about">
-    <div class="about-scroller-wrap" id="aboutScroller">
-      <div class="about-scroller-col"></div>
-      <div class="about-scroller-col"></div>
-      <div class="about-scroller-col"></div>
-      <div class="about-scroller-col"></div>
+    <div class="gallery-col">
+      <span class="col-line" aria-hidden="true"></span>
+      <div class="col-slide active" style="background:#1a0a2e"></div>
+      <div class="col-slide" style="background:#2d1050"></div>
+      <div class="col-slide" style="background:#0f0620"></div>
     </div>
+    <div class="gallery-col">
+      <span class="col-line" aria-hidden="true"></span>
+      <div class="col-slide active" style="background:#0d0d0d"></div>
+      <div class="col-slide" style="background:#181818"></div>
+      <div class="col-slide" style="background:#080808"></div>
+    </div>
+    <div class="gallery-col">
+      <span class="col-line" aria-hidden="true"></span>
+      <div class="col-slide active" style="background:#0a1f0f"></div>
+      <div class="col-slide" style="background:#0d2e14"></div>
+      <div class="col-slide" style="background:#061208"></div>
+    </div>
+    <div class="gallery-col">
+      <span class="col-line" aria-hidden="true"></span>
+      <div class="col-slide active" style="background:#1f0a0a"></div>
+      <div class="col-slide" style="background:#2e0e0e"></div>
+      <div class="col-slide" style="background:#120606"></div>
+    </div>
+    <div class="gallery-col">
+      <span class="col-line" aria-hidden="true"></span>
+      <div class="col-slide active" style="background:#0a0f1f"></div>
+      <div class="col-slide" style="background:#0e162e"></div>
+      <div class="col-slide" style="background:#06080f"></div>
+    </div>
+    <a href="/projets.html" class="gallery-cta">voir le portfolio →</a>
   </section>
 
   <!-- ─────── À PROPOS TEXTE ─────── -->
@@ -665,28 +709,19 @@
     /* ── Désactive clic droit sur toutes les images ── */
     document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
-    /* ── About scroller ── */
+    /* ── Galerie accordion — image cycling ── */
     (function() {
-      const imgs = [
-        'norway.webp','timereflection.webp','breath.webp','blackpixel.webp',
-        'technight.webp','affiche-oxytocin.webp','affiche-chrys.webp',
-        'affiche-goth.webp','jap.webp','Rmousse.webp','egm.webp',
-        'logom.webp','reborn.webp','drop3d.webp'
-      ];
-      const cols = document.querySelectorAll('#aboutScroller .about-scroller-col');
-      cols.forEach((col, c) => {
-        const colImgs = imgs.filter((_, i) => i % cols.length === c);
-        function mkImg(src, hidden) {
-          const img = document.createElement('img');
-          img.src = '/images/' + src;
-          img.alt = hidden ? '' : '';
-          img.loading = c === 0 ? 'eager' : 'lazy';
-          img.decoding = 'async';
-          if (hidden) img.setAttribute('aria-hidden', 'true');
-          return img;
+      const cols = document.querySelectorAll('#about .gallery-col');
+      cols.forEach(function(col, i) {
+        const slides = col.querySelectorAll('.col-slide');
+        if (slides.length < 2) return;
+        let cur = 0;
+        function cycle() {
+          slides[cur].classList.remove('active');
+          cur = (cur + 1) % slides.length;
+          slides[cur].classList.add('active');
         }
-        colImgs.forEach(src => col.appendChild(mkImg(src, false)));
-        colImgs.forEach(src => col.appendChild(mkImg(src, true)));
+        setTimeout(function() { setInterval(cycle, 1000); }, i * 280);
       });
     })();
 
