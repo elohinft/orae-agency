@@ -643,6 +643,74 @@
     document.body.appendChild(_svgEl);
 
   </script>
+  <script>
+  /* ── Scramble PORTFOLIO ── */
+  (function() {
+    var spans = document.querySelectorAll('.proj-display-title span');
+    if (!spans.length) return;
+
+    var words  = ['PORT', 'FO', 'LIO'];
+    /* Délais CSS d'entrée : 0.4s / 0.55s / 0.7s + 0.5s anim = ~0.9 / 1.05 / 1.2s */
+    var delays = [900, 1050, 1200];
+    var pool   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var speed  = 60;
+    var hold   = 9;
+
+    function buildPools(ctx, word) {
+      return word.split('').map(function(ch) {
+        var maxW = ctx.measureText(ch).width;
+        return pool.split('').filter(function(c) {
+          return ctx.measureText(c).width <= maxW;
+        });
+      });
+    }
+
+    function scrambleWord(el, word, pools) {
+      if (el._iv) clearInterval(el._iv);
+      var locked = el.getBoundingClientRect().width;
+      el.style.width = locked + 'px';
+      var frame = 0;
+      var total = word.length;
+      el._iv = setInterval(function() {
+        el.textContent = word.split('').map(function(ch, i) {
+          if (frame >= i * hold + hold) return ch;
+          var p = pools[i];
+          return p[Math.floor(Math.random() * p.length)];
+        }).join('');
+        frame++;
+        if (frame >= (total - 1) * hold + hold) {
+          el.textContent = word;
+          el.style.width = '';
+          clearInterval(el._iv);
+          el._iv = null;
+        }
+      }, speed);
+    }
+
+    document.fonts.ready.then(function() {
+      var cvs = document.createElement('canvas');
+      var ctx = cvs.getContext('2d');
+      var cs  = getComputedStyle(spans[0]);
+      ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+
+      var allPools = words.map(function(w) { return buildPools(ctx, w); });
+
+      /* Chargement : chaque mot après son délai CSS */
+      spans.forEach(function(el, i) {
+        setTimeout(function() {
+          scrambleWord(el, words[i], allPools[i]);
+        }, delays[i]);
+      });
+
+      /* Hover : uniquement le mot survolé */
+      spans.forEach(function(el, i) {
+        el.addEventListener('mouseenter', function() {
+          scrambleWord(el, words[i], allPools[i]);
+        });
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>
