@@ -216,7 +216,7 @@
       font-family: var(--heavy); font-weight: 700;
       font-size: clamp(72px, 11.5vw, 170px);
       line-height: 0.88; color: var(--light);
-      text-transform: none; letter-spacing: -0.05em;
+      text-transform: uppercase; letter-spacing: -0.05em;
       user-select: none;
     }
     .hero-eyebrow {
@@ -355,7 +355,7 @@
       font-family: var(--heavy);
       font-size: clamp(52px, 9vw, 140px);
       letter-spacing: -0.05em;
-      text-transform: none;
+      text-transform: uppercase;
       text-align: center;
       color: var(--dark);
       line-height: 0.9;
@@ -511,8 +511,8 @@
           <span class="hero-eyebrow-dash" aria-hidden="true"></span>
           <span class="hero-montpellier">Montpellier</span>
         </p>
-        <span class="hero-title-line1">design</span>
-        <span class="hero-title-line2">studio</span>
+        <span class="hero-title-line1">DESIGN</span>
+        <span class="hero-title-line2">STUDIO</span>
       </div>
     </div>
     <div class="hero-bar" aria-hidden="true">
@@ -634,7 +634,7 @@
   <!-- ─────── POURQUOI NOUS ─────── -->
 
   <!-- ─────── CONTACT ─────── -->
-  <div class="contact-hero-title" id="contactTitle">contactez&#8209;nous</div>
+  <div class="contact-hero-title" id="contactTitle">CONTACTEZ&#8209;NOUS</div>
   <section id="contact">
     <div class="contact-inner">
       <form class="contact-form" id="contactForm">
@@ -1059,16 +1059,16 @@
       var cs  = getComputedStyle(line1);
       ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
 
-      var pools1 = buildPools(ctx, 'design');
-      var pools2 = buildPools(ctx, 'studio');
+      var pools1 = buildPools(ctx, 'DESIGN');
+      var pools2 = buildPools(ctx, 'STUDIO');
 
       /* Chargement : les deux */
-      scrambleWord(line1, 'design', pools1);
-      scrambleWord(line2, 'studio', pools2);
+      scrambleWord(line1, 'DESIGN', pools1);
+      scrambleWord(line2, 'STUDIO', pools2);
 
       /* Hover : uniquement le mot survolé */
-      line1.addEventListener('mouseenter', function() { scrambleWord(line1, 'design', pools1); });
-      line2.addEventListener('mouseenter', function() { scrambleWord(line2, 'studio', pools2); });
+      line1.addEventListener('mouseenter', function() { scrambleWord(line1, 'DESIGN', pools1); });
+      line2.addEventListener('mouseenter', function() { scrambleWord(line2, 'STUDIO', pools2); });
     });
   })();
   </script>
