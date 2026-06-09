@@ -264,10 +264,11 @@
       animation: hero-fade 0.4s ease-out 0.7s forwards;
     }
     .hero-bar-item {
-      font-family: var(--heavy); font-weight: 700;
+      font-family: var(--heavy); font-weight: 400;
       font-size: 15px; letter-spacing: -0.05em; text-transform: uppercase;
-      color: var(--light); text-decoration: none;
+      color: var(--light); text-decoration: none; transition: font-weight .1s;
     }
+    .hero-bar-item:hover { font-weight: 700; }
 
     /* ─────── À PROPOS ─────── */
     @keyframes sDown { from { transform: translateY(-50%) translateZ(0); } to { transform: translateY(0%) translateZ(0); } }
