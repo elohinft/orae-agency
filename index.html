@@ -215,13 +215,11 @@
     }
     .hero-big-logo {
       width: 100%; height: auto; display: block;
-      opacity: 0; animation: hero-fade 0.5s ease-out 0.1s forwards;
     }
     .hero-tagline {
       font-family: 'Blur', sans-serif; font-weight: 400;
       color: var(--light); white-space: nowrap;
       line-height: 1; margin-top: -15vw;
-      opacity: 0; animation: hero-rise 0.5s ease-out 0.3s forwards;
     }
     .hero-services-list {
       margin-top: 24px;
@@ -229,17 +227,10 @@
       letter-spacing: -0.05em; word-spacing: 0.7em;
       text-align: center;
       color: var(--light); text-transform: uppercase;
-      line-height: 1.35; opacity: 0; width: 100%;
-      animation: hero-fade 0.5s ease-out 0.5s forwards;
+      line-height: 1.35; width: 100%;
     }
-    @keyframes hero-fade {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    @keyframes hero-rise {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .svc { transition: opacity 0.12s ease, font-weight 0.12s; opacity: 0.45; }
+    .svc.lit { opacity: 1; font-weight: 700; }
 
     /* ─── HERO BOTTOM BAR ─── */
     .hero-bar {
@@ -498,10 +489,10 @@
       <img src="logo-whitze.svg?v=2" alt="Orae" class="hero-big-logo" id="heroBigLogo" decoding="async">
       <div class="hero-tagline" id="heroTagline">(studio graphique)</div>
       <div class="hero-services-list">
-        IDENTITÉ VISUELLE / BRAND DESIGN /<br>
-        DIRECTION ARTISTIQUE / DESIGN ÉDITORIAL /<br>
-        AFFICHES / PRINT / ILLUSTRATION /<br>
-        MOTION DESIGN / WEB DESIGN
+        <span class="svc">IDENTITÉ VISUELLE</span> / <span class="svc">BRAND DESIGN</span> /<br>
+        <span class="svc">DIRECTION ARTISTIQUE</span> / <span class="svc">DESIGN ÉDITORIAL</span> /<br>
+        <span class="svc">AFFICHES</span> / <span class="svc">PRINT</span> / <span class="svc">ILLUSTRATION</span> /<br>
+        <span class="svc">MOTION DESIGN</span> / <span class="svc">WEB DESIGN</span>
       </div>
     </div>
   </section>
@@ -1003,6 +994,20 @@
     })();
   </script>
   <script>
+  /* ── Hero services : clignotement à tour de rôle ── */
+  (function() {
+    const items = Array.from(document.querySelectorAll('.svc'));
+    if (!items.length) return;
+    let i = 0;
+    function next() {
+      items.forEach(el => el.classList.remove('lit'));
+      items[i].classList.add('lit');
+      i = (i + 1) % items.length;
+      setTimeout(next, 320);
+    }
+    next();
+  })();
+
   /* ── Hero tagline : fit sur la largeur du logo ── */
   (function() {
     function fitTagline() {
