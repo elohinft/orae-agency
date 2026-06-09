@@ -143,9 +143,9 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 0; border: none; transition: color .35s, background .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--light); }
-    #main-nav.is-scrolled { background: transparent; }
-    .nav-logo-img { height: 30px; width: auto; display: block; }
+    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 0; border: none; transition: color .35s, opacity .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--light); }
+    #main-nav.is-scrolled { opacity: 0; pointer-events: none; }
+    .nav-logo-img { height: 36px; width: auto; display: block; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
     .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: 1; transition: opacity .2s, font-style .15s, font-weight .1s; }
     .nav-links li a:hover { opacity: .6; font-style: italic; font-weight: 500; }
