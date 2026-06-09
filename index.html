@@ -219,6 +219,7 @@
     .hero-tagline {
       font-family: 'Blur', sans-serif; font-weight: 400;
       color: var(--light); white-space: nowrap;
+      font-size: clamp(18px, 8.5vw, 80px);
       line-height: 1; margin-top: -15vw;
     }
     .hero-services-list {
@@ -400,8 +401,8 @@
       /* ── HERO ── */
       #hero { height: 100svh; min-height: 100svh; }
       .hero-main { width: 88vw; }
-      .hero-tagline { margin-top: -15vw; }
-      .hero-services-list { font-size: clamp(11px, 3.2vw, 16px); margin-top: 20px; letter-spacing: -0.05em; word-spacing: 0.4em; line-height: 1.35; }
+      .hero-tagline { margin-top: -15vw; font-size: clamp(18px, 9vw, 80px); }
+      .hero-services-list { font-size: clamp(11px, 3.2vw, 16px); margin-top: 36px; letter-spacing: -0.05em; word-spacing: 0.4em; line-height: 1.35; }
       .nav-links { order: 1; }
       .nav-logo-img { order: 2; }
 
@@ -1029,8 +1030,9 @@
     }
     document.fonts.ready.then(() => {
       const logo = document.getElementById('heroBigLogo');
-      if (logo && logo.complete) fitTagline();
-      else if (logo) logo.addEventListener('load', fitTagline);
+      const run = () => { fitTagline(); setTimeout(fitTagline, 300); };
+      if (logo && logo.complete) run();
+      else if (logo) logo.addEventListener('load', run);
       window.addEventListener('resize', fitTagline);
     });
   })();
