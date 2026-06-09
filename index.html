@@ -344,6 +344,24 @@
 
 
     /* ─────── CONTACT ─────── */
+    .contact-hero-title {
+      font-family: var(--heavy);
+      font-size: clamp(52px, 9vw, 140px);
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--dark);
+      line-height: 0.9;
+      padding: 120px 52px 60px;
+      background: var(--light);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .contact-hero-title.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      .contact-hero-title { padding: 80px 24px 40px; }
+    }
     #contact { background: var(--light); color: var(--dark); overflow: hidden; margin-top: -2px; }
     .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; padding: 80px 52px 140px; align-items: start; }
     .contact-section-title { font-family: var(--heavy); font-weight: 700; font-size: 80px; letter-spacing: -0.05em; text-transform: uppercase; color: var(--dark); white-space: nowrap; display: block; margin-bottom: 52px; line-height: 1; }
@@ -608,6 +626,7 @@
   <!-- ─────── POURQUOI NOUS ─────── -->
 
   <!-- ─────── CONTACT ─────── -->
+  <div class="contact-hero-title" id="contactTitle">CONTACTEZ&#8209;NOUS</div>
   <section id="contact">
     <div class="contact-inner">
       <div class="contact-left">
@@ -773,6 +792,16 @@
     })();
 
     /* ── Nav ── */
+    /* ── Contact big title : animation au scroll ── */
+    (function() {
+      const el = document.getElementById('contactTitle');
+      if (!el) return;
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) { el.classList.add('visible'); io.disconnect(); }
+      }, { threshold: 0.2 });
+      io.observe(el);
+    })();
+
     /* ── Contact title : fit à la largeur du formulaire ── */
     (function() {
       function fitContactTitle() {
