@@ -157,7 +157,9 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: absolute; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 0; border: none; transition: color .35s; background: transparent; color: var(--light); }
+    #main-nav { position: absolute; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(234,234,228,0.45); transition: color .35s; background: transparent; color: var(--light); }
+    .nav-links { order: 1; }
+    .nav-logo-img { order: 2; }
     .nav-logo-img { height: 36px; width: auto; display: block; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
     .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: 1; transition: opacity .2s, font-style .15s, font-weight .1s; }
@@ -207,23 +209,26 @@
     }
     .hero-main {
       display: flex; flex-direction: column; align-items: stretch;
-      width: 75vw; max-width: 1100px;
+      width: 68vw;
       position: relative; z-index: 1;
     }
-    .hero-big-logo {
-      width: 100%; height: auto; display: block;
+    .hero-orae {
+      font-family: var(--heavy); font-weight: 400;
+      color: var(--light); white-space: nowrap;
+      line-height: 0.88; letter-spacing: -0.03em;
+      display: block; text-align: left;
       opacity: 0; animation: hero-fade 0.5s ease-out 0.1s forwards;
     }
     .hero-tagline {
       font-family: 'Blur', sans-serif; font-weight: 400;
       color: var(--light); white-space: nowrap;
-      line-height: 1.05; margin-top: -0.05em;
+      line-height: 1; margin-top: 0.04em;
       opacity: 0; animation: hero-rise 0.5s ease-out 0.3s forwards;
     }
     .hero-services-list {
-      margin-top: 32px;
-      font-family: var(--mono); font-size: clamp(10px, 1vw, 14px);
-      letter-spacing: 0.12em; text-align: center;
+      margin-top: 28px;
+      font-family: var(--mono); font-size: clamp(9px, 0.95vw, 13px);
+      letter-spacing: 0.1em; text-align: center;
       color: var(--light); text-transform: uppercase;
       line-height: 1.9; opacity: 0;
       animation: hero-fade 0.5s ease-out 0.5s forwards;
@@ -233,7 +238,7 @@
       to   { opacity: 1; }
     }
     @keyframes hero-rise {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -405,8 +410,10 @@
       /* ── HERO ── */
       #hero { height: 100svh; min-height: 100svh; }
       .hero-main { width: 88vw; }
-      .hero-services-list { font-size: clamp(8px, 2.6vw, 11px); margin-top: 20px; letter-spacing: 0.08em; }
+      .hero-services-list { font-size: clamp(7px, 2.4vw, 10px); margin-top: 16px; letter-spacing: 0.06em; }
       .hero-bar { display: none; }
+      .nav-links { order: 1; }
+      .nav-logo-img { order: 2; }
 
       /* ── ABOUT GALERIE ── */
       #about { height: 60vh; }
@@ -489,10 +496,13 @@
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
     <div class="hero-main">
-      <img src="logo-whitze.svg?v=2" alt="Orae" class="hero-big-logo" id="heroBigLogo" decoding="async">
+      <span class="hero-orae" id="heroOrae">orae</span>
       <div class="hero-tagline" id="heroTagline">(studio graphique)</div>
       <div class="hero-services-list">
-        IDENTITÉ VISUELLE / BRAND DESIGN / DIRECTION ARTISTIQUE / DESIGN ÉDITORIAL / AFFICHES / PRINT / ILLUSTRATION / MOTION DESIGN / WEB DESIGN
+        IDENTITÉ VISUELLE / BRAND DESIGN /<br>
+        DIRECTION ARTISTIQUE / DESIGN ÉDITORIAL<br>
+        / AFFICHES / PRINT / ILLUSTRATION /<br>
+        MOTION DESIGN / WEB DESIGN
       </div>
     </div>
     <div class="hero-bar" aria-hidden="true">
@@ -999,28 +1009,32 @@
     })();
   </script>
   <script>
-  /* ── Hero tagline : fit width du logo ── */
+  /* ── Hero : fit orae + tagline à la largeur du conteneur ── */
   (function() {
-    function fitTagline() {
-      const logo    = document.getElementById('heroBigLogo');
-      const tagline = document.getElementById('heroTagline');
-      if (!logo || !tagline) return;
-      const w = logo.getBoundingClientRect().width;
-      if (!w) return;
-      let lo = 8, hi = 500;
-      tagline.style.whiteSpace = 'nowrap';
+    function fitText(el, containerW) {
+      if (!el || !containerW) return;
+      el.style.whiteSpace = 'nowrap';
+      let lo = 8, hi = 800;
       while (hi - lo > 0.5) {
         const mid = (lo + hi) / 2;
-        tagline.style.fontSize = mid + 'px';
-        tagline.scrollWidth <= w ? lo = mid : hi = mid;
+        el.style.fontSize = mid + 'px';
+        el.scrollWidth <= containerW ? lo = mid : hi = mid;
       }
-      tagline.style.fontSize = Math.floor(lo) + 'px';
+      el.style.fontSize = Math.floor(lo) + 'px';
+    }
+    function fitHero() {
+      const container = document.querySelector('.hero-main');
+      const orae    = document.getElementById('heroOrae');
+      const tagline = document.getElementById('heroTagline');
+      if (!container) return;
+      const w = container.getBoundingClientRect().width;
+      if (!w) return;
+      fitText(orae, w);
+      fitText(tagline, w);
     }
     document.fonts.ready.then(() => {
-      const logo = document.getElementById('heroBigLogo');
-      if (logo && logo.complete) fitTagline();
-      else if (logo) logo.addEventListener('load', fitTagline);
-      window.addEventListener('resize', fitTagline);
+      fitHero();
+      window.addEventListener('resize', fitHero);
     });
   })();
   </script>
