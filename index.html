@@ -205,32 +205,30 @@
       background: var(--dark-bg);
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
+      padding: 100px 0 80px;
       overflow: hidden;
     }
     .hero-main {
       display: flex; flex-direction: column; align-items: stretch;
-      width: 68vw;
+      width: 70vw;
       position: relative; z-index: 1;
     }
-    .hero-orae {
-      font-family: var(--heavy); font-weight: 400;
-      color: var(--light); white-space: nowrap;
-      line-height: 0.88; letter-spacing: -0.03em;
-      display: block; text-align: left;
+    .hero-big-logo {
+      width: 100%; height: auto; display: block;
       opacity: 0; animation: hero-fade 0.5s ease-out 0.1s forwards;
     }
     .hero-tagline {
       font-family: 'Blur', sans-serif; font-weight: 400;
       color: var(--light); white-space: nowrap;
-      line-height: 1; margin-top: 0.04em;
+      line-height: 1; margin-top: 2px;
       opacity: 0; animation: hero-rise 0.5s ease-out 0.3s forwards;
     }
     .hero-services-list {
-      margin-top: 28px;
-      font-family: var(--mono); font-size: clamp(9px, 0.95vw, 13px);
-      letter-spacing: 0.1em; text-align: center;
+      margin-top: 40px;
+      font-family: var(--mono); font-size: clamp(14px, 1.6vw, 22px);
+      letter-spacing: 0.18em; text-align: center;
       color: var(--light); text-transform: uppercase;
-      line-height: 1.9; opacity: 0;
+      line-height: 2.2; opacity: 0;
       animation: hero-fade 0.5s ease-out 0.5s forwards;
     }
     @keyframes hero-fade {
@@ -410,8 +408,7 @@
       /* ── HERO ── */
       #hero { height: 100svh; min-height: 100svh; }
       .hero-main { width: 88vw; }
-      .hero-services-list { font-size: clamp(7px, 2.4vw, 10px); margin-top: 16px; letter-spacing: 0.06em; }
-      .hero-bar { display: none; }
+      .hero-services-list { font-size: clamp(9px, 3vw, 14px); margin-top: 24px; letter-spacing: 0.1em; line-height: 2; }
       .nav-links { order: 1; }
       .nav-logo-img { order: 2; }
 
@@ -496,19 +493,14 @@
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
     <div class="hero-main">
-      <span class="hero-orae" id="heroOrae">orae</span>
+      <img src="logo-whitze.svg?v=2" alt="Orae" class="hero-big-logo" id="heroBigLogo" decoding="async">
       <div class="hero-tagline" id="heroTagline">(studio graphique)</div>
       <div class="hero-services-list">
         IDENTITÉ VISUELLE / BRAND DESIGN /<br>
-        DIRECTION ARTISTIQUE / DESIGN ÉDITORIAL<br>
-        / AFFICHES / PRINT / ILLUSTRATION /<br>
+        DIRECTION ARTISTIQUE / DESIGN ÉDITORIAL /<br>
+        AFFICHES / PRINT / ILLUSTRATION /<br>
         MOTION DESIGN / WEB DESIGN
       </div>
-    </div>
-    <div class="hero-bar" aria-hidden="true">
-      <span class="hero-bar-item">Design Graphique</span>
-      <a href="mailto:orae.agency@gmail.com" class="hero-bar-item hero-bar-center">Orae.Agency@Gmail.Com</a>
-      <span class="hero-bar-item hero-bar-right">+33611252584</span>
     </div>
   </section>
 
@@ -1009,32 +1001,28 @@
     })();
   </script>
   <script>
-  /* ── Hero : fit orae + tagline à la largeur du conteneur ── */
+  /* ── Hero tagline : fit sur la largeur du logo ── */
   (function() {
-    function fitText(el, containerW) {
-      if (!el || !containerW) return;
-      el.style.whiteSpace = 'nowrap';
-      let lo = 8, hi = 800;
+    function fitTagline() {
+      const logo    = document.getElementById('heroBigLogo');
+      const tagline = document.getElementById('heroTagline');
+      if (!logo || !tagline) return;
+      const w = logo.getBoundingClientRect().width;
+      if (!w) return;
+      tagline.style.whiteSpace = 'nowrap';
+      let lo = 8, hi = 500;
       while (hi - lo > 0.5) {
         const mid = (lo + hi) / 2;
-        el.style.fontSize = mid + 'px';
-        el.scrollWidth <= containerW ? lo = mid : hi = mid;
+        tagline.style.fontSize = mid + 'px';
+        tagline.scrollWidth <= w ? lo = mid : hi = mid;
       }
-      el.style.fontSize = Math.floor(lo) + 'px';
-    }
-    function fitHero() {
-      const container = document.querySelector('.hero-main');
-      const orae    = document.getElementById('heroOrae');
-      const tagline = document.getElementById('heroTagline');
-      if (!container) return;
-      const w = container.getBoundingClientRect().width;
-      if (!w) return;
-      fitText(orae, w);
-      fitText(tagline, w);
+      tagline.style.fontSize = Math.floor(lo) + 'px';
     }
     document.fonts.ready.then(() => {
-      fitHero();
-      window.addEventListener('resize', fitHero);
+      const logo = document.getElementById('heroBigLogo');
+      if (logo && logo.complete) fitTagline();
+      else if (logo) logo.addEventListener('load', fitTagline);
+      window.addEventListener('resize', fitTagline);
     });
   })();
   </script>
