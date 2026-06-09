@@ -367,7 +367,11 @@
     }
     .contact-hero-title.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 768px) {
-      .contact-hero-title { padding: 80px 24px 40px; }
+      .contact-hero-title { padding: 80px 24px 40px; font-size: clamp(44px, 13vw, 80px); }
+      .mobile-br { display: block; }
+    }
+    @media (min-width: 769px) {
+      .mobile-br { display: none; }
     }
     #contact { background: var(--light); color: var(--dark); overflow: hidden; margin-top: -2px; }
     .contact-inner { display: flex; justify-content: center; padding: 0 52px 140px; }
@@ -634,7 +638,7 @@
   <!-- ─────── POURQUOI NOUS ─────── -->
 
   <!-- ─────── CONTACT ─────── -->
-  <div class="contact-hero-title" id="contactTitle">CONTACTEZ&#8209;NOUS</div>
+  <div class="contact-hero-title" id="contactTitle">CONTACTEZ<br class="mobile-br">-NOUS</div>
   <section id="contact">
     <div class="contact-inner">
       <form class="contact-form" id="contactForm">
