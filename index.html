@@ -994,16 +994,18 @@
     })();
   </script>
   <script>
-  /* ── Hero services : clignotement à tour de rôle ── */
+  /* ── Hero services : clignotement aléatoire en boucle ── */
   (function() {
     const items = Array.from(document.querySelectorAll('.svc'));
     if (!items.length) return;
-    let i = 0;
+    let prev = -1;
     function next() {
       items.forEach(el => el.classList.remove('lit'));
-      items[i].classList.add('lit');
-      i = (i + 1) % items.length;
-      setTimeout(next, 320);
+      let r;
+      do { r = Math.floor(Math.random() * items.length); } while (r === prev);
+      items[r].classList.add('lit');
+      prev = r;
+      setTimeout(next, 280 + Math.random() * 200);
     }
     next();
   })();
