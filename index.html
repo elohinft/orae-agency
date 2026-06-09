@@ -216,7 +216,7 @@
       font-family: var(--heavy); font-weight: 700;
       font-size: clamp(72px, 11.5vw, 170px);
       line-height: 0.88; color: var(--light);
-      text-transform: uppercase; letter-spacing: -0.05em;
+      text-transform: none; letter-spacing: -0.05em;
       user-select: none;
     }
     .hero-eyebrow {
@@ -330,13 +330,13 @@
     .service-cta:hover { opacity: 1; font-style: italic; font-weight: 500; }
 
     /* ─────── ÉTAPES ─────── */
-    #steps { background: var(--light); color: var(--dark); padding: 100px 52px 220px; overflow-x: hidden; content-visibility: auto; contain-intrinsic-size: 0 800px; }
+    #steps { background: var(--dark); color: var(--light); padding: 100px 52px 220px; overflow-x: hidden; content-visibility: auto; contain-intrinsic-size: 0 800px; }
     .steps-list { display: flex; flex-direction: column; gap: 0; }
     .step-item { display: flex; align-items: flex-start; justify-content: flex-start; gap: 32px; padding: 28px 0; }
     /* Z-layout : items pairs inversés */
     .step-item:nth-child(even) { flex-direction: row-reverse; }
     /* Slot machine numbers */
-    .step-num { display: flex; flex-shrink: 0; align-items: center; font-family: 'Blur', sans-serif; font-size: clamp(80px, 14vw, 180px); font-weight: 400; line-height: 1; color: var(--dark); letter-spacing: -0.05em; }
+    .step-num { display: flex; flex-shrink: 0; align-items: center; font-family: 'Blur', sans-serif; font-size: clamp(80px, 14vw, 180px); font-weight: 400; line-height: 1; color: var(--light); letter-spacing: -0.05em; }
     .step-text-wrap { padding-top: 36px; opacity: 0; transform: translateX(20px); transition: opacity .6s ease, transform .6s ease; }
     .step-item:nth-child(even) .step-text-wrap { transform: translateX(-20px); }
     .step-item.visible .step-text-wrap { opacity: .82; transform: translateX(0); }
@@ -346,8 +346,8 @@
     .step-item:nth-child(4).visible .step-text-wrap { transition-delay: .95s; }
     .step-item:hover .step-text-wrap { opacity: 1; }
     .step-item:hover ~ .step-item .step-text-wrap { opacity: .4; }
-    .step-title { font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: var(--dark); margin-bottom: 16px; }
-    .step-desc { font-family: var(--urban); font-size: 15px; font-weight: 400; line-height: 1.75; color: var(--dark); opacity: .6; max-width: 460px; }
+    .step-title { font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: var(--light); margin-bottom: 16px; }
+    .step-desc { font-family: var(--urban); font-size: 15px; font-weight: 400; line-height: 1.75; color: var(--light); opacity: .6; max-width: 460px; }
 
 
     /* ─────── CONTACT ─────── */
@@ -355,7 +355,7 @@
       font-family: var(--heavy);
       font-size: clamp(52px, 9vw, 140px);
       letter-spacing: -0.05em;
-      text-transform: uppercase;
+      text-transform: none;
       text-align: center;
       color: var(--dark);
       line-height: 0.9;
@@ -511,8 +511,8 @@
           <span class="hero-eyebrow-dash" aria-hidden="true"></span>
           <span class="hero-montpellier">Montpellier</span>
         </p>
-        <span class="hero-title-line1">DESIGN</span>
-        <span class="hero-title-line2">STUDIO</span>
+        <span class="hero-title-line1">design</span>
+        <span class="hero-title-line2">studio</span>
       </div>
     </div>
     <div class="hero-bar" aria-hidden="true">
@@ -634,7 +634,7 @@
   <!-- ─────── POURQUOI NOUS ─────── -->
 
   <!-- ─────── CONTACT ─────── -->
-  <div class="contact-hero-title" id="contactTitle">CONTACTEZ&#8209;NOUS</div>
+  <div class="contact-hero-title" id="contactTitle">contactez&#8209;nous</div>
   <section id="contact">
     <div class="contact-inner">
       <form class="contact-form" id="contactForm">
@@ -1059,16 +1059,16 @@
       var cs  = getComputedStyle(line1);
       ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
 
-      var pools1 = buildPools(ctx, 'DESIGN');
-      var pools2 = buildPools(ctx, 'STUDIO');
+      var pools1 = buildPools(ctx, 'design');
+      var pools2 = buildPools(ctx, 'studio');
 
       /* Chargement : les deux */
-      scrambleWord(line1, 'DESIGN', pools1);
-      scrambleWord(line2, 'STUDIO', pools2);
+      scrambleWord(line1, 'design', pools1);
+      scrambleWord(line2, 'studio', pools2);
 
       /* Hover : uniquement le mot survolé */
-      line1.addEventListener('mouseenter', function() { scrambleWord(line1, 'DESIGN', pools1); });
-      line2.addEventListener('mouseenter', function() { scrambleWord(line2, 'STUDIO', pools2); });
+      line1.addEventListener('mouseenter', function() { scrambleWord(line1, 'design', pools1); });
+      line2.addEventListener('mouseenter', function() { scrambleWord(line2, 'studio', pools2); });
     });
   })();
   </script>

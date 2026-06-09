@@ -228,7 +228,7 @@
       font-family: var(--heavy);
       font-weight: 700;
       font-size: 170px;
-      text-transform: uppercase;
+      text-transform: none;
       letter-spacing: -0.05em;
       color: var(--dark);
       line-height: 0.88;
@@ -398,9 +398,9 @@
       </div>
       <div class="proj-bar"></div>
       <div class="proj-display-title">
-        <span>PORT</span>
-        <span>FO</span>
-        <span>LIO</span>
+        <span>port</span>
+        <span>fo</span>
+        <span>lio</span>
       </div>
     </div>
   </section>
@@ -651,7 +651,7 @@
     var spans = document.querySelectorAll('.proj-display-title span');
     if (!spans.length) return;
 
-    var words  = ['PORT', 'FO', 'LIO'];
+    var words  = ['port', 'fo', 'lio'];
     /* Délais CSS d'entrée : 0.4s / 0.55s / 0.7s + 0.5s anim = ~0.9 / 1.05 / 1.2s */
     var delays = [900, 1050, 1200];
     var pool   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
