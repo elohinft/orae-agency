@@ -361,7 +361,7 @@
     <div class="mm-bottom">
       <a href="mailto:orae.agency@gmail.com" class="mm-email">orae.agency@gmail.com</a>
       <div class="mm-logo-wrap" aria-hidden="true">
-        <img src="/logo-black.svg" alt="" class="mm-logo-big" />
+        <img src="/logo-black.svg?v=2" alt="" class="mm-logo-big" />
       </div>
     </div>
   </div>
@@ -378,7 +378,7 @@
         <li><a href="/projets.html">Projets</a></li>
         <li><a href="/#contact">Contact</a></li>
       </ul>
-      <a href="/" class="nav-logo-link"><img src="/logo-whitze.svg" alt="Orae" class="nav-logo-img" id="navLogo" /></a>
+      <a href="/" class="nav-logo-link"><img src="/logo-whitze.svg?v=2" alt="Orae" class="nav-logo-img" id="navLogo" /></a>
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
     <div class="proj-hero-inner">
@@ -471,17 +471,17 @@
       mobileMenu.classList.toggle('open');
       if (burgerBtn.classList.contains('open')) {
         mainNav.classList.add('menu-open');
-        document.getElementById('navLogo').src = 'logo-black.svg';
+        document.getElementById('navLogo').src = 'logo-black.svg?v=2';
         burgerBtn.style.color = 'var(--dark)';
       } else {
         closeMobileMenu();
-        document.getElementById('navLogo').src = 'logo-whitze.svg';
+        document.getElementById('navLogo').src = 'logo-whitze.svg?v=2';
       }
     });
     mobileMenu.querySelectorAll('.mm-link').forEach(a => {
       a.addEventListener('click', () => {
         closeMobileMenu();
-        document.getElementById('navLogo').src = 'logo-whitze.svg';
+        document.getElementById('navLogo').src = 'logo-whitze.svg?v=2';
       });
     });
 
