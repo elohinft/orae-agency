@@ -115,8 +115,7 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: fixed; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 0; border: none; transition: color .35s, opacity .4s; opacity: 1; pointer-events: auto; background: transparent; color: var(--dark); }
-    #main-nav.is-scrolled { opacity: 0; pointer-events: none; }
+    #main-nav { position: absolute; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 0; border: none; transition: color .35s; background: transparent; color: var(--dark); }
     .nav-logo-img { height: 36px; width: auto; display: block; }
     .nav-logo-link { line-height: 0; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
@@ -487,14 +486,6 @@
         document.getElementById('navLogo').src = 'logo-black.svg?v=2';
       });
     });
-
-    /* ── Nav scroll ── */
-    (function() {
-      const nav = document.getElementById('main-nav');
-      function updateNav() { nav.classList.toggle('is-scrolled', window.scrollY > 60); }
-      updateNav();
-      window.addEventListener('scroll', updateNav, { passive: true });
-    })();
 
     /* ── Scroll line ── */
     const scrollLine = document.getElementById('scrollLine');
