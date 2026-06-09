@@ -205,53 +205,35 @@
       justify-content: center; align-items: center;
       overflow: hidden;
     }
-    .hero-content {
-      display: flex; flex-direction: column;
-      align-items: flex-start;
+    .hero-main {
+      display: flex; flex-direction: column; align-items: stretch;
+      width: 75vw; max-width: 1100px;
+      position: relative; z-index: 1;
     }
-    .hero-title {
-      position: relative;
-      display: inline-flex; flex-direction: column;
-      padding-top: 28px; /* espace pour l'eyebrow absolu */
-      font-family: var(--heavy); font-weight: 700;
-      font-size: clamp(72px, 11.5vw, 170px);
-      line-height: 0.88; color: var(--light);
-      text-transform: uppercase; letter-spacing: -0.05em;
-      user-select: none;
+    .hero-big-logo {
+      width: 100%; height: auto; display: block;
+      opacity: 0; animation: hero-fade 0.5s ease-out 0.1s forwards;
     }
-    .hero-eyebrow {
-      position: absolute; top: 0; left: 0; right: 0;
-      display: flex; align-items: center; gap: 10px;
-      font-family: var(--mono); font-size: 14px; font-weight: 400;
-      text-transform: none; letter-spacing: 0;
-      color: #888; line-height: 1;
-      opacity: 0;
-      animation: hero-fade 0.4s ease-out 0.05s forwards;
+    .hero-tagline {
+      font-family: 'Blur', sans-serif; font-weight: 400;
+      color: var(--light); white-space: nowrap;
+      line-height: 1.05; margin-top: -0.05em;
+      opacity: 0; animation: hero-rise 0.5s ease-out 0.3s forwards;
     }
-    .hero-eyebrow span { font-family: var(--mono); font-weight: 400; }
-    .hero-eyebrow .ew-medium { font-weight: 500; }
-    .hero-eyebrow-dash {
-      flex: 1; min-width: 0; height: 1px; background: #888;
-    }
-    .hero-montpellier {
-      font-family: var(--heavy); font-weight: 400;
-      font-size: 11px; letter-spacing: -0.05em; text-transform: uppercase; color: #888;
-      flex-shrink: 0;
-    }
-    .hero-title-line1 {
-      display: block; opacity: 0;
-      animation: hero-rise 0.5s ease-out 0.3s forwards;
-    }
-    .hero-title-line2 {
-      display: block; opacity: 0;
-      animation: hero-rise 0.5s ease-out 0.5s forwards;
+    .hero-services-list {
+      margin-top: 32px;
+      font-family: var(--mono); font-size: clamp(10px, 1vw, 14px);
+      letter-spacing: 0.12em; text-align: center;
+      color: var(--light); text-transform: uppercase;
+      line-height: 1.9; opacity: 0;
+      animation: hero-fade 0.5s ease-out 0.5s forwards;
     }
     @keyframes hero-fade {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
     @keyframes hero-rise {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -422,12 +404,8 @@
 
       /* ── HERO ── */
       #hero { height: 100svh; min-height: 100svh; }
-      .hero-content { padding-left: 6%; padding-right: 6%; }
-      .hero-title { font-size: clamp(64px, 18vw, 100px); }
-      .hero-title { padding-top: 14px; overflow: hidden; }
-      .hero-eyebrow { font-size: 8px; gap: 4px; }
-      .hero-montpellier { font-size: 8px; letter-spacing: 0.12em; }
-      .hero-eyebrow-dash { min-width: 10px; }
+      .hero-main { width: 88vw; }
+      .hero-services-list { font-size: clamp(8px, 2.6vw, 11px); margin-top: 20px; letter-spacing: 0.08em; }
       .hero-bar { display: none; }
 
       /* ── ABOUT GALERIE ── */
@@ -510,15 +488,11 @@
       </a>
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
-    <div class="hero-content">
-      <div class="hero-title" aria-label="Design Studio">
-        <p class="hero-eyebrow">
-          <span>(</span><span class="ew-medium">studio</span><span>de</span><span class="ew-medium">design</span><span class="ew-medium">créatif</span><span>)</span>
-          <span class="hero-eyebrow-dash" aria-hidden="true"></span>
-          <span class="hero-montpellier">Montpellier</span>
-        </p>
-        <span class="hero-title-line1">DESIGN</span>
-        <span class="hero-title-line2">STUDIO</span>
+    <div class="hero-main">
+      <img src="logo-whitze.svg?v=2" alt="Orae" class="hero-big-logo" id="heroBigLogo" decoding="async">
+      <div class="hero-tagline" id="heroTagline">(studio graphique)</div>
+      <div class="hero-services-list">
+        IDENTITÉ VISUELLE / BRAND DESIGN / DIRECTION ARTISTIQUE / DESIGN ÉDITORIAL / AFFICHES / PRINT / ILLUSTRATION / MOTION DESIGN / WEB DESIGN
       </div>
     </div>
     <div class="hero-bar" aria-hidden="true">
@@ -1025,65 +999,28 @@
     })();
   </script>
   <script>
-  /* ── Scramble hero title ── */
+  /* ── Hero tagline : fit width du logo ── */
   (function() {
-    var line1 = document.querySelector('.hero-title-line1');
-    var line2 = document.querySelector('.hero-title-line2');
-    if (!line1 || !line2) return;
-
-    var pool  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var speed = 60;
-    var hold  = 9;
-
-    /* Pool par position pour un mot donné */
-    function buildPools(ctx, word) {
-      return word.split('').map(function(ch) {
-        var maxW = ctx.measureText(ch).width;
-        return pool.split('').filter(function(c) {
-          return ctx.measureText(c).width <= maxW;
-        });
-      });
+    function fitTagline() {
+      const logo    = document.getElementById('heroBigLogo');
+      const tagline = document.getElementById('heroTagline');
+      if (!logo || !tagline) return;
+      const w = logo.getBoundingClientRect().width;
+      if (!w) return;
+      let lo = 8, hi = 500;
+      tagline.style.whiteSpace = 'nowrap';
+      while (hi - lo > 0.5) {
+        const mid = (lo + hi) / 2;
+        tagline.style.fontSize = mid + 'px';
+        tagline.scrollWidth <= w ? lo = mid : hi = mid;
+      }
+      tagline.style.fontSize = Math.floor(lo) + 'px';
     }
-
-    /* Scramble d'un seul span / mot */
-    function scrambleWord(el, word, pools) {
-      if (el._iv) clearInterval(el._iv);
-      var locked = el.getBoundingClientRect().width;
-      el.style.width = locked + 'px';
-      var frame = 0;
-      var total = word.length;
-      el._iv = setInterval(function() {
-        el.textContent = word.split('').map(function(ch, i) {
-          if (frame >= i * hold + hold) return ch;
-          var p = pools[i];
-          return p[Math.floor(Math.random() * p.length)];
-        }).join('');
-        frame++;
-        if (frame >= (total - 1) * hold + hold) {
-          el.textContent  = word;
-          el.style.width  = '';
-          clearInterval(el._iv);
-          el._iv = null;
-        }
-      }, speed);
-    }
-
-    document.fonts.ready.then(function() {
-      var cvs = document.createElement('canvas');
-      var ctx = cvs.getContext('2d');
-      var cs  = getComputedStyle(line1);
-      ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
-
-      var pools1 = buildPools(ctx, 'DESIGN');
-      var pools2 = buildPools(ctx, 'STUDIO');
-
-      /* Chargement : les deux */
-      scrambleWord(line1, 'DESIGN', pools1);
-      scrambleWord(line2, 'STUDIO', pools2);
-
-      /* Hover : uniquement le mot survolé */
-      line1.addEventListener('mouseenter', function() { scrambleWord(line1, 'DESIGN', pools1); });
-      line2.addEventListener('mouseenter', function() { scrambleWord(line2, 'STUDIO', pools2); });
+    document.fonts.ready.then(() => {
+      const logo = document.getElementById('heroBigLogo');
+      if (logo && logo.complete) fitTagline();
+      else if (logo) logo.addEventListener('load', fitTagline);
+      window.addEventListener('resize', fitTagline);
     });
   })();
   </script>
