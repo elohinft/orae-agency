@@ -201,12 +201,12 @@
 
     /* ─────── HERO ─────── */
     #hero {
-      position: relative; width: 100%; height: 100svh;
+      position: relative; width: 100%; min-height: 100svh;
       background: var(--dark-bg);
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
-      padding: 120px 0 40px;
-      overflow: hidden;
+      padding: 120px 0 80px;
+      overflow: visible;
     }
     .hero-main {
       display: flex; flex-direction: column; align-items: stretch;
@@ -225,10 +225,10 @@
     }
     .hero-services-list {
       margin-top: 20px;
-      font-family: 'Anonymous Pro', monospace; font-size: clamp(14px, 1.6vw, 22px);
+      font-family: 'Anonymous Pro', monospace; font-size: 18px;
       letter-spacing: -0.05em; text-align: center;
       color: var(--light); text-transform: uppercase;
-      line-height: 1.6; opacity: 0;
+      line-height: 1.35; opacity: 0; width: 100%;
       animation: hero-fade 0.5s ease-out 0.5s forwards;
     }
     @keyframes hero-fade {
@@ -1001,28 +1001,46 @@
     })();
   </script>
   <script>
-  /* ── Hero tagline : fit sur la largeur du logo ── */
+  /* ── Hero : fit tagline + services sur la largeur du container ── */
   (function() {
-    function fitTagline() {
-      const logo    = document.getElementById('heroBigLogo');
-      const tagline = document.getElementById('heroTagline');
-      if (!logo || !tagline) return;
-      const w = logo.getBoundingClientRect().width;
-      if (!w) return;
-      tagline.style.whiteSpace = 'nowrap';
-      let lo = 8, hi = 500;
+    function fitEl(el, targetW) {
+      if (!el || !targetW) return;
+      el.style.whiteSpace = 'nowrap';
+      let lo = 8, hi = 600;
       while (hi - lo > 0.5) {
         const mid = (lo + hi) / 2;
-        tagline.style.fontSize = mid + 'px';
-        tagline.scrollWidth <= w ? lo = mid : hi = mid;
+        el.style.fontSize = mid + 'px';
+        el.scrollWidth <= targetW ? lo = mid : hi = mid;
       }
-      tagline.style.fontSize = Math.floor(lo) + 'px';
+      el.style.fontSize = Math.floor(lo) + 'px';
+      el.style.whiteSpace = '';
+    }
+    function fitServicesWidth(services, targetW) {
+      if (!services || !targetW) return;
+      /* ajuste font-size jusqu'à ce que la ligne la plus large remplisse targetW */
+      let lo = 8, hi = 200;
+      while (hi - lo > 0.5) {
+        const mid = (lo + hi) / 2;
+        services.style.fontSize = mid + 'px';
+        services.scrollWidth <= targetW ? lo = mid : hi = mid;
+      }
+      services.style.fontSize = Math.floor(lo) + 'px';
+    }
+    function fitHero() {
+      const logo     = document.getElementById('heroBigLogo');
+      const tagline  = document.getElementById('heroTagline');
+      const services = document.querySelector('.hero-services-list');
+      if (!logo) return;
+      const w = logo.getBoundingClientRect().width;
+      if (!w) return;
+      fitEl(tagline, w);
+      fitServicesWidth(services, w);
     }
     document.fonts.ready.then(() => {
       const logo = document.getElementById('heroBigLogo');
-      if (logo && logo.complete) fitTagline();
-      else if (logo) logo.addEventListener('load', fitTagline);
-      window.addEventListener('resize', fitTagline);
+      if (logo && logo.complete) fitHero();
+      else if (logo) logo.addEventListener('load', fitHero);
+      window.addEventListener('resize', fitHero);
     });
   })();
   </script>
