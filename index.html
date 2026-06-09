@@ -808,8 +808,14 @@
       const paragraphs = Array.from(container.querySelectorAll('p'));
       const texts = paragraphs.map(p => p.textContent);
       paragraphs.forEach(p => { p.textContent = ''; });
-      let started = false;
-      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      let started = false, skip = false, done = false;
+      const sleep = ms => new Promise(r => { const t = setTimeout(r, ms); if (skip) clearTimeout(t) && r(); });
+      function revealAll() {
+        if (done) return;
+        done = true; skip = true;
+        paragraphs.forEach((p, i) => { p.textContent = texts[i]; });
+        document.querySelector('.tw-cursor')?.remove();
+      }
       async function typeAll() {
         const cursor = document.createElement('span');
         cursor.className = 'tw-cursor';
@@ -818,6 +824,7 @@
           const text = texts[pi];
           p.appendChild(cursor);
           for (let i = 0; i <= text.length; i++) {
+            if (skip) { revealAll(); return; }
             if (cursor.previousSibling && cursor.previousSibling.nodeType === 3) {
               cursor.previousSibling.textContent = text.slice(0, i);
             } else {
@@ -827,9 +834,11 @@
           }
           await sleep(pi < paragraphs.length - 1 ? 180 : 900);
           if (pi < paragraphs.length - 1) p.removeChild(cursor);
-          else cursor.remove();
+          else { cursor.remove(); done = true; }
         }
       }
+      container.addEventListener('mouseenter', revealAll);
+      container.addEventListener('touchstart', revealAll, { passive: true });
       const io = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting && !started) { started = true; typeAll(); }
       }, { threshold: 0.15 });
