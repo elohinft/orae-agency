@@ -370,7 +370,8 @@
       .contact-hero-title { padding: 80px 24px 40px; }
     }
     #contact { background: var(--light); color: var(--dark); overflow: hidden; margin-top: -2px; }
-    .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; padding: 80px 52px 140px; align-items: start; }
+    .contact-inner { display: flex; justify-content: center; padding: 0 52px 140px; }
+    .contact-form { width: 100%; max-width: 680px; }
     .contact-section-title { font-family: var(--heavy); font-weight: 700; font-size: 80px; letter-spacing: -0.05em; text-transform: uppercase; color: var(--dark); white-space: nowrap; display: block; margin-bottom: 52px; line-height: 1; }
     .contact-intro { font-family: var(--urban); font-size: 14px; font-weight: 400; line-height: 1.85; color: var(--dark); opacity: .65; max-width: 320px; margin-bottom: 52px; }
     .contact-info { display: flex; flex-direction: column; gap: 24px; }
@@ -636,45 +637,22 @@
   <div class="contact-hero-title" id="contactTitle">CONTACTEZ&#8209;NOUS</div>
   <section id="contact">
     <div class="contact-inner">
-      <div class="contact-left">
-        <p class="contact-intro">Chaque beau projet commence par un message. Parlez-nous de ce que vous imaginez — on s'occupe du reste.</p>
-        <div class="contact-info">
-          <div class="contact-info-item">
-            <span class="contact-info-label">Téléphone</span>
-            <a href="tel:+33611252584" class="contact-info-value">06 11 25 25 84</a>
-          </div>
-          <div class="contact-info-item">
-            <span class="contact-info-label">Email</span>
-            <a href="mailto:orae.agency@gmail.com" class="contact-info-value">orae.agency@gmail.com</a>
-          </div>
-          <div class="contact-info-item">
-            <span class="contact-info-label">Instagram</span>
-            <a href="https://instagram.com/orae_agency" target="_blank" class="contact-info-value">@orae_agency</a>
-          </div>
-          <div class="contact-info-item">
-            <span class="contact-info-label">Localisation</span>
-            <span class="contact-info-value">Montpellier, France</span>
-          </div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-field"><input type="text"  name="entreprise" placeholder="nom de l'entreprise*" required /></div>
+          <div class="form-field"><input type="email" name="email"      placeholder="adresse email*" required /></div>
         </div>
-      </div>
-      <div class="contact-right">
-        <form class="contact-form" id="contactForm">
-          <div class="form-row">
-            <div class="form-field"><input type="text"  name="entreprise" placeholder="nom de l'entreprise*" required /></div>
-            <div class="form-field"><input type="email" name="email"      placeholder="adresse email*" required /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-field"><input type="tel"   name="telephone"  placeholder="numéro de téléphone" /></div>
-            <div class="form-field"><input type="url"   name="site"       placeholder="site web" /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-field" style="flex:1"><textarea name="message" placeholder="votre message"></textarea></div>
-          </div>
-          <button class="form-submit" type="submit" id="formSubmitBtn">[Envoyer]</button>
-          <p id="formFeedback" style="margin-top:14px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:0;transition:opacity .3s"></p>
-          <p class="form-consent">En soumettant ce formulaire, je consens à ce que mes informations soient utilisées par l'agence afin de me recontacter.</p>
-        </form>
-      </div>
+        <div class="form-row">
+          <div class="form-field"><input type="tel"   name="telephone"  placeholder="numéro de téléphone" /></div>
+          <div class="form-field"><input type="url"   name="site"       placeholder="site web" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field" style="flex:1"><textarea name="message" placeholder="votre message"></textarea></div>
+        </div>
+        <button class="form-submit" type="submit" id="formSubmitBtn">[Envoyer]</button>
+        <p id="formFeedback" style="margin-top:14px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:0;transition:opacity .3s"></p>
+        <p class="form-consent">En soumettant ce formulaire, je consens à ce que mes informations soient utilisées par l'agence afin de me recontacter.</p>
+      </form>
     </div>
   </section>
 
@@ -809,26 +787,6 @@
       io.observe(el);
     })();
 
-    /* ── Contact title : fit à la largeur du formulaire ── */
-    (function() {
-      function fitContactTitle() {
-        const title = document.querySelector('.contact-section-title');
-        const form  = document.querySelector('.contact-form');
-        if (!title || !form) return;
-        const maxW = form.offsetWidth;
-        if (!maxW) return;
-        let lo = 10, hi = 300;
-        title.style.whiteSpace = 'nowrap';
-        while (hi - lo > 0.5) {
-          const mid = (lo + hi) / 2;
-          title.style.fontSize = mid + 'px';
-          if (title.scrollWidth <= maxW) lo = mid; else hi = mid;
-        }
-        title.style.fontSize = Math.floor(lo) + 'px';
-      }
-      document.fonts.ready.then(fitContactTitle);
-      window.addEventListener('resize', fitContactTitle);
-    })();
 
 
     /* ── Scroll line ── */
