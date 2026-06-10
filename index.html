@@ -219,6 +219,7 @@
       color: var(--light); white-space: nowrap;
       font-size: clamp(18px, 8.5vw, 80px); text-align: center;
       line-height: 1; margin-top: -15.4vw;
+      position: relative; z-index: 2;
     }
     .hero-services-list {
       margin-top: 32px;
@@ -401,7 +402,7 @@
       #hero { min-height: 100svh; height: auto; padding: 70px 0 60px; }
       .hero-main { width: 88vw; margin: 0 auto; }
       .hero-tagline { margin-top: -19.4vw; font-size: 7.8vw; text-align: center; }
-      .hero-services-list { font-size: clamp(14px, 4.2vw, 20px); margin-top: 40px; letter-spacing: -0.05em; word-spacing: 0.3em; line-height: 1.35; width: 88vw; text-align: center; }
+      .hero-services-list { font-size: clamp(14px, 4.2vw, 20px); margin-top: 24px; letter-spacing: -0.05em; word-spacing: 0.3em; line-height: 1.35; width: 88vw; text-align: center; }
       .svc-br { display: none; }
       .nav-links { order: 1; }
       .nav-logo-img { order: 2; }
@@ -1060,17 +1061,18 @@
       tagline.style.marginTop = Math.round(r.height * -0.39) + 'px';
     }
 
-    function run() { fitTagline(); setTimeout(fitTagline, 500); }
+    function run() { fitTagline(); setTimeout(fitTagline, 400); }
 
-    document.fonts.ready.then(() => {
+    /* Attend spécifiquement la police Blur (plus fiable que fonts.ready) */
+    document.fonts.load('1em "Blur"').then(() => {
       const logo = document.getElementById('heroBigLogo');
       if (logo && logo.complete) run();
       else if (logo) logo.addEventListener('load', run);
     });
-    /* Retry supplémentaire pour iOS Safari (fonts.ready parfois précoce) */
+    /* Fallback : retries après window.load pour Chrome/Safari mobile */
     window.addEventListener('load', () => {
-      setTimeout(fitTagline, 100);
-      setTimeout(fitTagline, 800);
+      setTimeout(fitTagline, 200);
+      setTimeout(fitTagline, 1000);
     });
     window.addEventListener('resize', fitTagline);
   })();
