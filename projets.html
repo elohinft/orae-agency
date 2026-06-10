@@ -304,6 +304,9 @@
 
     /* ── FOOTER ── */
     footer { background: var(--light); color: var(--dark); overflow: hidden; padding: 0; }
+    .footer-center { display: none; }
+    .footer-center a { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--dark); opacity: .55; transition: opacity .2s; }
+    .footer-center a:hover { opacity: .85; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; padding: 44px 52px 36px; }
     .footer-left { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
     .footer-left span, .footer-left a { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; opacity: .4; color: var(--dark); transition: opacity .2s; }
@@ -344,8 +347,10 @@
       .modal-imgs-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
       .modal-close { font-size: 16px; opacity: .8; top: 8px; right: 8px; padding: 6px; }
 
-      .footer-top { flex-direction: column; gap: 28px; padding: 52px 24px; }
-      .footer-right { align-items: flex-end; text-align: right; width: 100%; }
+      .footer-top { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 16px; padding: 40px 24px; }
+      .footer-center { display: none; }
+      .footer-right { align-items: flex-end; text-align: right; }
+      .footer-right-email { display: block; }
     }
   </style>
 </head>
@@ -428,19 +433,23 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- ─────── FOOTER ─────── -->
   <footer>
     <div class="footer-top">
       <div class="footer-left">
         <span>All rights reserved</span>
         <span>© Orae Agency 2026</span>
+        <span>Montpellier, France</span>
         <a href="#">Mentions légales</a>
       </div>
-      <div class="footer-right">
+      <div class="footer-center">
         <a href="#" class="obf-email" data-e="b3JhZS5hZ2VuY3lAZ21haWwuY29t" rel="nofollow"></a>
+      </div>
+      <div class="footer-right">
+        <a href="#" class="footer-right-email obf-email" data-e="b3JhZS5hZ2VuY3lAZ21haWwuY29t" rel="nofollow"></a>
         <a href="#" class="obf-phone" data-p="KzMzNjExMjUyNTg0" rel="nofollow"></a>
-        <a href="https://instagram.com/orae_agency" target="_blank">Instagram</a>
-        <a href="#" target="_blank">LinkedIn</a>
+        <a href="https://instagram.com/orae_agency" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.linkedin.com/company/orae-agency" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
   </footer>
