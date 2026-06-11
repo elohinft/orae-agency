@@ -219,16 +219,13 @@
       white-space: nowrap;
       font-size: min(170px, 11.8vw);
       line-height: 1;
-      height: 1em;
+      display: grid;
       z-index: 2;
       text-align: center;
       filter: url(#heroMorphFilter) blur(0.6px);
     }
     .hero-tagline span {
-      position: absolute;
-      left: 0; right: 0; top: 0;
-      display: inline-block;
-      width: 100%;
+      grid-area: 1 / 1;
       text-align: center;
     }
     .hero-services-list {
@@ -238,7 +235,7 @@
       transform: translate(-50%, -50%);
       width: auto;
       height: auto;
-      font-family: 'Anonymous Pro', monospace; font-size: 30.83px;
+      font-family: 'Anonymous Pro', monospace; font-size: 30.83px; font-weight: 400;
       letter-spacing: -0.05em; word-spacing: 0.7em;
       text-align: center;
       color: var(--light); text-transform: uppercase;
