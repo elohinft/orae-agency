@@ -208,39 +208,33 @@
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
     }
-    /* x:300 y:255 w:839 h:296.66 sur frame 1440×1024 */
-    .hero-big-logo {
-      position: absolute;
-      top: 24.9%;
-      left: 20.8%;
-      width: 58.3%;
-      height: auto;
-    }
-    /* x:314.4 y:517.75 w:810.6 h:105.82 — chevauche intentionnellement le bas du logo */
     .hero-tagline {
       position: absolute;
-      top: 50.6%;
-      left: 21.8%;
-      width: 56.3%;
-      height: auto;
-      font-family: 'Blur', sans-serif; font-weight: 400;
-      color: var(--light); white-space: nowrap;
-      font-size: clamp(18px, 4.5vw, 80px); text-align: left;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      font-family: 'Blur', sans-serif;
+      font-weight: 400;
+      color: var(--light);
+      white-space: nowrap;
+      font-size: 170px;
       line-height: 1;
       z-index: 2;
+      text-align: center;
     }
-    /* x:391.6 y:648.85 w:656.28 h:120.57 */
     .hero-services-list {
       position: absolute;
-      top: 63.4%;
-      left: 27.2%;
-      width: 45.6%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 60%);
+      width: auto;
       height: auto;
-      font-family: 'Anonymous Pro', monospace; font-size: clamp(12px, 1.1vw, 18px);
+      font-family: 'Anonymous Pro', monospace; font-size: 35px;
       letter-spacing: -0.05em; word-spacing: 0.7em;
-      text-align: left;
+      text-align: center;
       color: var(--light); text-transform: uppercase;
       line-height: 1.35;
+      white-space: nowrap;
     }
     .svc { transition: opacity 0.12s ease; opacity: 0.45; font-weight: 400; }
     .svc.lit { opacity: 1; font-weight: 400; }
@@ -505,12 +499,12 @@
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
     <div class="hero-main">
-      <img src="logo-whitze.svg?v=2" alt="Orae" class="hero-big-logo" id="heroBigLogo" decoding="async">
       <div class="hero-tagline" id="heroTagline">(studio graphique)</div>
       <div class="hero-services-list">
-        <span class="svc">IDENTITÉ VISUELLE</span> / <span class="svc">BRAND DESIGN</span><span class="svc-br"> /<br></span>
-        <span class="svc">DIRECTION ARTISTIQUE</span> / <span class="svc">DESIGN ÉDITORIAL</span><span class="svc-br"> /<br></span>
-        <span class="svc">AFFICHES</span> / <span class="svc">PRINT</span> / <span class="svc">ILLUSTRATION</span> / <span class="svc-br"><br></span><span class="svc">MOTION DESIGN</span> / <span class="svc">WEB DESIGN</span>
+        <span class="svc">IDENTITÉ VISUELLE</span> / <span class="svc">BRAND DESIGN</span> /<br>
+        <span class="svc">DIRECTION ARTISTIQUE</span> / <span class="svc">DESIGN ÉDITORIAL</span> /<br>
+        <span class="svc">AFFICHES</span> / <span class="svc">PRINT</span> / <span class="svc">ILLUSTRATION</span> /<br>
+        <span class="svc">MOTION DESIGN</span> / <span class="svc">WEB DESIGN</span>
       </div>
     </div>
   </section>
@@ -1049,49 +1043,6 @@
     next();
   })();
 
-  /* ── Hero tagline : fit largeur logo + colle sous les glyphes ── */
-  (function() {
-    function fitTagline() {
-      const logo    = document.getElementById('heroBigLogo');
-      const tagline = document.getElementById('heroTagline');
-      if (!logo || !tagline) return;
-
-      /* Sur mobile : CSS !important gère tout — effacer tout style JS résiduel */
-      if (window.innerWidth <= 768) {
-        tagline.style.fontSize  = '';
-        tagline.style.marginTop = '';
-        return;
-      }
-
-      const r = logo.getBoundingClientRect();
-      if (!r.width) return;
-
-      /* Desktop — taille : remplit la largeur du logo */
-      tagline.style.whiteSpace = 'nowrap';
-      let lo = 8, hi = 500;
-      while (hi - lo > 0.5) {
-        const mid = (lo + hi) / 2;
-        tagline.style.fontSize = mid + 'px';
-        tagline.scrollWidth <= r.width ? lo = mid : hi = mid;
-      }
-      tagline.style.fontSize = Math.floor(lo) + 'px';
-    }
-
-    function run() { fitTagline(); setTimeout(fitTagline, 400); }
-
-    /* Attend spécifiquement la police Blur (plus fiable que fonts.ready) */
-    document.fonts.load('1em "Blur"').then(() => {
-      const logo = document.getElementById('heroBigLogo');
-      if (logo && logo.complete) run();
-      else if (logo) logo.addEventListener('load', run);
-    });
-    /* Fallback : retries après window.load pour Chrome/Safari mobile */
-    window.addEventListener('load', () => {
-      setTimeout(fitTagline, 200);
-      setTimeout(fitTagline, 1000);
-    });
-    window.addEventListener('resize', fitTagline);
-  })();
   </script>
 
 </body>
