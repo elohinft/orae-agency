@@ -200,7 +200,7 @@
     /* ─────── HERO ─────── */
     #hero {
       position: relative; width: 100%;
-      aspect-ratio: 1440 / 1024;
+      height: 100vh;
       background: #1e1d1f;
       overflow: hidden;
     }
@@ -235,12 +235,14 @@
       transform: translate(-50%, -50%);
       width: auto;
       height: auto;
-      font-family: 'Anonymous Pro', monospace; font-size: 30.83px; font-weight: 400;
-      letter-spacing: -0.05em; word-spacing: 0.7em;
+      font-family: 'Anonymous Pro', monospace; font-size: 30.83px; font-weight: 400; font-style: normal;
+      letter-spacing: -0.03em; word-spacing: 0.5em;
       text-align: center;
       color: var(--light); text-transform: uppercase;
       line-height: 26.4px;
       white-space: nowrap;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     .svc { transition: opacity 0.12s ease; opacity: 0.45; font-weight: 400; }
     .svc.lit { opacity: 1; font-weight: 400; }
@@ -412,13 +414,13 @@
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
       /* ── HERO mobile ── */
-      #hero { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 70px 0 60px; aspect-ratio: auto; min-height: 100svh; overflow: visible; }
-      .hero-main { position: static; display: flex; flex-direction: column; align-items: stretch; width: 88vw; }
-      .hero-big-logo { position: static; width: 100%; height: auto; transform: none; }
-      .hero-tagline { position: static; top: auto; left: auto; transform: none; width: auto; height: auto; line-height: 1; margin-top: -7vw !important; font-size: 9vw !important; text-align: center; filter: none; overflow: visible; }
+      #hero { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100svh; padding: 0; aspect-ratio: auto; overflow: hidden; }
+      .hero-main { position: static; display: flex; flex-direction: column; align-items: center; width: 88vw; gap: 20px; }
+      .hero-big-logo { display: none; }
+      .hero-tagline { position: static; top: auto; left: auto; transform: none; width: auto; display: block; height: auto; line-height: 1; font-size: clamp(38px, 12vw, 64px) !important; text-align: center; filter: none; overflow: visible; }
       .hero-tagline span { position: static; display: inline; width: auto; }
       #morphText1 { display: none; }
-      .hero-services-list { position: static; top: auto; left: auto; transform: none; width: 88vw; height: auto; font-size: clamp(14px, 4.2vw, 20px); margin-top: 24px; letter-spacing: -0.05em; word-spacing: 0.3em; line-height: 1.35; text-align: center; }
+      .hero-services-list { position: static; top: auto; left: auto; transform: none; width: 84vw; height: auto; white-space: normal; font-size: clamp(9px, 2.8vw, 14px) !important; line-height: 1.6; margin-top: 0; letter-spacing: -0.03em; word-spacing: 0.2em; text-align: center; }
       .svc-br { display: none; }
       .nav-links { order: 1; }
       .nav-logo-img { order: 2; }
