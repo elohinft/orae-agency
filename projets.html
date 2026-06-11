@@ -122,8 +122,10 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: absolute; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 0; border: none; transition: color .35s; background: transparent; color: var(--dark); }
-    .nav-logo-img { height: 36px; width: auto; display: block; }
+    #main-nav { position: absolute; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(20,19,18,0.25); transition: color .35s; background: transparent; color: var(--dark); }
+    .nav-links { order: 1; }
+    .nav-logo-link { order: 2; line-height: 0; }
+    .nav-logo-img { height: 24px; width: auto; display: block; }
     .nav-logo-link { line-height: 0; }
     .nav-links { display: flex; gap: 22px; list-style: none; }
     .nav-links li a { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: inherit; opacity: 1; transition: opacity .2s, font-style .15s, font-weight .1s; }
@@ -158,87 +160,38 @@
     /* ── PROJ TITLE HERO ── */
     .proj-hero {
       position: relative;
-      min-height: 100vh;
+      height: 100vh;
+      width: 100%;
       background: var(--light);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 60px;
     }
 
     .proj-hero-inner {
       display: flex;
-      align-items: flex-start;
-      margin-left: 52vw;
-    }
-
-    .proj-label {
-      display: flex;
       flex-direction: column;
-      align-items: stretch;
-      width: 84px;
-      gap: 5px;
-      padding-top: 12px;
+      align-items: center;
+      gap: 0;
       opacity: 0;
-      animation: heroFadeIn 0.4s ease-out 0s forwards;
+      animation: heroFadeIn 0.6s ease-out 0.2s forwards;
     }
 
-    .proj-label-top {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.29em;
-      text-transform: uppercase;
-      color: rgba(33,34,38,0.7);
-      line-height: 1.3;
-      text-align: right;
-      display: block;
-    }
-
-    .proj-label-year {
-      font-family: var(--mono);
-      font-size: 13px;
+    .proj-year {
+      font-family: 'Anonymous Pro', monospace;
+      font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.13em;
+      letter-spacing: 0.22em;
       color: rgba(33,34,38,0.5);
-      line-height: 1.3;
-      text-align: right;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .proj-portfolio-svg {
+      width: min(900px, 82vw);
+      height: auto;
       display: block;
     }
-
-    .proj-bar {
-      width: 1px;
-      height: 224px;
-      background: rgba(33,34,38,0.3);
-      margin: 0 28px;
-      flex-shrink: 0;
-      transform-origin: top center;
-      transform: scaleY(0);
-      animation: heroScaleY 0.5s ease-out 0.2s forwards;
-    }
-
-    .proj-display-title {
-      display: flex;
-      flex-direction: column;
-      line-height: 0.88;
-    }
-
-    .proj-display-title span {
-      display: block;
-      font-family: var(--heavy);
-      font-weight: 700;
-      font-size: 170px;
-      text-transform: uppercase;
-      letter-spacing: -0.05em;
-      color: var(--dark);
-      line-height: 0.88;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .proj-display-title span:nth-child(1) { animation: heroFadeUp 0.5s ease-out 0.4s forwards; }
-    .proj-display-title span:nth-child(2) { animation: heroFadeUp 0.5s ease-out 0.55s forwards; }
-    .proj-display-title span:nth-child(3) { animation: heroFadeUp 0.5s ease-out 0.7s forwards; }
 
     @keyframes heroFadeIn {
       to { opacity: 1; }
@@ -327,12 +280,7 @@
 
 
       .proj-hero { padding-top: 50px; overflow: hidden; }
-      .proj-hero-inner { margin-left: 0; }
-      .proj-display-title span { font-size: 65px; }
-      .proj-label { width: 62px; padding-top: 6px; }
-      .proj-label-top { font-size: 9px; letter-spacing: 0.18em; }
-      .proj-label-year { font-size: 9px; letter-spacing: 0.09em; }
-      .proj-bar { height: 90px; margin: 0 14px; }
+      .proj-portfolio-svg { width: min(320px, 80vw); }
       .proj-scroller-section { padding-bottom: 80px; }
       .proj-scroller { height: 320vh; padding: 0 8px 0; gap: 6px; }
       .scroller-col:nth-child(3) { display: none; }
@@ -397,16 +345,8 @@
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
     <div class="proj-hero-inner">
-      <div class="proj-label">
-        <span class="proj-label-top">Projets</span>
-        <span class="proj-label-year">2022–2026</span>
-      </div>
-      <div class="proj-bar"></div>
-      <div class="proj-display-title">
-        <span>PORT</span>
-        <span>FO</span>
-        <span>LIO</span>
-      </div>
+      <p class="proj-year">2022–2026</p>
+      <img src="portfolio.svg" alt="portfolio" class="proj-portfolio-svg" draggable="false">
     </div>
   </section>
 
