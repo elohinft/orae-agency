@@ -213,20 +213,12 @@
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-family: 'Blur', sans-serif;
-      font-weight: 400;
-      color: var(--light);
-      white-space: nowrap;
-      font-size: min(170px, 11.8vw);
-      line-height: 1;
-      display: grid;
       z-index: 2;
-      text-align: center;
-      filter: url(#heroMorphFilter) blur(0.6px);
     }
-    .hero-tagline span {
-      grid-area: 1 / 1;
-      text-align: center;
+    .hero-tagline-svg {
+      width: min(1257px, 88vw);
+      height: auto;
+      display: block;
     }
     .hero-services-list {
       position: absolute;
@@ -417,9 +409,8 @@
       #hero { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100svh; padding: 0; aspect-ratio: auto; overflow: hidden; }
       .hero-main { position: static; display: flex; flex-direction: column; align-items: center; width: 88vw; gap: 20px; }
       .hero-big-logo { display: none; }
-      .hero-tagline { position: static; top: auto; left: auto; transform: none; width: auto; display: block; height: auto; line-height: 1; font-size: clamp(38px, 12vw, 64px) !important; text-align: center; filter: none; overflow: visible; }
-      .hero-tagline span { position: static; display: inline; width: auto; }
-      #morphText1 { display: none; }
+      .hero-tagline { position: static; top: auto; left: auto; transform: none; }
+      .hero-tagline-svg { width: 80vw; height: auto; }
       .hero-services-list { position: static; top: auto; left: auto; transform: none; width: 84vw; height: auto; white-space: normal; font-size: clamp(9px, 2.8vw, 14px) !important; line-height: 1.6; margin-top: 0; letter-spacing: -0.03em; word-spacing: 0.2em; text-align: center; }
       .svc-br { display: none; }
       .nav-links { order: 1; }
@@ -510,8 +501,7 @@
     </nav>
     <div class="hero-main">
       <div class="hero-tagline" id="heroTagline">
-        <span id="morphText1"></span>
-        <span id="morphText2">(studio graphique)</span>
+        <img src="studiographique.svg" alt="(studio graphique)" class="hero-tagline-svg" draggable="false">
       </div>
       <div class="hero-services-list">
         <span class="svc">IDENTITÉ VISUELLE</span> / <span class="svc">BRAND DESIGN</span> /<br>
@@ -1056,68 +1046,8 @@
     next();
   })();
 
-  /* ── Hero morphing tagline ── */
-  (function() {
-    const texts = ["(studio graphique)", "(brand design)", "(motion design)", "(art direction)"];
-    const morphTime = 1.5, cooldownTime = 0.5;
-    let textIndex = 0, morph = 0, cooldown = cooldownTime;
-    let lastTime = Date.now();
-
-    const t1 = document.getElementById('morphText1');
-    const t2 = document.getElementById('morphText2');
-    if (!t1 || !t2) return;
-
-    t1.textContent = texts[0];
-    t2.textContent = texts[0];
-    t2.style.opacity = '100%';
-    t1.style.opacity = '0%';
-
-    function setMorphStyles(frac) {
-      t2.style.filter = `blur(${Math.min(8 / frac - 8, 100)}px)`;
-      t2.style.opacity = `${Math.pow(frac, 0.4) * 100}%`;
-      const inv = 1 - frac;
-      t1.style.filter = `blur(${Math.min(8 / inv - 8, 100)}px)`;
-      t1.style.opacity = `${Math.pow(inv, 0.4) * 100}%`;
-      t1.textContent = texts[textIndex % texts.length];
-      t2.textContent = texts[(textIndex + 1) % texts.length];
-    }
-
-    function animateMorph() {
-      requestAnimationFrame(animateMorph);
-      const now = Date.now();
-      const dt = (now - lastTime) / 1000;
-      lastTime = now;
-      cooldown -= dt;
-      if (cooldown <= 0) {
-        morph -= cooldown;
-        cooldown = 0;
-        let frac = morph / morphTime;
-        if (frac > 1) { cooldown = cooldownTime; frac = 1; }
-        setMorphStyles(frac);
-        if (frac === 1) textIndex++;
-      } else {
-        morph = 0;
-        t2.style.filter = 'none';
-        t2.style.opacity = '100%';
-        t1.style.filter = 'none';
-        t1.style.opacity = '0%';
-      }
-    }
-    animateMorph();
-  })();
   </script>
 
-  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
-    <defs>
-      <filter id="heroMorphFilter">
-        <feColorMatrix in="SourceGraphic" type="matrix"
-          values="1 0 0 0 0
-                  0 1 0 0 0
-                  0 0 1 0 0
-                  0 0 0 255 -140"/>
-      </filter>
-    </defs>
-  </svg>
 
 </body>
 </html>
