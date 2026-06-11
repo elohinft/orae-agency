@@ -352,6 +352,39 @@
     }
     @media (min-width: 769px) {
       .mobile-br { display: none; }
+
+      /* ── HERO desktop : layout absolu Figma ── */
+      #hero { display: block; padding: 0; }
+      .hero-main {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        width: auto; display: block;
+      }
+      .hero-big-logo {
+        position: absolute;
+        top: 112px;
+        left: calc(50% + 7.5px);
+        transform: translateX(-50%);
+        width: 641px;
+        height: auto;
+      }
+      .hero-tagline {
+        position: absolute;
+        top: 312.74px;
+        left: calc(50% + 7.65px);
+        transform: translateX(-50%);
+        width: 619.298px;
+        margin-top: 0 !important;
+        z-index: 2;
+      }
+      .hero-services-list {
+        position: absolute;
+        top: 412.91px;
+        left: calc(50% + 7.7px);
+        transform: translateX(-50%);
+        width: 501.402px;
+        margin-top: 0;
+      }
     }
     #contact { background: var(--light); color: var(--dark); overflow: hidden; margin-top: -2px; }
     .contact-inner { display: flex; justify-content: center; padding: 0 52px 140px; }
@@ -1061,9 +1094,6 @@
         tagline.scrollWidth <= r.width ? lo = mid : hi = mid;
       }
       tagline.style.fontSize = Math.floor(lo) + 'px';
-
-      /* Desktop — position : glyphes SVG finissent à ~61 % de la hauteur image */
-      tagline.style.marginTop = Math.round(r.height * -0.347) + 'px';
     }
 
     function run() { fitTagline(); setTimeout(fitTagline, 400); }
