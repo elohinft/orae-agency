@@ -199,45 +199,46 @@
 
     /* ─────── HERO ─────── */
     #hero {
-      position: relative; width: 100%; min-height: 100svh;
+      position: relative; width: 100%;
+      aspect-ratio: 1440 / 1024;
       background: #1e1d1f;
-      overflow: visible;
+      overflow: hidden;
     }
     .hero-main {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
     }
+    /* x:300 y:255 w:839 h:296.66 sur frame 1440×1024 */
     .hero-big-logo {
       position: absolute;
-      top: 112px;
-      left: calc(50% + 7.5px);
-      transform: translateX(-50%);
-      width: 641px;
+      top: 24.9%;
+      left: 20.8%;
+      width: 58.3%;
       height: auto;
     }
+    /* x:314.4 y:517.75 w:810.6 h:105.82 — chevauche intentionnellement le bas du logo */
     .hero-tagline {
       position: absolute;
-      top: 312.7px;
-      left: calc(50% + 7.65px);
-      transform: translateX(-50%);
-      width: 619px;
-      height: 80.8px;
+      top: 50.6%;
+      left: 21.8%;
+      width: 56.3%;
+      height: auto;
       font-family: 'Blur', sans-serif; font-weight: 400;
       color: var(--light); white-space: nowrap;
-      font-size: clamp(18px, 8.5vw, 80px); text-align: center;
-      line-height: 80.8px;
+      font-size: clamp(18px, 4.5vw, 80px); text-align: left;
+      line-height: 1;
       z-index: 2;
     }
+    /* x:391.6 y:648.85 w:656.28 h:120.57 */
     .hero-services-list {
       position: absolute;
-      top: 412.9px;
-      left: calc(50% + 7.7px);
-      transform: translateX(-50%);
-      width: 501px;
-      height: 92px;
-      font-family: 'Anonymous Pro', monospace; font-size: clamp(14px, 1.5vw, 22px);
+      top: 63.4%;
+      left: 27.2%;
+      width: 45.6%;
+      height: auto;
+      font-family: 'Anonymous Pro', monospace; font-size: clamp(12px, 1.1vw, 18px);
       letter-spacing: -0.05em; word-spacing: 0.7em;
-      text-align: center;
+      text-align: left;
       color: var(--light); text-transform: uppercase;
       line-height: 1.35;
     }
@@ -411,7 +412,7 @@
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
       /* ── HERO mobile ── */
-      #hero { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 70px 0 60px; }
+      #hero { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 70px 0 60px; aspect-ratio: auto; min-height: 100svh; overflow: visible; }
       .hero-main { position: static; display: flex; flex-direction: column; align-items: stretch; width: 88vw; }
       .hero-big-logo { position: static; width: 100%; height: auto; transform: none; }
       .hero-tagline { position: static; top: auto; left: auto; transform: none; width: auto; height: auto; line-height: 1; margin-top: -7vw !important; font-size: 9vw !important; text-align: center; }
