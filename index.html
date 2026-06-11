@@ -220,6 +220,7 @@
       height: auto;
       display: block;
     }
+    .hero-tagline-svg-mobile { display: none; }
     .hero-services-list {
       position: absolute;
       top: 55%;
@@ -410,7 +411,8 @@
       .hero-main { position: static; display: flex; flex-direction: column; align-items: center; width: 88vw; gap: 20px; }
       .hero-big-logo { display: none; }
       .hero-tagline { position: static; top: auto; left: auto; transform: none; }
-      .hero-tagline-svg { width: 80vw; height: auto; }
+      .hero-tagline-svg { display: none; }
+      .hero-tagline-svg-mobile { display: block; width: 80vw; height: auto; }
       .hero-services-list { position: static; top: auto; left: auto; transform: none; width: 84vw; height: auto; white-space: normal; font-size: clamp(9px, 2.8vw, 14px) !important; line-height: 1.6; margin-top: 0; letter-spacing: -0.03em; word-spacing: 0.2em; text-align: center; }
       .svc-br { display: none; }
       .nav-links { order: 1; }
@@ -502,6 +504,7 @@
     <div class="hero-main">
       <div class="hero-tagline" id="heroTagline">
         <img src="studiographique.svg" alt="(studio graphique)" class="hero-tagline-svg" draggable="false">
+        <img src="studiographiquemobile.png" alt="(studio graphique)" class="hero-tagline-svg-mobile" draggable="false">
       </div>
       <div class="hero-services-list">
         <span class="svc">IDENTITÉ VISUELLE</span> / <span class="svc">BRAND DESIGN</span> /<br>
