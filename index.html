@@ -311,7 +311,7 @@
     .service-num-line { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 32px; }
     .service-num { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--dark); opacity: .35; flex-shrink: 0; }
     .service-line { flex: 1; height: 1px; background: var(--dark); opacity: .1; }
-    .service-name { font-family: 'Blur', sans-serif; font-size: 2.3vw; font-weight: 400; line-height: 1.1; letter-spacing: -3px; color: var(--dark); margin-bottom: 22px; }
+    .service-name { font-family: 'Blur', sans-serif; font-size: 2.3vw; font-weight: 400; line-height: 0.9; letter-spacing: -3px; color: var(--dark); margin-bottom: 22px; }
     .service-desc { font-family: var(--urban); font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--dark); opacity: .65; max-width: 340px; }
     .service-cta { display: inline-block; margin-top: 20px; font-family: var(--mono); font-size: 16px; letter-spacing: .14em; text-transform: uppercase; color: var(--dark); text-decoration: underline; text-underline-offset: 6px; opacity: .85; transition: opacity .2s, font-style .15s, font-weight .1s; }
     .service-cta:hover { opacity: 1; font-weight: 700; }
@@ -339,9 +339,10 @@
 
     /* ─────── CONTACT ─────── */
     .contact-hero-title {
-      font-family: var(--heavy);
+      font-family: 'Blur', sans-serif;
+      font-weight: 400;
       font-size: clamp(52px, 9vw, 140px);
-      letter-spacing: -0.05em;
+      letter-spacing: -3px;
       text-align: center;
       color: var(--dark);
       line-height: 0.9;
