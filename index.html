@@ -200,34 +200,46 @@
     /* ─────── HERO ─────── */
     #hero {
       position: relative; width: 100%; min-height: 100svh;
-      background: var(--dark-bg);
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      padding: 20px 0 80px;
+      background: #1e1d1f;
       overflow: visible;
     }
     .hero-main {
-      display: flex; flex-direction: column; align-items: stretch;
-      width: 70vw;
-      position: relative; z-index: 1;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
     }
     .hero-big-logo {
-      width: 100%; height: auto; display: block;
+      position: absolute;
+      top: 112px;
+      left: calc(50% + 7.5px);
+      transform: translateX(-50%);
+      width: 641px;
+      height: auto;
     }
     .hero-tagline {
+      position: absolute;
+      top: 312.7px;
+      left: calc(50% + 7.65px);
+      transform: translateX(-50%);
+      width: 619px;
+      height: 80.8px;
       font-family: 'Blur', sans-serif; font-weight: 400;
       color: var(--light); white-space: nowrap;
       font-size: clamp(18px, 8.5vw, 80px); text-align: center;
-      line-height: 1; margin-top: -15.4vw;
-      position: relative; z-index: 2;
+      line-height: 80.8px;
+      z-index: 2;
     }
     .hero-services-list {
-      margin-top: 32px;
+      position: absolute;
+      top: 412.9px;
+      left: calc(50% + 7.7px);
+      transform: translateX(-50%);
+      width: 501px;
+      height: 92px;
       font-family: 'Anonymous Pro', monospace; font-size: clamp(14px, 1.5vw, 22px);
       letter-spacing: -0.05em; word-spacing: 0.7em;
       text-align: center;
       color: var(--light); text-transform: uppercase;
-      line-height: 1.35; width: 100%;
+      line-height: 1.35;
     }
     .svc { transition: opacity 0.12s ease; opacity: 0.45; font-weight: 400; }
     .svc.lit { opacity: 1; font-weight: 400; }
@@ -352,39 +364,6 @@
     }
     @media (min-width: 769px) {
       .mobile-br { display: none; }
-
-      /* ── HERO desktop : layout absolu Figma ── */
-      #hero { display: block; padding: 0; }
-      .hero-main {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        width: auto; display: block;
-      }
-      .hero-big-logo {
-        position: absolute;
-        top: 112px;
-        left: calc(50% + 7.5px);
-        transform: translateX(-50%);
-        width: 641px;
-        height: auto;
-      }
-      .hero-tagline {
-        position: absolute;
-        top: 312.74px;
-        left: calc(50% + 7.65px);
-        transform: translateX(-50%);
-        width: 619.298px;
-        margin-top: 0 !important;
-        z-index: 2;
-      }
-      .hero-services-list {
-        position: absolute;
-        top: 412.91px;
-        left: calc(50% + 7.7px);
-        transform: translateX(-50%);
-        width: 501.402px;
-        margin-top: 0;
-      }
     }
     #contact { background: var(--light); color: var(--dark); overflow: hidden; margin-top: -2px; }
     .contact-inner { display: flex; justify-content: center; padding: 0 52px 140px; }
@@ -431,11 +410,12 @@
       #main-nav.menu-open .burger { color: var(--dark) !important; }
       #main-nav.menu-open .nav-logo-img { opacity: 0; }
 
-      /* ── HERO ── */
-      #hero { min-height: 100svh; height: auto; padding: 70px 0 60px; }
-      .hero-main { width: 88vw; margin: 0 auto; }
-      .hero-tagline { margin-top: -17.3vw !important; font-size: 9vw !important; text-align: center; }
-      .hero-services-list { font-size: clamp(14px, 4.2vw, 20px); margin-top: 24px; letter-spacing: -0.05em; word-spacing: 0.3em; line-height: 1.35; width: 88vw; text-align: center; }
+      /* ── HERO mobile ── */
+      #hero { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 70px 0 60px; }
+      .hero-main { position: static; display: flex; flex-direction: column; align-items: stretch; width: 88vw; }
+      .hero-big-logo { position: static; width: 100%; height: auto; transform: none; }
+      .hero-tagline { position: static; top: auto; left: auto; transform: none; width: auto; height: auto; line-height: 1; margin-top: -7vw !important; font-size: 9vw !important; text-align: center; }
+      .hero-services-list { position: static; top: auto; left: auto; transform: none; width: 88vw; height: auto; font-size: clamp(14px, 4.2vw, 20px); margin-top: 24px; letter-spacing: -0.05em; word-spacing: 0.3em; line-height: 1.35; text-align: center; }
       .svc-br { display: none; }
       .nav-links { order: 1; }
       .nav-logo-img { order: 2; }
