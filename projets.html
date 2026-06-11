@@ -122,7 +122,7 @@
     .scroll-line { position: fixed; top: 0; left: 0; height: 1px; width: 0%; background: var(--dark); opacity: .1; z-index: 300; }
 
     /* ── NAV ── */
-    #main-nav { position: absolute; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(20,19,18,0.25); transition: color .35s; background: transparent; color: var(--dark); }
+    #main-nav { position: absolute; top: 10px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 7px 40px; border-radius: 100px; border: 1px solid rgba(234,234,228,0.45); transition: color .35s; background: transparent; color: var(--light); }
     .nav-links { order: 1; }
     .nav-logo-link { order: 2; line-height: 0; }
     .nav-logo-img { height: 24px; width: auto; display: block; }
@@ -136,7 +136,7 @@
     .nav-email:hover { opacity: 1; }
 
     /* ── BURGER ── */
-    .burger { display: none; flex-direction: column; align-items: flex-end; gap: 5px; background: none; border: none; padding: 0; cursor: none; z-index: 202; color: var(--dark); transition: color .35s; }
+    .burger { display: none; flex-direction: column; align-items: flex-end; gap: 5px; background: none; border: none; padding: 0; cursor: none; z-index: 202; color: var(--light); transition: color .35s; }
     .burger span { display: block; height: 2.5px; border-radius: 2px; background: currentColor; transition: transform .3s, opacity .3s, width .3s; }
     .burger span:nth-child(1) { width: 22px; }
     .burger span:nth-child(2) { width: 14px; }
@@ -162,7 +162,7 @@
       position: relative;
       height: 100vh;
       width: 100%;
-      background: var(--light);
+      background: #1e1d1f;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -182,7 +182,7 @@
       font-size: 11px;
       font-weight: 400;
       letter-spacing: 0.22em;
-      color: rgba(33,34,38,0.5);
+      color: rgba(234,234,228,0.5);
       text-align: center;
       margin-bottom: 18px;
     }
@@ -190,6 +190,7 @@
     .proj-portfolio-svg {
       width: min(900px, 82vw);
       height: auto;
+      filter: brightness(0) invert(1);
       display: block;
     }
 
@@ -324,7 +325,7 @@
     <div class="mm-bottom">
       <a href="#" class="mm-email obf-email" data-e="b3JhZS5hZ2VuY3lAZ21haWwuY29t" rel="nofollow"></a>
       <div class="mm-logo-wrap" aria-hidden="true">
-        <img src="/logo-black.svg?v=3" alt="" class="mm-logo-big" />
+        <img src="/logo-whitze.svg?v=2" alt="" class="mm-logo-big" />
       </div>
     </div>
   </div>
@@ -332,7 +333,7 @@
   <!-- HERO -->
   <section class="proj-hero">
     <nav id="main-nav" data-theme="dark">
-      <a href="/" class="nav-logo-link"><img src="/logo-black.svg?v=3" alt="Orae" class="nav-logo-img" id="navLogo" /></a>
+      <a href="/" class="nav-logo-link"><img src="/logo-whitze.svg?v=2" alt="Orae" class="nav-logo-img" id="navLogo" /></a>
       <ul class="nav-links">
         <li><a href="/#about-text">L'agence</a></li>
         <li><a href="/#services">Services</a></li>
