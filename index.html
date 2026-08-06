@@ -909,35 +909,38 @@
 
 
     /* ── EmailJS ── */
-    emailjs.init('0vYqN6ujzQ8RRSgVG');
-    const contactForm   = document.getElementById('contactForm');
-    const formSubmitBtn = document.getElementById('formSubmitBtn');
-    const formFeedback  = document.getElementById('formFeedback');
-    if (contactForm) {
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        /* Honeypot : si rempli c'est un bot */
-        if (contactForm.querySelector('[name="_hp_website"]')?.value) return;
-        formSubmitBtn.textContent = '[Envoi...]';
-        formSubmitBtn.style.pointerEvents = 'none';
-        emailjs.sendForm('service_fk5ox1j', 'template_dv45gte', contactForm)
-          .then(() => {
-            formFeedback.textContent = 'Message envoyé — on revient vers vous rapidement.';
-            formFeedback.style.color   = 'var(--dark)';
-            formFeedback.style.opacity = '1';
-            formSubmitBtn.textContent  = '[Envoyé ✓]';
-            contactForm.reset();
-            setTimeout(() => { formFeedback.style.opacity='0'; formSubmitBtn.textContent='[Envoyer]'; formSubmitBtn.style.pointerEvents=''; }, 5000);
-          })
-          .catch(() => {
-            formFeedback.textContent = 'Erreur — veuillez réessayer ou nous contacter directement.';
-            formFeedback.style.color   = '#c0392b';
-            formFeedback.style.opacity = '1';
-            formSubmitBtn.textContent  = '[Envoyer]';
-            formSubmitBtn.style.pointerEvents = '';
-          });
-      });
-    }
+    /* Attend que le script CDN EmailJS (chargé en defer) soit prêt avant d'initialiser */
+    window.addEventListener('load', function () {
+      emailjs.init('0vYqN6ujzQ8RRSgVG');
+      const contactForm   = document.getElementById('contactForm');
+      const formSubmitBtn = document.getElementById('formSubmitBtn');
+      const formFeedback  = document.getElementById('formFeedback');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          /* Honeypot : si rempli c'est un bot */
+          if (contactForm.querySelector('[name="_hp_website"]')?.value) return;
+          formSubmitBtn.textContent = '[Envoi...]';
+          formSubmitBtn.style.pointerEvents = 'none';
+          emailjs.sendForm('service_fk5ox1j', 'template_dv45gte', contactForm)
+            .then(() => {
+              formFeedback.textContent = 'Message envoyé — on revient vers vous rapidement.';
+              formFeedback.style.color   = 'var(--dark)';
+              formFeedback.style.opacity = '1';
+              formSubmitBtn.textContent  = '[Envoyé ✓]';
+              contactForm.reset();
+              setTimeout(() => { formFeedback.style.opacity='0'; formSubmitBtn.textContent='[Envoyer]'; formSubmitBtn.style.pointerEvents=''; }, 5000);
+            })
+            .catch(() => {
+              formFeedback.textContent = 'Erreur — veuillez réessayer ou nous contacter directement.';
+              formFeedback.style.color   = '#c0392b';
+              formFeedback.style.opacity = '1';
+              formSubmitBtn.textContent  = '[Envoyer]';
+              formSubmitBtn.style.pointerEvents = '';
+            });
+        });
+      }
+    });
   </script>
   <script>
     /* ── Décodage données de contact (obfuscation anti-scraping) ── */
