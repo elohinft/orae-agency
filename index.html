@@ -167,7 +167,7 @@ body.menu-open{ overflow:hidden; }
   justify-content:space-between;
   padding:0 24px;
 }
-.mobile-menu-top .logo-svg{ width:47px; height:auto; }
+.mobile-menu-top .logo-svg{ width:34px; height:auto; }
 
 .menu-close{
   display:flex;
@@ -1062,8 +1062,12 @@ body.menu-open{ overflow:hidden; }
   .nav-right{ display:none; }
   .menu-toggle{ display:flex; }
 
-  /* HERO */
-  .hero{ padding:32px 24px 24px; min-height:auto; }
+  /* HERO — occupe l'écran d'accueil (menu + hero visibles au chargement) */
+  .hero{
+    padding:32px 24px;
+    min-height:calc(100vh - 64px);
+    min-height:calc(100dvh - 64px);
+  }
   .hero-title-svg{ max-width:100%; }
   .marquee-track span{ font-size:12px; line-height:1.4; font-weight:600; }
 
