@@ -919,7 +919,7 @@ body.menu-open{ overflow:hidden; }
 /* ---------- FOOTER ---------- */
 .footer{
   background:var(--dark-bg);
-  padding:24px 80px;
+  padding:24px 80px 100px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -991,7 +991,7 @@ body.menu-open{ overflow:hidden; }
 
 /* ---------- MOBILE FLOATING CONTACT BAR ---------- */
 .mobile-float-contact{
-  display:none;
+  display:flex;
   position:fixed;
   left:0;
   right:0;
@@ -1011,7 +1011,6 @@ body.menu-open{ overflow:hidden; }
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.2);
 }
 
 .float-contact-btn svg{
@@ -1023,7 +1022,7 @@ body.menu-open{ overflow:hidden; }
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1023px){
   .navbar{ padding:0 40px; }
-  .footer{ padding:24px 40px; }
+  .footer{ padding:24px 40px 100px; }
 
   .about{ padding:56px 40px; }
   .about-row{ flex-direction:column; align-items:flex-start; gap:48px; }
@@ -1093,6 +1092,7 @@ body.menu-open{ overflow:hidden; }
 @media (max-width: 767px){
   /* NAVBAR → burger + overlay */
   .navbar{ padding:0 24px; height:64px; }
+  .navbar .logo-svg{ width:44px; height:auto; }
   .nav-right{ display:none; }
   .menu-toggle{ display:flex; }
 
@@ -1225,9 +1225,6 @@ body.menu-open{ overflow:hidden; }
   .footer-legal{ flex-wrap:wrap; order:1; }
   .footer-copy{ order:2; text-align:left; }
   .footer-cta{ display:none; }
-
-  /* FLOATING CONTACT BAR — visible seulement sur mobile */
-  .mobile-float-contact{ display:flex; }
 }
 </style>
 </head>
@@ -1291,13 +1288,13 @@ body.menu-open{ overflow:hidden; }
       </a>
     </li>
     <li>
-      <a class="mobile-menu-info-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=orae.agency@gmail.com" target="_blank" rel="noopener">
+      <a class="mobile-menu-info-link" href="mailto:orae.agency@gmail.com">
         <svg viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         <span>orae.agency@gmail.com</span>
       </a>
     </li>
     <li>
-      <a class="mobile-menu-info-link" href="https://instagram.com/orae_agency" target="_blank" rel="noopener">
+      <a class="mobile-menu-info-link" href="https://instagram.com/orae_agency">
         <svg viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
         <span>@orae_agency</span>
       </a>
@@ -2560,7 +2557,7 @@ body.menu-open{ overflow:hidden; }
           </a>
         </li>
         <li>
-          <a class="contact-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=orae.agency@gmail.com" target="_blank" rel="noopener">
+          <a class="contact-link" href="mailto:orae.agency@gmail.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="#E5E5E5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <span>orae.agency@gmail.com</span>
           </a>
@@ -2572,7 +2569,7 @@ body.menu-open{ overflow:hidden; }
           </span>
         </li>
         <li>
-          <a class="contact-link" href="https://instagram.com/orae_agency" target="_blank" rel="noopener">
+          <a class="contact-link" href="https://instagram.com/orae_agency">
             <svg viewBox="0 0 24 24" fill="none" stroke="#E5E5E5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
             <span>@orae_agency</span>
           </a>
@@ -2604,10 +2601,10 @@ body.menu-open{ overflow:hidden; }
 </footer>
 
 <div class="mobile-float-contact">
-  <a class="float-contact-btn" style="background:#E8E0FA; color:#6B4DB8;" href="https://instagram.com/orae_agency" target="_blank" rel="noopener" aria-label="Instagram">
+  <a class="float-contact-btn" style="background:#E8E0FA; color:#6B4DB8;" href="https://instagram.com/orae_agency" aria-label="Instagram">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
   </a>
-  <a class="float-contact-btn" style="background:#DEF5E8; color:#2E8552;" href="https://mail.google.com/mail/?view=cm&fs=1&to=orae.agency@gmail.com" target="_blank" rel="noopener" aria-label="Email">
+  <a class="float-contact-btn" style="background:#DEF5E8; color:#2E8552;" href="mailto:orae.agency@gmail.com" aria-label="Email">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
   </a>
   <a class="float-contact-btn" style="background:#F5E0E5; color:#A64054;" href="tel:+33611252584" aria-label="Téléphone">
