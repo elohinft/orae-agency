@@ -982,8 +982,8 @@ body.menu-open{ overflow:hidden; }
 .float-contact-btn{ animation:breathe 6s ease-in-out infinite; }
 #web .img-grid{ animation-delay:.7s; }
 #print .img-grid{ animation-delay:1.4s; }
-.float-contact-btn:nth-child(2){ animation-delay:.7s; }
-.float-contact-btn:nth-child(3){ animation-delay:1.4s; }
+.float-contact-btn.delay-1{ animation-delay:.7s; }
+.float-contact-btn.delay-2{ animation-delay:1.4s; }
 
 @media (prefers-reduced-motion: reduce){
   .logos-grid, .img-grid, .bento-grid, .float-contact-btn{ animation:none; }
@@ -999,14 +999,23 @@ body.menu-open{ overflow:hidden; }
   z-index:150;
   justify-content:center;
   align-items:center;
-  gap:14px;
   pointer-events:none;
 }
 
-.float-contact-btn{
+.float-contact-pill{
   pointer-events:auto;
-  width:52px;
-  height:52px;
+  background:#FFFFFF;
+  border-radius:100px;
+  padding:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+.float-contact-btn{
+  width:44px;
+  height:44px;
   border-radius:50%;
   display:flex;
   align-items:center;
@@ -1014,9 +1023,56 @@ body.menu-open{ overflow:hidden; }
 }
 
 .float-contact-btn svg{
-  width:22px;
-  height:22px;
+  width:18px;
+  height:18px;
   display:block;
+}
+
+.phone-choice{
+  position:relative;
+}
+
+.phone-choice-trigger{
+  background:none;
+  border:none;
+  padding:0;
+  margin:0;
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+}
+
+.phone-choice-menu{
+  position:absolute;
+  bottom:calc(100% + 12px);
+  left:50%;
+  transform:translateX(-50%);
+  background:#FFFFFF;
+  border-radius:14px;
+  padding:6px;
+  display:none;
+  flex-direction:column;
+  min-width:170px;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  z-index:160;
+}
+
+.phone-choice-menu.is-open{
+  display:flex;
+}
+
+.phone-choice-menu a{
+  padding:10px 14px;
+  border-radius:10px;
+  font-family:'Urbanist', sans-serif;
+  font-weight:600;
+  font-size:14px;
+  color:#111111;
+  white-space:nowrap;
+}
+
+.phone-choice-menu a:hover{
+  background:#F5E0E5;
 }
 
 /* ---------- RESPONSIVE ---------- */
@@ -2601,15 +2657,24 @@ body.menu-open{ overflow:hidden; }
 </footer>
 
 <div class="mobile-float-contact">
+ <div class="float-contact-pill">
   <a class="float-contact-btn" style="background:#E8E0FA; color:#6B4DB8;" href="https://instagram.com/orae_agency" aria-label="Instagram">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
   </a>
-  <a class="float-contact-btn" style="background:#DEF5E8; color:#2E8552;" href="mailto:orae.agency@gmail.com" aria-label="Email">
+  <a class="float-contact-btn delay-1" style="background:#DEF5E8; color:#2E8552;" href="mailto:orae.agency@gmail.com" aria-label="Email">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
   </a>
-  <a class="float-contact-btn" style="background:#F5E0E5; color:#A64054;" href="tel:+33611252584" aria-label="Téléphone">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-  </a>
+  <div class="phone-choice">
+    <button type="button" class="float-contact-btn phone-choice-trigger delay-2" style="background:#F5E0E5; color:#A64054;" aria-label="Téléphone" aria-haspopup="true" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </button>
+    <div class="phone-choice-menu" role="menu">
+      <a href="tel:+33611252584" role="menuitem">Appeler</a>
+      <a href="sms:+33611252584" role="menuitem">Envoyer un SMS</a>
+      <a href="https://wa.me/33611252584" target="_blank" rel="noopener" role="menuitem">WhatsApp</a>
+    </div>
+  </div>
+ </div>
 </div>
 
 <script>
@@ -2684,6 +2749,34 @@ body.menu-open{ overflow:hidden; }
   }, { threshold: 0.4 });
 
   observer.observe(statsEl);
+})();
+
+(function(){
+  var trigger = document.querySelector('.phone-choice-trigger');
+  var menu = document.querySelector('.phone-choice-menu');
+  if (!trigger || !menu) return;
+
+  function closeMenu(){
+    menu.classList.remove('is-open');
+    trigger.setAttribute('aria-expanded', 'false');
+  }
+  function openMenu(){
+    menu.classList.add('is-open');
+    trigger.setAttribute('aria-expanded', 'true');
+  }
+
+  trigger.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
+  });
+
+  document.addEventListener('click', function(e){
+    if (!menu.contains(e.target) && e.target !== trigger) closeMenu();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeMenu();
+  });
 })();
 
 (function(){
