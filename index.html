@@ -1193,22 +1193,21 @@ body.menu-open{ overflow:hidden; }
   display:inline-flex;
   align-items:center;
   gap:6px;
-  background:#222222;
-  border-radius:100px;
-  padding:10px 20px;
   font-family:'IBM Plex Mono', monospace;
   font-weight:400;
   font-size:13px;
   color:var(--white);
-  transition:background .2s ease;
+  transition:letter-spacing .2s ease;
 }
-.footer-cta:hover{ background:#2c2c2c; }
+.footer-cta:hover{ letter-spacing:.2px; }
+.footer-cta:hover .arrow-frame{ transform:translateX(3px); }
 .footer-cta .arrow-frame{
   width:14px;
   height:14px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
+  transition:transform .2s ease;
 }
 
 /* ---------- AMBIENT BREATHING MOTION ---------- */
