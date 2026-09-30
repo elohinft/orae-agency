@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Politique de confidentialité — ORAE</title>
+  <meta name="description" content="Politique de confidentialité du site ORAE : données collectées, usage, durée de conservation et droits.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ORAE — NEW ERA
+   Valeurs issues de la maquette Figma (cadre 1440 px). */
+
+:root {
+  --bg: #f4f4f0;
+  --ink: #0a0a0a;
+  --ink-soft: rgba(0, 0, 0, .7);
+  --red: #f70010;
+
+  --font-text: "Inter", system-ui, sans-serif;
+  --font-display: Helvetica, "Helvetica Neue", Arial, sans-serif;
+
+  --edge: 12px;                          /* marge nav / footer */
+  --gutter: clamp(20px, 5vw, 72px);      /* marge du contenu */
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main { flex: 1; }
+
+p, h1, h2, h3, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+a { color: inherit; text-decoration: none; }
+a:hover { opacity: .6; }
+a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+
+/* ---------- Navigation ---------- */
+
+.nav {
+  height: 52px;
+  margin: 0 var(--edge);
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #000;
+  white-space: nowrap;
+}
+
+.nav__brand { display: flex; align-items: center; gap: 8px; }
+.nav__wordmark { font-size: 13px; font-weight: 700; }
+.nav__mark { font-size: 11px; color: var(--ink-soft); }
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.78vw, 40px);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Texte qui défile au survol (menu + bouton) */
+.roll {
+  display: block;
+  overflow: hidden;
+  height: 1.3em;
+  line-height: 1.3em;
+}
+
+.roll > span {
+  display: block;
+  transition: transform .45s cubic-bezier(.6, 0, .2, 1);
+}
+
+a:hover .roll > span,
+button:hover .roll > span { transform: translateY(-100%); }
+
+.nav__menu a:hover,
+.btn:hover { opacity: 1; }
+
+/* ---------- Footer ---------- */
+
+.footer {
+  height: 52px;
+  margin: 0 var(--edge) 30px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.footer__legal { display: flex; gap: 24px; }
+
+
+/* ---------- Pages légales ---------- */
+
+.legal {
+  margin: 0 var(--gutter);
+  padding: clamp(56px, 8vw, 120px) 0 clamp(72px, 10vw, 150px);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 96px);
+}
+
+.legal__label {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.legal__title {
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 80px);
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.02em;
+}
+
+.legal__update { margin-top: 24px; font-size: 12px; color: var(--ink-soft); }
+
+.legal__body section {
+  padding: 28px 0 32px;
+  border-top: 1px solid rgba(0, 0, 0, .2);
+}
+
+.legal__body section:last-child { border-bottom: 1px solid rgba(0, 0, 0, .2); }
+
+.legal__body h2 {
+  margin-bottom: 14px;
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.legal__body p,
+.legal__body li {
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.legal__body p + p,
+.legal__body p + ul,
+.legal__body ul + p { margin-top: 12px; }
+
+.legal__body ul { padding-left: 18px; list-style: disc; }
+.legal__body li + li { margin-top: 6px; }
+.legal__body a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.legal__body strong { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 860px) {
+  .legal { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .roll > span { transition: none; }
+}
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__brand" href="index.html" aria-label="ORAE, retour à l’accueil">
+      <span class="nav__wordmark">ORAE</span>
+      <span class="nav__mark">©26</span>
+    </a>
+    <nav class="nav__menu" aria-label="Navigation principale">
+      <a href="index.html#projets"><span class="roll"><span>Projets</span><span aria-hidden="true">Projets</span></span></a>
+      <a href="index.html#studio"><span class="roll"><span>Studio</span><span aria-hidden="true">Studio</span></span></a>
+      <a href="index.html#expertise"><span class="roll"><span>Expertise</span><span aria-hidden="true">Expertise</span></span></a>
+      <a href="index.html#contact"><span class="roll"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <article class="legal">
+      <div>
+        <p class="legal__label">( Confidentialité )</p>
+        <h1 class="legal__title">Politique de<br>confidentialité</h1>
+        <p class="legal__update">Dernière mise à jour : 30 septembre 2026</p>
+      </div>
+      <div class="legal__body">
+        <section>
+          <h2>Responsable du traitement</h2>
+          <p>Le responsable du traitement des données est ORAE, entrepreneur individuel (SIRET 102 099 520 00011), Montpellier, France. Contact : <a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a>.</p>
+        </section>
+        <section>
+          <h2>Données collectées</h2>
+          <p>Lorsque vous remplissez le formulaire de contact, je collecte les informations que vous saisissez :</p>
+          <ul>
+            <li>votre nom et le nom de votre entreprise ;</li>
+            <li>votre adresse email et votre numéro de téléphone ;</li>
+            <li>l’adresse de votre site web, si vous la renseignez ;</li>
+            <li>le contenu de votre message.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Pourquoi ces données</h2>
+          <p>Elles servent uniquement à répondre à votre demande, vous recontacter et, le cas échéant, vous proposer un devis. Elles ne sont ni revendues, ni utilisées pour de la prospection sans votre accord.</p>
+          <p>Base légale : l’exécution de mesures précontractuelles prises à votre demande et mon intérêt légitime à répondre aux sollicitations reçues.</p>
+        </section>
+        <section>
+          <h2>Qui y a accès</h2>
+          <p>Votre message est transmis par le service d’envoi d’emails <strong>EmailJS</strong> puis reçu dans une messagerie <strong>Gmail</strong> (Google). Ces prestataires peuvent traiter des données en dehors de l’Union européenne, dans le cadre de garanties prévues par le RGPD. Aucune autre personne n’y a accès.</p>
+        </section>
+        <section>
+          <h2>Durée de conservation</h2>
+          <p>Vos données sont conservées 3 ans à compter de notre dernier échange, puis supprimées. Si nous travaillons ensemble, les informations nécessaires à la relation contractuelle et comptable sont conservées selon les durées légales.</p>
+        </section>
+        <section>
+          <h2>Vos droits</h2>
+          <p>Vous pouvez à tout moment demander l’accès à vos données, leur rectification, leur effacement, la limitation de leur traitement, ou vous y opposer. Pour cela, écrivez à <a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a>.</p>
+          <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
+        </section>
+        <section>
+          <h2>Cookies et polices</h2>
+          <p>Le site n’utilise aucun cookie publicitaire ni outil de mesure d’audience. Les polices de caractères (Inter) sont chargées depuis les serveurs de Google Fonts, ce qui peut transmettre votre adresse IP à Google lors de l’affichage de la page.</p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><a href="index.html">©26 Studio ORAE</a></p>
+    <nav class="footer__legal" aria-label="Informations légales">
+      <a href="mentions.html">Mentions</a>
+      <a href="confidentialite.html">Confidentialité</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
