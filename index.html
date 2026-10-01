@@ -991,7 +991,7 @@ button:hover .roll > span { transform: translateY(-100%); }
         <a href="https://wa.me/33611252584" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
-    <div class="quick__item">
+    <div class="quick__item" data-touch-href="mailto:orae.agency@gmail.com">
       <button class="quick__btn" type="button" aria-label="Me contacter par email" aria-expanded="false" aria-haspopup="true">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="3.5"/><path d="m3.5 7.5 7.4 5.3a2 2 0 0 0 2.2 0l7.4-5.3"/></svg>
       </button>
@@ -1019,6 +1019,12 @@ button:hover .roll > span { transform: translateY(-100%); }
         var btn = it.querySelector('.quick__btn');
         btn.addEventListener('click', function (e) {
           e.stopPropagation();
+          // sur téléphone, l'icône mail ouvre directement le choix du système (Mail, Gmail…), sans menu supplémentaire
+          if (it.dataset.touchHref && window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+            closeAll(null);
+            window.location.href = it.dataset.touchHref;
+            return;
+          }
           var open = !it.classList.contains('is-open');
           closeAll(it);
           it.classList.toggle('is-open', open);
@@ -1254,6 +1260,8 @@ button:hover .roll > span { transform: translateY(-100%); }
       }
       var press = null, pressTimer = 0;
       document.addEventListener('pointerdown', function (e) {
+        // au doigt, toucher l'écran pour défiler ne referme rien : la carte reste ouverte jusqu'à l'appui sur une autre carte
+        if (e.pointerType !== 'mouse') return;
         if (!e.target.closest || !e.target.closest('.trail__card')) deselect();
       });
 
