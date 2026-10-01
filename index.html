@@ -224,11 +224,6 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 .trail__hint { position: absolute; inset: 0; z-index: 400; pointer-events: none; transition: opacity .4s ease; }
 .trail__hint > * { position: absolute; left: 0; top: 0; pointer-events: none; }
 .th-hand { width: 44px; height: 58px; opacity: 0; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .28)); will-change: transform; }
-.th-ripple { width: 76px; height: 76px; margin: -38px 0 0 -38px; border: 3px solid var(--red); border-radius: 50%; opacity: 0; }
-.th-ripple.go { animation: thRip .7s ease-out; }
-.th-ell { transform-origin: 32px 32px; animation: thBlink 1s ease-in-out infinite; }
-@keyframes thRip { 0% { opacity: .85; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.5); } }
-@keyframes thBlink { 0%, 100% { opacity: 1; } 50% { opacity: .15; } }
 
 /* ---------- À propos ---------- */
 
@@ -1238,7 +1233,7 @@ button:hover .roll > span { transform: translateY(-100%); }
         e.classList.remove('is-open', 'is-color');
         hoverTarget = selected ? 0.3 : 1;
       }
-      var lastTouch = 0, selected = null, frozen = false, introActive = false;
+      var lastTouch = 0, selected = null, frozen = false, introActive = false, introCard = null;
       // la souris a-t-elle vraiment bougé à l'instant ? (un simple défilement de la page sous le curseur ne compte pas)
       var lastMouseMove = 0;
       document.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') lastMouseMove = Date.now(); }, true);
@@ -1262,6 +1257,7 @@ button:hover .roll > span { transform: translateY(-100%); }
       // --- tactile : un appui ouvre la carte et ralentit le reste ; rester appuyé fige tout ;
       //     un appui ailleurs referme. Glisser fait défiler comme avant.
       function select(card) {
+        if (card !== introCard) introActive = false;
         if (selected && selected !== card) closeCard(selected);
         selected = card; openCard(card);
       }
@@ -1295,7 +1291,7 @@ button:hover .roll > span { transform: translateY(-100%); }
         var dt = lastT ? Math.min(t - lastT, 50) : 16; lastT = t;
         hover += (hoverTarget - hover) * Math.min(1, dt / 120); if (frozen) hover = 0;
         if (!dragging) {
-          base += (reduce || frozen || !arrived ? 0 : 5.5 * (dt / 1000) * hover) + (frozen ? 0 : drag);
+          base += (reduce || frozen || introActive || !arrived ? 0 : 5.5 * (dt / 1000) * hover) + (frozen ? 0 : drag);
           drag *= 0.96; if (Math.abs(drag) < 0.001) drag = 0;
         }
         els.forEach(function (e, i) {
@@ -1331,19 +1327,19 @@ button:hover .roll > span { transform: translateY(-100%); }
       (function intro() {
         var card = els[slotT];
         if (!card || card.__it !== FRAME7) return;
-        select(card);
-        introActive = true;
+        introCard = card;
+        if (reduce) select(card);   // sans animation : ouverte d'emblée ; sinon l'indice l'ouvre
+        introActive = true;         // le défilement attend : la Frame 7 reste à sa place jusqu'à la première interaction
       })();
 
-      // --- indice (une seule fois) : un doigt (mobile) ou un rond entouré d'une ellipse qui clignote (ordinateur)
-      //     appuie sur une carte grise, qui s'ouvre en couleur.
+      // --- indice (une seule fois) : un rond (ordinateur) ou un doigt (mobile) arrive sur la Frame 7, appuie,
+      //     et elle s'ouvre en couleur. Elle reste ouverte jusqu'à ce qu'on en choisisse une autre.
       (function hint() {
-        if (reduce) return;
+        if (reduce || !introCard) return;
         var touchy = window.matchMedia('(hover: none)').matches;
         var wrap = document.createElement('div');
         wrap.className = 'trail__hint';
         var NS = 'http://www.w3.org/2000/svg';
-        var rip = document.createElement('div'); rip.className = 'th-ripple';
         var fing = document.createElementNS(NS, 'svg');
         fing.setAttribute('class', 'th-hand');
         var tipX, tipY;
@@ -1352,52 +1348,40 @@ button:hover .roll > span { transform: translateY(-100%); }
           fing.innerHTML = '<path d="M17 4.5a4.5 4.5 0 0 1 9 0V24h2.5v-3a4 4 0 0 1 8 0v3h.5a4 4 0 0 1 4 4v13c0 9-6 16-15 16-7 0-12-3.5-15-9.5L5 37a3.8 3.8 0 0 1 6-4.4l6 6.4z" fill="#fff" stroke="#0a0a0a" stroke-width="2.2" stroke-linejoin="round"/><path d="M29 24v8M36 28v6" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" fill="none"/>';
           tipX = 21.5; tipY = 3;
         } else {
-          fing.setAttribute('viewBox', '0 0 64 64');
-          fing.style.width = fing.style.height = '64px';
-          fing.innerHTML = '<ellipse class="th-ell" cx="32" cy="32" rx="26" ry="15" transform="rotate(-28 32 32)" fill="none" stroke="#E24B4A" stroke-width="2.6"/><circle cx="32" cy="32" r="7.5" fill="#E24B4A" stroke="#fff" stroke-width="2.4"/>';
-          tipX = 32; tipY = 32;
+          fing.setAttribute('viewBox', '0 0 40 40');
+          fing.style.width = fing.style.height = '40px';
+          fing.innerHTML = '<circle cx="20" cy="20" r="11" fill="#E24B4A" stroke="#fff" stroke-width="3"/>';
+          tipX = 20; tipY = 20;
         }
-        wrap.appendChild(rip); wrap.appendChild(fing);
-        var done = false, startT = 0, target = null, prev = null, opened = false;
+        wrap.appendChild(fing);
+        var done = false, startT = 0, opened = false;
 
         function stop() {
           if (done) return;
           done = true; wrap.style.opacity = 0;
+          if (!opened) introActive = false;
           setTimeout(function () { if (wrap.parentNode) wrap.parentNode.removeChild(wrap); }, 500);
-        }
-        function pick() {
-          var vw = window.innerWidth, vh = window.innerHeight, best = null, bd = 1e9;
-          els.forEach(function (e) {
-            if (e === selected || !e.__it || e.__it.cat === 'logo') return;
-            var r = e.getBoundingClientRect(); if (r.width < 10) return;
-            var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-            if (cx < vw * .18 || cx > vw * .82 || cy < vh * .2 || cy > vh * .8) return;
-            var d = Math.hypot(cx - vw / 2, cy - vh * .5);
-            if (d < bd) { bd = d; best = e; }
-          });
-          return best;
         }
         function ease(k) { return 1 - Math.pow(1 - Math.min(1, Math.max(0, k)), 3); }
 
         function frame(t) {
           if (done) return;
           if (!startT) startT = t;
-          var T = t - startT, r = target.getBoundingClientRect(), b = box.getBoundingClientRect();
+          var T = t - startT, r = introCard.getBoundingClientRect(), b = box.getBoundingClientRect();
           var cx = r.left - b.left + r.width / 2, cy = r.top - b.top + r.height / 2;
           var ox = 0, oy = 0, sc = 1, op = 1;
           if (T < 900) { var e = ease(T / 900); ox = 70 * (1 - e); oy = 90 * (1 - e); op = Math.min(1, T / 300); }
           else if (T < 1050) { sc = 1 - .14 * ((T - 900) / 150); }
           else if (T < 1300) { sc = .86 + .14 * ((T - 1050) / 250); }
-          if (T >= 1050 && !rip.__go) { rip.__go = true; rip.classList.add('go'); }
-          if (T >= 1100 && !opened) { opened = true; prev = selected; select(target); }
+          if (T >= 1100 && !opened) {
+            opened = true; select(introCard); introActive = true;
+            // la Frame 7 reste en place un moment pour qu'on la voie ; ensuite le défilement reprend doucement
+            setTimeout(function () { if (selected === introCard) introActive = false; }, 8000);
+          }
           if (T > 2300) { var f = (T - 2300) / 400; op = Math.max(0, 1 - f); ox = 24 * f; oy = 30 * f; }
-          rip.style.left = cx + 'px'; rip.style.top = cy + 'px';
           fing.style.opacity = op;
           fing.style.transform = 'translate(' + (cx - tipX + ox) + 'px,' + (cy - tipY + oy) + 'px) scale(' + sc + ')';
-          if (T > 4600) {
-            if (prev && prev !== target && els.indexOf(prev) >= 0) select(prev); else deselect();
-            stop(); return;
-          }
+          if (T > 2800) { stop(); return; }
           requestAnimationFrame(frame);
         }
 
@@ -1407,20 +1391,21 @@ button:hover .roll > span { transform: translateY(-100%); }
         var poll = setInterval(function () {
           if (done) { clearInterval(poll); return; }
           if (!arrived || document.hidden) return;
-          var c = pick(); if (!c) return;
+          var r = introCard.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > window.innerHeight) return;
           clearInterval(poll);
           setTimeout(function () {
             if (done) return;
-            target = pick() || c;
             box.appendChild(wrap);
             requestAnimationFrame(frame);
-          }, 900);
-        }, 400);
+          }, 700);
+        }, 300);
       })();
 
       // glisser pour faire défiler
       box.addEventListener('contextmenu', function (e) { e.preventDefault(); });
       box.addEventListener('pointerdown', function (e) {
+        introActive = false;
         dragging = true; drag = 0; lx = e.clientX; box.classList.add('is-drag');
         try { box.setPointerCapture(e.pointerId); } catch (err) {}
         if (e.pointerType === 'mouse') return;
