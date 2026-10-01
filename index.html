@@ -1229,13 +1229,18 @@ button:hover .roll > span { transform: translateY(-100%); }
         hoverTarget = selected ? 0.3 : 1;
       }
       var lastTouch = 0, selected = null, frozen = false, introActive = false;
+      // la souris a-t-elle vraiment bougé à l'instant ? (un simple défilement de la page sous le curseur ne compte pas)
+      var lastMouseMove = 0;
+      document.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') lastMouseMove = Date.now(); }, true);
+      document.addEventListener('mousemove', function () { lastMouseMove = Date.now(); }, true);
+      function mouseMovedRecently() { return Date.now() - lastMouseMove < 250; }
       function recentTouch() { return Date.now() - lastTouch < 900; }
       els.forEach(function (e) {
         e.addEventListener('mouseenter', function (ev) {
           if (recentTouch()) return;
           if (selected && selected !== e) {
             // tant que la souris n'a pas vraiment bougé (simple défilement de la page sous le curseur), on garde la carte de départ
-            if (introActive && ev.movementX === 0 && ev.movementY === 0) return;
+            if (introActive && !mouseMovedRecently() && !ev.movementX && !ev.movementY) return;
             // survoler une autre carte remet la carte sélectionnée à l'arrivée en mode normal
             var prev = selected; selected = null; introActive = false; closeCard(prev);
           }
