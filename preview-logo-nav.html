@@ -1,0 +1,35 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><title>Preview logo nav</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f0;--ink-soft:rgba(0,0,0,.7)}
+body{margin:0;background:#ddd;font-family:Inter,system-ui,sans-serif;font-size:13px;color:#222}
+h2{margin:28px 24px 8px;font-size:13px;font-weight:600}
+.nav{height:52px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;background:var(--bg);color:#000;white-space:nowrap}
+.nav.dark{background:#0a0a0a;color:#fff}.dark .nav__mark{color:rgba(255,255,255,.7)}
+.nav__brand{display:flex;align-items:center;gap:8px}
+.nav__wordmark{font-size:13px;font-weight:700;display:inline-flex;align-items:center}
+.nav__mark{font-size:11px;color:var(--ink-soft)}
+.nav__menu{display:flex;gap:28px;font-weight:500}
+.sym{display:block;fill:currentColor;stroke:currentColor;stroke-width:44px;stroke-miterlimit:10}
+.sym.a{height:15px;width:15px;margin-right:0}
+.sym.a2{height:10px;width:10px;margin-right:0}
+.sym.b2{height:10.5px;width:10.5px;margin-right:.5px}
+.sym.b{height:10px;width:10px;margin-right:1px}
+.fav{display:flex;gap:24px;margin:12px 24px;align-items:flex-end}
+.fav div{text-align:center;font-size:11px;color:#666}
+.fav img{display:block;margin:0 auto 6px}
+</style>
+<h2>Actuel</h2>
+<header class="nav"><a class="nav__brand"><span class="nav__wordmark">ORAE</span><span class="nav__mark">©26</span></a><nav class="nav__menu"><span>Projets</span><span>Studio</span><span>Expertise</span><span>Contact</span></nav></header>
+<h2>Retenu — symbole à côté, même hauteur que les capitales</h2>
+<header class="nav"><a class="nav__brand"><svg class="sym a2" viewBox="110.78 116.05 737.58 752.58"><path d="M700.41,763.46c-137.69,119.87-336.88,106.55-464.03-16.71-77.36-74.99-114.97-182.36-100.58-289.82,25.3-188.96,189.95-333.37,381.23-317.72,120.76,9.88,224.63,83.04,275.35,192.66,68.51,148.07,31.22,324.34-91.96,431.59ZM607.85,788.62c75.39-47.92,122.7-128.75,127.74-217.18,2.41-42.28-14.94-79.86-44.01-108.26-26.87-26.25-41.53-55.92-45.51-93.48-8.47-80.04-44.41-167.45-121.54-196.24-92.51-34.53-190.25,27.29-241.51,109.65-102.57,164.82-80.93,419.86,100.03,515.43,72.06,38.06,154.11,35.01,224.8-9.92Z"/></svg><span class="nav__wordmark">ORAE</span><span class="nav__mark">©26</span></a><nav class="nav__menu"><span>Projets</span><span>Studio</span><span>Expertise</span><span>Contact</span></nav></header>
+<h2>Retenu — mode sombre</h2>
+<header class="nav dark"><a class="nav__brand"><svg class="sym a2" viewBox="110.78 116.05 737.58 752.58"><path d="M700.41,763.46c-137.69,119.87-336.88,106.55-464.03-16.71-77.36-74.99-114.97-182.36-100.58-289.82,25.3-188.96,189.95-333.37,381.23-317.72,120.76,9.88,224.63,83.04,275.35,192.66,68.51,148.07,31.22,324.34-91.96,431.59ZM607.85,788.62c75.39-47.92,122.7-128.75,127.74-217.18,2.41-42.28-14.94-79.86-44.01-108.26-26.87-26.25-41.53-55.92-45.51-93.48-8.47-80.04-44.41-167.45-121.54-196.24-92.51-34.53-190.25,27.29-241.51,109.65-102.57,164.82-80.93,419.86,100.03,515.43,72.06,38.06,154.11,35.01,224.8-9.92Z"/></svg><span class="nav__wordmark">ORAE</span><span class="nav__mark">©26</span></a><nav class="nav__menu"><span>Projets</span><span>Studio</span><span>Expertise</span><span>Contact</span></nav></header>
+<h2>Test — symbole à la place du « O »</h2>
+<header class="nav"><a class="nav__brand"><span class="nav__wordmark"><svg class="sym b2" viewBox="110.78 116.05 737.58 752.58"><path d="M700.41,763.46c-137.69,119.87-336.88,106.55-464.03-16.71-77.36-74.99-114.97-182.36-100.58-289.82,25.3-188.96,189.95-333.37,381.23-317.72,120.76,9.88,224.63,83.04,275.35,192.66,68.51,148.07,31.22,324.34-91.96,431.59ZM607.85,788.62c75.39-47.92,122.7-128.75,127.74-217.18,2.41-42.28-14.94-79.86-44.01-108.26-26.87-26.25-41.53-55.92-45.51-93.48-8.47-80.04-44.41-167.45-121.54-196.24-92.51-34.53-190.25,27.29-241.51,109.65-102.57,164.82-80.93,419.86,100.03,515.43,72.06,38.06,154.11,35.01,224.8-9.92Z"/></svg>RAE</span><span class="nav__mark">©26</span></a><nav class="nav__menu"><span>Projets</span><span>Studio</span><span>Expertise</span><span>Contact</span></nav></header>
+<header class="nav dark"><a class="nav__brand"><span class="nav__wordmark"><svg class="sym b2" viewBox="110.78 116.05 737.58 752.58"><path d="M700.41,763.46c-137.69,119.87-336.88,106.55-464.03-16.71-77.36-74.99-114.97-182.36-100.58-289.82,25.3-188.96,189.95-333.37,381.23-317.72,120.76,9.88,224.63,83.04,275.35,192.66,68.51,148.07,31.22,324.34-91.96,431.59ZM607.85,788.62c75.39-47.92,122.7-128.75,127.74-217.18,2.41-42.28-14.94-79.86-44.01-108.26-26.87-26.25-41.53-55.92-45.51-93.48-8.47-80.04-44.41-167.45-121.54-196.24-92.51-34.53-190.25,27.29-241.51,109.65-102.57,164.82-80.93,419.86,100.03,515.43,72.06,38.06,154.11,35.01,224.8-9.92Z"/></svg>RAE</span><span class="nav__mark">©26</span></a><nav class="nav__menu"><span>Projets</span><span>Studio</span><span>Expertise</span><span>Contact</span></nav></header>
+<h2>Favicon — clair / sombre</h2>
+<div class="fav">
+<div><img src="favicon-light-16.png" width="16"><img src="favicon-light-32.png" width="32"><img src="favicon-light-48.png" width="48"><img src="favicon-light-192.png" width="96"><span>clair</span></div>
+<div><img src="favicon-dark-16.png" width="16"><img src="favicon-dark-32.png" width="32"><img src="favicon-dark-48.png" width="48"><img src="favicon-dark-192.png" width="96"><span>sombre</span></div>
+</div>
