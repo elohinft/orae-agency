@@ -234,7 +234,8 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 .pj__list dt { color: rgba(244, 244, 240, .55); }
 .pj__list dd { margin: 0; }
 .pj__cta { align-self: flex-start; margin-top: auto; padding: 12px 20px; border-radius: 99px; background: #f4f4f0; color: #0a0a0a; font-size: 13px; font-weight: 500; text-decoration: none; }
-.pj__close { position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f4f4f0; color: #0a0a0a; font-size: 20px; line-height: 1; cursor: pointer; }
+.pj__close:focus, .pj__close:focus-visible { outline: none; box-shadow: none; }
+.pj__close { -webkit-tap-highlight-color: transparent; position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f4f4f0; color: #0a0a0a; font-size: 20px; line-height: 1; cursor: pointer; }
 @media (max-width: 760px) {
   .pj__panel { grid-template-columns: 1fr; grid-template-rows: 42% 1fr; }
   .pj__info { padding: 22px 20px; gap: 14px; }
