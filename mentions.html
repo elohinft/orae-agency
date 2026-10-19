@@ -418,7 +418,17 @@ button:hover .roll > span { transform: translateY(-100%); }
 @media (prefers-reduced-motion: reduce) {
   .quick__btn, .quick__menu { transition: none; }
 }
+
+/* Gros titres : Poppins Bold minuscule */
+.about__title, .contact__title, .process__title, .st-cta__title, .ix__head h2, .legal__title {
+  font-family: "Poppins", var(--font-display);
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: -.04em;
+}
+.st-cta__title { font-size: clamp(40px, 8.2vw, 170px); }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
