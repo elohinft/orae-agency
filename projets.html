@@ -361,7 +361,7 @@ button:hover .roll > span { transform: translateY(-100%); }
 .pj__list dd { margin: 0; }
 .pj__cta { align-self: flex-start; margin-top: auto; padding: 12px 20px; border-radius: 99px; background: #f4f4f0; color: #0a0a0a; font-size: 13px; font-weight: 500; text-decoration: none; }
 .pj__close:focus, .pj__close:focus-visible { outline: none; box-shadow: none; }
-.pj__close { -webkit-tap-highlight-color: transparent; position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f4f4f0; color: #0a0a0a; font-size: 20px; line-height: 1; cursor: pointer; }
+.pj__close { -webkit-tap-highlight-color: transparent; position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f4f4f0; color: #0a0a0a; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 @media (max-width: 760px) {
   .pj__panel { grid-template-columns: 1fr; grid-template-rows: 42% 1fr; }
   .pj__info { padding: 22px 20px; gap: 14px; }
@@ -637,7 +637,7 @@ body { background: var(--bg); color: var(--ink); }
 
   <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">
-      <button class="pj__close" id="pjClose" type="button" aria-label="Fermer">×</button>
+      <button class="pj__close" id="pjClose" type="button" aria-label="Fermer"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
       <div class="pj__viewer" id="pjViewer"><div class="pj__win" id="pjWin"><div class="pj__bar"><i></i><i></i><i></i></div><div id="pjImgs"></div></div></div>
       <div class="pj__info">
         <p class="pj__type" id="pjType"></p>
