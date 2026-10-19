@@ -312,7 +312,7 @@ button:hover .roll > span { transform: translateY(-100%); }
   html { scroll-behavior: auto; }
   .roll > span { transition: none; }
 }
-  /* ---------- Contact rapide (icônes verticales) ---------- */
+  /* ---------- Contact rapide (pill téléphone + email) ---------- */
 
 .quick {
   position: fixed;
@@ -321,37 +321,56 @@ button:hover .roll > span { transform: translateY(-100%); }
   z-index: 60;
   display: flex;
   flex-direction: row;
-  gap: 14px;
+  align-items: center;
+  padding: 5px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16), inset 0 0 0 1px rgba(255, 255, 255, .08);
   transform: translateX(-50%);
 }
 
-.quick__item { position: relative; }
+.quick__item { position: relative; display: flex; align-items: center; }
+
+/* fine séparation entre les deux boutons */
+.quick__item + .quick__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 20px;
+  background: currentColor;
+  opacity: .22;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
 
 .quick__btn {
-  width: 48px;
-  height: 48px;
+  width: 54px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: 0;
-  border-radius: 50%;
-  background: var(--ink);
-  color: #fff;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
   cursor: pointer;
-  transition: transform .35s cubic-bezier(.3, 1.4, .4, 1), background .3s;
+  transition: background .25s;
 }
 
-.quick__btn:hover { transform: scale(1.08); }
-.quick__btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.quick__btn[aria-expanded="true"] { background: #333; }
+.quick__btn:hover { background: rgba(127, 127, 127, .22); }
+.quick__btn:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
+.quick__btn[aria-expanded="true"] { background: rgba(127, 127, 127, .3); }
 
 .quick__btn svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.2;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -359,13 +378,15 @@ button:hover .roll > span { transform: translateY(-100%); }
 .quick__menu {
   position: absolute;
   left: 50%;
-  bottom: 60px;
+  bottom: calc(100% + 14px);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 6px;
+  gap: 4px;
+  padding: 5px;
   border-radius: 22px;
   background: var(--ink);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16), inset 0 0 0 1px rgba(255, 255, 255, .08);
   opacity: 0;
   visibility: hidden;
   transform: translate(-50%, 10px) scale(.96);
@@ -381,21 +402,19 @@ button:hover .roll > span { transform: translateY(-100%); }
 
 .quick__menu a {
   display: block;
-  padding: 11px 20px;
+  padding: 10px 20px;
   border-radius: 999px;
-  color: #fff;
+  color: inherit;
   font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
   transition: background .25s;
 }
 
-.quick__menu a:hover { opacity: 1; background: rgba(255, 255, 255, .16); }
+.quick__menu a:hover { opacity: 1; background: rgba(127, 127, 127, .25); }
 
 @media (max-width: 640px) {
   .quick { bottom: 14px; }
-  .quick__btn { width: 44px; height: 44px; }
-  .quick__menu { bottom: 54px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
