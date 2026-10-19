@@ -427,8 +427,17 @@ button:hover .roll > span { transform: translateY(-100%); }
   letter-spacing: -.04em;
 }
 .st-cta__title { font-size: clamp(40px, 8.2vw, 170px); }
+
+/* Petites étiquettes : DM Mono partout */
+:root { --font-mono: "DM Mono", ui-monospace, Menlo, monospace; }
+.nav__mark, .hero__bar, .about__label, .service__num, .service__more, .contact__label, .contact__list,
+.form__field label, .menu__links a i, .menu__foot small, .footer, .legal__label, .legal__update,
+.pj__type, .pj__list dt, .ix__num, .st-plus {
+  font-family: var(--font-mono);
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
