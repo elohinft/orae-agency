@@ -410,6 +410,14 @@ button:hover .roll > span { transform: translateY(-100%); }
 
 @keyframes stroke { to { stroke-dashoffset: 0; } }
 
+/* Boutons de contact : inversés pour rester lisibles sur fond sombre */
+.quick__btn { background: #f4f4f0; color: #0a0a0a; }
+.quick__btn:focus-visible { outline-color: #f4f4f0; }
+.quick__btn[aria-expanded="true"] { background: #d9d9d3; }
+.quick__menu { background: #f4f4f0; }
+.quick__menu a { color: #0a0a0a; }
+.quick__menu a:hover { background: rgba(0, 0, 0, .08); }
+
 /* Fenêtre de détail en clair sur la page sombre */
 .pj { background: rgba(0, 0, 0, .7); }
 .pj__panel { background: #f4f4f0; color: #0a0a0a; }
