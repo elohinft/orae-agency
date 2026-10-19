@@ -435,22 +435,25 @@ body { background: var(--bg); color: var(--ink); }
 .ix__num { font-size: 11px; font-weight: 500; letter-spacing: .06em; color: var(--ink-soft); }
 .ix__name { font-weight: 500; }
 .ix__type, .ix__count { color: var(--ink-soft); }
-.ix__thumb { display: none; }
 .ix__cat > .ix__row:last-child { border-bottom: 1px solid var(--line); }
 .follow { position: fixed; left: 0; top: 0; width: clamp(180px, 20vw, 280px); pointer-events: none; z-index: 40; opacity: 0; transition: opacity .2s; will-change: transform; }
 .follow.on { opacity: 1; }
 .follow img { display: block; width: 100%; height: auto; border-radius: 2px; }
-@media (max-width: 760px), (hover: none) {
-  .pg__head { grid-template-columns: 1fr; }
-  .pg__label--r { text-align: left; }
+@media (hover: none) { .follow { display: none; } .ix__row:hover { padding-left: 0; } }
+@media (max-width: 760px) {
   .follow { display: none; }
-  .ix__head { grid-template-columns: 40px 1fr; }
-  .ix__head p { grid-column: 2; }
-  .ix__row { grid-template-columns: 56px 1fr; }
-  .ix__type, .ix__count { display: none; }
-  .ix__num { display: none; }
-  .ix__thumb { display: block; width: 56px; height: 56px; object-fit: cover; border-radius: 2px; }
+  .pg__jump { gap: 6px 18px; font-size: 12px; margin-bottom: 28px; }
+  .ix { margin: 0 var(--gutter); }
+  .ix__head { grid-template-columns: 1fr; gap: 8px; padding-block: 22px 16px; }
+  .ix__head .ix__num { display: block; }
+  .ix__head h2 { font-size: clamp(34px, 10.5vw, 46px); }
+  .ix__head p { grid-column: auto; max-width: 34ch; }
+  .ix__row { grid-template-columns: 36px 1fr; grid-template-rows: auto auto; gap: 2px 8px; padding: 16px 0; font-size: 17px; }
   .ix__row:hover { padding-left: 0; }
+  .ix__row .ix__num { grid-row: 1 / span 2; align-self: start; padding-top: 5px; }
+  .ix__name { grid-column: 2; }
+  .ix__type { grid-column: 2; display: block; font-size: 12px; line-height: 1.4; }
+  .ix__count { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .ix__row { transition: none; } }
 </style>
@@ -597,7 +600,7 @@ body { background: var(--bg); color: var(--ink); }
         html += '<section class="ix__cat" id="cat-' + ci + '"><div class="ix__head"><span class="ix__num">' + num(ci) + '</span><h2>' + esc(c.name) + '</h2><p>' + esc(c.desc) + '</p></div>';
         c.items.forEach(function (p, i) {
           list.push(p);
-          html += '<button type="button" class="ix__row" data-k="' + (list.length - 1) + '"><span class="ix__num">' + num(i) + '</span><span class="ix__name"><img class="ix__thumb" src="' + esc(p.src) + '" alt="" style="float:left;margin-right:14px">' + esc(p.detail.title) + '</span><span class="ix__type">' + esc(p.detail.type) + '</span><span class="ix__count">' + p.n + (p.n > 1 ? ' visuels' : ' visuel') + '</span></button>';
+          html += '<button type="button" class="ix__row" data-k="' + (list.length - 1) + '"><span class="ix__num">' + num(i) + '</span><span class="ix__name">' + esc(p.detail.title) + '</span><span class="ix__type">' + esc(p.detail.type) + '</span><span class="ix__count">' + p.n + (p.n > 1 ? ' visuels' : ' visuel') + '</span></button>';
         });
         html += '</section>';
       });
@@ -607,8 +610,10 @@ body { background: var(--bg); color: var(--ink); }
       var fol = document.getElementById('follow'), fi = document.getElementById('fimg'), fx = 0, fy = 0, tx = 0, ty = 0, raf = 0;
       function loop() { fx += (tx - fx) * .16; fy += (ty - fy) * .16; fol.style.transform = 'translate(' + fx + 'px,' + fy + 'px)'; raf = fol.classList.contains('on') || Math.abs(tx - fx) > .5 ? requestAnimationFrame(loop) : 0; }
       document.addEventListener('mousemove', function (e) { tx = e.clientX + 28; ty = e.clientY - 90; if (!raf && fol.classList.contains('on')) raf = requestAnimationFrame(loop); });
+      var canHover = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 761px)').matches;
       document.querySelectorAll('.ix__row').forEach(function (r) {
         var p = list[+r.dataset.k];
+        if (!canHover) { r.addEventListener('click', function () { window.openProject({ detail: p.detail, src: p.src, full: p.full }); }); return; }
         r.addEventListener('mouseenter', function () { fi.src = p.src; fol.classList.add('on'); if (!raf) raf = requestAnimationFrame(loop); });
         r.addEventListener('mouseleave', function () { fol.classList.remove('on'); });
         r.addEventListener('click', function () { fol.classList.remove('on'); window.openProject({ detail: p.detail, src: p.src, full: p.full }); });
