@@ -98,6 +98,135 @@ button:hover .roll > span { transform: translateY(-100%); }
 .nav__menu a:hover,
 .btn:hover { opacity: 1; }
 
+/* ---------- Menu mobile (burger asymétrique) ---------- */
+
+.nav__burger,
+.menu { display: none; }
+
+@media (max-width: 760px) {
+  body { padding-top: 52px; }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 120;
+    margin: 0;
+    padding: 0 20px;
+    background: var(--bg);
+  }
+
+  .nav__menu { display: none; }
+
+  .nav__burger {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    margin-right: -8px;
+    padding: 0 8px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .nav__burger span {
+    display: block;
+    height: 1.5px;
+    border-radius: 1px;
+    background: var(--ink);
+    transition: transform .4s cubic-bezier(.6, 0, .2, 1), width .4s cubic-bezier(.6, 0, .2, 1), opacity .3s;
+  }
+
+  .nav__burger span:nth-child(1) { width: 22px; }
+  .nav__burger span:nth-child(2) { width: 12px; }
+  .nav__burger span:nth-child(3) { width: 17px; }
+
+  .nav__burger[aria-expanded="true"] span:nth-child(1) { width: 20px; transform: translateY(6.5px) rotate(45deg); }
+  .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav__burger[aria-expanded="true"] span:nth-child(3) { width: 20px; transform: translateY(-6.5px) rotate(-45deg); }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 84px 24px 34px;
+    background: var(--bg);
+    visibility: hidden;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path .6s cubic-bezier(.7, 0, .2, 1), visibility 0s .6s;
+  }
+
+  .menu.is-open {
+    visibility: visible;
+    clip-path: inset(0 0 0 0);
+    transition: clip-path .6s cubic-bezier(.7, 0, .2, 1), visibility 0s;
+  }
+
+  .menu__links { display: flex; flex-direction: column; border-top: 1px solid rgba(0, 0, 0, .18); }
+
+  .menu__links a {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 18px 0 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, .18);
+    font-family: var(--font-display);
+    font-size: clamp(28px, 8.4vw, 42px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -.03em;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .45s, transform .6s cubic-bezier(.3, 1, .4, 1);
+  }
+
+  .menu__links a i {
+    font-family: var(--font-text);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--ink-soft);
+  }
+
+  .menu.is-open .menu__links a { opacity: 1; transform: none; }
+  .menu.is-open .menu__links a:nth-child(1) { transition-delay: .18s; }
+  .menu.is-open .menu__links a:nth-child(2) { transition-delay: .24s; }
+  .menu.is-open .menu__links a:nth-child(3) { transition-delay: .30s; }
+  .menu.is-open .menu__links a:nth-child(4) { transition-delay: .36s; }
+
+  .menu__links a:hover,
+  .menu__foot a:hover { opacity: 1; }
+  .menu__links a:active { color: var(--red); }
+
+  .menu__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(0, 0, 0, .2);
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity .4s;
+  }
+
+  .menu.is-open .menu__foot { opacity: 1; transition-delay: .45s; }
+  .menu__foot small { margin-top: 10px; font-size: 11px; font-weight: 500; text-transform: uppercase; color: var(--ink-soft); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu, .menu__links a, .menu__foot, .nav__burger span { transition: none; }
+}
+
 /* ---------- Footer ---------- */
 
 .footer {
@@ -183,7 +312,96 @@ button:hover .roll > span { transform: translateY(-100%); }
   html { scroll-behavior: auto; }
   .roll > span { transition: none; }
 }
-  </style>
+  /* ---------- Contact rapide (icônes verticales) ---------- */
+
+.quick {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 60;
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  transform: translateX(-50%);
+}
+
+.quick__item { position: relative; }
+
+.quick__btn {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  transition: transform .35s cubic-bezier(.3, 1.4, .4, 1), background .3s;
+}
+
+.quick__btn:hover { transform: scale(1.08); }
+.quick__btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.quick__btn[aria-expanded="true"] { background: #333; }
+
+.quick__btn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.quick__menu {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 22px;
+  background: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 10px) scale(.96);
+  transform-origin: center bottom;
+  transition: opacity .25s, transform .35s cubic-bezier(.3, 1.3, .4, 1), visibility .25s;
+}
+
+.quick__item.is-open .quick__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.quick__menu a {
+  display: block;
+  padding: 11px 20px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background .25s;
+}
+
+.quick__menu a:hover { opacity: 1; background: rgba(255, 255, 255, .16); }
+
+@media (max-width: 640px) {
+  .quick { bottom: 14px; }
+  .quick__btn { width: 44px; height: 44px; }
+  .quick__menu { bottom: 54px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quick__btn, .quick__menu { transition: none; }
+}
+</style>
 </head>
 <body>
 
@@ -194,11 +412,28 @@ button:hover .roll > span { transform: translateY(-100%); }
     </a>
     <nav class="nav__menu" aria-label="Navigation principale">
       <a href="index.html#projets"><span class="roll"><span>Projets</span><span aria-hidden="true">Projets</span></span></a>
-      <a href="index.html#studio"><span class="roll"><span>Studio</span><span aria-hidden="true">Studio</span></span></a>
+      <a href="studio.html"><span class="roll"><span>Studio</span><span aria-hidden="true">Studio</span></span></a>
       <a href="index.html#expertise"><span class="roll"><span>Expertise</span><span aria-hidden="true">Expertise</span></span></a>
       <a href="index.html#contact"><span class="roll"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
     </nav>
+    <button class="nav__burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav class="menu__links" aria-label="Menu">
+      <a href="index.html#projets"><i>01</i><span>Projets</span></a>
+      <a href="studio.html"><i>02</i><span>Studio</span></a>
+      <a href="index.html#expertise"><i>03</i><span>Expertise</span></a>
+      <a href="index.html#contact"><i>04</i><span>Contact</span></a>
+    </nav>
+    <div class="menu__foot">
+      <a href="tel:+33611252584">+33 6 11 25 25 84</a>
+      <a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a>
+      <small>Montpellier, France</small>
+    </div>
+  </div>
 
   <main id="top">
     <article class="legal">
@@ -255,6 +490,78 @@ button:hover .roll > span { transform: translateY(-100%); }
       <a href="confidentialite.html">Confidentialité</a>
     </nav>
   </footer>
+
+  <aside class="quick" aria-label="Me contacter">
+    <div class="quick__item">
+      <button class="quick__btn" type="button" aria-label="Me contacter par téléphone" aria-expanded="false" aria-haspopup="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16.9v2.6a2 2 0 0 1-2.2 2 18.8 18.8 0 0 1-8.2-2.9 18.5 18.5 0 0 1-5.7-5.7A18.8 18.8 0 0 1 2 4.7 2 2 0 0 1 4 2.5h2.6a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7.7 10a15 15 0 0 0 5.7 5.7l1.1-1.1a2 2 0 0 1 2.1-.4c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.8 2Z"/></svg>
+      </button>
+      <div class="quick__menu">
+        <a href="tel:+33611252584">Appeler</a>
+        <a href="https://wa.me/33611252584" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="quick__item">
+      <button class="quick__btn" type="button" aria-label="Me contacter par email" aria-expanded="false" aria-haspopup="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="3.5"/><path d="m3.5 7.5 7.4 5.3a2 2 0 0 0 2.2 0l7.4-5.3"/></svg>
+      </button>
+      <div class="quick__menu">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=orae.agency@gmail.com" target="_blank" rel="noopener">Gmail</a>
+        <a href="mailto:orae.agency@gmail.com">Mail</a>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    // Icônes de contact : un clic ouvre le choix, un clic ailleurs ou Échap le ferme.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll('.quick__item'));
+
+      function closeAll(except) {
+        items.forEach(function (it) {
+          if (it === except) return;
+          it.classList.remove('is-open');
+          it.querySelector('.quick__btn').setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      items.forEach(function (it) {
+        var btn = it.querySelector('.quick__btn');
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = !it.classList.contains('is-open');
+          closeAll(it);
+          it.classList.toggle('is-open', open);
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+
+      document.addEventListener('click', function () { closeAll(null); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+    })();
+  </script>
+
+  <script>
+    // Menu mobile : le burger ouvre un plein écran avec les rubriques et les coordonnées.
+    (function () {
+      var btn = document.querySelector('.nav__burger');
+      var menu = document.getElementById('menu');
+      if (!btn || !menu) return;
+
+      function set(open) {
+        menu.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+        document.body.style.overflow = open ? 'hidden' : '';
+        menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      }
+
+      btn.addEventListener('click', function () { set(!menu.classList.contains('is-open')); });
+      menu.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+      window.matchMedia('(min-width: 761px)').addEventListener('change', function (e) { if (e.matches) set(false); });
+    })();
+  </script>
 
 </body>
 </html>

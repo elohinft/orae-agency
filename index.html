@@ -847,7 +847,117 @@ button:hover .roll > span { transform: translateY(-100%); }
 @media (prefers-reduced-motion: reduce) {
   .quick__btn, .quick__menu { transition: none; }
 }
+
+/* ---------- Processus ---------- */
+
+.process { margin: clamp(90px, 12vw, 180px) var(--gutter) 0; }
+
+.process__title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 9.4vw, 190px);
+  font-weight: 700;
+  line-height: .9;
+  letter-spacing: -.045em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.process__track {
+  position: relative;
+  margin-top: clamp(40px, 6vw, 90px);
+  height: clamp(300px, 28vw, 400px);
+}
+
+.process__line,
+.process__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(0, 0, 0, .35);
+  transform: translateY(-50%);
+}
+
+.process__progress {
+  right: auto;
+  width: 0;
+  height: 2px;
+  background: var(--red);
+  transition: width 1.1s cubic-bezier(.4, 0, .2, 1), height 1.1s cubic-bezier(.4, 0, .2, 1);
+}
+
+.process__track { list-style: none; padding: 0; margin-bottom: 0; }
+.step { position: absolute; left: var(--x, 0); width: min(270px, 27%); }
+.step--right { left: auto; right: 0; }
+.step--up { bottom: calc(50% + clamp(22px, 2.6vw, 38px)); }
+.step--down { top: calc(50% + clamp(22px, 2.6vw, 38px)); }
+.step--right { text-align: right; }
+
+.step__dot {
+  position: absolute;
+  top: 50%;
+  left: var(--x, 0);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+  transform: translate(-50%, -50%);
+  transition: background .4s;
+}
+.step__dot--end { left: auto; right: 5px; transform: translate(50%, -50%); }
+.step__dot.is-done { background: var(--red); animation: dotRing .9s ease-out; }
+
+@keyframes dotRing {
+  from { box-shadow: 0 0 0 0 rgba(247, 0, 16, .5); }
+  to { box-shadow: 0 0 0 14px rgba(247, 0, 16, 0); }
+}
+
+.step__meta {
+  font-family: "DM Mono", ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.step__title {
+  margin-top: 8px;
+  font-size: clamp(24px, 2.6vw, 38px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+
+.step__text {
+  margin-top: 10px;
+  max-width: 250px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.step--right .step__text { margin-left: auto; }
+
+@media (max-width: 760px) {
+  .process__track { height: auto; padding-left: 28px; display: grid; gap: 34px; }
+  .process__line { left: 5px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; transform: translateX(-50%); }
+  .process__progress { left: 5px; right: auto; top: 6px; bottom: auto; width: 2px; height: 0; transform: translateX(-50%); }
+  .step::before { transition: background .4s; }
+  .step.is-done::before { background: var(--red); animation: dotRing .9s ease-out; }
+  .step, .step--up, .step--down { position: relative; inset: auto; width: auto; text-align: left; }
+  .step--right { text-align: left; }
+  .step--right .step__text { margin-left: 0; }
+  .step__dot { display: none; }
+  .step::before { content: ""; position: absolute; left: -28px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); }
+  .step { left: auto; right: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) { .step__dot.is-done, .step.is-done::before { animation: none; } .process__progress { transition: none; } }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -858,7 +968,7 @@ button:hover .roll > span { transform: translateY(-100%); }
     </a>
     <nav class="nav__menu" aria-label="Navigation principale">
       <a href="projets.html"><span class="roll"><span>Projets</span><span aria-hidden="true">Projets</span></span></a>
-      <a href="#studio"><span class="roll"><span>Studio</span><span aria-hidden="true">Studio</span></span></a>
+      <a href="studio.html"><span class="roll"><span>Studio</span><span aria-hidden="true">Studio</span></span></a>
       <a href="#expertise"><span class="roll"><span>Expertise</span><span aria-hidden="true">Expertise</span></span></a>
       <a href="#contact"><span class="roll"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
     </nav>
@@ -870,7 +980,7 @@ button:hover .roll > span { transform: translateY(-100%); }
   <div class="menu" id="menu" aria-hidden="true">
     <nav class="menu__links" aria-label="Menu">
       <a href="projets.html"><i>01</i><span>Projets</span></a>
-      <a href="#studio"><i>02</i><span>Studio</span></a>
+      <a href="studio.html"><i>02</i><span>Studio</span></a>
       <a href="#expertise"><i>03</i><span>Expertise</span></a>
       <a href="#contact"><i>04</i><span>Contact</span></a>
     </nav>
@@ -927,6 +1037,38 @@ button:hover .roll > span { transform: translateY(-100%); }
         <p>Directrice artistique et graphiste installée à Montpellier, diplômée d’un Master, j’ai créé Orae pour accompagner les marques dans leur évolution visuelle : un logo, un site, une charte graphique, des affiches, ou tout ça à la fois. Un projet en tête ? Retrouvons-nous autour d’un café ou en visio.<br>C’est gratuit, promis, et ça n’engage à rien.</p>
       </div>
       <a class="btn" href="#contact"><span class="roll"><span>J’ai un projet</span><span aria-hidden="true">J’ai un projet</span></span><span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 12.5C6 12 9.5 9 11.5 4.5M6 4.2l5.6.3.4 5.6"/></svg><svg viewBox="0 0 16 16"><path d="M3 12.5C6 12 9.5 9 11.5 4.5M6 4.2l5.6.3.4 5.6"/></svg></span></a>
+    </section>
+
+    <section class="process" id="processus" aria-labelledby="processTitle">
+      <h2 class="process__title" id="processTitle">Processus</h2>
+      <ol class="process__track">
+        <span class="process__line" aria-hidden="true"></span><span class="process__progress" aria-hidden="true"></span>
+        <span class="step__dot" style="--x:5px"></span><span class="step__dot" style="--x:33.33%"></span><span class="step__dot" style="--x:66.66%"></span><span class="step__dot step__dot--end"></span>
+        
+        <li class="step step--up" style="--x:0%">
+          <p class="step__meta">01 &nbsp;·&nbsp; Semaine 1</p>
+          <h3 class="step__title">Échange</h3>
+          <p class="step__text">On se rencontre autour d’un café ou en visio. Je comprends votre projet, vos envies et vos contraintes.</p>
+        </li>
+        
+        <li class="step step--down" style="--x:33.33%">
+          <p class="step__meta">02 &nbsp;·&nbsp; Semaines 1-2</p>
+          <h3 class="step__title">Concept</h3>
+          <p class="step__text">Recherches, références et pistes. On choisit ensemble la direction à développer.</p>
+        </li>
+        
+        <li class="step step--up" style="--x:66.66%">
+          <p class="step__meta">03 &nbsp;·&nbsp; Semaines 2-4</p>
+          <h3 class="step__title">Création</h3>
+          <p class="step__text">Je dessine, vous réagissez. Quelques allers-retours pour affiner chaque détail.</p>
+        </li>
+        
+        <li class="step step--down step--right">
+          <p class="step__meta">04 &nbsp;·&nbsp; Semaine 4</p>
+          <h3 class="step__title">Livraison</h3>
+          <p class="step__text">Fichiers prêts à l’emploi, mode d’emploi de la marque et accompagnement après livraison.</p>
+        </li>
+      </ol>
     </section>
 
     <section class="services" id="expertise" aria-label="Expertise">
@@ -1672,5 +1814,38 @@ button:hover .roll > span { transform: translateY(-100%); }
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && pj.classList.contains('is-on')) close(); });
     })();
   </script>
+  <script>
+    // Processus : une ligne rouge avance d'étape en étape (les ronds passent au rouge) le temps de la lecture, puis tout repart, en boucle.
+    (function () {
+      var sec = document.getElementById('processus');
+      if (!sec) return;
+      var prog = sec.querySelector('.process__progress');
+      var dots = Array.prototype.slice.call(sec.querySelectorAll('.step__dot'));
+      var steps = Array.prototype.slice.call(sec.querySelectorAll('li.step'));
+      var xs = ['5px', '33.333%', '66.666%', 'calc(100% - 5px)'];
+      var mq = window.matchMedia('(max-width: 760px)');
+      var i = -1, timer = 0;
+      function show(k) {
+        dots[k].classList.add('is-done'); steps[k].classList.add('is-done');
+        if (mq.matches) { prog.style.width = ''; prog.style.height = Math.max(0, steps[k].offsetTop + 4 + 5 - 6) + 'px'; }
+        else { prog.style.height = ''; prog.style.width = xs[k]; }
+      }
+      function reset() {
+        dots.forEach(function (d) { d.classList.remove('is-done'); });
+        steps.forEach(function (s) { s.classList.remove('is-done'); });
+        prog.style.width = '0'; prog.style.height = '0';
+      }
+      function tick() {
+        i++;
+        if (i >= steps.length) { timer = setTimeout(function () { reset(); i = -1; timer = setTimeout(tick, 900); }, 600); return; }
+        show(i); timer = setTimeout(tick, 3200);
+      }
+      function start() { if (!timer) tick(); }
+      function stop() { clearTimeout(timer); timer = 0; }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { steps.forEach(function (s, k) { show(k); }); return; }
+      new IntersectionObserver(function (en) { if (en[0].isIntersecting) start(); else { stop(); reset(); i = -1; } }, { threshold: .25 }).observe(sec);
+    })();
+  </script>
+
 </body>
 </html>
