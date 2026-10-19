@@ -11,7 +11,7 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@400&family=Mansalva&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@400&display=swap" rel="stylesheet">
   <style>
 
 /* ORAE — NEW ERA
@@ -418,8 +418,6 @@ body { background: var(--bg); color: var(--ink); }
 .footer, .footer a { color: var(--ink); }
 .pg__hero { padding-bottom: clamp(40px, 6vw, 90px); }
 .pg__hero .hero__title { margin-top: clamp(72px, 9.1vw, 175px); }
-.pg__hero .hero__script { top: .64em; width: 4.118em; }
-.pg__hero .hero__script-text { font-family: "Mansalva", "Caveat", cursive; }
 .pg__label { font-size: 11px; font-weight: 500; line-height: 15px; text-transform: uppercase; color: var(--ink-soft); }
 .pg__label--r { text-align: right; }
 .pg__title { font-family: var(--font-display); font-size: clamp(54px, 13vw, 200px); font-weight: 500; line-height: .9; letter-spacing: -.045em; }
@@ -493,14 +491,6 @@ body { background: var(--bg); color: var(--ink); }
     <section aria-label="Projets" class="pg__sec">
       <h1 class="hero__title pg__hero">
         <span class="hero__line">PROJETS</span>
-        <svg class="hero__script" viewBox="-30 -80 660 200" role="img" aria-label="sélection">
-          <defs>
-            <mask id="pen-mask" maskUnits="userSpaceOnUse" x="-60" y="-200" width="720" height="340">
-              <g class="pen-strokes" fill="none" stroke="#fff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" data-top="-125" data-bot="35" data-segs="-10,65,140,215,290,365,440,515"></g>
-            </mask>
-          </defs>
-          <text class="hero__script-text" mask="url(#pen-mask)" x="300" y="14" text-anchor="middle" font-size="150" textLength="560" lengthAdjust="spacingAndGlyphs">sélection</text>
-        </svg>
       </h1>
       <nav class="pg__jump" id="jump" aria-label="Catégories"></nav>
       <div class="ix" id="ix"></div>
@@ -589,34 +579,6 @@ body { background: var(--bg); color: var(--ink); }
       menu.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
       window.matchMedia('(min-width: 761px)').addEventListener('change', function (e) { if (e.matches) set(false); });
-    })();
-  </script>
-
-  <script>
-    // Lettrage manuscrit : coups de feutre, rejoués à chaque survol (même animation que l'accueil).
-    (function () {
-      var NS = 'http://www.w3.org/2000/svg';
-      var W = 100, STEP = .24, DUR = .3, LEGS = 6;
-      var svg = document.querySelector('.hero__script');
-      var g = svg.querySelector('.pen-strokes');
-      var top = +g.dataset.top, bot = +g.dataset.bot;
-      var segs = g.dataset.segs.split(',').map(Number);
-      segs.forEach(function (x, i) {
-        var d = 'M' + x + ',' + top;
-        for (var k = 1; k <= LEGS; k++) d += ' L' + (x + W * k / LEGS).toFixed(1) + ',' + (k % 2 ? bot : top);
-        var p = document.createElementNS(NS, 'path');
-        p.setAttribute('d', d); p.setAttribute('pathLength', '1'); p.style.setProperty('--d', (i * STEP).toFixed(2) + 's');
-        g.appendChild(p);
-      });
-      var total = (segs.length - 1) * STEP + DUR, running = false;
-      function play() {
-        if (running) return; running = true;
-        svg.classList.remove('is-drawing');
-        requestAnimationFrame(function () { requestAnimationFrame(function () { svg.classList.add('is-drawing'); }); });
-        setTimeout(function () { running = false; }, total * 1000 + 50);
-      }
-      svg.addEventListener('mouseenter', play); svg.addEventListener('click', play);
-      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () { setTimeout(play, 350); });
     })();
   </script>
 
