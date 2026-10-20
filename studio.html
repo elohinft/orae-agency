@@ -1408,13 +1408,13 @@ button:hover .roll > span { transform: translateY(-100%); }
       var prog = sec.querySelector('.process__progress');
       var dots = Array.prototype.slice.call(sec.querySelectorAll('.step__dot'));
       var steps = Array.prototype.slice.call(sec.querySelectorAll('li.step'));
-      var xs = ['5px', '33.333%', '66.666%', 'calc(100% - 5px)'];
+      var xs = ['5px', '33.333%', '66.666%', '100%'];
       var mq = window.matchMedia('(max-width: 760px)');
       var STEP_MS = 1700;
       var i = -1, timer = 0;
       function mark(k) { dots[k].classList.add('is-done'); steps[k].classList.add('is-done'); }
       function line(k) {
-        if (mq.matches) { prog.style.width = ''; prog.style.height = Math.max(0, steps[k].offsetTop + 9 - 6) + 'px'; }
+        if (mq.matches) { prog.style.width = ''; prog.style.height = (k === steps.length - 1 ? sec.querySelector('.process__line').offsetHeight : Math.max(0, steps[k].offsetTop + 9 - 6)) + 'px'; }
         else { prog.style.height = ''; prog.style.width = xs[k]; }
       }
       function show(k) { mark(k); line(k); }
