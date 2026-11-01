@@ -1043,12 +1043,26 @@ img, .trail__card, .pj__viewer, .follow {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
+
+/* ---------- Intro : rideau clair / sombre ---------- */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  -webkit-backdrop-filter: invert(1) hue-rotate(180deg);
+  backdrop-filter: invert(1) hue-rotate(180deg);
+  clip-path: inset(100% 0 0 0);
+}
+@media (prefers-reduced-motion: reduce) { .curtain { display: none; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="assets/fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
+
+  <div class="curtain" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="nav__brand" href="#top" aria-label="ORAE, retour en haut de page">
@@ -1966,6 +1980,26 @@ img, .trail__card, .pj__viewer, .follow {
       lock(document);
       new MutationObserver(function (m) { m.forEach(function (r) { r.addedNodes.forEach(function (n) { if (n.nodeType === 1) { if (n.tagName === 'IMG') n.setAttribute('draggable', 'false'); else lock(n); } }); }); }).observe(document.body, { childList: true, subtree: true });
     })();
+  </script>
+  <script>
+  (function () {
+    var el = document.querySelector('.curtain');
+    if (!el || !el.animate || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ease = 'cubic-bezier(.7,0,.2,1)';
+    var cover = [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }];
+    var reveal = [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 100% 0)' }];
+    var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var play = function (kf) { return el.animate(kf, { duration: 750, easing: ease, fill: 'forwards' }).finished; };
+    (async function () {
+      await (document.fonts ? document.fonts.ready : Promise.resolve());
+      await wait(900);
+      for (var i = 0; i < 2; i++) {
+        await play(cover); await wait(350);
+        await play(reveal); await wait(350);
+      }
+      el.remove();
+    })().catch(function () { el.remove(); });
+  })();
   </script>
 </body>
 </html>
