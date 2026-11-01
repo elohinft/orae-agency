@@ -1045,17 +1045,18 @@ img, .trail__card, .pj__viewer, .follow {
 }
 
 /* ---------- Intro : rideau clair / sombre ---------- */
+.hero { position: relative; display: flow-root; }
 .curtain {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 9998;
+  z-index: 2;
   pointer-events: none;
   -webkit-backdrop-filter: invert(1) hue-rotate(180deg);
   backdrop-filter: invert(1) hue-rotate(180deg);
   clip-path: inset(100% 0 0 0);
 }
 /* le lettrage rouge passe au-dessus du rideau : il garde son rouge exact */
-.is-curtain .hero__script { z-index: 9999; }
+.is-curtain .hero__script { z-index: 3; }
 @media (prefers-reduced-motion: reduce) { .curtain { display: none; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1064,7 +1065,6 @@ img, .trail__card, .pj__viewer, .follow {
 </head>
 <body>
 
-  <div class="curtain" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="nav__brand" href="#top" aria-label="ORAE, retour en haut de page">
@@ -1099,6 +1099,7 @@ img, .trail__card, .pj__viewer, .follow {
   <main id="top">
 
     <section class="hero">
+      <div class="curtain" aria-hidden="true"></div>
       <h1 class="hero__title">
         <span class="hero__line">studio</span><span class="hero__line">graphique</span>
         <svg class="hero__script" viewBox="-30 -80 660 200" role="img" aria-label="let’s create">
