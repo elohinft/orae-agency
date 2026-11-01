@@ -1054,6 +1054,8 @@ img, .trail__card, .pj__viewer, .follow {
   backdrop-filter: invert(1) hue-rotate(180deg);
   clip-path: inset(100% 0 0 0);
 }
+/* le lettrage rouge passe au-dessus du rideau : il garde son rouge exact */
+.is-curtain .hero__script { z-index: 9999; }
 @media (prefers-reduced-motion: reduce) { .curtain { display: none; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1985,6 +1987,8 @@ img, .trail__card, .pj__viewer, .follow {
   (function () {
     var el = document.querySelector('.curtain');
     if (!el || !el.animate || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.documentElement.classList.add('is-curtain');
+    var done = function () { el.remove(); document.documentElement.classList.remove('is-curtain'); };
     var ease = 'cubic-bezier(.7,0,.2,1)';
     var cover = [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }];
     var reveal = [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 100% 0)' }];
@@ -1997,8 +2001,8 @@ img, .trail__card, .pj__viewer, .follow {
         await play(cover); await wait(350);
         await play(reveal); await wait(350);
       }
-      el.remove();
-    })().catch(function () { el.remove(); });
+      done();
+    })().catch(done);
   })();
   </script>
 </body>
