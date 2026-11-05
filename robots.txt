@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /confidentialite.html
-Disallow: /mentions.html
+Disallow: /pages/confidentialite.html
+Disallow: /pages/mentions.html
 
 Sitemap: https://orae.agency/sitemap.xml
