@@ -42,8 +42,8 @@
 
 :root {
   --bg: #e7e7e7;
-  --ink: #0a0a0a;
-  --ink-soft: rgba(0, 0, 0, .7);
+  --ink: #141212;
+  --ink-soft: rgba(20, 18, 18, .7);
   --red: #f70010;
 
   --font-text: "Inter", system-ui, sans-serif;
@@ -91,7 +91,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #000;
+  color: #141212;
   white-space: nowrap;
 }
 
@@ -258,9 +258,9 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 .pj__list div { display: grid; grid-template-columns: 100px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(244, 244, 240, .18); font-size: 13px; }
 .pj__list dt { color: rgba(244, 244, 240, .55); }
 .pj__list dd { margin: 0; }
-.pj__cta { align-self: flex-start; margin-top: auto; padding: 12px 20px; border-radius: 99px; background: #f4f4f0; color: #0a0a0a; font-size: 13px; font-weight: 500; text-decoration: none; }
+.pj__cta { align-self: flex-start; margin-top: auto; padding: 12px 20px; border-radius: 99px; background: #f4f4f0; color: #141212; font-size: 13px; font-weight: 500; text-decoration: none; }
 .pj__close:focus, .pj__close:focus-visible { outline: none; box-shadow: none; }
-.pj__close { -webkit-tap-highlight-color: transparent; position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f4f4f0; color: #0a0a0a; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.pj__close { -webkit-tap-highlight-color: transparent; position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f4f4f0; color: #141212; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 @media (max-width: 760px) {
   .pj__panel { grid-template-columns: 1fr; grid-template-rows: 42% 1fr; }
   .pj__info { padding: 22px 20px; gap: 14px; }
@@ -421,8 +421,10 @@ button:hover .roll > span { transform: translateY(-100%); }
 /* ---------- Expertise ---------- */
 
 .services {
-  margin: clamp(80px, 11vw, 160px) var(--gutter) 0;
-  padding-bottom: clamp(80px, 12vw, 176px);
+  margin: clamp(80px, 11vw, 160px) 0 0;
+  padding: clamp(64px, 9vw, 128px) var(--gutter) clamp(80px, 12vw, 176px);
+  background: #141212;
+  color: #ececec;
 }
 
 .service {
@@ -430,12 +432,12 @@ button:hover .roll > span { transform: translateY(-100%); }
   grid-template-columns: 108px minmax(0, 1fr) minmax(0, 1fr);
   align-items: start;
   padding: 32px 0 34px;
-  border-top: 1px solid rgba(0, 0, 0, .2);
+  border-top: 1px solid rgba(236, 236, 236, .18);
 }
 
-.service:last-child { border-bottom: 1px solid rgba(0, 0, 0, .2); }
+.service:last-child { border-bottom: 1px solid rgba(236, 236, 236, .18); }
 
-.service__num { padding-top: 6px; font-size: 11px; font-weight: 500; }
+.service__num { padding-top: 6px; font-size: 11px; font-weight: 500; color: rgba(236, 236, 236, .72); }
 
 .service__title {
   font-size: clamp(24px, 2.5vw, 36px);
@@ -452,6 +454,7 @@ button:hover .roll > span { transform: translateY(-100%); }
   font-weight: 400;
   line-height: 1.5;
   text-transform: uppercase;
+  color: rgba(236, 236, 236, .72);
 }
 
 .service__more {
@@ -462,10 +465,11 @@ button:hover .roll > span { transform: translateY(-100%); }
   font-weight: 500;
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: rgba(236, 236, 236, .6);
   border-bottom: 1px solid currentColor;
   padding-bottom: 2px;
 }
+.service__more:hover { color: #ececec; }
 
 /* ---------- Contact ---------- */
 
@@ -1033,7 +1037,7 @@ button:hover .roll > span { transform: translateY(-100%); }
 /* Boutons : sans fond, contour noir sur fond clair, blanc sur fond sombre (hors pill de contact) */
 .btn, .btn--line, .form .btn { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
 .pj__cta, .pj__close { background: transparent; color: #f4f4f0; border: 1px solid #f4f4f0; }
-.pj__close { top: 10px; right: 10px; width: 30px; height: 30px; background: #f4f4f0; color: #0a0a0a; border: 0; box-shadow: 0 1px 8px rgba(0,0,0,.35); }
+.pj__close { top: 10px; right: 10px; width: 30px; height: 30px; background: #f4f4f0; color: #141212; border: 0; box-shadow: 0 1px 8px rgba(0,0,0,.35); }
 .pj__close svg { width: 10px; height: 10px; }
 
 /* Poppins hébergé sur le site : pas de police de secours visible au chargement */
