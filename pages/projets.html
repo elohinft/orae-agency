@@ -1017,17 +1017,18 @@ img, .trail__card, .pj__viewer, .follow {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var sc = document.querySelector('#pjPhone .pj__phoneScreen'); if (!sc) return;
         var im = sc.querySelector('img'), stop = function () { phoneStop(); }, pos = 0, last = 0;
-        ['mouseenter', 'pointerdown', 'touchstart', 'wheel'].forEach(function (ev) { sc.addEventListener(ev, stop, { passive: true, once: true }); });
+        ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) { sc.addEventListener(ev, stop, { passive: true, once: true }); });
+        sc.addEventListener('mousemove', function mm(e) { if (e.movementX || e.movementY) { stop(); sc.removeEventListener('mousemove', mm); } }, { passive: true });
         function step(ts) {
           if (!last) last = ts;
           var dt = Math.min(ts - last, 50); last = ts;
           var max = sc.scrollHeight - sc.clientHeight;
           if (max <= 0) { phRaf = requestAnimationFrame(step); return; }
-          pos += dt * 0.04;                         // ≈ 40 px / seconde
+          pos += dt * 0.08;                         // ≈ 80 px / seconde
           if (pos >= max) { sc.scrollTop = max; phRaf = 0; return; }
           sc.scrollTop = pos; phRaf = requestAnimationFrame(step);
         }
-        var go = function () { phT = setTimeout(function () { phRaf = requestAnimationFrame(step); }, 1100); };
+        var go = function () { phT = setTimeout(function () { phRaf = requestAnimationFrame(step); }, 150); };
         if (im && !im.complete) { im.addEventListener('load', go, { once: true }); im.addEventListener('error', go, { once: true }); } else go();
       }
       function fill(it) {
