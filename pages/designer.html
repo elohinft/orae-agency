@@ -1214,6 +1214,20 @@ img, .trail__card, .pj__viewer, .follow {
   .cv { grid-template-columns: 1fr; gap: 28px; margin-top: 100px; }
   .cv__ph { max-width: 220px; }
 }
+
+/* ---------- Designer : À propos (texte en bas à gauche, photo à droite) ---------- */
+.dab { margin: clamp(86px, 8vw, 116px) var(--gutter) 0; min-height: min(88vh, 820px); display: grid; grid-template-columns: minmax(0, 1fr) auto; justify-content: space-between; align-items: end; gap: clamp(30px, 8vw, 140px); padding-bottom: clamp(50px, 6vw, 90px); color: var(--ink); font-family: var(--font-body, "Inter", system-ui, sans-serif); }
+.dab__txt { max-width: 27em; }
+.dab__h { margin: 0 0 clamp(22px, 2.4vw, 34px); font-family: inherit; font-weight: 400; text-transform: uppercase; font-size: clamp(26px, 2.5vw, 38px); line-height: 1; letter-spacing: -.02em; }
+.dab__txt p { margin: 0; font-size: clamp(13px, .98vw, 14.5px); line-height: 1.55; text-wrap: pretty; }
+.dab__txt p + p { margin-top: 1.2em; }
+.dab__ph { margin: 0; width: clamp(220px, 27vw, 410px); align-self: start; }
+.dab__ph img { display: block; width: 100%; height: auto; }
+.dab__ph figcaption { margin-top: 18px; text-align: right; font-size: 11px; line-height: 1.5; }
+.dab__ph figcaption em { display: block; font-style: italic; color: rgba(20, 18, 18, .5); margin-bottom: 4px; }
+.dab__ph figcaption span { text-transform: uppercase; }
+.cv { margin-top: clamp(30px, 5vw, 70px); }
+@media (max-width: 760px) { .dab { grid-template-columns: 1fr; min-height: 0; } .dab__ph { order: -1; width: min(70%, 280px); } .dab__txt { max-width: none; } }
 </style>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -1252,38 +1266,45 @@ img, .trail__card, .pj__viewer, .follow {
   </div>
 
   <main id="top">
-    <section class="cv" aria-label="Designer">
-      <div class="cv__col cv__c1">
-      <figure class="cv__ph"><img src="../images/studio/atelier.webp" alt="L’atelier d’Orae : bureau, écran, étagères et chaise en cuir" width="896" height="1200"></figure>
-      <div class="cv__id">
-        <h1 class="cv__name">Orae</h1>
-        <p class="cv__meta">Directrice artistique &amp; graphiste<br>Montpellier, France<br><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a><br>En freelance depuis 2026</p>
+    <section class="dab" aria-labelledby="dabT">
+      <div class="dab__txt">
+        <h1 class="dab__h" id="dabT">À propos</h1>
+        <p>Directrice artistique et graphiste diplômée, installée à Montpellier. Je crée des identités visuelles, des sites et des supports print pour des marques exigeantes.</p>
+        <p>Autodidacte en design et en code, je conçois des systèmes cohérents, simples à utiliser, du premier croquis à la mise en ligne.</p>
       </div>
+      <figure class="dab__ph">
+        <img src="../images/studio/atelier.webp" alt="L’atelier d’Orae : bureau, écran, étagères et chaise en cuir" width="896" height="1200">
+        <figcaption><em>Travaille avec</em><span>Cie Megaera, Yana Barber, Red Bean Agency</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="cv" aria-label="Parcours et compétences">
+      <div class="cv__col cv__c1">
+        <div class="cv__id">
+          <h2 class="cv__name">Orae</h2>
+          <p class="cv__meta">Directrice artistique &amp; graphiste<br>Montpellier, France<br><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a><br>En freelance depuis 2026</p>
+        </div>
       </div>
       <div class="cv__col cv__c2">
-      <section class="cv__sec cv__ap">
-        <h2>À propos</h2>
-        <p>Directrice artistique et graphiste diplômée, installée à Montpellier. Je crée des identités visuelles, des sites et des supports print pour des marques exigeantes. Autodidacte en design et en code, je conçois des systèmes cohérents, simples à utiliser, du premier croquis à la mise en ligne.</p>
-      </section>
-      <section class="cv__sec cv__fo">
-        <h2>Formation</h2>
-        <p>Studi — trois cursus en design et direction artistique, dernier diplôme obtenu en 2026.<br>Autodidacte : design d’interface, intégration et code.</p>
-      </section>
-      <section class="cv__sec cv__ex">
-        <h2>Expérience</h2>
-        <p>Orae Agency — Directrice artistique, freelance<br>2026 – aujourd’hui · Cie Megaera, Yana Barber, Red Bean Agency</p>
-        <p>Digiwave — Alternance en agence<br>Jusqu’en 2026 · Maquettes, identités et supports print</p>
-      </section>
+        <section class="cv__sec cv__fo">
+          <h2>Formation</h2>
+          <p>Studi — trois cursus en design et direction artistique, dernier diplôme obtenu en 2026.<br>Autodidacte : design d’interface, intégration et code.</p>
+        </section>
+        <section class="cv__sec cv__ex">
+          <h2>Expérience</h2>
+          <p>Orae Agency — Directrice artistique, freelance<br>2026 – aujourd’hui · Cie Megaera, Yana Barber, Red Bean Agency</p>
+          <p>Digiwave — Alternance en agence<br>Jusqu’en 2026 · Maquettes, identités et supports print</p>
+        </section>
       </div>
       <div class="cv__col cv__c3">
-      <section class="cv__sec cv__co">
-        <h2>Compétences</h2>
-        <ul><li>Identité visuelle &amp; logo</li><li>Direction artistique</li><li>Design graphique</li><li>Print &amp; édition</li><li>Site web</li><li>Maquette &amp; UX/UI</li><li>Intégration &amp; code</li></ul>
-      </section>
-      <section class="cv__sec cv__lo">
-        <h2>Logiciels</h2>
-        <ul><li>Figma</li><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>Adobe InDesign</li><li>Claude</li></ul>
-      </section>
+        <section class="cv__sec cv__co">
+          <h2>Compétences</h2>
+          <ul><li>Identité visuelle &amp; logo</li><li>Direction artistique</li><li>Design graphique</li><li>Print &amp; édition</li><li>Site web</li><li>Maquette &amp; UX/UI</li><li>Intégration &amp; code</li></ul>
+        </section>
+        <section class="cv__sec cv__lo">
+          <h2>Logiciels</h2>
+          <ul><li>Figma</li><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>Adobe InDesign</li><li>Claude</li></ul>
+        </section>
       </div>
     </section>
   </main>
