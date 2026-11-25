@@ -1370,6 +1370,19 @@ img, .trail__card, .pj__viewer, .follow {
 
 /* MENU aligné sur le centre du logo */
 .nav__burger { flex-direction: row !important; align-items: center !important; justify-content: flex-end !important; }
+
+/* photo plus grande : toute la hauteur de l'écran, à droite, alignée avec le texte */
+@media (min-width: 761px) {
+  .dab { grid-template-rows: minmax(0, 1fr); }
+  .dab__txt { grid-row: 1; align-self: end; }
+  .dab__ph { grid-row: 1; grid-column: 2; align-self: stretch; height: 100%; }
+}
+
+/* mobile : la photo prend toute la largeur du contenu */
+@media (max-width: 760px) {
+  .dab__ph { width: 100% !important; max-width: none; height: auto; justify-self: stretch; }
+  .dab__ph img { width: 100%; height: auto; }
+}
 </style>
   <link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
