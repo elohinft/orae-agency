@@ -2025,6 +2025,12 @@ img, .trail__card, .pj__viewer, .follow {
   .pj--flip .pj__panel { grid-template-columns: 1fr; grid-template-rows: 54% minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) { .fb__book, .fb__sheet, .fb__face::after { transition-duration: .01s; } }
+
+/* CTA des fiches projet : juste le texte et la flèche, sans contour */
+.pj__cta, .pj__cta:hover, .pj__cta:focus-visible { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: inherit; font-size: 15px; font-weight: 500; text-decoration: none; }
+.pj__cta:hover { text-decoration: underline; text-underline-offset: 4px; }
+.pj__cta span { display: inline-block; transition: transform .25s ease; }
+.pj__cta:hover span { transform: translate(2px, -2px); }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">
@@ -2040,7 +2046,7 @@ img, .trail__card, .pj__viewer, .follow {
         <h3 class="pj__title" id="pjTitle"></h3>
         <p class="pj__desc" id="pjDesc"></p>
         <dl class="pj__list" id="pjList"></dl>
-        <a class="pj__cta" id="pjCta" href="#contact">Un projet similaire ?</a>
+        <a class="pj__cta" id="pjCta" href="#contact">Un projet similaire ? <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </div>
