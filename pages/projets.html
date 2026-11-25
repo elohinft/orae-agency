@@ -370,9 +370,9 @@ button:hover .roll > span { transform: translateY(-100%); }
 .pj { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 32px); background: rgba(0, 0, 0, .86); opacity: 0; transition: opacity .3s; }
 .pj.is-on { display: flex; }
 .pj.is-show { opacity: 1; }
-.pj__panel { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; width: min(1080px, 100%); height: min(660px, 100%); background: #0d0d0d; color: #f4f4f0; border-radius: 6px; overflow: hidden; transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.2, .9, .3, 1); }
+.pj__panel { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; width: min(1080px, 100%); height: min(660px, 100%); background: #141212; color: #f4f4f0; border-radius: 6px; overflow: hidden; transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.2, .9, .3, 1); }
 .pj.is-show .pj__panel { transform: none; }
-.pj__viewer { min-height: 0; overflow-y: auto; padding: 16px; background: #181818; overscroll-behavior: contain; }
+.pj__viewer { min-height: 0; overflow-y: auto; padding: 16px; background: #141212; overscroll-behavior: contain; }
 .pj__win { overflow: hidden; border-radius: 6px; background: #fff; }
 .pj__bar { display: flex; align-items: center; gap: 5px; height: 24px; padding: 0 10px; background: #2a2a2a; }
 .pj__bar i { width: 7px; height: 7px; border-radius: 50%; background: #5a5a5a; }
@@ -528,8 +528,8 @@ body { background: var(--bg); color: var(--ink); }
 .pg__hero .hero__script { top: .42em; left: 66%; width: 1.15em; transform: translateX(-50%) rotate(-1deg); }
 .pg__hero .hero__script-text { font-family: "Reenie Beanie", cursive; }
 
-/* Petites étiquettes : DM Mono partout */
-:root { --font-mono: "DM Mono", ui-monospace, Menlo, monospace; }
+/* Petites étiquettes : Inter partout */
+:root { --font-mono: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .nav__mark, .hero__bar, .about__label, .service__num, .service__more, .contact__label, .contact__list,
 .form__field label, .menu__links a i, .menu__foot small, .footer, .legal__label, .legal__update,
 .pj__type, .pj__list dt, .ix__num, .st-plus {
@@ -565,7 +565,7 @@ img, .trail__card, .pj__viewer, .follow {
 .pg2__filters button:hover { color: var(--ink); }
 .pg2__filters button.on { color: var(--ink); border-bottom-color: var(--ink); }
 .pg2__count { margin: 0; font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); }
-.pg2__head, .pg2 .ix__row { display: grid; grid-template-columns: 56px minmax(0, 1.35fr) minmax(0, .95fr) minmax(0, 1.2fr) 84px 44px; gap: 14px; align-items: center; }
+.pg2__head, .pg2 .ix__row { display: grid; grid-template-columns: 56px minmax(0, 1.6fr) minmax(0, 1.3fr) 84px 44px; gap: 14px; align-items: center; }
 .pg2__head { padding: 0 0 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
 .pg2 .ix { margin: 0; }
 .pg2 .ix__row { width: 100%; padding: 15px 0; border: 0; border-top: 1px solid var(--line); background: none; color: inherit; font: inherit; font-size: 14px; text-align: left; cursor: pointer; transition: padding .3s; }
@@ -585,7 +585,6 @@ img, .trail__card, .pj__viewer, .follow {
 }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
@@ -622,19 +621,35 @@ img, .trail__card, .pj__viewer, .follow {
   </div>
 
   <main id="top">
-    <section aria-label="Projets" class="pg2">
-      <div class="pg2__bar">
-        <nav class="pg2__filters" id="jump" aria-label="Catégories"></nav>
-        <p class="pg2__count" id="pgCount" aria-live="polite"></p>
+    <section class="pr pr--dark" id="projets" aria-labelledby="prT">
+      
+      <div class="pr__grid">
+        <div class="pr__left">
+          <h2 class="pr__title" id="prT">Projets</h2>
+          <nav class="pr__filters" id="prFilters" aria-label="Catégories"><button type="button" data-g="all" class="on">Tous</button><button type="button" data-g="ux">Design UX/UI</button><button type="button" data-g="print">Édition &amp; print</button><button type="button" data-g="id">Identité visuelle &amp; logo</button></nav>
+          <div class="pr__meta" id="prMeta">
+            <p class="pr__n" id="prN"></p>
+            <h3 class="pr__name" id="prName"></h3>
+            <p class="pr__desc" id="prDesc"></p>
+            <p class="pr__tags" id="prTags"></p>
+            <button type="button" class="pr__open" id="prOpen">Voir le projet <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+        <div class="pr__thumbs" id="prThumbs" role="listbox" aria-label="Choisir un projet"></div>
+        <div class="pr__right">
+          <div class="pr__stage" id="prStage"><div class="pr__big" id="prBig"></div><div class="pr__rich pj__viewer" id="prRich" hidden></div></div>
+          <div class="pr__foot"><span id="prCount"></span><a href="#cat-0">Tous les projets <span aria-hidden="true">↓</span></a></div>
+        </div>
       </div>
-      <div class="pg2__head" aria-hidden="true"><span>N°</span><span>Projet</span><span>Catégorie</span><span>Type</span><span>Visuels</span><span></span></div>
-      <div class="ix" id="ix"></div>
     </section>
+
+    
   </main>
 
   <footer class="footer">
     <p><a href="../index.html">©26 Studio ORAE</a></p>
     <nav class="footer__legal" aria-label="Informations légales">
+      <a href="https://www.instagram.com/orae_agency/" target="_blank" rel="noopener">@orae_agency</a>
       <a href="mentions.html">Mentions</a>
       <a href="confidentialite.html">Confidentialité</a>
     </nav>
@@ -722,32 +737,22 @@ img, .trail__card, .pj__viewer, .follow {
   <script>
     // Page Projets : index typographique. Survol = aperçu de l'image ; clic ou Entrée = fenêtre de détail.
     (function () {
-      var DATA = [{"name":"Design UX/UI","desc":"Sites et landing pages : de la maquette à l’interface, pensées pour être comprises en un regard.","items":[{"src":"../images/sites/lumina-card-v2.webp","full":null,"n":3,"detail":{"title":"Lumina - Studio photo portrait et mode","type":"Landing page · Studio photo portrait et mode","desc":"Une landing page pour Lumina, un studio photo tourné vers le portrait et la mode : un grand titre qui passe derrière un portrait, des séries en noir et blanc et en couleur, le déroulé d’une séance et un formulaire de demande de projet. Présentée en version desktop et mobile.","items":["Direction artistique","Maquette UI / UX","Version mobile"],"tools":"Figma","format":"Desktop · 1440 px · Mobile · 390 px","imgs":["../images/sites/lumina-full.webp"],"mobile":"../images/sites/lumina-mobile.webp","browser":true,"mockup":"../images/sites/lumina-mockup-v2.webp"}},{"src":"../images/sites/deco-card.webp","full":null,"n":3,"detail":{"title":"Alma - Studio de décoration d’intérieur","type":"Landing page · Architecture d’intérieur et décoration","desc":"Une landing page pour Alma, un studio d’architecture et de décoration d’intérieur : un grand titre posé sur une image plein écran, des services présentés en liste, le déroulé d’un projet en six étapes et une page de contact sobre. Présentée en version desktop et mobile, puis en situation.","items":["Direction artistique","Maquette UI / UX","Version mobile"],"tools":"Figma","format":"Desktop · 1440 px · Mobile · 390 px","imgs":["../images/sites/deco-full.webp"],"mobile":"../images/sites/deco-mobile.webp","mockup":"../images/sites/deco-mockup.webp","browser":true}},{"src":"../images/sites/architecte-top.webp","full":"../images/sites/architecte-full.webp","n":1,"detail":{"title":"Aubert - Architecte indépendante","type":"Site vitrine · Portfolio","desc":"Une identité et un site sobres pour une architecte : de grandes photographies, une typographie élégante et un parcours « du croquis à la clé ».","items":["Identité visuelle","Maquette UI / UX","Portfolio"],"tools":"Figma","format":"Desktop · 1440 px","imgs":["../images/sites/architecte-full.webp"],"browser":true}},{"src":"../images/sites/obscura-top.webp","full":"../images/sites/obscura-full.webp","n":1,"detail":{"title":"Obscura - Studio de photographie","type":"Landing page interactive · Studio de photographie","desc":"Un projet expérimental pour montrer ce que peut devenir le portfolio d’un photographe ou d’un studio : les photos défilent, on choisit celle que l’on veut voir et elle s’ouvre en grand, avec sa série. Une page très simple, pensée comme une landing page interactive.","items":["Direction artistique","Maquette UI / UX","Portfolio interactif"],"tools":"Figma","format":"Desktop · 1920 px","imgs":["../images/sites/obscura-full.webp"],"browser":true}},{"src":"../images/sites/studio-bento-top.webp","full":"../images/sites/studio-bento-full.webp","n":1,"detail":{"title":"Argenta - Studio de grillz, strass et manucure","type":"Site vitrine · Grille bento","desc":"Un site pour Argenta, studio de grillz, de strass dentaires et de manucure, construit en grille bento : prestations, créations et ambiance se découvrent d’un seul coup d’œil.","items":["Direction artistique","Maquette UI / UX","Système de grille"],"tools":"Figma","format":"Desktop · 1440 px","imgs":["../images/sites/studio-bento-full.webp"],"browser":true}}]},{"name":"Édition & print","desc":"Affiches expérimentales, typographie et mises en page éditoriales.","items":[{"src":"../images/portfolio/ostal-book-card.webp","full":null,"n":22,"detail":{"title":"Book Design mobilier - Atelier Ostal","type":"Édition · Magazine numérique · Book de designer mobilier","desc":"Le book d’un atelier de design de mobilier, pensé comme un magazine numérique à feuilleter, avec sa couverture et sa quatrième de couverture, et décliné en impression A4. Chrome, noyer, pierre et métal : une mise en page sobre où la matière et la lumière passent avant le texte. Tournez les pages : le book se présente seul une première fois.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · A4 · 22 pages","imgs":["../images/book/ostal-mockup.webp"],"flip":{"pages":["../images/book/ostal-p01.webp","../images/book/ostal-p02.webp","../images/book/ostal-p03.webp","../images/book/ostal-p04.webp","../images/book/ostal-p05.webp","../images/book/ostal-p06.webp","../images/book/ostal-p07.webp","../images/book/ostal-p08.webp","../images/book/ostal-p09.webp","../images/book/ostal-p10.webp","../images/book/ostal-p11.webp","../images/book/ostal-p12.webp","../images/book/ostal-p13.webp","../images/book/ostal-p14.webp","../images/book/ostal-p15.webp","../images/book/ostal-p16.webp","../images/book/ostal-p17.webp","../images/book/ostal-p18.webp","../images/book/ostal-p19.webp","../images/book/ostal-p20.webp","../images/book/ostal-p21.webp","../images/book/ostal-p22.webp"],"bg":"../images/book/ostal-mockup.webp"}}},{"src":"../images/portfolio/louis-book-card.webp","full":null,"n":20,"detail":{"title":"Book Gastronomique - Louis","type":"Édition · Magazine numérique · Book de chef","desc":"Le book d’un chef cuisinier, pensé comme un magazine numérique à feuilleter, avec sa couverture et sa quatrième de couverture, et décliné en impression A4. De grandes photographies de plats, des titres sobres et un rythme éditorial qui laisse respirer chaque assiette. Tournez les pages : le book se présente seul une première fois.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · A4 · 20 pages","imgs":["../images/book/louis-mockup.webp"],"flip":{"pages":["../images/book/louis-p01.webp","../images/book/louis-p02.webp","../images/book/louis-p03.webp","../images/book/louis-p04.webp","../images/book/louis-p05.webp","../images/book/louis-p06.webp","../images/book/louis-p07.webp","../images/book/louis-p08.webp","../images/book/louis-p09.webp","../images/book/louis-p10.webp","../images/book/louis-p11.webp","../images/book/louis-p12.webp","../images/book/louis-p13.webp","../images/book/louis-p14.webp","../images/book/louis-p15.webp","../images/book/louis-p16.webp","../images/book/louis-p17.webp","../images/book/louis-p18.webp","../images/book/louis-p19.webp","../images/book/louis-p20.webp"],"bg":"../images/book/louis-mockup.webp"}}},{"src":"../images/book/camille-card.webp","full":null,"n":12,"detail":{"title":"Book photographie - Camille","type":"Édition · Magazine numérique · Book de photographe","desc":"Le book d’une photographe de mode et de portrait : douze pages pensées comme un livre, où les images respirent, les titres sont sobres et chaque série garde son rythme. Pensé comme un magazine numérique à feuilleter page par page, de la couverture à la page contact, il peut aussi être décliné en impression.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · 12 pages","imgs":["../images/book/camille-p01.webp","../images/book/camille-p02.webp"],"book":["../images/book/camille-p01.webp","../images/book/camille-p02.webp","../images/book/camille-p03.webp","../images/book/camille-p04.webp","../images/book/camille-p05.webp","../images/book/camille-p06.webp","../images/book/camille-p07.webp","../images/book/camille-p08.webp","../images/book/camille-p09.webp","../images/book/camille-p10.webp","../images/book/camille-p11.webp","../images/book/camille-p12.webp"]}},{"src":"../images/portfolio/noir-expo-mockup-card.webp","full":null,"n":2,"detail":{"title":"Noir Expo","type":"Affiche expérimentale · Exposition","desc":"Une affiche expérimentale pour Noir Expo, une exposition photo consacrée au noir et blanc : une recherche sur la façon dont le noir et blanc fait ressortir le sujet, la lumière et le grain. Présentée en situation, puis en version finale.","items":["Direction artistique","Affiche","Typographie"],"tools":"Photoshop · Illustrator","format":"Print · Affiche","imgs":["../images/portfolio/noir-expo-mockup-pop.webp","../images/portfolio/noir-expo-poster-pop.webp"]}},{"src":"../images/portfolio/frame-7-card.webp","full":null,"n":1,"detail":{"title":"Parachute","type":"Mise en page expérimentale","desc":"Une mise en page expérimentale construite autour des paroles d’une chanson : le texte, l’image et les blancs dialoguent pour faire entendre la musique.","items":["Direction artistique","Mise en page","Typographie"],"tools":"InDesign · Photoshop","format":"Édition","imgs":["../images/portfolio/frame-7-pop.webp"]}},{"src":"../images/portfolio/mira-magazine-card.webp","full":null,"n":1,"detail":{"title":"Mira Magazine","type":"Édition · Magazine numérique","desc":"La direction artistique d’un magazine numérique de mode et de portraits, pensé pour la lecture à l’écran : un portrait sobre en noir et blanc, une lumière naturelle, de grandes capitales rouges et une mise en page qui laisse respirer l’image, de la couverture aux pages intérieures.","items":["Direction artistique","Mise en page","Typographie"],"tools":"InDesign · Photoshop","format":"Édition · Numérique","imgs":["../images/portfolio/mira-magazine-pop.webp"]}},{"src":"../images/portfolio/cobra-card.webp","full":null,"n":1,"detail":{"title":"Armanoïde","type":"Affiche expérimentale · Hommage","desc":"Une affiche hommage à Armanoïde, le bras droit du héros et pirate de l’espace Cobra (Space Adventure) : un personnage métallique sur fond d’étoiles, un grand lettrage rouge et bleu, et du texte en filigrane.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/cobra-pop.webp"]}},{"src":"../images/portfolio/poster-05-tableau-card.webp","full":null,"n":1,"detail":{"title":"Festival","type":"Affiche expérimentale","desc":"Une affiche expérimentale pour un festival d’été fictif : un lettrage gonflé en 3D, orange vif, entouré d’informations pratiques organisées comme un programme.","items":["Direction artistique","Typographie expérimentale","Mise en page"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/poster-05-tableau-pop.webp"]}},{"src":"../images/portfolio/image-110-card.webp","full":null,"n":2,"detail":{"title":"Breath","type":"Affiche expérimentale","desc":"Une affiche expérimentale à l’ambiance calme : silhouette florale en filigrane, titre en lettrage graphique et damier en signature. Présentée à plat, puis en situation.","items":["Direction artistique","Affiche","Typographie"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/group-1000008223-pop.webp","../images/portfolio/image-110-pop.webp"]}},{"src":"../images/portfolio/affiche-2-card.webp","full":null,"n":1,"detail":{"title":"Game Over","type":"Affiche expérimentale","desc":"Une affiche expérimentale au lettrage rouge déformé sur un fond vert-de-gris, photographiée en situation sur une grille métallique.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/affiche-2-pop.webp"]}},{"src":"../images/portfolio/affiche-3-card.webp","full":null,"n":1,"detail":{"title":"Oxytocine","type":"Affiche expérimentale","desc":"Une affiche expérimentale qui mêle un lettrage blanc distordu et une forme dégradée rouge et bleue sur fond noir, présentée en situation.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/affiche-3-pop.webp"]}}]},{"name":"Identité visuelle & logo","desc":"Création de logo et d’un univers graphique, avec mise en situation.","items":[{"src":"../images/portfolio/drop-2-card.webp","full":null,"n":1,"detail":{"title":"Drop","type":"Identité visuelle · Branding · Logo","desc":"Une identité de marque au caractère streetwear : un logotype massif et arrondi, des objets, des affiches et des visuels pensés pour créer un univers reconnaissable à chaque apparition.","items":["Identité visuelle","Branding","Logo"],"tools":"Illustrator · Photoshop","format":"Branding · Logo","imgs":["../images/portfolio/drop-brand-pop.webp"]}},{"src":"../images/portfolio/lueur-mockup-card.webp","full":null,"n":1,"detail":{"title":"Lueur","type":"Identité visuelle · Branding · Logo","desc":"Une identité douce et élégante pour une marque de bijoux : logotype en finesse, packaging épuré et enseigne qui prolonge l’univers de la marque.","items":["Identité visuelle","Branding","Logo"],"tools":"Illustrator · Photoshop","format":"Branding · Logo","imgs":["../images/portfolio/lueur-brand-pop.webp"]}},{"src":"../images/portfolio/reborn-mockup-card.webp","full":null,"n":1,"detail":{"title":"Reborn","type":"Identité visuelle · Branding · Logo","desc":"Une identité pour un studio qui crée de nouvelles formes de flacons et de tubes de parfum : un logotype aux courbes organiques, une palette sobre de noirs, de gris et de blancs réchauffés de brun et d’ambre, et des photographies qui mettent la forme en scène.","items":["Identité visuelle","Branding","Logo"],"tools":"Figma · Illustrator","format":"Branding · Logo","imgs":["../images/portfolio/reborn-brand-pop.webp"]}},{"src":"","full":null,"n":0,"soon":true,"detail":{"title":"Compagnie Megaera","type":"Identité visuelle · Compagnie de théâtre","desc":"","items":[],"tools":"","format":""}}]}];
+      var DATA = window.__DATA = [{"name":"Design UX/UI","desc":"Sites et landing pages : de la maquette à l’interface, pensées pour être comprises en un regard.","items":[{"src":"../images/sites/lumina-card-v2.webp","full":null,"n":3,"detail":{"title":"Lumina - Studio photo portrait et mode","type":"Landing page · Studio photo portrait et mode","desc":"Une landing page pour Lumina, un studio photo tourné vers le portrait et la mode : un grand titre qui passe derrière un portrait, des séries en noir et blanc et en couleur, le déroulé d’une séance et un formulaire de demande de projet. Présentée en version desktop et mobile.","items":["Direction artistique","Maquette UI / UX","Version mobile"],"tools":"Figma","format":"Desktop · 1440 px · Mobile · 390 px","imgs":["../images/sites/lumina-full.webp"],"mobile":"../images/sites/lumina-mobile.webp","browser":true,"mockup":"../images/sites/lumina-mockup-v2.webp"}},{"src":"../images/sites/deco-card.webp","full":null,"n":3,"detail":{"title":"Alma - Studio de décoration d’intérieur","type":"Landing page · Architecture d’intérieur et décoration","desc":"Une landing page pour Alma, un studio d’architecture et de décoration d’intérieur : un grand titre posé sur une image plein écran, des services présentés en liste, le déroulé d’un projet en six étapes et une page de contact sobre. Présentée en version desktop et mobile, puis en situation.","items":["Direction artistique","Maquette UI / UX","Version mobile"],"tools":"Figma","format":"Desktop · 1440 px · Mobile · 390 px","imgs":["../images/sites/deco-full.webp"],"mobile":"../images/sites/deco-mobile.webp","mockup":"../images/sites/deco-mockup.webp","browser":true}},{"src":"../images/sites/architecte-top.webp","full":"../images/sites/architecte-full.webp","n":1,"detail":{"title":"Aubert - Architecte indépendante","type":"Site vitrine · Portfolio","desc":"Une identité et un site sobres pour une architecte : de grandes photographies, une typographie élégante et un parcours « du croquis à la clé ».","items":["Identité visuelle","Maquette UI / UX","Portfolio"],"tools":"Figma","format":"Desktop · 1440 px","imgs":["../images/sites/architecte-full.webp"],"browser":true}},{"src":"../images/sites/obscura-top.webp","full":"../images/sites/obscura-full.webp","n":1,"detail":{"title":"Obscura - Studio de photographie","type":"Landing page interactive · Studio de photographie","desc":"Un projet expérimental pour montrer ce que peut devenir le portfolio d’un photographe ou d’un studio : les photos défilent, on choisit celle que l’on veut voir et elle s’ouvre en grand, avec sa série. Une page très simple, pensée comme une landing page interactive.","items":["Direction artistique","Maquette UI / UX","Portfolio interactif"],"tools":"Figma","format":"Desktop · 1920 px","imgs":["../images/sites/obscura-full.webp"],"browser":true}},{"src":"../images/sites/studio-bento-top.webp","full":"../images/sites/studio-bento-full.webp","n":1,"detail":{"title":"Argenta - Studio de grillz, strass et manucure","type":"Site vitrine · Grille bento","desc":"Un site pour Argenta, studio de grillz, de strass dentaires et de manucure, construit en grille bento : prestations, créations et ambiance se découvrent d’un seul coup d’œil.","items":["Direction artistique","Maquette UI / UX","Système de grille"],"tools":"Figma","format":"Desktop · 1440 px","imgs":["../images/sites/studio-bento-full.webp"],"browser":true}}]},{"name":"Édition & print","desc":"Affiches expérimentales, typographie et mises en page éditoriales.","items":[{"src":"../images/portfolio/ostal-book-card.webp","full":null,"n":22,"detail":{"title":"Book Design mobilier - Atelier Ostal","type":"Édition · Magazine numérique · Book de designer mobilier","desc":"Le book d’un atelier de design de mobilier, pensé comme un magazine numérique à feuilleter, avec sa couverture et sa quatrième de couverture, et décliné en impression A4. Chrome, noyer, pierre et métal : une mise en page sobre où la matière et la lumière passent avant le texte. Tournez les pages : le book se présente seul une première fois.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · A4 · 22 pages","imgs":["../images/book/ostal-mockup.webp"],"flip":{"pages":["../images/book/ostal-p01.webp","../images/book/ostal-p02.webp","../images/book/ostal-p03.webp","../images/book/ostal-p04.webp","../images/book/ostal-p05.webp","../images/book/ostal-p06.webp","../images/book/ostal-p07.webp","../images/book/ostal-p08.webp","../images/book/ostal-p09.webp","../images/book/ostal-p10.webp","../images/book/ostal-p11.webp","../images/book/ostal-p12.webp","../images/book/ostal-p13.webp","../images/book/ostal-p14.webp","../images/book/ostal-p15.webp","../images/book/ostal-p16.webp","../images/book/ostal-p17.webp","../images/book/ostal-p18.webp","../images/book/ostal-p19.webp","../images/book/ostal-p20.webp","../images/book/ostal-p21.webp","../images/book/ostal-p22.webp"],"bg":"../images/book/ostal-mockup.webp"}}},{"src":"../images/portfolio/louis-book-card.webp","full":null,"n":20,"detail":{"title":"Book Gastronomique - Louis","type":"Édition · Magazine numérique · Book de chef","desc":"Le book d’un chef cuisinier, pensé comme un magazine numérique à feuilleter, avec sa couverture et sa quatrième de couverture, et décliné en impression A4. De grandes photographies de plats, des titres sobres et un rythme éditorial qui laisse respirer chaque assiette. Tournez les pages : le book se présente seul une première fois.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · A4 · 20 pages","imgs":["../images/book/louis-mockup.webp"],"flip":{"pages":["../images/book/louis-p01.webp","../images/book/louis-p02.webp","../images/book/louis-p03.webp","../images/book/louis-p04.webp","../images/book/louis-p05.webp","../images/book/louis-p06.webp","../images/book/louis-p07.webp","../images/book/louis-p08.webp","../images/book/louis-p09.webp","../images/book/louis-p10.webp","../images/book/louis-p11.webp","../images/book/louis-p12.webp","../images/book/louis-p13.webp","../images/book/louis-p14.webp","../images/book/louis-p15.webp","../images/book/louis-p16.webp","../images/book/louis-p17.webp","../images/book/louis-p18.webp","../images/book/louis-p19.webp","../images/book/louis-p20.webp"],"bg":"../images/book/louis-mockup.webp"}}},{"src":"../images/book/camille-card.webp","full":null,"n":12,"detail":{"title":"Book photographie - Camille","type":"Édition · Magazine numérique · Book de photographe","desc":"Le book d’une photographe de mode et de portrait : douze pages pensées comme un livre, où les images respirent, les titres sont sobres et chaque série garde son rythme. Pensé comme un magazine numérique à feuilleter page par page, de la couverture à la page contact, il peut aussi être décliné en impression.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · 12 pages","imgs":["../images/book/camille-p01.webp","../images/book/camille-p02.webp"],"book":["../images/book/camille-p01.webp","../images/book/camille-p02.webp","../images/book/camille-p03.webp","../images/book/camille-p04.webp","../images/book/camille-p05.webp","../images/book/camille-p06.webp","../images/book/camille-p07.webp","../images/book/camille-p08.webp","../images/book/camille-p09.webp","../images/book/camille-p10.webp","../images/book/camille-p11.webp","../images/book/camille-p12.webp"]}},{"src":"../images/portfolio/noir-expo-mockup-card.webp","full":null,"n":2,"detail":{"title":"Noir Expo","type":"Affiche expérimentale · Exposition","desc":"Une affiche expérimentale pour Noir Expo, une exposition photo consacrée au noir et blanc : une recherche sur la façon dont le noir et blanc fait ressortir le sujet, la lumière et le grain. Présentée en situation, puis en version finale.","items":["Direction artistique","Affiche","Typographie"],"tools":"Photoshop · Illustrator","format":"Print · Affiche","imgs":["../images/portfolio/noir-expo-mockup-pop.webp","../images/portfolio/noir-expo-poster-pop.webp"]}},{"src":"../images/portfolio/frame-7-card.webp","full":null,"n":1,"detail":{"title":"Parachute","type":"Mise en page expérimentale","desc":"Une mise en page expérimentale construite autour des paroles d’une chanson : le texte, l’image et les blancs dialoguent pour faire entendre la musique.","items":["Direction artistique","Mise en page","Typographie"],"tools":"InDesign · Photoshop","format":"Édition","imgs":["../images/portfolio/frame-7-pop.webp"]}},{"src":"../images/portfolio/mira-magazine-card.webp","full":null,"n":1,"detail":{"title":"Mira Magazine","type":"Édition · Magazine numérique","desc":"La direction artistique d’un magazine numérique de mode et de portraits, pensé pour la lecture à l’écran : un portrait sobre en noir et blanc, une lumière naturelle, de grandes capitales rouges et une mise en page qui laisse respirer l’image, de la couverture aux pages intérieures.","items":["Direction artistique","Mise en page","Typographie"],"tools":"InDesign · Photoshop","format":"Édition · Numérique","imgs":["../images/portfolio/mira-magazine-pop.webp"]}},{"src":"../images/portfolio/cobra-card.webp","full":null,"n":1,"detail":{"title":"Armanoïde","type":"Affiche expérimentale · Hommage","desc":"Une affiche hommage à Armanoïde, le bras droit du héros et pirate de l’espace Cobra (Space Adventure) : un personnage métallique sur fond d’étoiles, un grand lettrage rouge et bleu, et du texte en filigrane.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/cobra-pop.webp"]}},{"src":"../images/portfolio/poster-05-tableau-card.webp","full":null,"n":1,"detail":{"title":"Festival","type":"Affiche expérimentale","desc":"Une affiche expérimentale pour un festival d’été fictif : un lettrage gonflé en 3D, orange vif, entouré d’informations pratiques organisées comme un programme.","items":["Direction artistique","Typographie expérimentale","Mise en page"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/poster-05-tableau-pop.webp"]}},{"src":"../images/portfolio/image-110-card.webp","full":null,"n":2,"detail":{"title":"Breath","type":"Affiche expérimentale","desc":"Une affiche expérimentale à l’ambiance calme : silhouette florale en filigrane, titre en lettrage graphique et damier en signature. Présentée à plat, puis en situation.","items":["Direction artistique","Affiche","Typographie"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/group-1000008223-pop.webp","../images/portfolio/image-110-pop.webp"]}},{"src":"../images/portfolio/affiche-2-card.webp","full":null,"n":1,"detail":{"title":"Game Over","type":"Affiche expérimentale","desc":"Une affiche expérimentale au lettrage rouge déformé sur un fond vert-de-gris, photographiée en situation sur une grille métallique.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/affiche-2-pop.webp"]}},{"src":"../images/portfolio/affiche-3-card.webp","full":null,"n":1,"detail":{"title":"Oxytocine","type":"Affiche expérimentale","desc":"Une affiche expérimentale qui mêle un lettrage blanc distordu et une forme dégradée rouge et bleue sur fond noir, présentée en situation.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["../images/portfolio/affiche-3-pop.webp"]}}]},{"name":"Identité visuelle & logo","desc":"Création de logo et d’un univers graphique, avec mise en situation.","items":[{"src":"../images/portfolio/drop-2-card.webp","full":null,"n":1,"detail":{"title":"Drop","type":"Identité visuelle · Branding · Logo","desc":"Une identité de marque au caractère streetwear : un logotype massif et arrondi, des objets, des affiches et des visuels pensés pour créer un univers reconnaissable à chaque apparition.","items":["Identité visuelle","Branding","Logo"],"tools":"Illustrator · Photoshop","format":"Branding · Logo","imgs":["../images/portfolio/drop-brand-pop.webp"]}},{"src":"../images/portfolio/lueur-mockup-card.webp","full":null,"n":1,"detail":{"title":"Lueur","type":"Identité visuelle · Branding · Logo","desc":"Une identité douce et élégante pour une marque de bijoux : logotype en finesse, packaging épuré et enseigne qui prolonge l’univers de la marque.","items":["Identité visuelle","Branding","Logo"],"tools":"Illustrator · Photoshop","format":"Branding · Logo","imgs":["../images/portfolio/lueur-brand-pop.webp"]}},{"src":"../images/portfolio/reborn-mockup-card.webp","full":null,"n":1,"detail":{"title":"Reborn","type":"Identité visuelle · Branding · Logo","desc":"Une identité pour un studio qui crée de nouvelles formes de flacons et de tubes de parfum : un logotype aux courbes organiques, une palette sobre de noirs, de gris et de blancs réchauffés de brun et d’ambre, et des photographies qui mettent la forme en scène.","items":["Identité visuelle","Branding","Logo"],"tools":"Figma · Illustrator","format":"Branding · Logo","imgs":["../images/portfolio/reborn-brand-pop.webp"]}},{"src":"","full":null,"n":0,"soon":true,"detail":{"title":"Compagnie Megaera","type":"Identité visuelle · Compagnie de théâtre","desc":"","items":[],"tools":"","format":""}}]}];
       window.thumbFit = function (im) { var r = im.naturalHeight / (im.naturalWidth || 1); im.style.objectPosition = im.dataset.b === '1' ? '50% 0%' : (r > 1.6 ? '50% 12%' : r > 1.15 ? '50% 30%' : '50% 50%'); };
       function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
       function num(i) { return (i < 9 ? '0' : '') + (i + 1); }
-      var list = [], html = '', cats = [];
+      var list = [], html = '', n = 0;
       DATA.forEach(function (c, ci) {
-        cats.push(c.name);
+        html += '<h2 class="pg2__grp" id="cat-' + ci + '">' + esc(c.name) + '</h2>';
         c.items.forEach(function (p) {
-          list.push(p);
+          list.push(p); n++;
           var k = list.length - 1, th = p.src ? '<span class="ix__thumb"><img src="' + esc(p.src) + '" alt="" loading="lazy" decoding="async" data-b="' + (p.detail.browser ? 1 : 0) + '" onload="thumbFit(this)"></span>' : '<span class="ix__thumb" style="background:none"></span>';
-          html += '<button type="button" class="ix__row' + (p.soon ? ' ix__row--soon' : '') + '" data-k="' + k + '" data-c="' + ci + '"><span class="ix__num"></span><span class="ix__name">' + esc(p.detail.title) + '</span><span class="ix__ct">' + esc(c.name) + '</span><span class="ix__type">' + esc(p.detail.type) + '</span><span class="ix__count">' + (p.soon ? 'En cours' : p.n + (p.n > 1 ? ' visuels' : ' visuel')) + '</span>' + th + '</button>';
+          html += '<button type="button" class="ix__row' + (p.soon ? ' ix__row--soon' : '') + '" data-k="' + k + '"><span class="ix__num">' + (n < 10 ? '0' : '') + n + '</span><span class="ix__name">' + esc(p.detail.title) + '</span><span class="ix__type">' + esc(p.detail.type) + '</span><span class="ix__count">' + (p.soon ? 'En cours' : p.n + (p.n > 1 ? ' visuels' : ' visuel')) + '</span>' + th + '</button>';
         });
       });
-      document.getElementById('ix').innerHTML = html;
+      var ixEl = document.getElementById('ix'); if (ixEl) ixEl.innerHTML = html;
       window.__pjAll = list.map(function (p) { return { detail: p.detail, src: p.src, full: p.full, soon: p.soon }; });
-      /* filtres : Tous + une entrée par catégorie (les liens #cat-N de l'accueil restent valables) */
-      var jump = document.getElementById('jump'), cur = -1;
-      function renum() { var n = 0, t = 0; document.querySelectorAll('.ix__row').forEach(function (r) { if (r.hidden) return; n++; if (!r.classList.contains('ix__row--soon')) t++; r.querySelector('.ix__num').textContent = (n < 10 ? '0' : '') + n; }); n = t; document.getElementById('pgCount').textContent = n + (n > 1 ? ' projets' : ' projet'); }
-      function filter(c) {
-        cur = c; jump.querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', +b.dataset.c === c); });
-        document.querySelectorAll('.ix__row').forEach(function (r) { r.hidden = c >= 0 && +r.dataset.c !== c; }); renum();
-        try { history.replaceState(null, '', c >= 0 ? '#cat-' + c : location.pathname); } catch (e) {}
-      }
-      jump.innerHTML = '<button type="button" data-c="-1">Tous</button>' + cats.map(function (n, i) { return '<button type="button" data-c="' + i + '">' + esc(n) + '</button>'; }).join('');
-      jump.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { filter(+b.dataset.c); }); });
-      var m = /^#cat-(\d+)$/.exec(location.hash); filter(m && +m[1] < cats.length ? +m[1] : -1);
+      var mh = /^#cat-(\d+)$/.exec(location.hash); if (mh) { var el = document.getElementById('cat-' + mh[1]); if (el) el.scrollIntoView(); }
 
       var fol = document.getElementById('follow'), fi = document.getElementById('fimg'), fx = 0, fy = 0, tx = 0, ty = 0, raf = 0;
       function loop() { fx += (tx - fx) * .16; fy += (ty - fy) * .16; fol.style.transform = 'translate(' + fx + 'px,' + fy + 'px)'; raf = fol.classList.contains('on') || Math.abs(tx - fx) > .5 ? requestAnimationFrame(loop) : 0; }
@@ -869,6 +874,101 @@ img, .trail__card, .pj__viewer, .follow {
 .pj__cta:hover { text-decoration: underline; text-underline-offset: 4px; }
 .pj__cta span { display: inline-block; transition: transform .25s ease; }
 .pj__cta:hover span { transform: translate(2px, -2px); }
+
+
+
+
+
+/* footer nettement plus bas : grand espace avant le pied de page */
+.footer { margin-top: clamp(150px, 18vw, 300px); }
+
+.pg2__grp { margin: 0; padding: clamp(30px, 4vw, 54px) 0 14px; font-family: var(--font-mono); font-size: 10px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+.pg2__grp:first-of-type { padding-top: clamp(20px, 3vw, 40px); }
+.pg2__head { margin-top: clamp(20px, 3vw, 40px); }
+/* ---------- Section Projets (reprise de l'accueil) ---------- */
+.pr { --pr-bg: #141212; --pr-fg: #fff; --pr-soft: rgba(255,255,255,.55); --pr-tile: #3a3a3d; --pr-frame: #e5e5e5; position: relative; margin: clamp(60px, 8vw, 120px) 0 0; padding: clamp(60px, 7vw, 110px) var(--gutter) clamp(50px, 6vw, 90px); background: var(--pr-bg); color: var(--pr-fg); transition: background .5s, color .5s; }
+.pr--light { --pr-bg: #fcfcfc; --pr-fg: #141212; --pr-soft: rgba(20,18,18,.5); --pr-tile: #e4e4e4; --pr-frame: #efefef; }
+.pr__mode { position: absolute; top: 18px; right: var(--gutter); display: flex; gap: 6px; z-index: 3; }
+.pr__mode button { border: 1px solid var(--pr-soft); background: transparent; color: var(--pr-fg); border-radius: 99px; padding: 6px 12px; font: 500 10px/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; cursor: pointer; }
+.pr__mode button.on { background: var(--pr-fg); color: var(--pr-bg); }
+.pr__grid { --H: min(74vh, 740px); display: grid; grid-template-columns: minmax(0, 1.05fr) 64px minmax(0, 1.15fr); gap: clamp(24px, 5vw, 90px); align-items: start; }
+.pr__title { margin: 0; font-family: var(--font-body); font-weight: 700; font-size: clamp(52px, 8.4vw, 140px); line-height: .9; letter-spacing: -.055em; }
+.pr__meta { margin-top: clamp(60px, 10vw, 150px); max-width: 30em; transition: opacity .3s ease, transform .3s ease; }
+.pr__meta.is-swap { opacity: 0; transform: translateY(8px); }
+.pr__n { margin: 0 0 14px; font-size: 11px; letter-spacing: .02em; color: var(--pr-soft); font-family: var(--font-mono); }
+.pr__name { margin: 0 0 16px; font-family: var(--font-body); font-weight: 700; font-size: clamp(22px, 2.3vw, 34px); letter-spacing: -.035em; line-height: 1.08; }
+.pr__desc { margin: 0; font-size: 14px; line-height: 1.5; }
+.pr__tags { margin: clamp(26px, 3.4vw, 46px) 0 22px; font-size: 11px; letter-spacing: .02em; text-transform: uppercase; color: var(--pr-soft); }
+.pr__open { border: 0; background: none; padding: 0; color: inherit; font: inherit; font-size: 15px; cursor: pointer; }
+.pr__open:hover { text-decoration: underline; text-underline-offset: 4px; }
+.pr__thumbs { height: var(--H); overflow-y: auto; overflow-x: hidden; scrollbar-width: none; display: flex; flex-direction: column; gap: 12px; padding: 2px 0; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%); overscroll-behavior: contain; scroll-behavior: smooth; }
+.pr__thumbs::-webkit-scrollbar { display: none; }
+.pr__t { flex: none; width: 42px; height: 42px; margin: 0 auto; padding: 0; border: 0; background: var(--pr-tile); overflow: hidden; cursor: pointer; opacity: .5; transition: opacity .3s, transform .3s; -webkit-tap-highlight-color: transparent; }
+.pr__t img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
+.pr__t:hover { opacity: .85; }
+.pr__t.on { opacity: 1; transform: scale(1.18); }
+.pr__right { display: flex; flex-direction: column; align-items: flex-end; min-height: var(--H); }
+.pr__foot { margin-top: auto; padding-top: 16px; }
+.pr__big { position: relative; height: var(--H); width: 100%; max-width: 100%; background: var(--pr-frame); overflow: hidden; cursor: pointer; transition: width .6s cubic-bezier(.65,.05,.2,1), height .6s cubic-bezier(.65,.05,.2,1); }
+.pr__big img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .55s ease; filter: grayscale(1); }
+.pr__big img.on { opacity: 1; }
+.pr__big img.keep, .pr__big:hover img { filter: none; }
+.pr__foot { width: 100%; display: flex; justify-content: space-between; margin-top: 16px; font-size: 11px; color: var(--pr-soft); }
+.pr__foot a { color: var(--pr-fg); }
+.pr__foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pr__stage { position: relative; width: 100%; height: var(--H); display: flex; justify-content: flex-end; align-items: flex-start; }
+.pr__rich { width: 100%; height: 100%; min-height: 0; padding: 12px; background: var(--pr-frame); overflow-y: auto; scrollbar-width: none; }
+.pr__rich::-webkit-scrollbar { display: none; }
+.pr__rich[hidden] { display: none; }
+.pr__rich .pj__win { min-height: 0; }
+.pr__rich .pj__win--img { display: flex; flex-direction: column; gap: 12px; background: transparent; }
+.pr__rich .pj__win--img .pr__imgs { display: flex; flex-direction: column; gap: 12px; }
+.pr__rich .pj__phoneScreen { max-height: calc(var(--H) - 46px); }
+.pr__rich img { display: block; width: 100%; height: auto; }
+.pr__rich.pr__book { display: flex; align-items: center; justify-content: center; padding: 0; overflow: hidden; position: relative; isolation: isolate; background-color: #141212; background-size: cover; background-position: center; }
+.pr__rich.pr__book::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(10, 10, 10, .6); }
+.pr__rich .fb__face img { height: 100% !important; }
+.pr__stage .pr__big { flex: none; }
+.pr .mk { top: clamp(16px, 2vw, 26px); left: var(--gutter); right: var(--gutter); color: var(--pr-soft); }
+@media (max-width: 860px) {
+  .pr__right { min-height: 0; }
+  .pr__mode { position: static; margin-bottom: 18px; }
+  .pr__grid { --H: min(60vh, 430px); grid-template-columns: 1fr; gap: 22px; }
+  .pr__left { display: contents; }
+  .pr__title { order: 1; font-size: clamp(48px, 16vw, 110px); }
+  .pr__right { order: 2; align-items: stretch; }
+  .pr__thumbs { order: 3; height: auto; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 4px 0; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); }
+  .pr__t { margin: 0; }
+  .pr__meta { order: 4; margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .pr__big, .pr__t, .pr__meta, .pr__thumbs { transition: none; scroll-behavior: auto; } }
+@media (max-width: 860px) { .pr__stage { justify-content: center; } }
+@media (max-width: 860px) { .sx__title, .ct__title, .pr__title { font-size: clamp(34px, 11vw, 64px) !important; } .mk { font-size: 10px; } .mk span:nth-child(2) { display: none; } .mk { grid-template-columns: 1fr 1fr; } }
+.pr__t img, .pr__big img, .pr__rich img { filter: none !important; }
+.pr + .pg2 { margin-top: clamp(40px, 5vw, 76px); }
+.pr { margin-top: clamp(70px, 8vw, 104px); }
+
+/* filtres de la page Projets */
+.pr__filters { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: clamp(22px, 2.6vw, 38px); }
+.pr__filters button { border: 0; background: none; padding: 0 0 3px; font: inherit; font-size: 13px; color: var(--pr-soft); border-bottom: 1px solid transparent; cursor: pointer; transition: color .2s; }
+.pr__filters button:hover { color: var(--pr-fg); }
+.pr__filters button.on { color: var(--pr-fg); border-bottom-color: var(--pr-fg); }
+.pr__filters + .pr__meta { margin-top: clamp(40px, 6vw, 90px); }
+.pr { margin-top: clamp(86px, 8vw, 110px) !important; padding-top: clamp(40px, 4vw, 60px); }
+
+/* filtres présentés en tableau (lignes fines, libellé à gauche, nombre à droite) */
+.pr__filters { display: block; max-width: 30em; margin-top: clamp(24px, 3vw, 44px); border-top: 1px solid rgba(244, 244, 240, .28); }
+.pr--light .pr__filters { border-top-color: rgba(20, 18, 18, .28); }
+.pr__filters button { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; width: 100%; padding: 10px 0; border: 0; border-bottom: 1px solid rgba(244, 244, 240, .28); text-align: left; font-size: 13px; line-height: 1.3; color: var(--pr-soft); }
+.pr--light .pr__filters button { border-bottom-color: rgba(20, 18, 18, .28); }
+.pr__filters button.on { color: var(--pr-fg); border-bottom-color: rgba(244, 244, 240, .28); font-weight: 500; }
+.pr--light .pr__filters button.on { border-bottom-color: rgba(20, 18, 18, .28); }
+.pr__filters .pr__cnt { font-family: var(--font-mono); font-size: 11px; }
+.pr__filters + .pr__meta { margin-top: clamp(34px, 5vw, 70px); }
+
+.pr__rich.pr__stack { display: flex; align-items: center; justify-content: center; padding: 0; overflow: hidden; background: transparent; }
+.pr__rich.pr__stack .bk__page img { opacity: 1 !important; height: 100% !important; }
+.pr__rich .bk { color: var(--pr-fg); } .pr__rich .bk__btn { border-color: var(--pr-soft); color: var(--pr-fg); } .pr__rich .bk__btn:hover { background: var(--pr-fg); color: var(--pr-bg); } .pr__rich .bk__hint { color: var(--pr-soft); }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">
@@ -1160,5 +1260,207 @@ img, .trail__card, .pj__viewer, .follow {
       new MutationObserver(function (m) { m.forEach(function (r) { r.addedNodes.forEach(function (n) { if (n.nodeType === 1) { if (n.tagName === 'IMG') n.setAttribute('draggable', 'false'); else lock(n); } }); }); }).observe(document.body, { childList: true, subtree: true });
     })();
   </script>
+<script>
+// Données des projets de l'accueil, avec les chemins d'images adaptés à la page Projets
+(function () {
+  var ALL = [{"id":"ostal-book","src":"images/portfolio/ostal-book-card.webp","cat":"solo-ostal","avg":[96,79,68],"ratio":1.0,"detail":{"title":"Book Design mobilier - Atelier Ostal","type":"Édition · Magazine numérique · Book de designer mobilier","desc":"Le book d’un atelier de design de mobilier, pensé comme un magazine numérique à feuilleter, avec sa couverture et sa quatrième de couverture, et décliné en impression A4. Chrome, noyer, pierre et métal : une mise en page sobre où la matière et la lumière passent avant le texte.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · A4 · 22 pages","imgs":["images/portfolio/ostal-book-pop.webp"],"flip":{"pages":["images/book/ostal-p01.webp","images/book/ostal-p02.webp","images/book/ostal-p03.webp","images/book/ostal-p04.webp","images/book/ostal-p05.webp","images/book/ostal-p06.webp","images/book/ostal-p07.webp","images/book/ostal-p08.webp","images/book/ostal-p09.webp","images/book/ostal-p10.webp","images/book/ostal-p11.webp","images/book/ostal-p12.webp","images/book/ostal-p13.webp","images/book/ostal-p14.webp","images/book/ostal-p15.webp","images/book/ostal-p16.webp","images/book/ostal-p17.webp","images/book/ostal-p18.webp","images/book/ostal-p19.webp","images/book/ostal-p20.webp","images/book/ostal-p21.webp","images/book/ostal-p22.webp"],"bg":"images/book/ostal-mockup.webp"}}},{"id":"louis-book","src":"images/portfolio/louis-book-card.webp","cat":"solo-louis","avg":[113,110,104],"ratio":1.413,"detail":{"title":"Book Gastronomique - Louis","type":"Édition · Magazine numérique · Book de chef","desc":"Le book d’un chef cuisinier, pensé comme un magazine numérique à feuilleter et décliné en impression A4 : de grandes photographies de plats, des titres sobres et un rythme éditorial qui laisse respirer chaque assiette. À retrouver en version feuilletable dans les projets.","items":["Direction artistique","Mise en page","Typographie"],"tools":"Figma","format":"Édition numérique · Déclinable en print · A4","imgs":["images/portfolio/louis-book-pop.webp"],"flip":{"pages":["images/book/louis-p01.webp","images/book/louis-p02.webp","images/book/louis-p03.webp","images/book/louis-p04.webp","images/book/louis-p05.webp","images/book/louis-p06.webp","images/book/louis-p07.webp","images/book/louis-p08.webp","images/book/louis-p09.webp","images/book/louis-p10.webp","images/book/louis-p11.webp","images/book/louis-p12.webp","images/book/louis-p13.webp","images/book/louis-p14.webp","images/book/louis-p15.webp","images/book/louis-p16.webp","images/book/louis-p17.webp","images/book/louis-p18.webp","images/book/louis-p19.webp","images/book/louis-p20.webp"],"bg":"images/book/louis-mockup.webp"}}},{"id":"breath-2","src":"images/portfolio/image-110-card.webp","cat":"breath","avg":[112,107,100],"ratio":0.8,"detail":{"title":"Breath","type":"Affiche expérimentale","desc":"Une affiche expérimentale à l’ambiance calme : silhouette florale en filigrane, titre en lettrage graphique et damier en signature. Présentée à plat, puis en situation.","items":["Direction artistique","Affiche","Typographie"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["images/portfolio/group-1000008223-pop.webp","images/portfolio/image-110-pop.webp"]}},{"id":"frame7","src":"images/portfolio/frame-7-card.webp","cat":"solo-frame7","avg":[216,193,193],"ratio":0.772,"detail":{"title":"Parachute","type":"Mise en page expérimentale","desc":"Une mise en page expérimentale construite autour des paroles d’une chanson : le texte, l’image et les blancs dialoguent pour faire entendre la musique.","items":["Direction artistique","Mise en page","Typographie"],"tools":"InDesign · Photoshop","format":"Édition","imgs":["images/portfolio/frame-7-pop.webp"]}},{"id":"mira","src":"images/portfolio/mira-magazine-card.webp","cat":"solo-mira","avg":[184,173,171],"ratio":0.581,"detail":{"title":"Mira Magazine","type":"Édition · Magazine numérique","desc":"La direction artistique d’un magazine numérique de mode et de portraits, pensé pour la lecture à l’écran : un portrait sobre en noir et blanc, une lumière naturelle, de grandes capitales rouges et une mise en page qui laisse respirer l’image, de la couverture aux pages intérieures.","items":["Direction artistique","Mise en page","Typographie"],"tools":"InDesign · Photoshop","format":"Édition · Numérique","imgs":["images/portfolio/mira-magazine-pop.webp"]},"keepColor":true},{"id":"poster05","src":"images/portfolio/poster-05-tableau-card.webp","cat":"solo-poster05","avg":[241,225,219],"ratio":0.707,"detail":{"title":"Festival","type":"Affiche expérimentale","desc":"Une affiche expérimentale pour un festival d’été fictif : un lettrage gonflé en 3D, orange vif, entouré d’informations pratiques organisées comme un programme.","items":["Direction artistique","Typographie expérimentale","Mise en page"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["images/portfolio/poster-05-tableau-pop.webp"]}},{"id":"affiche-2","src":"images/portfolio/affiche-2-card.webp","cat":"solo-affiche-2","avg":[68,70,70],"ratio":1.0,"detail":{"title":"Game Over","type":"Affiche expérimentale","desc":"Une affiche expérimentale au lettrage rouge déformé sur un fond vert-de-gris, photographiée en situation sur une grille métallique.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["images/portfolio/affiche-2-pop.webp"]}},{"id":"affiche-3","src":"images/portfolio/affiche-3-card.webp","cat":"solo-affiche-3","avg":[65,58,60],"ratio":1.001,"detail":{"title":"Oxytocine","type":"Affiche expérimentale","desc":"Une affiche expérimentale qui mêle un lettrage blanc distordu et une forme dégradée rouge et bleue sur fond noir, présentée en situation.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["images/portfolio/affiche-3-pop.webp"]}},{"id":"noir","src":"images/portfolio/noir-expo-mockup-card.webp","cat":"solo-noir","avg":[105,102,101],"ratio":0.704,"detail":{"title":"Noir Expo","type":"Affiche expérimentale · Exposition","desc":"Une affiche expérimentale pour Noir Expo, une exposition photo consacrée au noir et blanc : une recherche sur la façon dont le noir et blanc fait ressortir le sujet, la lumière et le grain. Présentée en situation, puis en version finale.","items":["Direction artistique","Affiche","Typographie"],"tools":"Photoshop · Illustrator","format":"Print · Affiche","imgs":["images/portfolio/noir-expo-mockup-pop.webp","images/portfolio/noir-expo-poster-pop.webp"]},"keepColor":true},{"id":"site-architecte","k":0.8,"src":"images/sites/architecte-top.webp","full":"images/sites/architecte-full.webp","cat":"site","avg":[59,60,57],"ratio":1.6,"wide":true,"scroll":true,"fr":4.3944,"detail":{"title":"Aubert - Architecte indépendante","type":"Site vitrine · Portfolio","desc":"Une identité et un site sobres pour une architecte : de grandes photographies, une typographie élégante et un parcours « du croquis à la clé ».","items":["Identité visuelle","Maquette UI / UX","Portfolio"],"tools":"Figma","format":"Desktop · 1440 px","imgs":["images/sites/architecte-full.webp"],"browser":true}},{"id":"obscura","src":"images/sites/obscura-top.webp","full":"images/sites/obscura-full.webp","cat":"site","avg":[216,213,212],"ratio":1.6,"wide":true,"scroll":true,"fr":1.138,"keepColor":true,"detail":{"title":"Obscura - Studio de photographie","type":"Landing page interactive · Studio de photographie","desc":"Un projet expérimental pour montrer ce que peut devenir le portfolio d’un photographe ou d’un studio : les photos défilent, on choisit celle que l’on veut voir et elle s’ouvre en grand, avec sa série. Une page très simple, pensée comme une landing page interactive.","items":["Direction artistique","Maquette UI / UX","Portfolio interactif"],"tools":"Figma","format":"Desktop · 1920 px","imgs":["images/sites/obscura-full.webp"],"browser":true}},{"id":"site-lumina","src":"images/sites/lumina-card-v2.webp","cat":"site","avg":[160,158,158],"ratio":1.25,"keepColor":true,"detail":{"title":"Lumina - Studio photo portrait et mode","type":"Landing page · Studio photo portrait et mode","desc":"Une landing page pour Lumina, un studio photo tourné vers le portrait et la mode : un grand titre qui passe derrière un portrait, des séries en noir et blanc et en couleur, le déroulé d’une séance et un formulaire de demande de projet. Présentée en version desktop et mobile, puis en situation.","items":["Direction artistique","Maquette UI / UX","Version mobile"],"tools":"Figma","format":"Desktop · 1440 px · Mobile · 390 px","imgs":["images/sites/lumina-full.webp"],"mobile":"images/sites/lumina-mobile.webp","mockup":"images/sites/lumina-mockup-v2.webp","browser":true}},{"id":"site-deco","src":"images/sites/deco-card.webp","cat":"site","avg":[89,87,86],"ratio":1.25,"detail":{"title":"Alma - Studio de décoration d’intérieur","type":"Landing page · Architecture d’intérieur et décoration","desc":"Une landing page pour Alma, un studio d’architecture et de décoration d’intérieur : un grand titre posé sur une image plein écran, des services présentés en liste, le déroulé d’un projet en six étapes et une page de contact sobre. Présentée en version desktop et mobile, puis en situation.","items":["Direction artistique","Maquette UI / UX","Version mobile"],"tools":"Figma","format":"Desktop · 1440 px · Mobile · 390 px","imgs":["images/sites/deco-full.webp"],"mobile":"images/sites/deco-mobile.webp","mockup":"images/sites/deco-mockup.webp","browser":true}},{"id":"lueur-mockup","src":"images/portfolio/lueur-mockup-card.webp","cat":"lueur","avg":[87,87,84],"ratio":0.75,"keepColor":true,"detail":{"title":"Lueur","type":"Identité visuelle · Branding · Logo","desc":"Une identité douce et élégante pour une marque de bijoux : logotype en finesse, packaging épuré et enseigne qui prolonge l’univers de la marque.","items":["Identité visuelle","Branding","Logo"],"tools":"Illustrator · Photoshop","format":"Branding · Logo","imgs":["images/portfolio/lueur-brand-pop.webp"]}},{"id":"reborn-mockup","src":"images/portfolio/reborn-mockup-card.webp","cat":"reborn","avg":[174,170,165],"ratio":1.085,"detail":{"title":"Reborn","type":"Identité visuelle · Branding · Logo","desc":"Une identité pour un studio qui crée de nouvelles formes de flacons et de tubes de parfum : un logotype aux courbes organiques, une palette sobre de noirs, de gris et de blancs réchauffés de brun et d’ambre, et des photographies qui mettent la forme en scène.","items":["Identité visuelle","Branding","Logo"],"tools":"Figma · Illustrator","format":"Branding · Logo","imgs":["images/portfolio/reborn-brand-pop.webp"]}},{"id":"cobra","src":"images/portfolio/cobra-card.webp","cat":"solo-cobra","avg":[100,89,100],"ratio":0.687,"detail":{"title":"Armanoïde","type":"Affiche expérimentale · Hommage","desc":"Une affiche hommage à Armanoïde, le bras droit du héros et pirate de l’espace Cobra (Space Adventure) : un personnage métallique sur fond d’étoiles, un grand lettrage rouge et bleu, et du texte en filigrane.","items":["Direction artistique","Affiche","Lettrage"],"tools":"Illustrator · Photoshop","format":"Print · Affiche","imgs":["images/portfolio/cobra-pop.webp"]}},{"id":"drop-3d","src":"images/portfolio/drop-2-card.webp","cat":"drop","avg":[126,125,123],"ratio":0.765,"detail":{"title":"Drop","type":"Identité visuelle · Branding · Logo","desc":"Une identité de marque au caractère streetwear : un logotype massif et arrondi, des objets, des affiches et des visuels pensés pour créer un univers reconnaissable à chaque apparition.","items":["Identité visuelle","Branding","Logo"],"tools":"Illustrator · Photoshop","format":"Branding · Logo","imgs":["images/portfolio/drop-brand-pop.webp"]}}];
+  function fix(v) { if (typeof v === 'string') return /^images\//.test(v) ? '../' + v : v; if (Array.isArray(v)) return v.map(fix); if (v && typeof v === 'object') { var o = {}; for (var k in v) o[k] = fix(v[k]); return o; } return v; }
+  var LIST = fix(ALL);
+  (function () {
+    var D = window.__DATA || [], need = { 'Argenta': ['argenta', 'ux'], 'Book photographie - Camille': ['camille-book', 'print'] };
+    D.forEach(function (c) { c.items.forEach(function (it) {
+      var t = it.detail && it.detail.title, key = Object.keys(need).filter(function (k) { return t && t.indexOf(k) === 0; })[0]; if (!key) return;
+      var d = JSON.parse(JSON.stringify(it.detail));
+      LIST.push({ id: need[key][0], src: it.src, cat: need[key][1] === 'ux' ? 'site' : 'solo-' + need[key][0], ratio: need[key][1] === 'ux' ? 1.6 : 1.414, detail: d });
+    }); });
+  })();
+  window.__trailAll = LIST;
+})();
+</script>
+<script>
+(function () {
+  var sec = document.getElementById('projets'); if (!sec) return;
+  var ALL = (window.__trailAll || []).filter(function (c) { return c.cat !== 'logo' && c.src && c.detail; });
+  function grp(it) { var c = it.cat || ''; if (c === 'site') return 'ux'; if (c === 'lueur' || c === 'reborn' || c === 'drop') return 'id'; return 'print'; }
+  function mixOrder(list) { var g = { ux: [], print: [], id: [] }; list.forEach(function (it) { g[grp(it)].push(it); }); var out = [], k = 0, keys = ['ux', 'print', 'id']; while (out.length < list.length) { for (var i = 0; i < 3; i++) { var a = g[keys[(i + k) % 3]]; if (a.length) out.push(a.shift()); } k++; } return out; }
+  ALL = mixOrder(ALL); var BASE = ALL.slice(); window.__pjAll = BASE.map(function (it) { return { detail: it.detail, src: it.src }; });
+  var n = ALL.length; if (!n) return;
+  var thumbs = document.getElementById('prThumbs'), big = document.getElementById('prBig'), rich = document.getElementById('prRich'), stage = document.getElementById('prStage'), meta = document.getElementById('prMeta');
+  var cur = -1, btns = [], layers = [], demoT = [], demoOn = false, mounted = null, token = 0;
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function pad(i) { return (i < 9 ? '0' : '') + (i + 1); }
+  function bigSrc(it) { return (it.detail.imgs && it.detail.imgs[0]) || it.src; }
+  function short(t) { t = t.replace(/\s+/g, ' '); if (t.length <= 170) return t; var c = t.slice(0, 170), k = c.lastIndexOf(' '); return c.slice(0, k > 100 ? k : 170) + '…'; }
+  function tag(u, alt) { return '<img src="' + esc(u) + '" alt="' + esc(alt) + '" decoding="async" draggable="false" onload="this.classList.add(\'is-in\')" onerror="this.classList.add(\'is-in\')">'; }
+  function getH() { return window.matchMedia('(min-width: 861px)').matches ? Math.min(innerHeight * .74, 740) : Math.min(innerHeight * .6, 430); }
+  function mode(it) { var d = it.detail; if (d.flip) return 'book'; if (d.book) return 'stack'; if (d.browser || d.mobile || d.mockup || (d.imgs && d.imgs.length > 1)) return 'rich'; return 'single'; }
+
+  /* bande circulaire : 3 exemplaires, pour avoir des miniatures avant (haut) et après (bas) le projet courant */
+  function buildAll() {
+  thumbs.innerHTML = ''; big.innerHTML = ''; btns = []; layers = [];
+  for (var cp = 0; cp < 3; cp++) ALL.forEach(function (it, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'pr__t'; b.dataset.i = i; b.setAttribute('role', 'option'); b.setAttribute('aria-label', it.detail.title);
+    b.innerHTML = '<img src="' + it.src + '" alt="" loading="lazy" draggable="false">';
+    b.addEventListener('click', function () { stopDemo(); select(i, true); });
+    thumbs.appendChild(b); btns.push(b);
+    if (cp === 0) { var im = document.createElement('img'); im.alt = it.detail.title; im.draggable = false; if (it.keepColor) im.className = 'keep'; big.appendChild(im); layers.push(im); }
+  });
+  }
+  buildAll();
+  var nt = 0;
+  function isVert() { return window.matchMedia('(min-width: 861px)').matches; }
+  function posOf(b) { return isVert() ? b.offsetTop - thumbs.clientHeight / 2 + b.offsetHeight / 2 : b.offsetLeft - thumbs.clientWidth / 2 + b.offsetWidth / 2; }
+  function setPos(v, smooth) { var o = { behavior: smooth ? 'smooth' : 'instant' }; if (isVert()) o.top = v; else o.left = v; thumbs.scrollTo(o); }
+  function centerOn(i, instant) {
+    var mid = btns[n + i];
+    if (instant) { setPos(posOf(mid), false); return; }
+    var cur = isVert() ? thumbs.scrollTop : thumbs.scrollLeft, best = mid, bd = Infinity;
+    [0, 1, 2].forEach(function (c) { var b = btns[c * n + i], d = Math.abs(posOf(b) - cur); if (d < bd) { bd = d; best = b; } });
+    setPos(posOf(best), true);
+    clearTimeout(nt); nt = setTimeout(function () { setPos(posOf(mid), false); }, 850);   // retour discret sur l'exemplaire du milieu
+  }
+
+  /* ---------- image simple : cadre aux proportions d'origine ---------- */
+  function resolve(i, cb) {
+    var it = ALL[i]; if (it.__r) return cb(it.__r);
+    var pop = bigSrc(it); if (pop === it.src) { it.__r = { src: it.src, ratio: it.ratio }; return cb(it.__r); }
+    var im = new Image();
+    im.onload = function () { var r = im.naturalWidth / im.naturalHeight; it.__r = Math.abs(Math.log(r / it.ratio)) < .3 ? { src: pop, ratio: r } : { src: it.src, ratio: it.ratio }; cb(it.__r); };
+    im.onerror = function () { it.__r = { src: it.src, ratio: it.ratio }; cb(it.__r); };
+    im.src = pop;
+  }
+  function fit(ratio) { var H = getH(), maxW = stage.clientWidth, w = Math.min(maxW, H * ratio); big.style.width = w + 'px'; big.style.height = (w / ratio) + 'px'; }
+
+  /* ---------- version mobile : défilement lent automatique, stoppé au toucher ---------- */
+  function phoneAuto(root) {
+    var sc = root.querySelector('.pj__phoneScreen'); if (!sc || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return { stop: function () {} };
+    var raf = 0, t0 = 0, pos = 0, last = 0, dead = false;
+    function stop() { dead = true; cancelAnimationFrame(raf); clearTimeout(t0); }
+    ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) { sc.addEventListener(ev, stop, { passive: true, once: true }); });
+    sc.addEventListener('mousemove', function mm(e) { if (e.movementX || e.movementY) { stop(); sc.removeEventListener('mousemove', mm); } }, { passive: true });
+    function step(ts) { if (dead) return; if (!last) last = ts; var dt = Math.min(ts - last, 50); last = ts; var max = sc.scrollHeight - sc.clientHeight; if (max <= 0) { raf = requestAnimationFrame(step); return; } pos += dt * 0.08; if (pos >= max) { sc.scrollTop = max; return; } sc.scrollTop = pos; raf = requestAnimationFrame(step); }
+    var im = sc.querySelector('img'), go = function () { t0 = setTimeout(function () { raf = requestAnimationFrame(step); }, 300); };
+    if (im && !im.complete) { im.addEventListener('load', go, { once: true }); im.addEventListener('error', go, { once: true }); } else go();
+    return { stop: stop };
+  }
+
+  /* ---------- livre 3D feuilletable ---------- */
+  var ARW_L = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4L6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', ARW_R = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function mountBook(v, d) {
+    var P = d.flip.pages, N = P.length / 2, c = 0, sheets = [], T = [], demo = false, rt = 0, drag = null, ro = null;
+    v.style.backgroundImage = d.flip.bg ? 'url("' + d.flip.bg + '")' : '';
+    var h = '<div class="fb__stage"><div class="fb__book is-start">';
+    for (var i = 0; i < N; i++) h += '<div class="fb__sheet"><div class="fb__face"><img src="' + esc(P[2 * i]) + '" alt="' + (i === 0 ? esc(d.title) + ' - couverture' : '') + '" decoding="async" draggable="false"></div><div class="fb__face fb__face--back"><img src="' + esc(P[2 * i + 1]) + '" alt="" decoding="async" draggable="false"></div></div>';
+    h += '</div><button type="button" class="fb__zone fb__zone--prev" aria-label="Page précédente" hidden></button><button type="button" class="fb__zone fb__zone--next" aria-label="Page suivante"></button></div>';
+    h += '<div class="fb__ctrl"><button type="button" class="fb__btn fb-prev" aria-label="Page précédente">' + ARW_L + '</button><span class="fb__lbl" aria-live="polite"></span><button type="button" class="fb__btn fb-next" aria-label="Page suivante">' + ARW_R + '</button></div><button type="button" class="fb__replay" hidden>↻ Revoir l’aperçu</button>';
+    var box = document.createElement('div'); box.className = 'fb'; box.innerHTML = h; v.appendChild(box);
+    var $ = function (q) { return box.querySelector(q); }, book = $('.fb__book'), zP = $('.fb__zone--prev'), zN = $('.fb__zone--next'), bP = $('.fb-prev'), bN = $('.fb-next'), lbl = $('.fb__lbl'), rep = $('.fb__replay'), stg = $('.fb__stage');
+    sheets = [].slice.call(box.querySelectorAll('.fb__sheet'));
+    function size() { var w = v.clientWidth, hh = v.clientHeight; if (!w || !hh) return; box.style.setProperty('--fbw', Math.max(70, Math.min((w - 28) / 2, (hh - 90) * 595 / 842)) + 'px'); }
+    function ang(i, a, sh) { sheets[i].style.transform = 'rotateY(' + a + 'deg)'; sheets[i].style.setProperty('--s', sh); }
+    function ui() { book.classList.toggle('is-start', c === 0); book.classList.toggle('is-end', c === N); zP.hidden = c === 0; zN.hidden = c === N; bP.disabled = c === 0; bN.disabled = c === N; lbl.textContent = c === 0 ? 'Couverture' : c === N ? '4e de couverture' : 'Pages ' + (2 * c) + ' – ' + (2 * c + 1); }
+    function render() { sheets.forEach(function (s, i) { var f = i < c; ang(i, f ? -180 : 0, 0); s.style.zIndex = f ? i + 1 : N - i; }); ui(); }
+    function sched() { clearTimeout(rt); rt = setTimeout(render, 950); }
+    function turn(dir) { var t = c + dir; if (t < 0 || t > N) return; var i = dir > 0 ? c : t; sheets[i].style.zIndex = 1000; ang(i, dir > 0 ? -180 : 0, .1); setTimeout(function () { if (sheets[i]) sheets[i].style.setProperty('--s', 0); }, 450); c = t; ui(); sched(); }
+    function stopDemo() { if (!demo) return; demo = false; T.forEach(clearTimeout); T = []; rep.hidden = false; }
+    function startDemo() { T.forEach(clearTimeout); T = []; demo = true; rep.hidden = true; var at = function (ms, fn) { T.push(setTimeout(function () { if (demo) fn(); }, ms)); }, t = 0, k; if (c > 0) { for (k = c; k > 0; k--) { at(t, function () { turn(-1); }); t += 230; } t += 1000; } else t = 900; for (k = 0; k < N; k++) { at(t, function () { turn(1); }); t += (k < 3 ? 1500 : 1000); } at(t + 600, function () { demo = false; rep.hidden = false; }); }
+    function down(e, dir) { if (e.button > 0) return; stopDemo(); var w = stg.getBoundingClientRect().width / 2, i = dir > 0 ? c : c - 1; if (i < 0 || i >= N) return; drag = { dir: dir, i: i, x0: e.clientX, p: 0, moved: false, w: w }; sheets[i].classList.add('is-drag'); sheets[i].style.zIndex = 1000; try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} }
+    function move(e) { if (!drag) return; var dx = e.clientX - drag.x0, p = Math.max(0, Math.min(1, (drag.dir > 0 ? -dx : dx) / (drag.w * 1.1))); if (Math.abs(dx) > 5) drag.moved = true; drag.p = p; ang(drag.i, drag.dir > 0 ? -180 * p : -180 + 180 * p, Math.sin(p * Math.PI) * .12); }
+    function up() { if (!drag) return; var q = drag; drag = null; sheets[q.i].classList.remove('is-drag'); if (!q.moved || q.p > .28) { ang(q.i, q.dir > 0 ? -180 : 0, 0); c += q.dir; ui(); } else ang(q.i, q.dir > 0 ? 0 : -180, 0); sched(); }
+    [[zN, 1], [zP, -1]].forEach(function (z) { z[0].addEventListener('pointerdown', function (e) { down(e, z[1]); }); z[0].addEventListener('pointermove', move); z[0].addEventListener('pointerup', up); z[0].addEventListener('pointercancel', up); });
+    bN.addEventListener('click', function () { stopDemo(); turn(1); }); bP.addEventListener('click', function () { stopDemo(); turn(-1); }); rep.addEventListener('click', startDemo);
+    render(); size(); if ('ResizeObserver' in window) { ro = new ResizeObserver(size); ro.observe(v); }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) rep.hidden = false; else startDemo();
+    return { stop: function () { clearTimeout(rt); T.forEach(clearTimeout); demo = false; if (ro) ro.disconnect(); } };
+  }
+
+  /* ---------- book en pages superposées (Book photographie) : hover / clic pour tourner ---------- */
+  function mountStack(v, d) {
+    var P = d.book, cur2 = 0, lock = false, tm = 0, els;
+    var h = '<div class="bk"><div class="bk__stage">';
+    P.forEach(function (u, k) { h += '<figure class="bk__page"><img src="' + esc(u) + '" alt="' + esc(d.title) + ' - page ' + (k + 1) + '" decoding="async"' + (k > 1 ? ' loading="lazy"' : '') + ' draggable="false"></figure>'; });
+    h += '<button type="button" class="bk__zone bk__zone--prev" aria-label="Page précédente" hidden></button><button type="button" class="bk__zone bk__zone--next" aria-label="Page suivante"></button></div>';
+    h += '<div class="bk__ctrl"><button type="button" class="bk__btn bk-p" aria-label="Page précédente">' + ARW_L + '</button><span class="bk__n"></span><button type="button" class="bk__btn bk-n" aria-label="Page suivante">' + ARW_R + '</button></div>';
+    h += '<p class="bk__hint">' + (window.matchMedia('(hover: none)').matches ? 'Touchez ou glissez pour tourner la page' : 'Survolez le bord de la page ou cliquez pour la tourner') + '</p></div>';
+    v.innerHTML = h; els = [].slice.call(v.querySelectorAll('.bk__page'));
+    var zP = v.querySelector('.bk__zone--prev'), zN = v.querySelector('.bk__zone--next'), cnt = v.querySelector('.bk__n');
+    function render() {
+      els.forEach(function (el, k) { var dd = k - cur2; el.classList.toggle('is-gone', dd < 0); el.classList.toggle('is-far', dd > 5); if (dd >= 0) { var m = Math.min(dd, 5); el.style.transform = 'translate(' + (m * 9) + 'px,' + (-m * 9) + 'px)'; el.style.filter = 'brightness(' + (1 - m * .045) + ')'; } else { el.style.transform = ''; } el.style.zIndex = dd >= 0 ? (100 - dd) : (10 + k); });
+      cnt.textContent = (cur2 < 9 ? '0' : '') + (cur2 + 1) + ' / ' + P.length; zP.hidden = cur2 === 0;
+    }
+    function step(dir) { cur2 = (cur2 + dir + P.length) % P.length; render(); }
+    function wire(b, dir) {
+      b.addEventListener('click', function () { clearTimeout(tm); lock = true; step(dir); });
+      b.addEventListener('mouseenter', function () { if (lock) return; clearTimeout(tm); tm = setTimeout(function () { lock = true; step(dir); }, 380); });
+      b.addEventListener('mouseleave', function () { clearTimeout(tm); lock = false; });
+    }
+    wire(zN, 1); wire(zP, -1);
+    v.querySelector('.bk-n').addEventListener('click', function () { step(1); }); v.querySelector('.bk-p').addEventListener('click', function () { step(-1); });
+    render();
+    return { stop: function () { clearTimeout(tm); } };
+  }
+
+  /* ---------- projet entier : livre / maquettes (site + mobile) / suite d'images ---------- */
+  function unmount() { if (mounted) { mounted.stop(); mounted = null; } rich.innerHTML = ''; rich.style.backgroundImage = ''; rich.classList.remove('pr__book', 'pr__stack', 'pj__viewer--duo'); }
+  function mountRich(it) {
+    var d = it.detail, ph = null;
+    rich.classList.toggle('pj__viewer--duo', !!d.mobile);
+    var imgs = (d.imgs && d.imgs.length ? d.imgs : [it.src]);
+    var html = '<div class="pj__win' + (d.browser ? '' : ' pj__win--img') + '"><div class="pj__bar"><i></i><i></i><i></i></div><div class="pr__imgs">' + imgs.map(function (u) { return tag(u, d.title); }).join('') + '</div></div>';
+    if (d.mobile) html += '<div class="pj__phone"><div class="pj__phoneFrame"><div class="pj__phoneScreen">' + tag(d.mobile, d.title + ' - version mobile') + '</div></div></div>';
+    if (d.mockup) html += '<div class="pj__mockup">' + tag(d.mockup, d.title + ' - en situation') + '</div>';
+    rich.innerHTML = html; rich.scrollTop = 0;
+    mounted = d.mobile ? phoneAuto(rich) : { stop: function () {} };
+  }
+  function select(i, center) {
+    if (i === cur) return; var it = ALL[i], tk = ++token, m = mode(it), firstTime = cur < 0; cur = i;
+    btns.forEach(function (b) { var on = +b.dataset.i === i; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    unmount();
+    if (m === 'single') {
+      rich.hidden = true; big.hidden = false; layers.forEach(function (x) { x.classList.remove('on'); });
+      resolve(i, function (r) { if (tk !== token) return; var l = layers[i]; if (l.getAttribute('src') !== r.src) l.src = r.src; layers.forEach(function (x, k) { x.classList.toggle('on', k === i); }); fit(r.ratio); });
+    } else {
+      big.hidden = true; rich.hidden = false;
+      if (m === 'book') { rich.classList.add('pr__book'); mounted = mountBook(rich, it.detail); } else if (m === 'stack') { rich.classList.add('pr__stack'); mounted = mountStack(rich, it.detail); } else mountRich(it);
+    }
+    var set = function () {
+      document.getElementById('prN').textContent = pad(i) + ' / ' + (n < 10 ? '0' : '') + n; document.getElementById('prName').textContent = it.detail.title;
+      document.getElementById('prDesc').textContent = short(it.detail.desc || ''); document.getElementById('prTags').textContent = (it.detail.items || []).join(' · ');
+      document.getElementById('prCount').textContent = pad(i) + ' / ' + (n < 10 ? '0' : '') + n; meta.classList.remove('is-swap');
+    };
+    if (firstTime) set(); else { meta.classList.add('is-swap'); setTimeout(set, 230); }
+    centerOn(i, firstTime);
+  }
+  var GROUPS = ['ux', 'print', 'id'];
+  function applyFilter(g) {
+    ALL = g === 'all' ? BASE.slice() : BASE.filter(function (it) { return grp(it) === g; }); if (!ALL.length) return; n = ALL.length;
+    stopDemo(); unmount(); cur = -1; buildAll(); select(0);
+    [].forEach.call(document.querySelectorAll('#prFilters button'), function (b) { b.classList.toggle('on', b.dataset.g === g); });
+  }
+  [].forEach.call(document.querySelectorAll('#prFilters button'), function (b) { var g = b.dataset.g, c = g === 'all' ? BASE.length : BASE.filter(function (it) { return grp(it) === g; }).length; b.innerHTML = '<span>' + b.textContent + '</span><span class="pr__cnt">' + c + '</span>'; b.addEventListener('click', function () { applyFilter(g); }); });
+  function open() { if (window.openProject) window.openProject(ALL[cur]); }
+  big.addEventListener('click', function () { stopDemo(); open(); });
+  document.getElementById('prOpen').addEventListener('click', open);
+
+  /* aperçu automatique à l'arrivée (jusqu'au premier toucher) */
+  function stopDemo() { if (!demoOn) return; demoOn = false; demoT.forEach(clearTimeout); demoT = []; }
+  function startDemo() {
+    demoOn = true; var t = 600, k;
+    for (k = 1; k <= Math.min(5, n - 1); k++) { (function (j) { demoT.push(setTimeout(function () { if (demoOn) select(j); }, t)); })(k); t += (mode(ALL[k]) === 'single' ? 1700 : 2600); }
+    demoT.push(setTimeout(function () { if (demoOn) { select(0); demoOn = false; } }, t + 900));
+  }
+  ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) { sec.addEventListener(ev, stopDemo, { passive: true }); });
+  thumbs.addEventListener('mouseenter', stopDemo);
+  window.addEventListener('resize', function () { if (cur >= 0 && mode(ALL[cur]) === 'single' && ALL[cur].__r) fit(ALL[cur].__r.ratio); });
+  select(0);
+  (function () { var h = /^#cat-(\d)$/.exec(location.hash); if (h) { var g = ['ux', 'print', 'id'][+h[1]]; if (g) applyFilter(g); } })();
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); startDemo(); } }, { threshold: .55 }); io.observe(sec);
+  }
+  [].slice.call(sec.querySelectorAll('.pr__mode button')).forEach(function (b) {
+    b.addEventListener('click', function () { sec.classList.toggle('pr--dark', b.dataset.m === 'dark'); sec.classList.toggle('pr--light', b.dataset.m === 'light'); sec.querySelectorAll('.pr__mode button').forEach(function (x) { x.classList.toggle('on', x === b); }); });
+  });
+})();
+</script>
 </body>
 </html>

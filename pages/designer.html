@@ -227,9 +227,9 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 .pj { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 32px); background: rgba(0, 0, 0, .86); opacity: 0; transition: opacity .3s; }
 .pj.is-on { display: flex; }
 .pj.is-show { opacity: 1; }
-.pj__panel { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; width: min(1080px, 100%); height: min(660px, 100%); background: #0d0d0d; color: #f4f4f0; border-radius: 6px; overflow: hidden; transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.2, .9, .3, 1); }
+.pj__panel { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; width: min(1080px, 100%); height: min(660px, 100%); background: #141212; color: #f4f4f0; border-radius: 6px; overflow: hidden; transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.2, .9, .3, 1); }
 .pj.is-show .pj__panel { transform: none; }
-.pj__viewer { min-height: 0; overflow-y: auto; padding: 16px; background: #181818; overscroll-behavior: contain; }
+.pj__viewer { min-height: 0; overflow-y: auto; padding: 16px; background: #141212; overscroll-behavior: contain; }
 .pj__win { overflow: hidden; border-radius: 6px; background: #fff; }
 .pj__bar { display: flex; align-items: center; gap: 5px; height: 24px; padding: 0 10px; background: #2a2a2a; }
 .pj__bar i { width: 7px; height: 7px; border-radius: 50%; background: #5a5a5a; }
@@ -944,7 +944,7 @@ button:hover .roll > span { transform: translateY(-100%); }
 }
 
 .step__meta {
-  font-family: "DM Mono", ui-monospace, Menlo, monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: 400;
   letter-spacing: .04em;
@@ -1053,7 +1053,7 @@ button:hover .roll > span { transform: translateY(-100%); }
 }
 
 .step__meta {
-  font-family: "DM Mono", ui-monospace, Menlo, monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: 400;
   letter-spacing: .04em;
@@ -1100,7 +1100,7 @@ button:hover .roll > span { transform: translateY(-100%); }
 .st-hero .hero__script { top: .5em; width: 2.6em; transform: translateX(-50%) rotate(-7deg); transform-origin: 50% 60%; }
 
 .mono {
-  font-family: "DM Mono", ui-monospace, Menlo, monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: 400;
   letter-spacing: .04em;
@@ -1171,8 +1171,8 @@ button:hover .roll > span { transform: translateY(-100%); }
 .st-hero .hero__script { top: .38em; width: 2.9em; transform: translateX(-50%) rotate(-3deg); }
 @media (max-width: 640px) { .service__title { font-size: 20px; } }
 
-/* Petites étiquettes : DM Mono partout */
-:root { --font-mono: "DM Mono", ui-monospace, Menlo, monospace; }
+/* Petites étiquettes : Inter partout */
+:root { --font-mono: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .nav__mark, .hero__bar, .about__label, .service__num, .service__more, .contact__label, .contact__list,
 .form__field label, .menu__links a i, .menu__foot small, .footer, .legal__label, .legal__update,
 .pj__type, .pj__list dt, .ix__num, .st-plus {
@@ -1228,9 +1228,39 @@ img, .trail__card, .pj__viewer, .follow {
 .dab__ph figcaption span { text-transform: uppercase; }
 .cv { margin-top: clamp(30px, 5vw, 70px); }
 @media (max-width: 760px) { .dab { grid-template-columns: 1fr; min-height: 0; } .dab__ph { order: -1; width: min(70%, 280px); } .dab__txt { max-width: none; } }
+
+.dab__txt { max-width: 36em; }
+.dab__tbl { margin: clamp(30px, 3.6vw, 52px) 0 0; border-top: 1px solid rgba(20, 18, 18, .35); font-size: clamp(12px, .9vw, 13.5px); line-height: 1.45; }
+.dab__tbl > div { display: grid; grid-template-columns: minmax(84px, 9em) minmax(0, 1fr); gap: 14px; padding: 9px 0; border-bottom: 1px solid rgba(20, 18, 18, .35); }
+.dab__tbl dt { margin: 0; color: rgba(20, 18, 18, .5); }
+.dab__tbl dd { margin: 0; }
+.dab__tbl a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* le bas de la photo arrive au niveau du haut du premier mot du titre */
+.dab { grid-template-rows: auto auto; align-items: start; min-height: 0; row-gap: 0; padding-bottom: clamp(50px, 6vw, 90px); }
+.dab__ph { grid-column: 2; grid-row: 1; align-self: start; width: clamp(200px, 24vw, 360px); }
+.dab__txt { grid-column: 1; grid-row: 2; }
+@media (max-width: 760px) { .dab__ph { grid-column: 1; grid-row: 1; order: 0; margin-bottom: 32px; } .dab__txt { grid-column: 1; grid-row: 2; } }
+
+/* tout le contenu tient dans l'écran : la photo prend la hauteur restante au-dessus du texte */
+@media (min-width: 761px) {
+  .dab { margin-top: 92px; height: calc(100vh - 144px - 24px); height: calc(100svh - 144px - 24px); min-height: 560px; grid-template-rows: minmax(0, 1fr) auto; padding-bottom: 0; }
+  .dab__ph { align-self: stretch; justify-self: end; height: 100%; min-height: 0; width: auto; aspect-ratio: 896 / 1200; }
+  .dab__ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+}
+
+
+
+
+/* « À propos » : même taille et même graisse que les autres titres de section du site */
+.dab__h { font-family: "Inter", var(--font-body, system-ui, sans-serif); font-weight: 700; text-transform: none; font-size: clamp(34px, 5vw, 80px); line-height: .95; letter-spacing: -.05em; margin-bottom: clamp(18px, 2vw, 28px); }
+@media (max-width: 860px) { .dab__h { font-size: clamp(34px, 11vw, 64px); } }
+
+
+/* footer nettement plus bas : grand espace avant le pied de page */
+.footer { margin-top: clamp(150px, 18vw, 300px); }
 </style>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
@@ -1269,49 +1299,24 @@ img, .trail__card, .pj__viewer, .follow {
     <section class="dab" aria-labelledby="dabT">
       <div class="dab__txt">
         <h1 class="dab__h" id="dabT">À propos</h1>
-        <p>Directrice artistique et graphiste diplômée, installée à Montpellier. Je crée des identités visuelles, des sites et des supports print pour des marques exigeantes.</p>
+        <p>Directrice artistique et graphiste diplômée, installée à Montpellier. Je crée des identités visuelles, des sites et des supports print pour des marques qui ont du caractère.</p>
         <p>Autodidacte en design et en code, je conçois des systèmes cohérents, simples à utiliser, du premier croquis à la mise en ligne.</p>
+        <dl class="dab__tbl">
+          <div><dt>Formation</dt><dd>Diplômée d’un Master, major de promo en tant que directrice artistique et designer graphique</dd></div>
+          <div><dt>Expérience</dt><dd>Orae Agency, freelance — 2026 à aujourd’hui<br>Digiwave, alternance en agence — jusqu’en 2026</dd></div>
+          <div><dt>Contact</dt><dd><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a><br><a href="tel:+33611252584">+33 6 11 25 25 84</a><br><a href="https://www.instagram.com/orae_agency/" target="_blank" rel="noopener">@orae_agency</a></dd></div>
+        </dl>
       </div>
       <figure class="dab__ph">
         <img src="../images/studio/atelier.webp" alt="L’atelier d’Orae : bureau, écran, étagères et chaise en cuir" width="896" height="1200">
-        <figcaption><em>Travaille avec</em><span>Cie Megaera, Yana Barber, Red Bean Agency</span></figcaption>
       </figure>
-    </section>
-
-    <section class="cv" aria-label="Parcours et compétences">
-      <div class="cv__col cv__c1">
-        <div class="cv__id">
-          <h2 class="cv__name">Orae</h2>
-          <p class="cv__meta">Directrice artistique &amp; graphiste<br>Montpellier, France<br><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a><br>En freelance depuis 2026</p>
-        </div>
-      </div>
-      <div class="cv__col cv__c2">
-        <section class="cv__sec cv__fo">
-          <h2>Formation</h2>
-          <p>Studi — trois cursus en design et direction artistique, dernier diplôme obtenu en 2026.<br>Autodidacte : design d’interface, intégration et code.</p>
-        </section>
-        <section class="cv__sec cv__ex">
-          <h2>Expérience</h2>
-          <p>Orae Agency — Directrice artistique, freelance<br>2026 – aujourd’hui · Cie Megaera, Yana Barber, Red Bean Agency</p>
-          <p>Digiwave — Alternance en agence<br>Jusqu’en 2026 · Maquettes, identités et supports print</p>
-        </section>
-      </div>
-      <div class="cv__col cv__c3">
-        <section class="cv__sec cv__co">
-          <h2>Compétences</h2>
-          <ul><li>Identité visuelle &amp; logo</li><li>Direction artistique</li><li>Design graphique</li><li>Print &amp; édition</li><li>Site web</li><li>Maquette &amp; UX/UI</li><li>Intégration &amp; code</li></ul>
-        </section>
-        <section class="cv__sec cv__lo">
-          <h2>Logiciels</h2>
-          <ul><li>Figma</li><li>Adobe Illustrator</li><li>Adobe Photoshop</li><li>Adobe InDesign</li><li>Claude</li></ul>
-        </section>
-      </div>
     </section>
   </main>
 
   <footer class="footer">
     <p><a href="../index.html">©26 Studio ORAE</a></p>
     <nav class="footer__legal" aria-label="Informations légales">
+      <a href="https://www.instagram.com/orae_agency/" target="_blank" rel="noopener">@orae_agency</a>
       <a href="mentions.html">Mentions</a>
       <a href="confidentialite.html">Confidentialité</a>
     </nav>

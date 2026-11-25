@@ -429,8 +429,8 @@ button:hover .roll > span { transform: translateY(-100%); }
 }
 .st-cta__title { font-size: clamp(40px, 8.2vw, 170px); }
 
-/* Petites étiquettes : DM Mono partout */
-:root { --font-mono: "DM Mono", ui-monospace, Menlo, monospace; }
+/* Petites étiquettes : Inter partout */
+:root { --font-mono: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .nav__mark, .hero__bar, .about__label, .service__num, .service__more, .contact__label, .contact__list,
 .form__field label, .menu__links a i, .menu__foot small, .footer, .legal__label, .legal__update,
 .pj__type, .pj__list dt, .ix__num, .st-plus {
@@ -450,8 +450,14 @@ img, .trail__card, .pj__viewer, .follow {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
+
+
+
+
+
+/* footer nettement plus bas : grand espace avant le pied de page */
+.footer { margin-top: clamp(150px, 18vw, 300px); }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
@@ -538,6 +544,7 @@ img, .trail__card, .pj__viewer, .follow {
   <footer class="footer">
     <p><a href="../index.html">©26 Studio ORAE</a></p>
     <nav class="footer__legal" aria-label="Informations légales">
+      <a href="https://www.instagram.com/orae_agency/" target="_blank" rel="noopener">@orae_agency</a>
       <a href="mentions.html">Mentions</a>
       <a href="confidentialite.html">Confidentialité</a>
     </nav>

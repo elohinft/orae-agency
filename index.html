@@ -250,9 +250,9 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 .pj { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 32px); background: rgba(0, 0, 0, .86); opacity: 0; transition: opacity .3s; }
 .pj.is-on { display: flex; }
 .pj.is-show { opacity: 1; }
-.pj__panel { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; width: min(1080px, 100%); height: min(660px, 100%); background: #0d0d0d; color: #f4f4f0; border-radius: 6px; overflow: hidden; transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.2, .9, .3, 1); }
+.pj__panel { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; width: min(1080px, 100%); height: min(660px, 100%); background: #141212; color: #f4f4f0; border-radius: 6px; overflow: hidden; transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.2, .9, .3, 1); }
 .pj.is-show .pj__panel { transform: none; }
-.pj__viewer { min-height: 0; overflow-y: auto; padding: 16px; background: #181818; overscroll-behavior: contain; }
+.pj__viewer { min-height: 0; overflow-y: auto; padding: 16px; background: #141212; overscroll-behavior: contain; }
 .pj__win { overflow: hidden; border-radius: 6px; background: #fff; }
 .pj__bar { display: flex; align-items: center; gap: 5px; height: 24px; padding: 0 10px; background: #2a2a2a; }
 .pj__bar i { width: 7px; height: 7px; border-radius: 50%; background: #5a5a5a; }
@@ -971,7 +971,7 @@ button:hover .roll > span { transform: translateY(-100%); }
 }
 
 .step__meta {
-  font-family: "DM Mono", ui-monospace, Menlo, monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: 400;
   letter-spacing: .04em;
@@ -1037,8 +1037,8 @@ button:hover .roll > span { transform: translateY(-100%); }
 .st-cta__title { font-size: clamp(40px, 8.2vw, 170px); }
 @media (max-width: 640px) { .service__title { font-size: 20px; } }
 
-/* Petites étiquettes : DM Mono partout */
-:root { --font-mono: "DM Mono", ui-monospace, Menlo, monospace; }
+/* Petites étiquettes : Inter partout */
+:root { --font-mono: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .nav__mark, .hero__bar, .about__label, .service__num, .service__more, .contact__label, .contact__list,
 .form__field label, .menu__links a i, .menu__foot small, .footer, .legal__label, .legal__update,
 .pj__type, .pj__list dt, .ix__num, .st-plus {
@@ -1198,7 +1198,7 @@ img, .trail__card, .pj__viewer, .follow {
 }
 
 /* ---------- Projets (aperçu sur l'accueil) ---------- */
-.pr { --pr-bg: #19191b; --pr-fg: #fff; --pr-soft: rgba(255,255,255,.55); --pr-tile: #3a3a3d; --pr-frame: #e5e5e5; position: relative; margin: clamp(60px, 8vw, 120px) 0 0; padding: clamp(60px, 7vw, 110px) var(--gutter) clamp(50px, 6vw, 90px); background: var(--pr-bg); color: var(--pr-fg); transition: background .5s, color .5s; }
+.pr { --pr-bg: #141212; --pr-fg: #fff; --pr-soft: rgba(255,255,255,.55); --pr-tile: #3a3a3d; --pr-frame: #e5e5e5; position: relative; margin: clamp(60px, 8vw, 120px) 0 0; padding: clamp(60px, 7vw, 110px) var(--gutter) clamp(50px, 6vw, 90px); background: var(--pr-bg); color: var(--pr-fg); transition: background .5s, color .5s; }
 .pr--light { --pr-bg: #fcfcfc; --pr-fg: #141212; --pr-soft: rgba(20,18,18,.5); --pr-tile: #e4e4e4; --pr-frame: #efefef; }
 .pr__mode { position: absolute; top: 18px; right: var(--gutter); display: flex; gap: 6px; z-index: 3; }
 .pr__mode button { border: 1px solid var(--pr-soft); background: transparent; color: var(--pr-fg); border-radius: 99px; padding: 6px 12px; font: 500 10px/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; cursor: pointer; }
@@ -1307,7 +1307,6 @@ img, .trail__card, .pj__viewer, .follow {
 .hv__lab { display: none !important; }
 
 </style>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
@@ -1372,7 +1371,7 @@ img, .trail__card, .pj__viewer, .follow {
       <div class="mk" aria-hidden="true"><span>( 01 — Qui suis-je ? )</span><span>+</span><span>( Montpellier — 2026 )</span></div>
       <h2 class="ab2__sr" id="ab2t">Qui suis-je</h2>
       <div class="ab2__txt">
-        <p class="ab2__p" data-words>Je suis directrice artistique et designer à Montpellier. Je crée des identités, des sites et des supports print pour des marques exigeantes.</p>
+        <p class="ab2__p" data-words>Je suis directrice artistique et designer à Montpellier. Je crée des identités, des sites et des supports print pour des marques qui ont du caractère.</p>
         <p class="ab2__p" data-words>Je travaille avec des indépendants, des studios et des agences.</p>
       </div>
     </section>
@@ -1481,6 +1480,7 @@ img, .trail__card, .pj__viewer, .follow {
   <footer class="footer">
     <p><a href="#top">©26 Studio ORAE</a></p>
     <nav class="footer__legal" aria-label="Informations légales">
+      <a href="https://www.instagram.com/orae_agency/" target="_blank" rel="noopener">@orae_agency</a>
       <a href="pages/mentions.html">Mentions</a>
       <a href="pages/confidentialite.html">Confidentialité</a>
     </nav>
@@ -1744,6 +1744,14 @@ img, .trail__card, .pj__viewer, .follow {
 .pj__cta:hover { text-decoration: underline; text-underline-offset: 4px; }
 .pj__cta span { display: inline-block; transition: transform .25s ease; }
 .pj__cta:hover span { transform: translate(2px, -2px); }
+
+
+
+
+
+/* footer nettement plus bas : grand espace avant le pied de page */
+.footer { margin-top: clamp(150px, 18vw, 300px); }
+
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">
@@ -2185,7 +2193,7 @@ img, .trail__card, .pj__viewer, .follow {
 <script>
 (function () {
   var grid = document.getElementById('hvGrid'); if (!grid) return;
-  var HIDE = { 'cobra': 1, 'frame7': 1, 'site-architecte': 1 };   // projets non montrés dans les tuiles du hero
+  var HIDE = { 'cobra': 1, 'frame7': 1, 'site-architecte': 1, 'reborn-mockup': 1, 'affiche-2': 1, 'affiche-3': 1 };   // projets non montrés dans les tuiles du hero
   var ALL = (window.__trailAll || []).filter(function (c) { return c.cat !== 'logo' && c.src && c.detail && !HIDE[c.id]; }), n = ALL.length; if (!n) return;
   function rnd(k) { return Math.floor(Math.random() * k); }
   function grp(it) { var c = it.cat || ''; if (c === 'site') return 'ux'; if (c === 'lueur' || c === 'reborn' || c === 'drop') return 'id'; return 'print'; }
@@ -2231,5 +2239,6 @@ img, .trail__card, .pj__viewer, .follow {
   }
 })();
 </script>
+
 </body>
 </html>
