@@ -1830,6 +1830,9 @@ body:has(.dk) .footer a { color: #f4f4f0; }
 /* rubriques du menu burger : en minuscules, plus grasses */
 .menu__links a, .menu__links a span:not(.nope) { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; text-transform: lowercase; letter-spacing: -.035em; }
 .menu__links a i { font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+/* tuiles du hero : changement plus rapide */
+.hv__img img { transition: opacity .35s ease, transform .6s cubic-bezier(.2,.7,.2,1) !important; }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">
@@ -2281,14 +2284,14 @@ body:has(.dk) .footer a { color: #f4f4f0; }
   function setSlot(sl, it, first) {
     if (!it) return;
     var old = sl.cur; shown[it.id] = 1; sl.cur = it; var tk = sl.tk = (sl.tk || 0) + 1;
-    if (old) setTimeout(function () { delete shown[old.id]; }, 1000);   // libérée seulement quand son fondu est fini
+    if (old) setTimeout(function () { delete shown[old.id]; }, 700);   // libérée seulement quand son fondu est fini
     var im = document.createElement('img'); im.alt = it.detail.title; im.draggable = false; im.src = it.src; im.className = first ? 'front' : 'back';
     sl.box.classList.toggle('keep', !!it.keepColor); sl.box.appendChild(im);
     if (first) return;
     requestAnimationFrame(function () { requestAnimationFrame(function () {
       if (tk !== sl.tk) { im.remove(); return; }
       var prev = sl.box.querySelectorAll('img.front'); im.className = 'front';
-      [].forEach.call(prev, function (p) { p.className = 'back'; setTimeout(function () { p.remove(); }, 900); });
+      [].forEach.call(prev, function (p) { p.className = 'back'; setTimeout(function () { p.remove(); }, 600); });
     }); });
   }
   for (var i = 0; i < 3; i++) {
@@ -2302,7 +2305,7 @@ body:has(.dk) .footer a { color: #f4f4f0; }
   function start() {
     var order = keys.slice().sort(function () { return Math.random() - .5; });
     slots.forEach(function (sl, k) { sl.g = order[k]; setSlot(sl, pickIn(sl.g), true); });
-    timer = setInterval(step, 1300);
+    timer = setInterval(step, 700);
   }
   function step() {
     if (document.hidden) return;
@@ -2310,7 +2313,7 @@ body:has(.dk) .footer a { color: #f4f4f0; }
       var a = rnd(3), b; do { b = rnd(3); } while (b === a);
       var ga = slots[a].g, gb = slots[b].g; slots[a].g = gb; slots[b].g = ga;
       setSlot(slots[a], pickIn(gb), false);
-      setTimeout(function () { setSlot(slots[b], pickIn(ga), false); }, 350);
+      setTimeout(function () { setSlot(slots[b], pickIn(ga), false); }, 220);
       return;
     }
     var k; do { k = rnd(3); } while (k === last); last = k; setSlot(slots[k], pickIn(slots[k].g), false);
