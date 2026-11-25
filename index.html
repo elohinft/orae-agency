@@ -1369,7 +1369,7 @@ img, .trail__card, .pj__viewer, .follow {
     </section>
 
     <section class="ab2" id="studio" aria-labelledby="ab2t">
-      <div class="mk" aria-hidden="true"><span>( Qui suis-je ? )</span><span>+</span><span>( Montpellier — 2026 )</span></div>
+      <div class="mk" aria-hidden="true"><span>( Qui suis-je ? )</span><span></span><span>( Montpellier — 2026 )</span></div>
       <h2 class="ab2__sr" id="ab2t">Qui suis-je</h2>
       <div class="ab2__txt">
         <p class="ab2__p" data-words>Je suis directrice artistique et designer à Montpellier. Je crée des identités, des sites et des supports print pour des marques qui ont du caractère.</p>
@@ -1379,9 +1379,8 @@ img, .trail__card, .pj__viewer, .follow {
 
     
 
-    <div class="dk">
     <section class="sx" id="expertise" aria-label="Expertise">
-      <div class="mk" aria-hidden="true"><span>( Expertise )</span><span>+</span><span>( 05 services )</span></div>
+      <div class="mk" aria-hidden="true"><span>( Expertise )</span><span></span><span>( 05 services )</span></div>
       <h2 class="sx__title">Expertise</h2>
       <div class="sx__left">
         <p class="sx__intro">Une pratique indépendante, collaborative et rapide : je travaille avec des marques et des agences, du premier croquis à la mise en ligne.</p>
@@ -1411,8 +1410,9 @@ img, .trail__card, .pj__viewer, .follow {
       </div>
     </section>
 
+    <div class="dk">
     <section class="pr pr--dark" id="projets" aria-labelledby="prT">
-      <div class="mk" aria-hidden="true"><span>( Projets )</span><span>+</span><span>( Sélection )</span></div>
+      <div class="mk" aria-hidden="true"><span>( Projets )</span><span></span><span>( Sélection )</span></div>
       
       <div class="pr__grid">
         <div class="pr__left">
@@ -1434,7 +1434,7 @@ img, .trail__card, .pj__viewer, .follow {
     </section>
 
     <section class="ct" id="contact" aria-labelledby="ctT">
-      <div class="mk" aria-hidden="true"><span>( Contact )</span><span>+</span><span>( Réponse sous 48 h )</span></div>
+      <div class="mk" aria-hidden="true"><span>( Contact )</span><span></span><span>( Réponse sous 48 h )</span></div>
       <h2 class="ct__title" id="ctT">Contact</h2>
       <div class="ct__left">
         <p class="ct__intro">Un projet, une collaboration, une question ? Écris-moi, je te réponds sous 48 h.</p>
@@ -1780,6 +1780,14 @@ img, .trail__card, .pj__viewer, .follow {
 .dk .btn, .dk .form .btn { color: #f4f4f0; border-color: #f4f4f0; }
 body:has(.dk) .footer { background: #0F1011; color: #f4f4f0; margin: 0; padding: 26px 12px 34px; }
 body:has(.dk) .footer a { color: #f4f4f0; }
+
+/* plus de fond clair derrière les projets de la section Projets */
+.pr__big, .pr__rich, .pr__rich.pj__viewer, .pr__rich.pr__stack { background: transparent !important; }
+.pr__rich { padding: 0; }
+
+/* Expertise repasse en clair : le sombre commence à Projets */
+.dk { margin-top: 0; padding-top: 0; }
+.dk .pr { padding-top: clamp(70px, 8vw, 110px); }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">

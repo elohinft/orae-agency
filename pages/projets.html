@@ -977,6 +977,10 @@ img, .trail__card, .pj__viewer, .follow {
 /* logo ORAE (SVG) dans le menu */
 .nav__brand .nav__logo { display: block; height: 26px; width: auto; color: var(--ink); fill: currentColor; }
 .nav__brand .nav__wordmark { display: none; }
+
+/* plus de fond clair derrière les projets de la section Projets */
+.pr__big, .pr__rich, .pr__rich.pj__viewer, .pr__rich.pr__stack { background: transparent !important; }
+.pr__rich { padding: 0; }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">
@@ -1291,7 +1295,9 @@ img, .trail__card, .pj__viewer, .follow {
   var ALL = (window.__trailAll || []).filter(function (c) { return c.cat !== 'logo' && c.src && c.detail; });
   function grp(it) { var c = it.cat || ''; if (c === 'site') return 'ux'; if (c === 'lueur' || c === 'reborn' || c === 'drop') return 'id'; return 'print'; }
   function mixOrder(list) { var g = { ux: [], print: [], id: [] }; list.forEach(function (it) { g[grp(it)].push(it); }); var out = [], k = 0, keys = ['ux', 'print', 'id']; while (out.length < list.length) { for (var i = 0; i < 3; i++) { var a = g[keys[(i + k) % 3]]; if (a.length) out.push(a.shift()); } k++; } return out; }
-  ALL = mixOrder(ALL); var BASE = ALL.slice(); window.__pjAll = BASE.map(function (it) { return { detail: it.detail, src: it.src }; });
+  ALL = mixOrder(ALL);
+  (function () { var ci = -1; ALL.forEach(function (it, i) { if (it.id === 'camille-book') ci = i; }); if (ci > 0) ALL.unshift(ALL.splice(ci, 1)[0]); })();   // le Book photographie s'affiche en premier
+  var BASE = ALL.slice(); window.__pjAll = BASE.map(function (it) { return { detail: it.detail, src: it.src }; });
   var n = ALL.length; if (!n) return;
   var thumbs = document.getElementById('prThumbs'), big = document.getElementById('prBig'), rich = document.getElementById('prRich'), stage = document.getElementById('prStage'), meta = document.getElementById('prMeta');
   var cur = -1, btns = [], layers = [], demoT = [], demoOn = false, mounted = null, token = 0;
