@@ -24,7 +24,7 @@
   <link rel="manifest" href="../icons/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
 
 /* ORAE — NEW ERA
@@ -726,10 +726,12 @@ img, .trail__card, .pj__viewer, .follow {
         menu.setAttribute('aria-hidden', open ? 'false' : 'true');
       }
 
-      btn.addEventListener('click', function () { set(!menu.classList.contains('is-open')); });
+      var openedAt = 0;
+      // le menu s'ouvre au survol du burger (écrans avec souris) comme au clic ; un clic juste après le survol ne le referme pas
+      if (window.matchMedia('(hover: hover)').matches) btn.addEventListener('mouseenter', function () { if (!menu.classList.contains('is-open')) { openedAt = Date.now(); set(true); } });
+      btn.addEventListener('click', function () { if (Date.now() - openedAt < 600) return; set(!menu.classList.contains('is-open')); });
       menu.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
-      window.matchMedia('(min-width: 761px)').addEventListener('change', function (e) { if (e.matches) set(false); });
     })();
   </script>
 
@@ -979,7 +981,7 @@ img, .trail__card, .pj__viewer, .follow {
 .nav__brand .nav__wordmark { display: none; }
 
 /* plus de fond clair derrière les projets de la section Projets */
-.pr__big, .pr__rich, .pr__rich.pj__viewer, .pr__rich.pr__stack { background: transparent !important; }
+.pr__big, .pr__rich, .pr__rich.pj__viewer, .pr__rich.pr__stack { background-color: transparent !important; }
 .pr__rich { padding: 0; }
 
 /* fenêtres de navigateur des maquettes : plus de liseré clair dans les coins arrondis */
@@ -987,6 +989,52 @@ img, .trail__card, .pj__viewer, .follow {
 .pj__win { border-radius: 8px; overflow: hidden; isolation: isolate; }
 .pj__win .pj__bar { border-top-left-radius: 8px; border-top-right-radius: 8px; }
 .pj__win img { display: block; }
+
+
+/* menu : majuscules plus espacées, trait plus fin */
+.nav__menu a, .nav__menu a span { font-size: 12px; font-weight: 300; letter-spacing: .07em; text-transform: uppercase; }
+.menu__links a, .menu__links a span { font-weight: 300; letter-spacing: .05em; text-transform: uppercase; }
+
+/* fenêtre de projet sur fond sombre (la page Projets est sombre) */
+.pj__panel { background: #0F1011 !important; color: #f4f4f0 !important; }
+.pj__viewer { background: #0F1011 !important; }
+.pj__bar { background: #2a2a2a !important; } .pj__bar i { background: #5a5a5a !important; }
+.pj__type, .pj__list dt { color: rgba(244, 244, 240, .55) !important; }
+.pj__desc { color: rgba(244, 244, 240, .8) !important; }
+.pj__list, .pj__list div { border-color: rgba(244, 244, 240, .18) !important; }
+.pj__close { background: #f4f4f0 !important; color: #0F1011 !important; }
+.pr__rich .pj__bar { background: #2a2a2a !important; } .pr__rich .pj__bar i { background: #5a5a5a !important; }
+
+/* menu en Helvetica (essai) */
+.nav__menu a, .nav__menu a span, .menu__links a, .menu__links a span { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+/* ---------- Menu burger sur tous les écrans (desktop compris) ---------- */
+:root { --menu-line: rgba(15, 16, 17, .18); }
+.nav { z-index: 120; }
+.nav__menu { display: none !important; }
+.nav__burger { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 5px; width: 40px; height: 40px; margin-right: -8px; padding: 0 8px; border: 0; background: none; cursor: pointer; }
+.nav__burger span { display: block; height: 1.5px; border-radius: 1px; background: var(--ink); transition: transform .4s cubic-bezier(.6, 0, .2, 1), width .4s cubic-bezier(.6, 0, .2, 1), opacity .3s; }
+.nav__burger span:nth-child(1) { width: 22px; } .nav__burger span:nth-child(2) { width: 12px; } .nav__burger span:nth-child(3) { width: 17px; }
+.nav__burger[aria-expanded="true"] span:nth-child(1) { width: 20px; transform: translateY(6.5px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { width: 20px; transform: translateY(-6.5px) rotate(-45deg); }
+.menu { position: fixed; inset: 0; z-index: 110; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(92px, 9vw, 130px) var(--gutter) clamp(28px, 3vw, 44px); background: var(--bg); visibility: hidden; clip-path: inset(0 0 100% 0); transition: clip-path .6s cubic-bezier(.7, 0, .2, 1), visibility 0s .6s; }
+.menu.is-open { visibility: visible; clip-path: inset(0 0 0 0); transition: clip-path .6s cubic-bezier(.7, 0, .2, 1), visibility 0s; }
+.menu__links { display: flex; flex-direction: column; border-top: 1px solid var(--menu-line); }
+.menu__links a { display: flex; align-items: baseline; gap: 16px; padding: clamp(14px, 1.6vw, 22px) 0 clamp(16px, 1.8vw, 24px); border-bottom: 1px solid var(--menu-line); font-size: clamp(28px, 5.2vw, 76px); line-height: 1.05; opacity: 0; transform: translateY(18px); transition: opacity .45s, transform .6s cubic-bezier(.3, 1, .4, 1); }
+.menu__links a i { font-size: 11px; font-style: normal; font-weight: 400; letter-spacing: 0; color: var(--ink-soft); }
+.menu.is-open .menu__links a { opacity: 1; transform: none; }
+.menu.is-open .menu__links a:nth-child(1) { transition-delay: .18s; } .menu.is-open .menu__links a:nth-child(2) { transition-delay: .24s; } .menu.is-open .menu__links a:nth-child(3) { transition-delay: .30s; } .menu.is-open .menu__links a:nth-child(4) { transition-delay: .36s; }
+.menu__foot { display: flex; flex-direction: column; gap: 6px; padding-top: 22px; border-top: 1px solid var(--menu-line); font-size: 15px; font-weight: 500; opacity: 0; transition: opacity .4s; }
+.menu.is-open .menu__foot { opacity: 1; transition-delay: .45s; }
+.menu__foot small { margin-top: 10px; font-size: 11px; font-weight: 500; text-transform: uppercase; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { .menu, .menu__links a, .menu__foot, .nav__burger span { transition: none; } }
+
+:root { --menu-line: rgba(244, 244, 240, .18); }
+
+/* rubriques du menu burger : en minuscules, plus grasses */
+.menu__links a, .menu__links a span:not(.nope) { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; text-transform: lowercase; letter-spacing: -.035em; }
+.menu__links a i { font-weight: 400; letter-spacing: 0; text-transform: none; }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">
