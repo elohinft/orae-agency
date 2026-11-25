@@ -1575,7 +1575,7 @@ body { background: #FCFCFC !important; color: #0F1011; }
     var g = b.dataset.g;
     if (!baseOrder) baseOrder = [].slice.call(grid.children);
     var order = baseOrder.slice();
-    if (g === 'ux') ['site-architecte', 'argenta'].forEach(function (id) { var k = -1; order.forEach(function (c, i) { if (ALL[+c.dataset.i].id === id) k = i; }); if (k > -1) order.push(order.splice(k, 1)[0]); });
+    if (g === 'ux') ['site-architecte', 'obscura', 'argenta'].forEach(function (id) { var k = -1; order.forEach(function (c, i) { if (ALL[+c.dataset.i].id === id) k = i; }); if (k > -1) order.push(order.splice(k, 1)[0]); });
     order.forEach(function (c) { grid.appendChild(c); });
     [].forEach.call(grid.children, function (c) { c.hidden = !(g === 'all' || c.dataset.g === g); });
     grid.scrollLeft = 0;
