@@ -1788,6 +1788,12 @@ body:has(.dk) .footer a { color: #f4f4f0; }
 /* Expertise repasse en clair : le sombre commence à Projets */
 .dk { margin-top: 0; padding-top: 0; }
 .dk .pr { padding-top: clamp(70px, 8vw, 110px); }
+
+/* fenêtres de navigateur des maquettes : plus de liseré clair dans les coins arrondis */
+.pj__win, .pr__rich .pj__win { background: transparent !important; }
+.pj__win { border-radius: 8px; overflow: hidden; isolation: isolate; }
+.pj__win .pj__bar { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.pj__win img { display: block; }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">

@@ -981,6 +981,12 @@ img, .trail__card, .pj__viewer, .follow {
 /* plus de fond clair derrière les projets de la section Projets */
 .pr__big, .pr__rich, .pr__rich.pj__viewer, .pr__rich.pr__stack { background: transparent !important; }
 .pr__rich { padding: 0; }
+
+/* fenêtres de navigateur des maquettes : plus de liseré clair dans les coins arrondis */
+.pj__win, .pr__rich .pj__win { background: transparent !important; }
+.pj__win { border-radius: 8px; overflow: hidden; isolation: isolate; }
+.pj__win .pj__bar { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.pj__win img { display: block; }
 </style>
 <div class="pj" id="pj" role="dialog" aria-modal="true" aria-labelledby="pjTitle">
     <div class="pj__panel">

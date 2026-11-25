@@ -1266,6 +1266,12 @@ img, .trail__card, .pj__viewer, .follow {
 /* logo ORAE (SVG) dans le menu */
 .nav__brand .nav__logo { display: block; height: 26px; width: auto; color: var(--ink); fill: currentColor; }
 .nav__brand .nav__wordmark { display: none; }
+
+/* fenêtres de navigateur des maquettes : plus de liseré clair dans les coins arrondis */
+.pj__win, .pr__rich .pj__win { background: transparent !important; }
+.pj__win { border-radius: 8px; overflow: hidden; isolation: isolate; }
+.pj__win .pj__bar { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.pj__win img { display: block; }
 </style>
   <link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
