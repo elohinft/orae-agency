@@ -1264,7 +1264,7 @@ img, .trail__card, .pj__viewer, .follow {
 .footer, .footer p, .footer a { font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 500; line-height: 15px; text-transform: uppercase; letter-spacing: 0; }
 
 /* logo ORAE (SVG) dans le menu */
-.nav__brand .nav__logo { display: block; height: 26px; width: auto; color: var(--ink); fill: currentColor; }
+.nav__brand .nav__logo { display: block; height: 19px; width: auto; color: var(--ink); fill: currentColor; }
 .nav__brand .nav__wordmark { display: none; }
 
 /* fenêtres de navigateur des maquettes : plus de liseré clair dans les coins arrondis */
@@ -1306,6 +1306,70 @@ img, .trail__card, .pj__viewer, .follow {
 /* rubriques du menu burger : en minuscules, plus grasses */
 .menu__links a, .menu__links a span:not(.nope) { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; text-transform: lowercase; letter-spacing: -.035em; }
 .menu__links a i { font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+/* footer mobile : empilé et aéré */
+@media (max-width: 760px) {
+  .footer { flex-direction: column; align-items: flex-start; gap: 18px; padding: 34px 20px 44px !important; margin-top: clamp(80px, 22vw, 140px); }
+  .footer__legal { flex-wrap: wrap; gap: 10px 22px; }
+  body:has(.dk) .footer { padding: 40px 20px 48px !important; margin-top: 0; }
+}
+
+@media (max-width: 760px) {
+  .footer, body:has(.dk) .footer { height: auto !important; min-height: 0 !important; padding: 36px 20px 112px !important; }
+}
+
+/* footer mobile : liste à lignes fines, comme le menu */
+@media (max-width: 760px) {
+  .footer, body:has(.dk) .footer { align-items: stretch !important; gap: 0 !important; padding: 28px 20px 118px !important; }
+  .footer__legal { order: 1; flex-direction: column; flex-wrap: nowrap; gap: 0; border-top: 1px solid var(--menu-line, rgba(15, 16, 17, .18)); }
+  .footer__legal a { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--menu-line, rgba(15, 16, 17, .18)); font-size: 12px; }
+  .footer > p { order: 2; padding-top: 22px; font-size: 11px; opacity: .7; }
+  body:has(.dk) .footer__legal, body:has(.dk) .footer__legal a { border-color: rgba(244, 244, 240, .18); }
+}
+
+@media (max-width: 760px) { .footer, body:has(.dk) .footer { margin-left: 0 !important; margin-right: 0 !important; } }
+
+/* burger : traits plus gras, arrondis, penchés et irréguliers comme le logo */
+.nav__burger { gap: 6px; }
+.nav__burger span { height: 3.5px; border-radius: 4px; }
+.nav__burger span:nth-child(1) { width: 25px; transform: skewX(-22deg) rotate(-2.5deg); }
+.nav__burger span:nth-child(2) { width: 14px; transform: skewX(-22deg) translateX(-3px) rotate(1.5deg); }
+.nav__burger span:nth-child(3) { width: 20px; transform: skewX(-22deg) translateX(1px) rotate(-1deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(1) { width: 22px; transform: translateY(9.5px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { width: 22px; transform: translateY(-9.5px) rotate(-45deg); }
+
+/* burger plus « liquide » : traits en gouttes allongées, peu penchés */
+.nav__burger { gap: 5.5px; }
+.nav__burger span { height: 4px; }
+.nav__burger span:nth-child(1) { width: 24px; border-radius: 60% 45% 50% 55% / 100% 80% 100% 90%; transform: skewX(-12deg) rotate(-1deg); }
+.nav__burger span:nth-child(2) { width: 15px; border-radius: 45% 60% 55% 50% / 90% 100% 80% 100%; transform: skewX(-12deg) translateX(-2px) rotate(.8deg); }
+.nav__burger span:nth-child(3) { width: 20px; border-radius: 55% 50% 60% 45% / 100% 90% 100% 80%; transform: skewX(-12deg) translateX(1px) rotate(-.6deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(1) { width: 22px; border-radius: 4px; transform: translateY(9.5px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { width: 22px; border-radius: 4px; transform: translateY(-9.5px) rotate(-45deg); }
+
+/* burger : traits plus fins */
+.nav__burger { gap: 6px; }
+.nav__burger span { height: 2.5px; }
+.nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+/* burger : lignes plus serrées */
+.nav__burger { gap: 3.5px; }
+.nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* burger -> texte MENU */
+.nav__burger { width: auto !important; height: 40px !important; padding: 0 8px !important; margin-right: -8px; display: flex; align-items: center; justify-content: flex-end; gap: 0 !important; }
+.nav__burger .nav__txt { font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .04em; line-height: 1; color: var(--ink); text-transform: uppercase; }
+.nav__burger:hover .nav__txt { opacity: .6; }
+
+/* logo un peu plus grand */
+.nav__brand .nav__logo { height: 23px !important; width: auto !important; }
+
+/* MENU aligné sur le centre du logo */
+.nav__burger { flex-direction: row !important; align-items: center !important; justify-content: flex-end !important; }
 </style>
   <link rel="preload" href="../fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/poppins-900-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -1314,7 +1378,7 @@ img, .trail__card, .pj__viewer, .follow {
 
   <header class="nav">
     <a class="nav__brand" href="../index.html" aria-label="ORAE, retour en haut de page">
-      <svg class="nav__logo" viewBox="0 0 1315.65 502.42" role="img" aria-label="ORAE"><path fill="currentColor" d="M1013.2,272.67c19.86-7.47,41.39-8.6,62.4-9.74,42.05-1.96,83.68-.26,125.67-.75,16.18-.38,32.66-1.27,47.84-6.96,44.01-15.98,54.86-70.52,9.09-92.89-19.82-9.79-42.68-13.18-64.61-14.97-63.68-4.44-128.57,4.75-187.11,30.63-8.21,3.57-16.76,8.04-25.02,11.39-6.53,2.5-14.02,5.16-20.39,1.56-6.79-4.19-10.28-12.98-17.26-21.02-16.21-19.55-43.57-20.45-67.05-22.53-37.66-2.51-75.27-1.89-112.45,2.38-17.36,1.93-34.84,3.18-52.33,2.71-27.06-.88-54.18-.52-81.21-2.58-15.29-1.13-30.89-2.73-46.15-2.77-23.24-.75-47.06,6.38-66.56,19.8-22.38,14.24-28.4,31.94-48.53,17.43-8.65-6.24-20.19-15.87-31.59-20.79-23.95-10.87-51.5-13.81-77.5-16-87.99-7.42-177.6,11.31-252.26,59.03-21.29,13.96-40.84,31.3-54.17,52.85-7.2,11.54-12.69,24.92-13.7,38.39-1.2,15.03,3.51,28.69,13.68,39.02,38.38,38.19,137.8,34.1,188.92,27.99,43.4-5.48,84.84-17.1,124.5-35.11,5.52-2.41,12.54-5.57,17.87-6.59,3.55-.83,7.13.1,7.95,3.98,2.65,14.8.57,28.64,20.51,34.86,32.03,8.14,64.01-10.29,84.87-33.73,18.74-20.4,32.83-45.28,50.27-66.78,30.94-39.98,82.59-54.58,130.51-62.16,13.18-2.02,26.39-3.83,39.45-6.64,13.35-2.8,26.83-6.61,40.33-10.08,20.04-5.03,40.4-9.85,61.15-7.67,13.09,1.7,29.04,6.76,30.8,20.58.36,8.57-5.95,15.38-14.38,21.04-13.36,8.53-29.15,12.06-44.53,15.06-56.89,9.87-116.07,9.65-170.99,28.92-27.92,10.05-68.23,27.03-77.65,57.55-10.42,40.78,43.44,49.62,73.22,49.35,37.97.36,75.61-8.41,113.55-9.28,35.39-1.63,71.26,9.36,104.16-5.48,9.84-4.26,19.86-12.65,29.71-17.61,9.82-5.09,19.44-5.26,28.82.32,11.34,7.02,21.3,15.81,34.15,20.46,14.84,5.89,31.38,9.03,47.26,10.82,57.76,5.44,117.65.19,172.64-17.72,10.41-3.55,22.44-8.12,30.6-15.04,5.27-4.52,7.73-9.72,6.32-13.84-3.03-7.65-14.43-8.42-22.65-7.87-10.14.78-20.29,3.49-30.19,5.99-28.82,7.67-57.43,15.35-87.47,14.23-16.76-.75-35.54-2.6-48.76-13.76-19.78-18.52-2.67-38.38,18.07-45.91l.18-.07ZM1194.86,197.15c8.96,13.22-5.41,24.44-17.12,29.2-20.73,8.81-43.07,11.41-65.44,12.26-19.52.21-49.03,1.25-66.07-8.12-9.08-4.95-12.87-13.9-6.19-22.3,4.19-5.38,11.32-9.55,17.83-12.47,28.21-11.87,59.2-14.35,89.93-13.87,15.93.82,36.61,1.75,46.97,15.17l.09.13ZM634.78,319.88c-11.46-18.63,15.55-32.25,30.46-38.61,29.36-11.8,61.96-19.65,92.71-21.24,15.61-.5,42.07-.55,49.03,16.15,4.97,17.27-15.61,29.4-29.12,35.61-33.02,15.41-118.58,36.79-143,8.2l-.08-.11ZM301.43,312.79c-32.39,13.49-67.96,20.76-103.08,18.74-41.11-2.03-81.21-19.41-57.35-66.91,28.94-55.05,108.13-79.93,166.95-81.44,37.78-1.03,94.04,6.89,76.48,56.58-13.57,35.98-48.75,58.29-82.82,72.95l-.19.08Z"/></svg>
+      <svg class="nav__logo" viewBox="0 0 1315.65 502.42" role="img" aria-label="ORAE"><path fill="currentColor" d="M1017.96,276.49c13.61-7.24,29.98-10.04,45.34-11.7,46.23-4.54,92.74-1.39,139.07-3.23,25.65-1.15,54.49-6.3,72.37-25.98,14.8-15.74,16.56-38.93,2.57-55.88-10.11-12.8-26.39-21-42.31-25.49-12.23-3.5-24.78-5.33-37.41-6.47-55.71-4.46-112.54,2.66-165.13,21.44-11.2,3.92-22.55,8.84-33.9,11.98-45.02,12.91-57.9-26.09-107.5-32-54.98-7.86-110.33,0-165.38,2.03-28.71.76-57.43-.2-86.1-1.61-33.07-1.56-67.55-5.28-98.96,7.29-28.57,11.15-49.85,32.56-81.25,19.43-11.25-4.26-23.49-10.98-35.73-15.51-13.14-5-26.86-8.15-40.75-10.27-86.32-12.29-176.98.69-254.08,41.75-22.41,12.04-43.93,26.68-61.18,45.45-29.26,30.49-43.67,79.95-3.44,107.66,16.68,11.3,37.95,16.49,58.48,19.66,22.24,3.3,45.09,4.04,67.55,3.47,37.54-1.04,71.52-5.78,106.96-15.14,18.89-4.66,37.36-12.33,55.93-17.79,33.79-9.9,40.88,14.41,68.88,22.49,11.58,2.93,26.11.38,38.05-5.09,34.71-15.63,55.75-50.06,78.75-78.91,14.46-18.28,31.42-34.65,51.82-46.11,38.92-22.37,84.46-27.18,127.6-36.15,24.07-4.77,47.88-11.88,72.33-14.36,16.87-1.68,43.34-.45,48.98,17.02,3.57,20.18-26.73,31.07-43.16,34.97-16.41,3.99-33.25,6.12-50,8.27-52.05,6.46-105.79,11.6-153.14,35.66-16.71,8.64-34.4,21.07-41.69,38.64-8.64,20.14,3.24,38.68,22.82,46.56,19.99,8.41,44.1,8.91,65.81,7.87,29.31-1.56,58.49-6.08,87.88-6.73,36-1.09,73.22,4.37,107.15-9.24,31.78-12.1,47.76-16.26,80.32-2.24,12.6,5.27,25.44,10.66,38.84,13.77,16.09,3.88,32.7,5.56,49.24,6.28,41.59,1.57,83.62-2.42,123.8-12.92,12.98-3.44,27.73-8.38,37.94-16.24,16.75-13.42,5.65-21.96-11.03-21.79-9.85-.1-20.22,1.96-29.99,3.99-21.29,4.61-42.83,9.3-64.55,9.74-15.82.33-33.12-1.33-46.77-9.71-21-13.05-15.82-34.08,4.8-44.78l.16-.09ZM1196.31,199.43c4.75,9.26-2.32,18.51-10.77,23.56-23.2,13.32-55.53,15.07-82.01,15.8-18.15-.17-41.41.14-57.41-8.78-9.44-5.43-12.46-14.83-5.34-23.44,4.99-6.16,13.58-10.52,21.38-13.4,25.66-10.41,119.03-22.02,134.07,6.13l.07.13ZM633.07,317.3c-2.16-4.99-1.28-10.87,2.36-16.4,5.23-8.06,15.13-14.06,24.19-18.27,7.71-3.59,15.76-6.47,23.86-9.02,29.31-8.84,85.86-21.99,113.31-7.18,9.55,5.26,13.64,14.7,8.7,24.41-5.22,10.63-17.88,18.08-28.95,22.89-30.42,13.44-125.76,36.28-143.43,3.69l-.06-.13ZM302,312.85c-29.63,12.19-62.05,19.27-94.37,18.98-51.64-.33-96.29-21.56-61.88-77.08,35.49-50.47,108.99-71.07,169.01-71.67,16.99.17,36.64,2.21,51.86,9.57,23.96,10.96,25.53,35.19,14.3,57.24-16.15,30.83-47.7,49.6-78.74,62.88l-.19.08Z"/></svg>
       <span class="nav__wordmark">ORAE</span>
       <span class="nav__mark">©26</span>
     </a>
@@ -1325,7 +1389,7 @@ img, .trail__card, .pj__viewer, .follow {
       <a href="../index.html#contact"><span class="roll"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
     </nav>
     <button class="nav__burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
-      <span></span><span></span><span></span>
+      <b class="nav__txt">MENU</b>
     </button>
   </header>
 
@@ -1351,7 +1415,7 @@ img, .trail__card, .pj__viewer, .follow {
         <p>Autodidacte en design et en code, je conçois des systèmes cohérents, simples à utiliser, du premier croquis à la mise en ligne.</p>
         <dl class="dab__tbl">
           <div><dt>Formation</dt><dd>Diplômée d’un Master, major de promo en tant que directrice artistique et designer graphique</dd></div>
-          <div><dt>Expérience</dt><dd>Orae Agency, freelance — 2026 à aujourd’hui<br>Digiwave, alternance en agence — jusqu’en 2026</dd></div>
+          <div><dt>Expérience</dt><dd>Orae Agency, freelance — 2026 à aujourd’hui<br>3 ans d’alternance en agence</dd></div>
           <div><dt>Contact</dt><dd><a href="mailto:orae.agency@gmail.com">orae.agency@gmail.com</a><br><a href="tel:+33611252584">+33 6 11 25 25 84</a><br><a href="https://www.instagram.com/orae_agency/" target="_blank" rel="noopener">@orae_agency</a></dd></div>
         </dl>
       </div>
