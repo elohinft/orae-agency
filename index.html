@@ -2237,10 +2237,16 @@ body:has(.dk) .footer a { color: #f4f4f0; }
   var ALL = (window.__trailAll || []).filter(function (c) { return c.cat !== 'logo' && c.src && c.detail && !HIDE[c.id]; }), n; ALL.push({ id: 'orae', cat: 'orae', src: 'images/hero/orae-mockup.webp', hero: 'images/hero/orae-mockup.webp', noClick: true, detail: { title: 'ORAE' } }); ALL.push({ id: 'orae-2', cat: 'orae', src: 'images/hero/orae-2.webp', hero: 'images/hero/orae-2.webp', noClick: true, detail: { title: 'ORAE' } }); ALL.push({ id: 'orae-sticker', cat: 'orae', src: 'images/hero/orae-sticker.webp', hero: 'images/hero/orae-sticker.webp', noClick: true, detail: { title: 'ORAE' } }); n = ALL.length;
   function rnd(k) { return Math.floor(Math.random() * k); }
   function grp(it) { var c = it.cat || ''; if (c === 'site') return 'ux'; if (c === 'lueur' || c === 'reborn' || c === 'drop') return 'id'; return 'print'; }
-  var slots = [], shown = {}, last = -1, keys = ['ux', 'print', 'id'], ready = {}, timer = 0;
+  var slots = [], shown = {}, last = null, keys = ['ux', 'print', 'id'], ready = {}, timer = 0;
   /* une image n'est jamais choisie si elle est déjà affichée, en cours d'apparition ou en train de disparaître */
   function okOrae(it) { return it.cat !== 'orae' || !(shown['orae'] || shown['orae-2'] || shown['orae-sticker']); }   // jamais deux images ORAE en même temps
-  function pickIn(g) { var c = ALL.filter(function (it) { return !shown[it.id] && okOrae(it) && grp(it) === g && ready[it.id]; }); if (!c.length) c = ALL.filter(function (it) { return !shown[it.id] && okOrae(it) && ready[it.id]; }); return c.length ? c[rnd(c.length)] : null; }
+  function pickIn(g) {
+    /* les images ORAE reviennent plus souvent : une chance sur trois à chaque tirage (toujours une seule à la fois, grâce à okOrae) */
+    var o = ALL.filter(function (it) { return it.cat === 'orae' && !shown[it.id] && okOrae(it) && ready[it.id]; });
+    if (o.length && Math.random() < .34) return o[rnd(o.length)];
+    return pickPool(g);
+  }
+  function pickPool(g) { var c = ALL.filter(function (it) { return !shown[it.id] && okOrae(it) && grp(it) === g && ready[it.id]; }); if (!c.length) c = ALL.filter(function (it) { return !shown[it.id] && okOrae(it) && ready[it.id]; }); return c.length ? c[rnd(c.length)] : null; }
   function setSlot(sl, it, first) {
     if (!it) return;
     var old = sl.cur; shown[it.id] = 1; sl.cur = it; var tk = sl.tk = (sl.tk || 0) + 1;
@@ -2262,21 +2268,32 @@ body:has(.dk) .footer a { color: #f4f4f0; }
   /* on précharge tout avant de démarrer : plus de délai d'affichage, donc plus de doublon visible */
   var pending = n;
   ALL.forEach(function (it) { var im = new Image(); var done = function () { ready[it.id] = 1; if (--pending === 0) start(); }; im.onload = done; im.onerror = done; im.src = it.hero || it.src; });
+  /* sur mobile la 3e tuile est masquée : on ne tourne que sur les tuiles visibles, sinon une image (ORAE…) peut tomber dans la tuile cachée */
+  function live() {
+    return slots.filter(function (sl) {
+      if (sl.box.offsetParent !== null) return true;
+      if (sl.cur) { delete shown[sl.cur.id]; sl.cur = null; }
+      return false;
+    });
+  }
   function start() {
     var order = keys.slice().sort(function () { return Math.random() - .5; });
-    slots.forEach(function (sl, k) { sl.g = order[k]; setSlot(sl, pickIn(sl.g), true); });
+    slots.forEach(function (sl, k) { sl.g = order[k]; });
+    live().forEach(function (sl) { setSlot(sl, pickIn(sl.g), true); });
     timer = setInterval(step, 700);
   }
   function step() {
     if (document.hidden) return;
-    if (Math.random() < .4) {                       // deux tuiles échangent leur catégorie : UX/UI, print et identité se croisent
-      var a = rnd(3), b; do { b = rnd(3); } while (b === a);
-      var ga = slots[a].g, gb = slots[b].g; slots[a].g = gb; slots[b].g = ga;
-      setSlot(slots[a], pickIn(gb), false);
-      setTimeout(function () { setSlot(slots[b], pickIn(ga), false); }, 220);
+    var L = live(); if (!L.length) return;
+    L.forEach(function (sl) { if (!sl.cur) setSlot(sl, pickIn(sl.g), true); });
+    if (L.length > 1 && Math.random() < .4) {       // deux tuiles échangent leur catégorie : UX/UI, print et identité se croisent
+      var a = L[rnd(L.length)], b; do { b = L[rnd(L.length)]; } while (b === a);
+      var ga = a.g, gb = b.g; a.g = gb; b.g = ga;
+      setSlot(a, pickIn(gb), false);
+      setTimeout(function () { setSlot(b, pickIn(ga), false); }, 220);
       return;
     }
-    var k; do { k = rnd(3); } while (k === last); last = k; setSlot(slots[k], pickIn(slots[k].g), false);
+    var k; do { k = L[rnd(L.length)]; } while (k === last && L.length > 1); last = k; setSlot(k, pickIn(k.g), false);
   }
 })();
 </script>
