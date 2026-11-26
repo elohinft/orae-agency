@@ -781,21 +781,21 @@ button:hover .roll > span { transform: translateY(-100%); }
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 5px;
-  border-radius: 999px;
-  background: var(--ink);
+  padding: 4px;
+  border-radius: 3px;
+  background: #0F1011;
   color: #fff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, .16), inset 0 0 0 1px rgba(255, 255, 255, .08);
   transform: translateX(-50%);
 }
 
-.quick__item { position: relative; display: flex; align-items: center; }
+.quick__item { position: static; display: flex; align-items: center; }
 
 /* fine séparation entre les deux boutons */
 .quick__item + .quick__item::before {
   content: "";
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 50%;
   width: 1px;
   height: 20px;
@@ -806,14 +806,16 @@ button:hover .roll > span { transform: translateY(-100%); }
 }
 
 .quick__btn {
-  width: 54px;
-  height: 40px;
+  width: 40px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  font-weight: 500;
+  white-space: nowrap;
   border: 0;
-  border-radius: 999px;
+  border-radius: 1px;
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -823,8 +825,8 @@ button:hover .roll > span { transform: translateY(-100%); }
 .quick__btn:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
 
 .quick__btn svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -834,19 +836,21 @@ button:hover .roll > span { transform: translateY(-100%); }
 
 .quick__menu {
   position: absolute;
-  left: 50%;
-  bottom: calc(100% + 14px);
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  bottom: calc(100% + 8px);
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 5px;
-  border-radius: 22px;
-  background: var(--ink);
+  gap: 0;
+  padding: 4px;
+  border-radius: 3px;
+  background: #0F1011;
   color: #fff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, .16), inset 0 0 0 1px rgba(255, 255, 255, .08);
   opacity: 0;
   visibility: hidden;
-  transform: translate(-50%, 10px) scale(.96);
+  transform: translateY(10px) scale(.96);
   transform-origin: center bottom;
   transition: opacity .25s, transform .35s cubic-bezier(.3, 1.3, .4, 1), visibility .25s;
 }
@@ -854,15 +858,18 @@ button:hover .roll > span { transform: translateY(-100%); }
 .quick__item.is-open .quick__menu {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 .quick__menu a {
-  display: block;
-  padding: 10px 20px;
-  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 1px;
   color: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
   transition: background .25s;
@@ -877,6 +884,15 @@ button:hover .roll > span { transform: translateY(-100%); }
 @media (prefers-reduced-motion: reduce) {
   .quick__btn, .quick__menu { transition: none; }
 }
+
+/* tracé des icônes à l'arrivée + inversion sur fond sombre */
+.quick, .quick__menu { transition: background .35s, color .35s, box-shadow .35s; }
+.quick.is-light, .quick.is-light .quick__menu { background: #fcfcfc; color: #0F1011; box-shadow: 0 10px 30px rgba(0, 0, 0, .28), inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.quick__btn svg * { stroke-dasharray: 1; stroke-dashoffset: 1; animation: quick-draw .9s cubic-bezier(.5, 0, .2, 1) .35s forwards; }
+.quick__item + .quick__item .quick__btn svg * { animation-delay: .6s; }
+@keyframes quick-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .quick__btn svg * { animation: none; stroke-dashoffset: 0; } }
+
 
 /* ---------- Processus ---------- */
 
@@ -1476,7 +1492,7 @@ img, .trail__card, .pj__viewer, .follow {
   <aside class="quick" aria-label="Me contacter">
     <div class="quick__item">
       <button class="quick__btn" type="button" aria-label="Me contacter par téléphone" aria-expanded="false" aria-haspopup="true">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16.9v2.6a2 2 0 0 1-2.2 2 18.8 18.8 0 0 1-8.2-2.9 18.5 18.5 0 0 1-5.7-5.7A18.8 18.8 0 0 1 2 4.7 2 2 0 0 1 4 2.5h2.6a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7.7 10a15 15 0 0 0 5.7 5.7l1.1-1.1a2 2 0 0 1 2.1-.4c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.8 2Z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M21 16.9v2.6a2 2 0 0 1-2.2 2 18.8 18.8 0 0 1-8.2-2.9 18.5 18.5 0 0 1-5.7-5.7A18.8 18.8 0 0 1 2 4.7 2 2 0 0 1 4 2.5h2.6a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7.7 10a15 15 0 0 0 5.7 5.7l1.1-1.1a2 2 0 0 1 2.1-.4c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.8 2Z"/></svg>
       </button>
       <div class="quick__menu">
         <a href="tel:+33611252584">Appeler</a>
@@ -1485,7 +1501,7 @@ img, .trail__card, .pj__viewer, .follow {
     </div>
     <div class="quick__item" data-touch-href="mailto:orae.agency@gmail.com">
       <button class="quick__btn" type="button" aria-label="Me contacter par email" aria-expanded="false" aria-haspopup="true">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="3.5"/><path d="m3.5 7.5 7.4 5.3a2 2 0 0 0 2.2 0l7.4-5.3"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect pathLength="1" x="2.5" y="4.5" width="19" height="15" rx="3.5"/><path pathLength="1" d="m3.5 7.5 7.4 5.3a2 2 0 0 0 2.2 0l7.4-5.3"/></svg>
       </button>
       <div class="quick__menu">
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=orae.agency@gmail.com" target="_blank" rel="noopener">Gmail</a>
@@ -1526,6 +1542,23 @@ img, .trail__card, .pj__viewer, .follow {
 
       document.addEventListener('click', function () { closeAll(null); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+      // la barre passe en clair quand elle survole une zone sombre
+      var bar = document.querySelector('.quick'), tick = 0;
+      function lum(c) { var m = c.match(/[\d.]+/g); if (!m) return null; var a = m.length > 3 ? +m[3] : 1; if (a < .5) return null; return (0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2]) / 255; }
+      function check() {
+        tick = 0;
+        var r = bar.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+        var prev = bar.style.pointerEvents; bar.style.pointerEvents = 'none';
+        var el = document.elementFromPoint(x, y); bar.style.pointerEvents = prev;
+        var l = null;
+        while (el && l === null) { l = lum(getComputedStyle(el).backgroundColor); el = el.parentElement; }
+        bar.classList.toggle('is-light', l !== null && l < .45);
+      }
+      function req() { if (!tick) tick = requestAnimationFrame(check); }
+      window.addEventListener('scroll', req, { passive: true });
+      window.addEventListener('resize', req);
+      window.addEventListener('load', check);
+      check();
     })();
   </script>
   <script>
