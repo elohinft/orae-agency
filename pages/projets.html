@@ -1139,6 +1139,9 @@ body { background: #FCFCFC !important; color: #0F1011; }
 .pl__filters button { display: flex; justify-content: space-between; align-items: baseline; width: 100%; padding: 9px 0; border: 0; border-bottom: 1px solid #0F1011; background: none; cursor: pointer; font: 500 13px/1.2 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgba(15, 16, 17, .38); text-align: left; transition: color .25s; }
 .pl__filters button i { font-style: normal; font-size: 11px; }
 .pl__filters button:hover, .pl__filters button.on { color: #0F1011; }
+/* le gros « 2026 » est décoratif : il ne doit jamais bloquer le clic sur le dernier filtre */
+.pl__year { pointer-events: none; }
+.pl__filters { position: relative; z-index: 2; }
 .pl__year { position: relative; margin: clamp(36px, 6vw, 84px) 0 0; font: 700 clamp(120px, 24vw, 380px)/.82 "Helvetica Neue", Helvetica, Inter, Arial, sans-serif; letter-spacing: -.065em; color: #0F1011; }
 .pl__year sup { position: relative; top: -.02em; margin-left: 12px; vertical-align: top; font: 500 clamp(11px, 1vw, 13px)/1 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: 0; }
 .pl__txt { margin: clamp(28px, 4vw, 48px) 0 0; max-width: 320px; font: 500 13px/1.45 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0F1011; }
@@ -1625,6 +1628,12 @@ body { background: #FCFCFC !important; color: #0F1011; }
     grid.scrollLeft = 0;
     window.__pjAll = [].slice.call(grid.children).filter(function (c) { return !c.hidden; }).map(function (c) { var it = ALL[+c.dataset.i]; return { detail: it.detail, src: it.src }; });
   });
+  /* liens de l'accueil (projets.html#cat-0/1/2) : on ouvre directement le bon filtre */
+  (function () {
+    var m = /^#cat-(\d+)$/.exec(location.hash), map = { 0: 'print', 1: 'id', 2: 'ux' };
+    if (!m || !map[m[1]]) return;
+    var b = fil.querySelector('button[data-g="' + map[m[1]] + '"]'); if (b) b.click();
+  })();
   (function () {
     var down = false, sx = 0, sl = 0, moved = 0;
     grid.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; moved = 0; sx = e.clientX; sl = grid.scrollLeft; });
