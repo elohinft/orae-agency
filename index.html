@@ -2198,12 +2198,13 @@ body:has(.dk) .footer a { color: #f4f4f0; }
 (function () {
   var grid = document.getElementById('hvGrid'); if (!grid) return;
   var HIDE = { 'mira': 1, 'cobra': 1, 'frame7': 1, 'site-architecte': 1, 'reborn-mockup': 1, 'affiche-2': 1, 'affiche-3': 1 };   // projets non montrés dans les tuiles du hero
-  var ALL = (window.__trailAll || []).filter(function (c) { return c.cat !== 'logo' && c.src && c.detail && !HIDE[c.id]; }), n = ALL.length; if (!n) return;
+  var ALL = (window.__trailAll || []).filter(function (c) { return c.cat !== 'logo' && c.src && c.detail && !HIDE[c.id]; }), n; ALL.push({ id: 'orae', cat: 'orae', src: 'images/hero/orae-mockup.webp', hero: 'images/hero/orae-mockup.webp', noClick: true, detail: { title: 'ORAE' } }); ALL.push({ id: 'orae-2', cat: 'orae', src: 'images/hero/orae-2.webp', hero: 'images/hero/orae-2.webp', noClick: true, detail: { title: 'ORAE' } }); n = ALL.length;
   function rnd(k) { return Math.floor(Math.random() * k); }
   function grp(it) { var c = it.cat || ''; if (c === 'site') return 'ux'; if (c === 'lueur' || c === 'reborn' || c === 'drop') return 'id'; return 'print'; }
   var slots = [], shown = {}, last = -1, keys = ['ux', 'print', 'id'], ready = {}, timer = 0;
   /* une image n'est jamais choisie si elle est déjà affichée, en cours d'apparition ou en train de disparaître */
-  function pickIn(g) { var c = ALL.filter(function (it) { return !shown[it.id] && grp(it) === g && ready[it.id]; }); if (!c.length) c = ALL.filter(function (it) { return !shown[it.id] && ready[it.id]; }); return c.length ? c[rnd(c.length)] : null; }
+  function okOrae(it) { return it.cat !== 'orae' || !(shown['orae'] || shown['orae-2']); }   // jamais deux images ORAE en même temps
+  function pickIn(g) { var c = ALL.filter(function (it) { return !shown[it.id] && okOrae(it) && grp(it) === g && ready[it.id]; }); if (!c.length) c = ALL.filter(function (it) { return !shown[it.id] && okOrae(it) && ready[it.id]; }); return c.length ? c[rnd(c.length)] : null; }
   function setSlot(sl, it, first) {
     if (!it) return;
     var old = sl.cur; shown[it.id] = 1; sl.cur = it; var tk = sl.tk = (sl.tk || 0) + 1;
@@ -2220,7 +2221,7 @@ body:has(.dk) .footer a { color: #f4f4f0; }
   for (var i = 0; i < 3; i++) {
     var t = document.createElement('div'); t.className = 'hv__t'; t.innerHTML = '<div class="hv__img"></div>';
     grid.appendChild(t); var sl = { box: t.querySelector('.hv__img'), cur: null }; slots.push(sl);
-    (function (s2) { s2.box.addEventListener('click', function () { if (s2.cur && window.openProject) window.openProject(s2.cur); }); })(sl);
+    (function (s2) { s2.box.addEventListener('click', function () { if (s2.cur && !s2.cur.noClick && window.openProject) window.openProject(s2.cur); }); })(sl);
   }
   /* on précharge tout avant de démarrer : plus de délai d'affichage, donc plus de doublon visible */
   var pending = n;
